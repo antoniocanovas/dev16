@@ -1,0 +1,9 @@
+name: Sonar
+
+on:
+  pull_request:
+    types: [synchronize, opened, closed]
+jobs:
+  Sonar:
+    uses: puntsistemes/workflows_odoo/.github/workflows/sonar.yml@main
+    secrets: inherit
