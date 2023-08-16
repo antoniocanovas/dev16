@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.rule" id="helpdesk.helpdesk_ticket_user_rule">
+        <field name="name">Helpdesk Ticket Operator</field>
+        <field name="groups" eval="[(6, 0, [ref('custom_konery.group_helpdesk_operator')])]"/>
+    </record>
+
+
+    <record id="helpdesk_ticket_basic_user_rule" model="ir.rule">
+        <field name="name">Helpdesk Ticket basic User</field>
+        <field name="model_id" ref="model_helpdesk_ticket"/>
+        <field name="domain_force">[('partner_id','in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(6,0, [ref('group_helpdesk_user')])]"/>
+    </record>
+
+</odoo>
