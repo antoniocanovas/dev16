@@ -68,12 +68,12 @@ class SaleOrderSets(models.Model):
 
 #  Hay que asignar 'section' lo hacemos en el momento de crear la línea (ver sol):
                 # Set 'section' in section lines and 'section_id' in others, ordered by sequence:
-#                for li in section_ids:
-#                    section_id = li.id
-#                    section_code = str(li.sequence)
-#                    if (li.name[:1] == record.multisection_key):
-#                        section_code = li.name.split()[0]
-#                    li.write({'section': section_code})
+                for li in section_ids:
+                    section_id = li.id
+                    section_code = str(li.sequence)
+                    if (li.name[:1] == record.multisection_key):
+                        section_code = li.name.split()[0]
+                    li.write({'section': section_code})
 # --------- hasta aquí lo anterior
 
                 # Cases products and notes:
