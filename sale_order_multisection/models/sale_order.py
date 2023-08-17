@@ -66,6 +66,7 @@ class SaleOrderSets(models.Model):
                 line_ids = record.order_line.sorted(key=lambda r: r.sequence)
                 section_id, i = 0, 1
 
+# De momento lo dejo aquí, pero hay que asignar 'section' en el momento de crear la línea (ver sol):
                 # Set 'section' in section lines and 'section_id' in others, ordered by sequence:
                 for li in section_ids:
                     section_id = li.id
@@ -73,6 +74,7 @@ class SaleOrderSets(models.Model):
                     if (li.name[:1] == record.multisection_key):
                         section_code = li.name.split()[0]
                     li.write({'section': section_code})
+# --------- hasta aquí lo anterior
 
                 # Cases products and notes:
                 # (da igual secuencia porque utilizaré el nuevo indice ms_sequence)
