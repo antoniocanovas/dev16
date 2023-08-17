@@ -68,8 +68,7 @@ class SaleOrderLine(models.Model):
 
     ms_review = fields.Boolean('Review')
 
-    # Revisar esto, creo que falta el "store = False":
-    @api.depends('create_date')
+#    @api.depends('create_date')
     def _get_total_section(self):
         for record in self:
             total = 0
@@ -79,7 +78,7 @@ class SaleOrderLine(models.Model):
                 lineas = self.env['sale.order.line'].search([('section_id', 'in', secciones)])
                 for li in lineas: total += li.price_subtotal
             record['section_total'] = total
-    section_total = fields.Float('Total Section', readonly=True,compute=_get_total_section)
+    section_total = fields.Float('Total Section', readonly=True,compute=_get_total_section, store=False)
 
     @api.constrains('name')
     def _avoid_duplicated_sections(self):
