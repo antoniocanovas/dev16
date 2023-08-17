@@ -68,15 +68,6 @@ class SaleOrderLine(models.Model):
 
     ms_review = fields.Boolean('Review')
 
-#    @api.depends('sequence')
-#    def _get_section_code(self):
-#        if (self.display_type == 'line_section'):
-#                section_code = str(self.sequence)
-#                if (self.name[:1] == self.order_id.multisection_key):
-#                    section_code = self.name.split()[0]
-#                self.section = section_code
-
-
     # Revisar esto, creo que falta el "store = False":
     @api.depends('create_date')
     def _get_total_section(self):
