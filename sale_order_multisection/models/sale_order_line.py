@@ -68,7 +68,7 @@ class SaleOrderLine(models.Model):
 
     ms_review = fields.Boolean('Review')
 
-    @api.depends('create_date')
+    @api.depends('sequence')
     def _get_section_code(self):
         if (self.display_type == 'line_section'):
                 section_code = str(self.sequence)
