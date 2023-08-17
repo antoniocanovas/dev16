@@ -74,7 +74,7 @@ class SaleOrderLine(models.Model):
                 section_code = str(self.sequence)
                 if (self.name[:1] == self.order_id.multisection_key):
                     section_code = self.name.split()[0]
-            self.section = section_code
+                self.section = section_code
 
 
     # Revisar esto, creo que falta el "store = False":
