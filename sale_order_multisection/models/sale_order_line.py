@@ -35,7 +35,7 @@ class SaleOrderLine(models.Model):
         for record in self:
             # 'code' es espacio por defecto para ordenar antes que cualquier otro en el caso de no tener sección la línea:
             code, ms_sequence = " ", "."
-            if record.sequence and record.id:
+            if (record.sequence) and (record.id) and (record.display_type in ['product','line_note','line_section']):
                 if (record.section_id.id):      code = record.section_id.section
                 if (record.new_section_id.id):  code = record.new_section_id.section
                 if (record.display_type == 'line_section'):
