@@ -88,6 +88,7 @@ class SaleOrderSets(models.Model):
                             ms_sequence = li.section_id.section + str(li.sequence + 10000)
                         else:
                             value = False
+                            ms_sequence = " ." + str(li.sequence + 10000)
                         li.write({'section_id': value, 'ms_sequence':ms_sequence})
 
                 # Reordenar secuencias para líneas de new_section_id:
