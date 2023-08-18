@@ -34,29 +34,17 @@ class SaleOrderLine(models.Model):
     def _get_ms_sequence(self):
         for record in self:
             # 'code' es espacio por defecto para ordenar antes que cualquier otro en el caso de no tener sección la línea:
-            # 'section' se rellena al pulsar botón de actualizar, antes NO, cuidado con False.
             code, ms_sequence = " ", "."
             if record.sequence and record.id:
-                # Caso de secciones:
-                if (record.display_type == 'line_section') and (record.section):
+                if (record.section_id.id):      code = record.section_id.section
+                if (record.new_section_id.id):  code = record.new_section_id.section
+                if (record.display_type == 'line_section'):
                     ms_sequence = str(record.section) + ".000000"
-                elif (record.display_type == 'line_section') and not (record.section):
-                    ms_sequence = " ." + str(record.sequence + 10000)
-                # Caso de líneas de producto y notas con la misma sección que tenían:
-                # NO FUNCIONA SI SE HA MOVIDO MANUALMENTE DE SECCIÓN
-                elif (record.display_type != 'line_section') and (record.section_id.id) and not (record.new_section_id.id):
-                    line_pre = self.env['sale.order.line'].search([('order_id','=',record.order_id.id),('sequence','=',record.sequence -1)])
-                    if line_pre.id:
-                        ms_sequence = line_pre.section_id.section + str(record.sequence + 10000)
-                    else:
-                        ms_sequence = record.section_id.section + str(record.sequence + 10000)
-                    # Caso de líneas de producto y notas con la nueva sección propuesta:
-                elif (record.display_type != 'line_section') and (record.new_section_id.id):
-                    ms_sequence = record.new_section_id.section + str(record.sequence + 10000)
-                    # Caso de líneas de producto y notas sin sección (principio de presupuesto):
-                else:
-                    ms_sequence = " ." + str(record.sequence + 10000)
+                if (record.display_type != 'line_section') and (code):
+                    ms_sequence = code + "." + str(record.sequence + 10000)
             record['ms_sequence'] = ms_sequence
+    ms_sequence = fields.Char('Field to order', store=False, compute='_get_ms_sequence')
+
     ms_sequence = fields.Char('Field to order', store=False, compute='_get_ms_sequence')
 
 
