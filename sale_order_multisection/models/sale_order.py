@@ -82,10 +82,10 @@ class SaleOrderSets(models.Model):
                     else:
                         if (li.new_section_id.id):
                             value = li.new_section_id.id
-                            ms_sequence = li.new_section_id.code + str(li.sequence + 10000)
+                            ms_sequence = li.new_section_id.section + str(li.sequence + 10000)
                         elif (section_id != 0) and not (li.new_section_id.id):
                             value = section_id
-                            ms_sequence = li.section_id.code + str(li.sequence + 10000)
+                            ms_sequence = li.section_id.section + str(li.sequence + 10000)
                         else:
                             value = False
                         li.write({'section_id': value, 'ms_sequence':ms_sequence})
