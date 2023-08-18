@@ -59,14 +59,13 @@ class SaleOrderSets(models.Model):
 
     def update_multisection(self):
         for record in self:
-            # Authomated Actions if section_ids and 'draft' status:
-            section_ids = self.env['sale.order.line'].search(
-                [('order_id', '=', record.id), ('display_type', '=', 'line_section')])
+            # 1. Sólo para ofertas en borrador con secciones:
+            section_ids = self.env['sale.order.line'].search([('order_id', '=', record.id), ('display_type', '=', 'line_section')])
             if (section_ids) and (record.state == 'draft'):
                 line_ids = record.order_line.sorted(key=lambda r: r.sequence)
                 section_id, i = 0, 1
 
-                # Set 'section' in section lines and 'section_id' in others, ordered by sequence:
+                # Set field 'section' in section_lines and 'section_id' in others, ordered by sequence:
                 for li in section_ids:
                     section_id = li.id
                     section_code = str(li.sequence)
@@ -74,20 +73,22 @@ class SaleOrderSets(models.Model):
                         section_code = li.name.split()[0]
                     li.write({'section': section_code})
 
-                # Cases products and notes:
-                # (da igual secuencia porque utilizaré el nuevo indice ms_sequence)
+                        # (da igual secuencia porque utilizaré el nuevo indice ms_sequence)
                 section_id = 0
                 for li in line_ids:
                     if li.display_type == 'line_section':
-                        section_id = li.id
+                        section_id = li
+                        ms_sequence = " ." + str(li.sequence + 10000)
                     else:
                         if (li.new_section_id.id):
                             value = li.new_section_id.id
+                            ms_sequence = li.new_section_id.code + str(li.sequence + 10000)
                         elif (section_id != 0) and not (li.new_section_id.id):
                             value = section_id
+                            ms_sequence = li.section_id.code + str(li.sequence + 10000)
                         else:
                             value = False
-                        li.write({'section_id': value})
+                        li.write({'section_id': value, 'ms_sequence':ms_sequence})
 
                 # Reordenar secuencias para líneas de new_section_id:
                 lines = record.order_line.sorted(key=lambda r: r.ms_sequence)

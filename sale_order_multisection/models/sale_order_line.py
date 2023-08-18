@@ -30,20 +30,22 @@ class SaleOrderLine(models.Model):
     hide_subtotal_section   = fields.Boolean('Hide subtotal', store=True, readonly=False)
     hide_subtotal_line      = fields.Boolean('Hide price', store=False, related='section_id.hide_subtotal_section')
 
-    @api.depends('sequence', 'section_id','new_section_id')
-    def _get_ms_sequence(self):
-        for record in self:
-            # 'code' es espacio por defecto para ordenar antes que cualquier otro en el caso de no tener sección la línea:
-            code, ms_sequence = " ", "."
-            if (record.sequence) and (record.id):
-                if (record.section_id.id):      code = record.section_id.section
-                if (record.new_section_id.id):  code = record.new_section_id.section
-                if (record.display_type == 'line_section'):
-                    ms_sequence = str(record.section) + ".000000"
-                else:
-                    ms_sequence = code + "." + str(record.sequence + 10000)
-            record['ms_sequence'] = ms_sequence
-    ms_sequence = fields.Char('Field to order', store=False, compute='_get_ms_sequence')
+    # No vale porque al mover una línea de sección manualmente no cambia la sección asignada.
+#    @api.depends('sequence', 'section_id','new_section_id')
+    #    def _get_ms_sequence(self):
+    #    for record in self:
+    #        # 'code' es espacio por defecto para ordenar antes que cualquier otro en el caso de no tener sección la línea:
+    #        code, ms_sequence = " ", "."
+    #        if (record.sequence) and (record.id):
+    #            if (record.section_id.id):      code = record.section_id.section
+    #            if (record.new_section_id.id):  code = record.new_section_id.section
+    #            if (record.display_type == 'line_section'):
+    #                ms_sequence = str(record.section) + ".000000"
+    #            else:
+    #                ms_sequence = code + "." + str(record.sequence + 10000)
+    #        record['ms_sequence'] = ms_sequence
+    #    ms_sequence = fields.Char('Field to order', store=False, compute='_get_ms_sequence')
+    ms_sequence = fields.Char('Field to order', store=True)
 
 
 
