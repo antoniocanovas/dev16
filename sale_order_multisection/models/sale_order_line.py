@@ -52,7 +52,7 @@ class SaleOrderLine(models.Model):
                 else:
                     ms_sequence = " ." + str(record.sequence + 10000)
             record['ms_sequence'] = ms_sequence
-    ms_sequence = fields.Char('Field to order', store=True, compute='_get_ms_sequence')
+    ms_sequence = fields.Char('Field to order', store=False, compute='_get_ms_sequence')
 
 
     level = fields.Integer(
