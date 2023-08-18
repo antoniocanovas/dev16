@@ -91,26 +91,3 @@ class SaleOrderSets(models.Model):
                             ms_sequence = " ." + str(li.sequence + 10000)
                         li.write({'section_id': value, 'ms_sequence':ms_sequence})
 
-                # Reordenar secuencias para líneas de new_section_id:
-                lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
-                #    raise UserError(lines)
-                for li in lines:
-                    li.write({'sequence': i, 'new_section_id': False})
-                    i += 1
-
-                # Cálculo de 'parent_ids', 'child_ids' y 'level' por sección, si hay multinivel ($ o multisection_key):
-                section_ids = self.env['sale.order.line'].search([('order_id', '=', record.id), ('display_type', '=', 'line_section')])
-                for se in section_ids:
-                    parents, children, level = [], [], 1
-                    line_ids = self.env['sale.order.line'].search(
-                        [('order_id', '=', record.id), ('display_type', '=', 'line_section'), ('id', '!=', se.id)])
-                    if (se.name[:1] == record.multisection_key):
-                        for li in line_ids:
-                            lenght_line = len(li.section)
-                            if (li.section == se.section[:lenght_line]):
-                                parents.append(li.id)
-                                level = len(parents) + 1
-                            lenght_section = len(se.section)
-                            if (se.section == li.section[:lenght_section]):
-                                children.append(li.id)
-                    se.write({'parent_ids': [(6, 0, parents)], 'child_ids': [(6, 0, children)], 'level': level})
