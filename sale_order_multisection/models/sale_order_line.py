@@ -43,8 +43,10 @@ class SaleOrderLine(models.Model):
                 elif (record.display_type == 'line_section') and not (record.section):
                     ms_sequence = " ." + str(record.sequence + 10000)
                 # Caso de líneas de producto y notas con la misma sección que tenían:
-# no funciona si mueves a mano:                elif (record.display_type != 'line_section') and (record.section_id.id) and not (record.new_section_id.id):
-                    ms_sequence = record.section_id.section + str(record.sequence + 10000)
+                # NO FUNCIONA SI SE HA MOVIDO MANUALMENTE DE SECCIÓN:
+               elif (record.display_type != 'line_section') and (record.section_id.id) and not (record.new_section_id.id):
+                    line_pre = self.env['sale.order.line'].search([('order_id','=',record.order_id.id),('sequence','=',record.sequence -1)])
+                    ms_sequence = record.line_pre.section_id.section + str(record.sequence + 10000)
                 # Caso de líneas de producto y notas con la nueva sección propuesta:
                 elif (record.display_type != 'line_section') and (record.new_section_id.id):
                     ms_sequence = record.new_section_id.section + str(record.sequence + 10000)
