@@ -40,12 +40,11 @@ class SaleOrderLine(models.Model):
                 if (record.new_section_id.id):  code = record.new_section_id.section
                 if (record.display_type == 'line_section'):
                     ms_sequence = str(record.section) + ".000000"
-                if (record.display_type != 'line_section') and (code):
+                else:
                     ms_sequence = code + "." + str(record.sequence + 10000)
-#                if (record.display_type != 'line_section') and (code == False):
-#                    ms_sequence = "." + str(record.sequence + 10000)
             record['ms_sequence'] = ms_sequence
     ms_sequence = fields.Char('Field to order', store=False, compute='_get_ms_sequence')
+
 
 
     level = fields.Integer(
