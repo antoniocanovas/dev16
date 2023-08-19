@@ -76,8 +76,7 @@ class SaleOrderSets(models.Model):
                         li.write({'section_id': value, 'ms_sequence': ms_sequence})
 
                 # Reordenar secuencias para líneas de new_section_id:
-                if record.alphabet_order == False:
-                    lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
+                lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
                 for li in lines:
                     li.write({'sequence': i, 'new_section_id': False})
                     i += 1
