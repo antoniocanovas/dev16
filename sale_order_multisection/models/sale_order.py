@@ -71,13 +71,12 @@ class SaleOrderSets(models.Model):
                     section_code = str(li.sequence)
                     if (li.name[:1] == record.multisection_key):
                         section_code = (li.name.split()[0] + "               ")[:15]
-                    li.write({'ms_sequence': ms_sequence, 'section_id': False})
+                    li.write({'section': section_code})
 
                 # Preparar ms_sequence para resecuenciar después:
                 section_id = False
                 for li in line_ids:
                     if li.display_type == 'line_section':
-                        section_id = li
                         section_id = li
                         seq = li.sequence + 10000
                         ms_sequence = li.section + str(seq)
