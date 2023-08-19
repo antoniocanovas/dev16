@@ -139,9 +139,9 @@
                 <field name="multisection_key"/>
             </xpath>
             <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position="after">
-                <field name="ms_sequence"/>
+                <field name="ms_sequence" invisible="1"/>
                 <field name="new_section_id" optional="show" domain="[('order_id','=',order_id),('display_type','=','line_section')]"/>
-                <field name="section_id" optional="show"/>
+                <field name="section_id" optional="hide"/>
                 <field name="order_id" invisible="1"/>
             </xpath>
         </field>
