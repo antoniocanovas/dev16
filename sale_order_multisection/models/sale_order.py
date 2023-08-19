@@ -18,7 +18,6 @@ class SaleOrderSets(models.Model):
             record['multisection_key'] = key
 
     multisection_key = fields.Char('Multisection Key', compute=get_key, readonly=False, required=True)
-    alphabet_order = fields.Boolean('Alphabetic lines order', store=True, copy=True)
 
     def _get_lines_count(self):
         for record in self:
@@ -97,3 +96,18 @@ class SaleOrderSets(models.Model):
                             if (se.section == li.section[:lenght_section]):
                                 children.append(li.id)
                     se.write({'parent_ids': [(6, 0, parents)], 'child_ids': [(6, 0, children)], 'level': level})
+
+    def pnt_sort_order_line(self):
+        self.update_multisection()
+        all_line_ids = self.order_line.sorted(key=lambda r: r.sequence)
+        i, section = 1, 0
+        # Asignar sección a todas las líneas:
+        for li in all_line_ids:
+            if li.display_type == 'line_section': section = li.id
+            li.write({'sequence': i, 'section': section})
+            i += 1
+        # Ordenar alfabéticamente por sección:
+        line_alphabetic_ids = self.order_line.sorted(key=lambda r: (r.section, r.name))
+        for li in line_alphabetic_ids:
+            li['sequence'] = i
+            i += 1

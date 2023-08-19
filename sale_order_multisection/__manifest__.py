@@ -1,6 +1,6 @@
 {
     'name': 'Sale Order Multisection',
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.0.1',
     'category': '',
     'license': 'AGPL-3',
     'description': u"""

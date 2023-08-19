@@ -135,10 +135,11 @@
             <xpath expr="//header/button[@name='action_draft']" position="after">
                 <button class="oe_stat_button" string="MS Update" type="object" icon="fa-tasks"
                         name="update_multisection" attrs="{'invisible':[('state','not in',['draft','sent'])]}"/>
+                <button class="oe_stat_button" string="Alphabetic lines order" type="object" icon="fa-adn"
+                        name="pnt_sort_order_line" attrs="{'invisible':[('state','not in',['draft','sent'])]}"/>
             </xpath>
             <xpath expr="//field[@name='source_id']" position="after">
                 <field name="multisection_key"/>
-                <field name="alphabet_order"/>
             </xpath>
             <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position="after">
                 <field name="ms_sequence" invisible="1"/>
