@@ -70,26 +70,32 @@ class SaleOrderSets(models.Model):
                     section_id = li.id
                     section_code = str(li.sequence)
                     if (li.name[:1] == record.multisection_key):
-                        section_code = li.name.split()[0]
-                    li.write({'section': section_code})
+                        section_code = (li.name.split()[0] + "               ")[:15]
+                    li.write({'ms_sequence': ms_sequence, 'section_id': False})
 
-                # (da igual secuencia porque utilizaré el nuevo indice ms_sequence)
+                # Preparar ms_sequence para resecuenciar después:
                 section_id = False
                 for li in line_ids:
                     if li.display_type == 'line_section':
                         section_id = li
-                        ms_sequence = " ." + str(li.sequence + 10000)
+                        section_id = li
+                        seq = li.sequence + 10000
+                        ms_sequence = li.section + str(seq)
+                        li.write({'ms_sequence': ms_sequence, 'section_id': False})
                     else:
                         if (li.new_section_id.id):
                             value = li.new_section_id.id
-                            ms_sequence = li.new_section_id.section + str(li.sequence + 10000)
+                            seq = li.sequence + 10000
+                            ms_sequence = li.new_section_id.section + str(seq)
                         elif (section_id) and not (li.new_section_id.id):
                             value = section_id.id
-                            ms_sequence = section_id.section + str(li.sequence + 10000)
+                            seq = li.sequence + 10000
+                            ms_sequence = section_id.section + str(seq)
                         else:
                             value = False
-                            ms_sequence = " ." + str(li.sequence + 10000)
-                        li.write({'section_id': value, 'ms_sequence':ms_sequence})
+                            seq = li.sequence + 10000
+                            ms_sequence = " " + str(seq)
+                        li.write({'section_id': value, 'ms_sequence': ms_sequence})
 
                 # Reordenar secuencias para líneas de new_section_id:
                 lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
