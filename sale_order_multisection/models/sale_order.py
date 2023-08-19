@@ -79,7 +79,7 @@ class SaleOrderSets(models.Model):
                 if record.alphabet_order == False:
                     lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
                 else:
-                    lines = record.order_line.sorted(key=lambda r: [r.section_id, r.name])
+                    lines = record.order_line.sorted(key=lambda r: (r['section_id'], r['name']))
 
                 for li in lines:
                     li.write({'sequence': i, 'new_section_id': False})
