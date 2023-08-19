@@ -59,7 +59,7 @@ class SaleOrderSets(models.Model):
                         section_id = li
                         seq = li.sequence + 10000
                         ms_sequence = li.section + str(seq)
-                        li.write({'ms_sequence': ms_sequence, 'section_id': li.id})
+                        li.write({'ms_sequence': ms_sequence, 'section_id': False})
                     else:
                         if (li.new_section_id.id):
                             value = li.new_section_id.id
@@ -78,10 +78,6 @@ class SaleOrderSets(models.Model):
                 # Reordenar secuencias para líneas de new_section_id:
                 if record.alphabet_order == False:
                     lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
-                # PENDIENTE DE DESARROLLAR EL ELSE:
-                else:
-                    lines = record.order_line.sorted(key=lambda r: r.ms_sequence)
-
                 for li in lines:
                     li.write({'sequence': i, 'new_section_id': False})
                     i += 1
