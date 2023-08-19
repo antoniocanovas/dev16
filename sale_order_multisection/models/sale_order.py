@@ -61,7 +61,7 @@ class SaleOrderSets(models.Model):
         for record in self:
             # 1. Sólo para ofertas en borrador con secciones:
             section_ids = self.env['sale.order.line'].search([('order_id', '=', record.id), ('display_type', '=', 'line_section')])
-            if (section_ids) and (record.state == 'draft'):
+            if (section_ids) and (record.state in ['draft','sent']):
                 line_ids = record.order_line.sorted(key=lambda r: r.sequence)
                 section_id, i = 0, 1
 
