@@ -59,7 +59,7 @@ class SaleOrderSets(models.Model):
                         section_id = li
                         seq = li.sequence + 10000
                         ms_sequence = li.section + str(seq)
-                        li.write({'ms_sequence': ms_sequence, 'section_id': False})
+                        li.write({'ms_sequence': ms_sequence, 'section_id': li.id})
                     else:
                         if (li.new_section_id.id):
                             value = li.new_section_id.id
