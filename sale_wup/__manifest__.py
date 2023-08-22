@@ -9,6 +9,7 @@
     'depends': [
         'sale_management',
         'project',
+        'account',
         'sale_margin',
         'product_brand',
         'hr',
