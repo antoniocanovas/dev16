@@ -7,12 +7,14 @@
         <field name="code">
 move = record.stock_move_id
 picking = move.picking_id
-analytic = move.analytic_account_id
 plan = analytic.plan_id
 status = picking.state
 code = picking.picking_type_id.code
 
-exist = record.analytic_id
+mensaje = "move: " + str(move) + " pick: "+ str(picking) + " Plan: " + str(plan) + " Status: " + str(status) + " Code:" + str(code)
+#raise UserError(mensaje)
+
+exist = record.analytic_line_ids
 name = record.description
 quantity = record.quantity
 uom = record.uom_id
