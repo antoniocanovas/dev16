@@ -94,6 +94,21 @@ class WupSaleOrderLine(models.Model):
             'target': 'new',
             'res_id': self.id,
         }
+# Lo anterior debería ser algo así, se queja del contexto: Caused by: TypeError: ctx.widget is undefined
+#    def action_product_forecast_report(self):
+#        self.ensure_one()
+#        action = self.product_id.action_product_forecast_report()
+#        action['context'] = {
+#            'active_id': self.product_id.id,
+#            'active_model': 'product.product',
+#            'move_to_match_ids': self.move_finished_ids.filtered(lambda m: m.product_id == self.product_id).ids
+#        }
+#        warehouse = self.picking_type_id.warehouse_id
+#        if warehouse:
+#            action['context']['warehouse'] = warehouse.id
+#        return action
+
+
 
     def wup_lines_from_wup_template(self):
         for record in self:
