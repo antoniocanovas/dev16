@@ -8,8 +8,7 @@
 move = record.stock_move_id
 picking = move.picking_id
 analytic = move.analytic_account_id
-group = analytic.group_id
-analytictags = move.analytic_tag_ids
+plan = analytic.plan_id
 status = picking.state
 code = picking.picking_type_id.code
 
@@ -21,14 +20,14 @@ unitprice = record.unit_cost
 value = record.value
 
 if (move.id and picking.id and analytic.id and not exist.id and status == 'done') and (code in ['incoming','outgoing']):
-  new = env['account.analytic.line'].create({'name':name, 'account_id':analytic.id, 'product_id':record.product_id.id, 'group_id':group.id,
-    'product_uom_id':uom.id, 'unit_amount':quantity, 'amount':value, 'tag_ids':[(6,0,analytictags.ids)]
+  new = env['account.analytic.line'].create({'name':name, 'account_id':analytic.id, 'product_id':record.product_id.id, 'plan_id':plan.id,
+    'product_uom_id':uom.id, 'unit_amount':quantity, 'amount':value
   })
   record['analytic_id'] = new.id
 
 elif (move.id and picking.id and analytic.id and exist.id and status == 'done') and (code in ['incoming','outgoing']):
-  exist.write({'name':name, 'account_id':analytic.id, 'product_id':record.product_id.id, 'group_id':group.id,
-    'product_uom_id':uom.id, 'unit_amount':quantity, 'amount':value, 'tag_ids':[(6,0,analytictags.ids)]
+  exist.write({'name':name, 'account_id':analytic.id, 'product_id':record.product_id.id, 'plan_id':plan.id,
+    'product_uom_id':uom.id, 'unit_amount':quantity, 'amount':value
   })
         </field>
         <field name="trigger">on_create_or_write</field>
