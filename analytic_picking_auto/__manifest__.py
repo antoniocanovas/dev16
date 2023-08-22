@@ -3,8 +3,8 @@
 
 {
     "name": "Analityc Picking Auto",
-    "summary": "Los productos servidos de stock no tienen coste por defecto en el proyecto ya que no hay factura de compra, sólo de ingreso."
-               "¿Cómo distinguir si se va a comprar o no? Por la asignación en línea SM de la cuenta analítica, o un botón para generar estos apuntes.",
+    "summary": "Los productos servidos desde stock no tienen coste por defecto en el proyecto ya que no hay factura de compra, sólo de ingreso."
+               "Al asignar plan analítico se cran automáticamente los costes según valor de stock.valuation.layer.",
     "version": "14.0.1.0.0",
     "category": "stock",
     "author": "Pedro Guirao, ",
@@ -15,7 +15,7 @@
         "base_automation",
                 ],
     "data": [
-        "data/action_server.xml",
+#        "data/action_server.xml",
         "views/stock_valuation_layer.xml",
     ],
     "installable": True,
