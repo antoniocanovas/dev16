@@ -129,7 +129,9 @@
         <field name="name">sale.order.form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
+        <!-- Vistas heredadas no permiten grupos (borrar si se pierde el error):
         <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        -->
         <field name="arch" type="xml">
 
             <xpath expr="//form/header" position="inside">
