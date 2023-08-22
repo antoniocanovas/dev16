@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="view_multisection_discount_button" model="ir.ui.view">
+        <field name="name">Sale Order Margin Button</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Margin wizard: -->
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button class="oe_highlight" type="action" name="%(action_margin_wizard)d" string="Recalculate" context="{'default_sale_id':id,'default_name':name}"/>
+                </header>
+            </xpath>
+            <!-- Required opportunity: -->
+            <xpath expr="//group[@name='partner_details']" position="after">
+                <group name="opportunity_info">
+                    <field name="opportunity_id" required="1"/>
+                    <field name="user_id"/>
+                    <field name="team_id"/>
+                </group>
+            </xpath>
+            <!-- END -->
+        </field>
+    </record>
+
+</odoo>

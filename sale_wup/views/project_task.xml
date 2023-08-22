@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="project_task_wup_inh_form" model="ir.ui.view">
+        <field name="name">Project Task WUP inh view</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_line_id']" position="after">
+                <field name="wup_line_id" domain="[('sale_line_id','=',sale_line_id)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

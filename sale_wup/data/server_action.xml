@@ -1,0 +1,15 @@
+<odoo>
+    <record id="wup_line_reset_from_sale_order" model="ir.actions.server">
+            <field name="name">=> Reset WUP Sale and Cost prices</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">
+for li in record.order_line:
+  if li.wup_line_ids.ids:
+    for li in record.wup_line_ids:
+      li.write({'price_unit':li.product_id.list_price,'price_unit_cost':li.product_id.standard_price})
+            </field>
+    </record>
+
+</odoo>

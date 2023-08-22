@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record id="sale_order_line_wup_form" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <form string="Sales Order Item" create="0">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_uom_qty" readonly="1"/>
+                            <field name="product_uom" readonly="1"/>
+                            <field name="wup_cost_amount"/>
+                            <field name="display_type" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="price_unit" readonly="1"/>
+                            <field name="discount" groups="product.group_discount_per_so_line" readonly="1"/>
+                            <field name="price_subtotal" widget="monetary"/>
+                            <field name="price_total" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group col="4">
+                        <field name="wup_template_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <separate/>
+                        <field name="wup_qty" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <button class="oe_highlight oe_edit_only"
+                                type="object" name="wup_lines_from_wup_template"
+                                string="Add WuPs" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    </group>
+                    <field name="wup_line_ids" context="{'default_product_uom_qty':1}" attrs="{'readonly':[('state','!=','draft')]}">
+                        <tree editable="bottom">
+                            <field name="product_id" required="1"/>
+                            <field name="name" attrs="{'required':[('product_id','!=',False)]}"/>
+                            <field name="product_uom_qty" readonly="0"/>
+                            <field name="product_uom"/>
+                            <field name="price_unit_cost"/>
+                            <field name="price_unit"/>
+                            <field name="subtotal"/>
+                            <field name="lst_price" optional="hide"/>
+                            <field name="lst_price_discount" optional="hide"/>
+                            <field name="task_id" optional="hide" readonly="1"/>
+                            <field name="effective_hours" widget="timesheet_uom" attrs="{'invisible':[('task_id','=',False)]}" optional="hide"/>
+                            <field name="sale_line_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <div class="o_form_buttons_view" role="toolbar" aria-label="Main actions">
+                            <button t-if="widget.is_action_enabled('edit')" class="btn btn-primary o_form_button_edit" accesskey="a">
+                                Editar
+                            </button>
+                            <button string="Salir" special="cancel" class="btn btn-secondary" />
+                        </div>
+                        <div class="o_form_buttons_edit" role="toolbar" aria-label="Main actions">
+                            <button
+                                    class="btn btn-primary o_form_button_save" accesskey="s">
+                                Guardar
+                            </button>
+                            <button
+                                    class="btn btn-secondary o_form_button_cancel" accesskey="j">
+                                Descartar
+                            </button>
+                            <button string="Guardar y Salir" special="save" class="btn btn-primary" />
+                        </div>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">sale.order.line</field>
+        <field name="name">WUP Sale Order Line</field>
+        <field name="priority">24</field>
+        <field name="type">form</field>
+    </record>
+
+
+    <!-- CREATE NEW ORDER LINES FROM ANALYTIC ADDITIONAL PRODUCTS:   -->
+    <record id="additional_analytic_products_wizard" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="domain" eval="False"/>
+        <!--    <field name="context" eval="False"/> -->
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Additional analytic products to SOL wizard view</field>
+        <field name="res_model">wup.saleline.wizard</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">new</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+    </record>
+    <!--   FIN  WIZARD -->
+
+
+    <record id="action_view_wups" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'search_default_sale_id': active_id,'default_sale_id': active_id}</field>
+        <field name="domain">[('sale_id', '=', active_id)]</field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="help"><![CDATA[<p>WUs</p>]]></field>
+        <field name="limit">80</field>
+        <field name="name">WUs</field>
+        <field name="res_model">wup.line</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="search_view_id" eval="wup_line_tree_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('sale_wup_line_action_tree')})]"/>
+        <field name="usage" eval="False"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- MAIN SALE ORDER UPDATE: -->
+    <record id="sale_order_wup_form_view" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form/header" position="inside">
+                    <button name="sale_wup.additional_analytic_products_wizard"
+                            context="{'default_sale_id':active_id}"
+                            string="Extras" type="action" class="btn-primary"
+                            attrs="{'invisible':['|',('product_consumed_ids','=',[]),('state','not in',['sale'])]}"/>
+            </xpath>
+
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button class="oe_stat_button oe_read_only" icon="fa-shopping-cart" type="object" name="action_view_wup_line">
+                    <field string="WUs" widget="statinfo" name="wup_line_count" />
+                </button>
+            </xpath>
+
+            <xpath expr="//sheet/notebook/page[@name='order_lines']/field/tree" position="inside">
+                <field name="wup_line_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//sheet/notebook/page[@name='order_lines']/field/tree" position="attributes">
+                <attribute name="decoration-primary">wup_line_ids</attribute>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
+                <button name="action_open_sol" icon="fa-tasks" class="oe_stat_button" type="object"/>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="lst_price" optional="hide"/>
+                <field name="lst_price_discount" optional="hide"/>
+                <field name="wup_cost_amount" optional="hide"/>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/.." position="after">
+                <page string="Extra Products" name="extra_products"
+                      attrs="{'invisible': ['|',('state', 'not in', ['sale']),
+                                                ('product_consumed_ids','=',[])]}">
+                    <field name="product_consumed_ids" readonly="1">
+                        <tree>
+                            <field name="date"/>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="unit_amount"/>
+                            <field name="product_uom_id"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

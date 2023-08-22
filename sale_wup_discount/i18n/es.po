@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_wup_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-02 05:50+0000\n"
+"PO-Revision-Date: 2021-07-02 07:52+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: sale_wup_discount
+#: model:ir.actions.server,name:sale_wup_discount.sale_order_recalculate_sd
+msgid "=> recalculate special discounts"
+msgstr ""
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sale_wup_discount.field_wup_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order__id
+#: model:ir.model.fields,field_description:sale_wup_discount.field_wup_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order____last_update
+#: model:ir.model.fields,field_description:sale_wup_discount.field_wup_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order__margin_wup_percent
+msgid "Margin"
+msgstr "Margen"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields.selection,name:sale_wup_discount.selection__sale_order__discount_type__margin_over_cost
+msgid "Margin over cost."
+msgstr "Margen sobre coste"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields.selection,name:sale_wup_discount.selection__sale_order__discount_type__fixed_service_margin_over_cost
+msgid "Our services with fixed price, and margin over cost for others."
+msgstr "Nuestros servicios con precio fijo y margen sobre coste para otros"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order__price_our_service
+msgid "Price our service"
+msgstr "Precio de nuestro servicio"
+
+#. module: sale_wup_discount
+#: model_terms:ir.ui.view,arch_db:sale_wup_discount.view_sale_order_special_discount
+msgid "Recalculate"
+msgstr "Recalcular"
+
+#. module: sale_wup_discount
+#: model:ir.model,name:sale_wup_discount.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_wup_discount
+#: model_terms:ir.ui.view,arch_db:sale_wup_discount.view_sale_order_special_discount
+msgid "Special discounts"
+msgstr "Descuentos especiales"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order__target_price
+msgid "Target price"
+msgstr "Precio objetivo"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields.selection,name:sale_wup_discount.selection__sale_order__discount_type__target_price
+msgid "Target price."
+msgstr "Precio objetivo"
+
+#. module: sale_wup_discount
+#: model:ir.model.fields,field_description:sale_wup_discount.field_sale_order__discount_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: sale_wup_discount
+#: model:ir.model,name:sale_wup_discount.model_wup_line
+msgid "wup Line"
+msgstr "Línea wup"

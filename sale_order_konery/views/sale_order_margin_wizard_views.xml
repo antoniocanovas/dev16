@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- MARGIN WIZARD WINDOW ACTION: -->
+    <record model="ir.actions.act_window" id="wizard_sale_order_margin" >
+        <field name="name">Margin Wizard</field>
+        <field name="res_model">sale.order.margin.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="sale_order_margin_wizard_form" model="ir.ui.view">
+        <field name="name">Sale Order Margin Wizard Form</field>
+        <field name="model">sale.order.margin.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Margin Wizard">
+                    <h1>
+                        <field name="name" invisible="1"/>
+                    </h1>
+                    <group>
+                        <field name="general_margin"/>
+                        <field name="product_margin"/>
+                        <field name="sale_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="%(sale_order_margin_wizard_action)d" string="Apply" type="action" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

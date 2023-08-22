@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+       <record id="view_sale_order_special_discount" model="ir.ui.view">
+        <field name="name">sale.order.special.discounts</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='order_line']/.." position="after">
+                <page string="Special discounts" name="special_discounts" attrs="{'invisible': [('state', '=', ['done'])]}">
+                    <group>
+                        <field name="discount_type"/>
+                        <field name="margin_wup_percent" attrs="{'invisible':[('discount_type','not in',['fixed_service_margin_over_cost','margin_over_cost'])]}"/>
+                        <field name="price_our_service" attrs="{'invisible':[('discount_type','not in',['fixed_service_margin_over_cost','target_price_with_fixed_services'])]}"/>
+                        <field name="target_price" attrs="{'invisible':[('discount_type','not in',['target_price', 'target_price_with_fixed_services'])]}"/>
+                    </group>
+                    <group>
+                        <button class="oe_highlight oe_edit_only"
+                                type="object"
+                                name="wup_sale_discounts"
+                                string="Recalculate"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_line_wup_form_fixed_cost" model="ir.ui.view">
+        <field name="name">wup line fixed cost</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale_wup.sale_order_line_wup_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='wup_line_ids']/tree/field[@name='price_unit_cost']" position="after">
+                <field name="fix_price_unit_cost"/>
+            </xpath>
+            <xpath expr="//field[@name='wup_line_ids']/tree/field[@name='price_unit']" position="after">
+                <field name="fix_price_unit_sale"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

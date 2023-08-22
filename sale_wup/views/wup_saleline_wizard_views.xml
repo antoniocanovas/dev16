@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="wup_saleline_wizard_default_form" model="ir.ui.view">
+        <field name="name">Default wup saleline wizard form view</field>
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Wup Saleline wizard">
+                    <field name="analytic_line_ids" domain="[('id','in',product_consumed_ids)]">
+                            <tree create="0">
+                                <field name="date"/>
+                                <field name="name"/>
+                                <field name="unit_amount"/>
+                                <field name="product_uom_id"/>
+                            </tree>
+                    </field>
+                    <field name="sale_id" invisible="1"/>
+                    <field name="product_consumed_ids" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button
+                            name="create_sale_order_lines"
+                            string="Create order lines"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                    <button special="cancel" string="Cancel" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">wup.saleline.wizard</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+    </record>
+
+</odoo>
