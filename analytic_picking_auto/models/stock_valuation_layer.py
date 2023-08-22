@@ -9,8 +9,7 @@ class StockValuationLayer(models.Model):
 
     analytic_line_ids = fields.One2many('account.analytic.line', 'svl_id', string='Analytic Lines', store="True",)
 
-    @api.depends('create_date')
-    def _analytic_picking_auto(self):
+    def analytic_picking_auto(self):
         for record in self:
             move = record.stock_move_id
             picking = move.picking_id

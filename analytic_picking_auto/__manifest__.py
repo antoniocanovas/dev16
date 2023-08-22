@@ -15,7 +15,7 @@
         "base_automation",
                 ],
     "data": [
-#        "data/action_server.xml",
+        "data/action_server.xml",
         "views/stock_valuation_layer.xml",
     ],
     "installable": True,
