@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
         <field name="arch" type="xml">
             <field name="stock_move_id" position="after">
-                <field name="analytic_id" string="Analytic line"/>
+                <field name="analytic_line_ids" string="Analytic line"/>
             </field>
         </field>
     </record>
