@@ -12,7 +12,6 @@
         'product_brand',
         'hr',
         'base_automation',
-        'sale_timesheet_edit',
         'analytic_picking_auto',
     ],
     'data': [
