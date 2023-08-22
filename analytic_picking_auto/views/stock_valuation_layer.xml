@@ -13,17 +13,4 @@
         </field>
     </record>
 
-    <!-- EL FORM NO SE USA, SALTA A PICKING AL PINCHAR:
-    <record id="view_stock_valuation_analytic_inh" model="ir.ui.view">
-        <field name="name">stock.valuation.analytic.form.inh</field>
-        <field name="model">stock.valuation.layer</field>
-        <field name="type">form</field>
-        <field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
-        <field name="arch" type="xml">
-            <field name="stock_move_id" position="after">
-                <field name="analytic_line_ids" string="Analytic line"/>
-            </field>
-        </field>
-    </record>
-    -->
 </odoo>
