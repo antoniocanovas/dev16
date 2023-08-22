@@ -10,6 +10,7 @@
         'sale_management',
         'project',
         'account',
+        'sale_timesheet',
         'sale_margin',
         'product_brand',
         'hr',
