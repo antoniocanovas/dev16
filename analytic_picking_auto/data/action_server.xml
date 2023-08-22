@@ -18,7 +18,7 @@ uom = record.uom_id
 unitprice = record.unit_cost
 value = record.value
 
-if (move.id and picking.id and plan and not exist.id and status == 'done') and (code in ['incoming','outgoing']):
+if (move.id and picking.id and plan and not exist.ids and status == 'done') and (code in ['incoming','outgoing']):
   for aa,percent in plan.items():
     analytic = env['account.analytic.account'].search([('id','=',int(aa))])
     new = env['account.analytic.line'].create({'name':name, 'account_id':analytic.id, 'product_id':record.product_id.id,
