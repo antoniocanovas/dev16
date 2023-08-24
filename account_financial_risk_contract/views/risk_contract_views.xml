@@ -36,14 +36,14 @@
                     </h2>
                     <group name="general_data">
                         <group>
-                            <field name="amount"/>
+                            <field name="demand"/>
                             <field name="partner_id"/>
                             <field name="date_begin"/>
                             <field name="date_end"/>
                             <field name="create_uid"/>
                         </group>
                         <group>
-                            <field name="demand"/>
+                            <field name="amount"/>
                             <field name="supplier_id"/>
                             <field name="currency_id" optional="hide"/>
                             <field name="level"/>
