@@ -10,7 +10,7 @@ class RiskContract(models.Model):
     _description = 'Risk Contracts'
 
     STATE = [('draft', 'Draft'),
-             ('required', 'Required'),
+             ('waiting', 'Waiting'),
              ('done', 'Done'),
              ('refused', 'Refused'),
              ]
