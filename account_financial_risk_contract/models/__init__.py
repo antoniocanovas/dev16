@@ -1,2 +1,2 @@
 from . import res_partner
-from . import cesce_contract
+from . import risk_contract
