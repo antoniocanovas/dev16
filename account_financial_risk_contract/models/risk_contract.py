@@ -24,7 +24,7 @@ class RiskContract(models.Model):
     supplier_id = fields.Many2one('res.partner', string='Supplier', store=True, copy=True, required=True)
     demand = fields.Monetary('Amount', store=True, copy=True, required=True)
     amount = fields.Monetary('Amount', store=True, copy=True)
-    currency_id = fields.Many2one('res.currency', store=True, store=True, default=1, required=True)
+    currency_id = fields.Many2one('res.currency', store=True, default=1, required=True)
     active = fields.Boolean('Active', store=True, copy=False, default=True)
     state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft')
     description = fields.Text('Notes', store=True, copy=False)
