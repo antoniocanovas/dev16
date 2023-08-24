@@ -22,10 +22,11 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button class="oe_stat_button" icon="fa-info" type="action" name="%(account_financial_risk_contract.action_partner_risk_contracts)d" groups="base.group_user">
+                <button class="oe_stat_button" icon="fa-info" type="action"
+                        name="%(account_financial_risk_contract.action_partner_risk_contracts)d"
+                        groups="account.group_account_user">
                     <field name="risk_contract_count" string="Risk contracts" widget="statinfo"/>
                 </button>
-
             </xpath>
         </field>
     </record>

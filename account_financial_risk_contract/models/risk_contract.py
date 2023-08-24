@@ -22,7 +22,7 @@ class RiskContract(models.Model):
     level = fields.Char('Level', store=True, copy=True)
     percentage = fields.Float('Coberture', store=True, copy=True)
     supplier_id = fields.Many2one('res.partner', string='Supplier', store=True, copy=True, required=True)
-    demand = fields.Monetary('Amount', store=True, copy=True, required=True)
+    demand = fields.Monetary('Demand', store=True, copy=True, required=True)
     amount = fields.Monetary('Amount', store=True, copy=True)
     currency_id = fields.Many2one('res.currency', store=True, default=1, required=True)
     active = fields.Boolean('Active', store=True, copy=False, default=True)
