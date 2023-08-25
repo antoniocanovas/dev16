@@ -19,7 +19,7 @@ class RiskBatch(models.Model):
     currency_id = fields.Many2one('res.currency', store=True, default=1, required=True)
     state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft')
     description = fields.Text('Notes', store=True, copy=False)
-    invoice_ids = fields.One2many('account.move', 'risk_batch_id', store=True)
+    invoice_ids = fields.Many2many('account.move', store=True)
 
     def _get_invoices_net_amount(self):
         amount = 0
