@@ -24,6 +24,6 @@ class RiskBatch(models.Model):
     def _get_invoices_net_amount(self):
         amount = 0
         for li in self.invoice_ids:
-            amount += li.price_subtotal
+            amount += li.amount_untaxed_signed
         self.amount = amount
     amount = fields.Monetary('Amount', store=False, copy=True, compute='_get_invoices_net_amount')
