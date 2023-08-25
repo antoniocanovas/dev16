@@ -45,9 +45,9 @@
                         <group>
                             <field name="amount"/>
                             <field name="supplier_id"/>
-                            <field name="currency_id" optional="hide"/>
-                            <field name="level"/>
                             <field name="percentage"/>
+                            <field name="level"/>
+                            <field name="currency_id"/>
                         </group>
                     </group>
                     <group>
