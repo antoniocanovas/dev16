@@ -1,13 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    <record model="ir.actions.act_window" id="action_add_invoices_wizard" >
-        <field name="name">Add invoices</field>
-        <field name="res_model">risk.batch.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-    </record>
-
     <record id="risk_batch_tree" model="ir.ui.view">
         <field name="arch" type="xml">
             <tree string="Risk batches">
