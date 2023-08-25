@@ -29,7 +29,7 @@ class RiskBatch(models.Model):
         self.amount = amount
     amount = fields.Monetary('Amount', store=False, copy=True, compute='_get_invoices_net_amount')
 
-    @api.depends('write_date')
+    @api.depends('invoice_ids')
     def _update_invoice_risk_batch_id(self):
         for record in self:
             invoices = self.env['account.move'].search(['|',('risk_batch_id','=',record.id),('id','in',record.invoice_ids.ids)])
