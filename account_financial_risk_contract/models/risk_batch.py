@@ -30,6 +30,7 @@ class RiskBatch(models.Model):
 
     invoice_ids = fields.Many2many('account.move', store=True)
 
+    # NO FUNCIONA, NO SE ACTIVA (sería lo ideal y borrar el wizard):
     @api.onchange('invoice_ids')
     def update_invoice_risk_batch_id(self):
         for record in self:
