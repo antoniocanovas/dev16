@@ -9,7 +9,7 @@ class AccountMove(models.Model):
     @api.depends('payment_status','state', 'risk_batch_id')
     def _get_risk_communication_pending(self):
         pending = True
-        if self.payment_status not in ['not_paid','in_payment','partial']:  pending = False
+        if self.payment_state not in ['not_paid','in_payment','partial']:  pending = False
         if self.state not in ['posted']:  pending = False
         if self.risk_batch_id.id: pending = False
         self.risk_pending = pending
