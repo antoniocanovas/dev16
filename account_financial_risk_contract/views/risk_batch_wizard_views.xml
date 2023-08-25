@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+
+    <record model="ir.actions.act_window" id="action_add_invoices_wizard" >
+        <field name="name">Add invoices</field>
+        <field name="res_model">risk.batch.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="risk_barch_add_invoices_wizard_form" model="ir.ui.view">
+        <field name="name">Risk Batch Wizard</field>
+        <field name="model">risk.batch.add.invoices.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Add invoices">
+                    <group col="2">
+                        <field name="name"/>
+                        <field name="invoice_ids"/>
+                    </group>
+                    <footer>
+                        <button name="risk_batch_add_invoices_wizard_action" string="Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+-->
+</odoo>
