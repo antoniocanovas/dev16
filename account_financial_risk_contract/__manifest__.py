@@ -16,6 +16,8 @@
     'data': [
         'views/res_partner_views.xml',
         'views/risk_contract_views.xml',
+        'views/risk_batch_views.xml',
+        'views/menu_views.xml',
         'security/user_groups.xml',
         'security/ir.model.access.csv',
     ],
