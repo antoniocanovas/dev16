@@ -24,7 +24,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button class="oe_highlight" type="action" name="%(action_add_invoices_wizard)d" string="Discounts" context="{'default_section_id':id,'default_name':section, 'default_sale_id':order_id}"/>
+                    <button class="oe_highlight" type="action" name="%(action_add_invoices_wizard)d" string="Add Invoices" context="{'default_name':active_id}"/>
                     <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                 </header>
                 <sheet name="main" string="Risk batch">
