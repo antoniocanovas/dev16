@@ -3,7 +3,7 @@
 
     <record id="risk_barch_add_invoices_wizard_form" model="ir.ui.view">
         <field name="name">Risk Batch Wizard</field>
-        <field name="model">risk.batch.add.invoices.wizard</field>
+        <field name="model">risk.batch.wizard</field>
         <field name="arch" type="xml">
             <form>
                 <sheet string="Add invoices">
