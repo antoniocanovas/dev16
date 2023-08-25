@@ -6,7 +6,7 @@ class AccountMove(models.Model):
 
     risk_batch_id = fields.Many2one('risk.batch', string='Risk batch', store=True, copy=False)
 
-    @api.depends('payment_state')
+    @api.depends('payment_state','state','risk_batch_id')
     def _get_risk_communication_pending(self):
         pending = True
         if self.payment_state not in ['not_paid','in_payment','partial']:  pending = False
