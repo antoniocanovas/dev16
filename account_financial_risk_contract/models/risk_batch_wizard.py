@@ -10,4 +10,5 @@ class RiskBatchWizard(models.TransientModel):
 
     def risk_batch_add_invoices_wizard_action(self):
         for record in self:
-            return True
+            for li in record.invoice_ids:
+                li['risk_batch_id'] = name.id

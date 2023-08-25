@@ -10,7 +10,6 @@
                     <group col="2">
                         <field name="name" readonly="1"/>
                         <field name="invoice_ids"
-                               options="{'no_quick_create': True, 'no_create' : True}"
                                domain="[('risk_batch_id','=',False)]"/>
                     </group>
                     <footer>
