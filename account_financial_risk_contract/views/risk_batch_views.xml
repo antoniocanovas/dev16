@@ -41,7 +41,7 @@
                         </group>
                     </group>
                     <group>
-                        <field name="invoice_ids"/>
+                        <field name="invoice_ids" nolabel="1" options="{'no_quick_create': True, 'no_create_edit':True}"/>
                     </group>
                     <group>
                         <field name="description" class="field_description" placeholder="Description..."/>
