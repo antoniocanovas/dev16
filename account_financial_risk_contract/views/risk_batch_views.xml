@@ -49,10 +49,7 @@
                         </group>
                     </group>
                     <group>
-                        <field name="invoice_ids"
-                               domain="[('move_type','=','out_invoice),
-                                        ('payment_state','in',['not_paid','in_payment','partial']),
-                                        ('state','=','posted'),('risk_batch_id','=',False)]">
+                        <field name="invoice_ids" domain="[('risk_pending','=',True)]">
                             <tree create="False">
                                 <field name="name"/>
                                 <field name="invoice_date_due"/>

@@ -27,3 +27,14 @@ class RiskBatch(models.Model):
             amount += li.amount_untaxed_signed
         self.amount = amount
     amount = fields.Monetary('Amount', store=False, copy=True, compute='_get_invoices_net_amount')
+
+    @api.depends('invoice_ids')
+    def _update_invocice_risk_batch_id(self):
+        for record in self:
+            invoices = self.env['account.move'].search([('risk_batch_id','=',record.id)])
+            for li in invoices:
+                if li.id not in record.invoice_ids.ids:
+                    li['risk_batch_id'] = False
+            for li in record.invoice_ids:
+                if li.id != record.id:
+                    li['risk_batch_id'] = record.id
