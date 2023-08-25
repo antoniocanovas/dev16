@@ -49,7 +49,7 @@
                         </group>
                     </group>
                     <group>
-                        <field name="invoice_ids"/>
+                        <field name="invoice_ids" options="{'no_quick_create': True, 'no_create' : True}"/>
                     </group>
                     <group>
                         <field name="description" class="field_description" placeholder="Description..."/>

@@ -8,8 +8,10 @@
             <form>
                 <sheet string="Add invoices">
                     <group col="2">
-                        <field name="name"/>
-                        <field name="invoice_ids"/>
+                        <field name="name" readonly="1"/>
+                        <field name="invoice_ids"
+                               options="{'no_quick_create': True, 'no_create' : True}"
+                               domain="[('risk_batch','=',False)]"/>
                     </group>
                     <footer>
                         <button name="risk_batch_add_invoices_wizard_action" string="Apply" type="object" class="oe_highlight"/>
