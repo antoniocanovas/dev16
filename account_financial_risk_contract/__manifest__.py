@@ -12,6 +12,7 @@
     'depends': [
         'account',
         'account_financial_risk',
+        'base_automation',
     ],
     'data': [
         'views/res_partner_views.xml',

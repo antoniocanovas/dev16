@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="risk_batch_update_invoices" model="base.automation">
+        <field name="name">=> Risk batch invoices Update</field>
+        <field name="model_id" ref="account_financial_risk_contract.model_risk_batch"/>
+        <field name="state">code</field>
+        <field name="code">
+            record.update_invoice_risk_batch_id()
+        </field>
+        <field name="trigger">on_write</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>
