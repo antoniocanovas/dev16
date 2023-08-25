@@ -31,7 +31,7 @@ class RiskBatch(models.Model):
     @api.depends('write_date')
     def _update_invocice_risk_batch_id(self):
         for record in self:
-            invoices = self.env['account.move'].search(['|'('risk_batch_id','=',record.id),('id','in',record.invoice_ids.ids)])
+            invoices = self.env['account.move'].search(['|',('risk_batch_id','=',record.id),('id','in',record.invoice_ids.ids)])
             for li in invoices:
                 if li.id not in record.invoice_ids.ids:
                     li['risk_batch_id'] = False
