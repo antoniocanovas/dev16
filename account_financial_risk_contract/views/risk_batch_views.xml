@@ -53,7 +53,7 @@
                                domain="[('move_type','=','out_invoice),
                                         ('payment_state','in',['not_paid','in_payment','partial']),
                                         ('state','=','posted'),
-                                        ('risk_batch','=',False)]">
+                                        ('risk_batch_id','=',False)]">
                             <tree create="False">
                                 <field name="name"/>
                                 <field name="invoice_date_due"/>
