@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -29,9 +30,10 @@ class RiskBatch(models.Model):
     amount = fields.Monetary('Amount', store=False, copy=True, compute='_get_invoices_net_amount')
 
     @api.depends('write_date')
-    def _update_invocice_risk_batch_id(self):
+    def _update_invoice_risk_batch_id(self):
         for record in self:
             invoices = self.env['account.move'].search(['|',('risk_batch_id','=',record.id),('id','in',record.invoice_ids.ids)])
+            raise UserError(invoices)
             for li in invoices:
                 if li.id not in record.invoice_ids.ids:
                     li['risk_batch_id'] = False
