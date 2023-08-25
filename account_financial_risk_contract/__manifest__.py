@@ -22,6 +22,7 @@
         'views/menu_views.xml',
         'security/user_groups.xml',
         'security/ir.model.access.csv',
+        'data/automatic_actions.xml',
     ],
     'installable': True,
     'application': False,

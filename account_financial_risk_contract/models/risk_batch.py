@@ -31,7 +31,7 @@ class RiskBatch(models.Model):
 
 
     # NO FUNCIONA, NO SE ACTIVA (sería lo ideal y borrar el wizard):
-    @api.depends('invoice_ids')
+#    @api.depends('invoice_ids')
     def update_invoice_risk_batch_id(self):
         for record in self:
             invoices = self.env['account.move'].search(['|',('risk_batch_id','=',record.id),('id','in',record.invoice_ids.ids)])
