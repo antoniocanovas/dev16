@@ -12,7 +12,7 @@ class AccountMove(models.Model):
         if self.payment_state not in ['not_paid','in_payment','partial']:  pending = False
         if self.state not in ['posted']:  pending = False
         if self.risk_batch_id.id: pending = False
-        if self.partner_id.risk_total == 0: pending = False
+        if self.partner_id.credit_limit == 0: pending = False
         self.risk_pending = pending
     risk_pending = fields.Boolean('Risk pending', store=True, default=True,
                                   compute='_get_risk_communication_pending')
