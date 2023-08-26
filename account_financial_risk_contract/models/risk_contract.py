@@ -17,18 +17,18 @@ class RiskContract(models.Model):
              ('refused', 'Refused'),
              ]
 
-    name = fields.Char(string='Name', required=True)
-    partner_id = fields.Many2one('res.partner', string='Partner', store=True, copy=True, required=True)
-    date_begin = fields.Date('Date begin', store=True, copy=False)
-    date_end = fields.Date('Date end', store=True, copy=False)
-    level = fields.Char('Level', store=True, copy=True)
-    percentage = fields.Float('Coberture', store=True, copy=True)
-    supplier_id = fields.Many2one('res.partner', string='Supplier', store=True, copy=True, required=True)
+    name = fields.Char(string='Name', required=True, tracking=100)
+    partner_id = fields.Many2one('res.partner', string='Partner', store=True, copy=True, required=True, tracking=100)
+    date_begin = fields.Date('Date begin', store=True, copy=False, tracking=100)
+    date_end = fields.Date('Date end', store=True, copy=False, tracking=100)
+    level = fields.Char('Level', store=True, copy=True, tracking=100)
+    percentage = fields.Float('Coberture', store=True, copy=True, tracking=100)
+    supplier_id = fields.Many2one('res.partner', string='Supplier', store=True, copy=True, required=True, tracking=100)
     demand = fields.Monetary('Demand', store=True, copy=True, required=True)
-    amount = fields.Monetary('Amount', store=True, copy=True)
+    amount = fields.Monetary('Amount', store=True, copy=True, tracking=100)
     currency_id = fields.Many2one('res.currency', store=True, default=1, required=True)
-    active = fields.Boolean('Active', store=True, copy=False, default=True)
-    state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft')
+    active = fields.Boolean('Active', store=True, copy=False, default=True, tracking=100)
+    state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft', tracking=100)
     description = fields.Text('Notes', store=True, copy=False)
 
     def update_risk_partner(self):
