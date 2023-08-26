@@ -14,11 +14,11 @@ class RiskBatch(models.Model):
              ('done', 'Done'),
              ]
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string='Name', required=True, tracking=100)
     supplier_id = fields.Many2one('res.partner', string='Supplier', store=True, copy=True, required=True)
-    date = fields.Date('Date', store=True, copy=False)
+    date = fields.Date('Date', store=True, copy=False, tracking=100)
     currency_id = fields.Many2one('res.currency', store=True, default=1, required=True)
-    state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft')
+    state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft', tracking=100)
     description = fields.Text('Notes', store=True, copy=False)
     invoice_ids = fields.Many2many('account.move', store=True)
 
