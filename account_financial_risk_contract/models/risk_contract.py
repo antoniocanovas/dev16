@@ -1,4 +1,6 @@
 from odoo import _, api, fields, models
+from datetime import date
+from odoo.exception import UserError
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -28,3 +30,9 @@ class RiskContract(models.Model):
     active = fields.Boolean('Active', store=True, copy=False, default=True)
     state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft')
     description = fields.Text('Notes', store=True, copy=False)
+
+    def _update_risk_partner(self):
+        if self.date_end > date.today():
+            self.partner_id.credit_limit = self.amount
+        else:
+            raise UserError('Expiration date must be after today')
