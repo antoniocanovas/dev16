@@ -31,7 +31,7 @@ class RiskContract(models.Model):
     state = fields.Selection(selection=STATE, string="State", store=True, copy=False, default='draft')
     description = fields.Text('Notes', store=True, copy=False)
 
-    def _update_risk_partner(self):
+    def update_risk_partner(self):
         if self.date_end > date.today():
             self.partner_id.credit_limit = self.amount
         else:

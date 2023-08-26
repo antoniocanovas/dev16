@@ -30,7 +30,7 @@
                     <header>
                         <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                         <button class="oe_highlight" type="object" string="Update risk partner"
-                                name="_update_risk_partner" attrs="{'invisible':[('state','!=', 'done')]}"/>
+                                name="update_risk_partner" attrs="{'invisible':[('state','!=', 'done')]}"/>
                     </header>
                 <sheet name="main" string="Risk contract">
                     <h2>
