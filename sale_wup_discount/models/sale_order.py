@@ -26,12 +26,13 @@ class WupSaleOrder(models.Model):
     def wup_sale_discounts(self):
         for record in self:
             # Round prices with Odoo monetary_precision:
-            monetary_precision = self.env['decimal.precision'].sudo().search([('id', '=', 1)]).digits
+            monetary_precision = self.env.ref('product.decimal_price').digits
+            discount_precision = self.env.ref('product.decimal_discount').digits
 
             # CASE "TARGET_PRICE" (wup prices are not recalculated, working with discount in SOL):
             if record.discount_type == 'target_price':
                 # PREVIOUS: Compute real total cost and sale without discount:
-                cost_amount, price_amount, margin_wup_percent, message_under_cost = 0, 0, 0, ""
+                cost_amount, price_amount, margin_wup_percent, message_under_cost, difference = 0, 0, 0, "", record.target_price
                 for li in record.order_line:
                     if (len(li.wup_line_ids.ids) == 0) and (li.product_uom_qty > 0):
                         cost_amount += li.price_unit_cost * li.product_uom_qty
@@ -49,16 +50,18 @@ class WupSaleOrder(models.Model):
 
                 # CASE: TARGET UNDER PVP => Let's work with discounts:
                 elif (record.target_price < price_amount):
-                    margin = (1 - (record.target_price / price_amount)) * 100
+                    margin = round((1 - (record.target_price / price_amount)) * 100, discount_precision)
                     for li in record.order_line:
                         if (len(li.wup_line_ids.ids) == 0) and (li.product_uom_qty > 0):
                             li.write({'price_unit': li.lst_price, 'discount': margin})
+                            difference -= li.product_uom_qty * li.lst_price * (1 - margin / 100)
                         elif (len(li.wup_line_ids.ids) > 0) and (li.product_uom_qty > 0):
                             sol_price_unit_from_wup = 0
                             for wupline in li.wup_line_ids:
                                 wup_price_unit = wupline.price_unit * (1 - margin / 100)
                                 sol_price_unit_from_wup += wup_price_unit * wupline.product_uom_qty
                                 wupline['price_unit'] = wup_price_unit
+                                difference -= wupline.product_uom_qty * wup_price_unit
                             li.write({'price_unit':sol_price_unit_from_wup, 'discount':0})
 
                 # CASE: TARGET UNDER PVP => Let's work with list prices:
@@ -66,20 +69,18 @@ class WupSaleOrder(models.Model):
                     margin = (record.target_price / price_amount)
                     for li in record.order_line:
                         if (len(li.wup_line_ids.ids) == 0) and (li.product_uom_qty > 0):
-                            li.write({'price_unit': li.lst_price * margin, 'discount': 0})
+                            li.write({'price_unit': li.lst_price, 'discount': margin})
+                            difference -= price_unit * li.product_uom_qty
                         elif (len(li.wup_line_ids.ids) > 0) and (li.product_uom_qty > 0):
                             sol_price_unit_from_wup = 0
                             for wupline in li.wup_line_ids:
-                                wupline.write({'price_unit': wupline.price_unit * margin, 'fix_price_unit_sale': False})
+                                price_unit = round(wupline.price_unit * margin, monetary_precision)
+                                wupline.write({'price_unit': price_unit, 'fix_price_unit_sale': False})
                                 sol_price_unit_from_wup += wupline.price_unit * margin * wupline.product_uom_qty
+                                difference -= price_unit * wupline.product_uom_qty
                             li.write({'price_unit':sol_price_unit_from_wup, 'discount':0})
 
                 # ROUNDING Method on the first line with units = 1:
-                sumlines = 0
-                for li in record.order_line:
-                    sumlines += li.price_subtotal
-                difference = record.target_price - sumlines
-
                 if difference != 0:
                     review = True
                     for li in record.order_line:
