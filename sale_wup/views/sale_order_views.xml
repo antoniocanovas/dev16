@@ -26,13 +26,14 @@
                             <field name="currency_id" invisible="1"/>
                         </group>
                     </group>
-                    <group col="4">
-                        <field name="wup_template_id" attrs="{'readonly':[('state','!=','draft')]}"/>
-                        <separate/>
-                        <field name="wup_qty" attrs="{'readonly':[('state','!=','draft')]}"/>
-                        <button class="oe_highlight oe_edit_only"
-                                type="object" name="wup_lines_from_wup_template"
-                                string="Add WuPs" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <group>
+                        <group>
+                            <field name="wup_template_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="wup_qty" attrs="{'readonly':[('state','!=','draft')], 'invisible':[('wup_template_id','=',False)]}"/>
+                        </group>
+                        <button class="oe_highlight oe_edit_only" type="object" name="wup_lines_from_wup_template" string="Add WuPs" attrs="{'invisible':['|','|',('wup_template_id','=',False),('state','!=','draft'),('wup_qty','=',0)]}"/>
                     </group>
                     <field name="wup_line_ids" context="{'default_product_uom_qty':1}" attrs="{'readonly':[('state','!=','draft')]}">
                         <tree editable="bottom">
@@ -51,27 +52,6 @@
                             <field name="currency_id" invisible="1"/>
                         </tree>
                     </field>
-                    <footer>
-                        <div class="o_form_buttons_view" role="toolbar" aria-label="Main actions">
-                            <!-- En v16 siempre estamos en edición:
-                            <button t-if="widget.is_action_enabled('edit')" class="btn btn-primary o_form_button_edit" accesskey="a">
-                                Editar
-                            </button>
-                            -->
-                            <button string="Salir" special="cancel" class="btn btn-secondary" />
-                        </div>
-                        <div class="o_form_buttons_edit" role="toolbar" aria-label="Main actions">
-                            <button
-                                    class="btn btn-primary o_form_button_save" accesskey="s">
-                                Guardar
-                            </button>
-                            <button
-                                    class="btn btn-secondary o_form_button_cancel" accesskey="j">
-                                Descartar
-                            </button>
-                            <button string="Guardar y Salir" special="save" class="btn btn-primary" />
-                        </div>
-                    </footer>
                 </sheet>
             </form>
         </field>
@@ -134,10 +114,10 @@
         <field name="arch" type="xml">
 
             <xpath expr="//form/header" position="inside">
-                    <button name="sale_wup.additional_analytic_products_wizard"
-                            context="{'default_sale_id':active_id}"
-                            string="Extras" type="action" class="btn-primary"
-                            attrs="{'invisible':['|',('product_consumed_ids','=',[]),('state','not in',['sale'])]}"/>
+                <button name="sale_wup.additional_analytic_products_wizard"
+                        context="{'default_sale_id':active_id}"
+                        string="Extras" type="action" class="btn-primary"
+                        attrs="{'invisible':['|',('product_consumed_ids','=',[]),('state','not in',['sale'])]}"/>
             </xpath>
 
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
