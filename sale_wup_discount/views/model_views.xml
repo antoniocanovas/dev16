@@ -5,7 +5,6 @@
         <field name="name">sale.order.special.discounts</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
-        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
         <field name="arch" type="xml">
             <xpath expr="//page/field[@name='order_line']/.." position="after">
                 <page string="Special discounts" name="special_discounts" attrs="{'invisible': [('state', '=', ['done'])]}">
