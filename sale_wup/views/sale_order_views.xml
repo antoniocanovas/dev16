@@ -53,9 +53,11 @@
                     </field>
                     <footer>
                         <div class="o_form_buttons_view" role="toolbar" aria-label="Main actions">
+                            <!-- En v16 siempre estamos en edición:
                             <button t-if="widget.is_action_enabled('edit')" class="btn btn-primary o_form_button_edit" accesskey="a">
                                 Editar
                             </button>
+                            -->
                             <button string="Salir" special="cancel" class="btn btn-secondary" />
                         </div>
                         <div class="o_form_buttons_edit" role="toolbar" aria-label="Main actions">
