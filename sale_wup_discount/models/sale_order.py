@@ -75,18 +75,22 @@ class WupSaleOrder(models.Model):
                             li.write({'price_unit':sol_price_unit_from_wup, 'discount':0})
 
                 # ROUNDING Method on the first line with units = 1:
-                diference = round(record.target_price - record.amount_untaxed, monetary_precision)
-                if diference != 0:
+                sumlines = 0
+                for li in record.order_line:
+                    sumlines += li.price_subtotal
+                difference = record.target_price - sumlines
+
+                if difference != 0:
                     review = True
                     for li in record.order_line:
                         if (li.product_uom_qty == 1) and (review == True):
                             if (len(li.wup_line_ids.ids) == 0) and (li.product_uom_qty > 0):
-                                li.write({'price_unit': li.price_unit + diference})
+                                li.write({'price_unit': li.price_unit + difference})
                                 review = False
                             elif (len(li.wup_line_ids.ids) > 0) and (li.product_uom_qty > 0):
                                 for wupline in li.wup_line_ids:
                                     if (review == True):
-                                        wupline.write({'price_unit': wupline.price_unit + diference})
+                                        wupline.write({'price_unit': wupline.price_unit + difference})
                                         review = False
             # END CASE "TARGET_PRICE" !!
 
@@ -106,7 +110,7 @@ class WupSaleOrder(models.Model):
             # CASE FIX OUR SERVICES AND GLOBAL TARGET PRICE:
             elif record.discount_type == 'target_price_with_fixed_services':
                 # Our service subtotal and writting:
-                fixed_qty, prev_other_subtotal, ratio, fixed = 0, 0, 1, record.price_our_service
+                fixed_qty, prev_other_subtotal, ratio, fixed, difference = 0, 0, 1, record.price_our_service, record.target_price
 
                 # ESTIMATIONS AND RATIO:
                 for li in record.order_line:
@@ -135,34 +139,37 @@ class WupSaleOrder(models.Model):
                     if (li.product_id.id) and not (li.wup_line_ids.ids) and (li.product_uom_qty > 0) and (
                             li.product_id.our_service == True):
                         li.write({'price_unit': fixed, 'discount': 0, 'price_subtotal': li.product_uom_qty * fixed})
+                        difference -= fixed * li.product_uom_qty
                     # Lines NOT WUP and our_services False:
                     elif (li.product_id.id) and not (li.wup_line_ids.ids) and (li.product_uom_qty > 0) and (
                             li.product_id.our_service == False):
-                        price_unit = li.price_unit * ratio
+                        price_unit = round(li.price_unit * ratio, monetary_precision)
                         li.write({'price_unit': price_unit, 'discount': 0})
+                        difference -= price_unit * li.product_uom_qty
                     # WUP Lines:
                     elif (li.product_id.id) and (len(li.wup_line_ids.ids) != 0):
                         li.write({'discount': 0})
                         for wup in li.wup_line_ids:
                             if (wup.product_id.our_service == True):
                                 wup.write({'price_unit': fixed, 'subtotal': fixed * wup.product_uom_qty})
+                                difference -= fixed * wup.product_uom_qty
                             else:
-                                price_unit = wup.price_unit * ratio / li.product_uom_qty
+                                price_unit = round(wup.price_unit * ratio / li.product_uom_qty, monetary_precision)
                                 wup.write({'price_unit': price_unit, 'subtotal': price_unit * wup.product_uom_qty})
+                                difference -= price_unit * wup.product_uom_qty
 
                 # ROUNDING Method on the first line with units = 1:
-                diference = round(record.target_price - record.amount_untaxed, monetary_precision)
-                if diference != 0:
+                if difference != 0:
                     review = True
                     for li in record.order_line:
                         if (li.product_uom_qty == 1) and (review == True):
                             if (len(li.wup_line_ids.ids) == 0) and (li.product_uom_qty > 0):
-                                li.write({'price_unit': li.price_unit + diference})
+                                li.write({'price_unit': li.price_unit + difference})
                                 review = False
                             elif (len(li.wup_line_ids.ids) > 0) and (li.product_uom_qty > 0):
                                 for wupline in li.wup_line_ids:
                                     if (review == True):
-                                        wupline.write({'price_unit': wupline.price_unit + diference})
+                                        wupline.write({'price_unit': wupline.price_unit + difference})
                                         review = False
             # END CASE fixed_services_and_target_price !!
 
