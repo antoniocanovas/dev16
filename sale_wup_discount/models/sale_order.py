@@ -69,7 +69,8 @@ class WupSaleOrder(models.Model):
                     margin = (record.target_price / price_amount)
                     for li in record.order_line:
                         if (len(li.wup_line_ids.ids) == 0) and (li.product_uom_qty > 0):
-                            li.write({'price_unit': li.lst_price, 'discount': margin})
+                            price_unit = round(li.lst_price * margin, monetary_precision)
+                            li.write({'price_unit': price_unit, 'discount': 0})
                             difference -= price_unit * li.product_uom_qty
                         elif (len(li.wup_line_ids.ids) > 0) and (li.product_uom_qty > 0):
                             sol_price_unit_from_wup = 0
@@ -91,7 +92,8 @@ class WupSaleOrder(models.Model):
                             elif (len(li.wup_line_ids.ids) > 0) and (li.product_uom_qty > 0):
                                 for wupline in li.wup_line_ids:
                                     if (review == True):
-                                        wupline.write({'price_unit': wupline.price_unit + difference})
+                                        price_unit = wupline.price_unit + difference / wupline.product_uom_qty
+                                        wupline.write({'price_unit': price_unit})
                                         review = False
             # END CASE "TARGET_PRICE" !!
 
