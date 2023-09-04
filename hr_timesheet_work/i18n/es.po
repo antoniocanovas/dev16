@@ -683,11 +683,6 @@ msgid "Stop"
 msgstr "Fin"
 
 #. module: hr_timesheet_work
-#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__analytic_tag_ids
-msgid "Tags"
-msgstr "Etiquetas"
-
-#. module: hr_timesheet_work
 #: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
 msgid "Tarea"
 msgstr ""

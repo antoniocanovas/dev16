@@ -22,7 +22,6 @@
                         <field name="stop" widget="timesheet_uom" attrs="{'invisible':[('set_start_stop','=',False)]}"/>
                         <field name="duration" widget="timesheet_uom" attrs="{'invisible':[('set_start_stop','=',True)]}"/>
                         <field name="time_type_id" widget="selection"/>
-                        <field name="analytic_tag_ids" widget="many2many_tags"/>
                         <field name="work_id" invisible="1"/>
                         <field name="todo_id" domain="[('work_id','=',work_id)]"/>
                         <field name="todo_uom_id"/>

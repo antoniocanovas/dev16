@@ -180,9 +180,8 @@ class TimeSheetWorkSheet(models.Model):
                     new = self.env['account.analytic.line'].create(
                         {'work_sheet_id': record.id, 'name': record.description, 'project_id': record.project_id.id,
                          'task_id': record.task_id.id, 'date': record.date, 'account_id': record.project_analytic_id.id,
-                         'company_id': record.company_id.id, 'tag_ids': [(6,0,record.analytic_tag_ids.ids)],
+                         'company_id': record.company_id.id, 'user_id':li.user_id.id,
                          'employee_id': li.id, 'unit_amount': duration, 'time_type_id': record.time_type_id.id,
-                         'user_id':li.user_id.id
                          })
                     if (record.set_start_stop == True):
                         duration = record.stop - record.start
@@ -196,9 +195,9 @@ class TimeSheetWorkSheet(models.Model):
                     new = self.env['account.analytic.line'].create(
                         {'work_sheet_id': record.id, 'name': record.description, 'project_id': record.project_id.id,
                          'task_id': record.task_id.id, 'date': record.date, 'account_id': record.project_analytic_id.id,
-                         'company_id': record.company_id.id, 'tag_ids': [(6,0,record.analytic_tag_ids.ids)],
+                         'company_id': record.company_id.id, 'user_id':li.user_id.id,
                          'employee_id': li.id, 'unit_amount': duration, 'time_type_id': record.time_type_id.id,
-                         'user_id':li.user_id.id, 'repair_id':record.repair_id.id
+                         'repair_id':record.repair_id.id
                          })
                     if (record.set_start_stop == True):
                         duration = record.stop - record.start

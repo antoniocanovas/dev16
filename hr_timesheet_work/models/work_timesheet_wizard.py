@@ -79,7 +79,6 @@ class WorkTimesheetWizard(models.TransientModel):
                          'task_id': record.task_id.id, 'date': record.date,
                          'account_id': record.work_sheet_id.project_analytic_id.id,
                          'company_id': record.work_sheet_id.company_id.id,
-                         'tag_ids': [(6,0,record.analytic_tag_ids.ids)],
                          'employee_id': li.id, 'unit_amount': duration, 'time_type_id': record.time_type_id.id,
                          'user_id':li.user_id.id,
                          'wizard_id': record.id
