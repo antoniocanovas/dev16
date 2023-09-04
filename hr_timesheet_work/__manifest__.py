@@ -15,7 +15,7 @@ Printed format as receipt to customer.
         'hr_expense',
         'sale_timesheet',
         'hr_timesheet_time_type',
-        'hr_timesheet_activity_begin_end',
+        'hr_timesheet_begin_end',
         'analytic_line_tracking',
         'web_widget_open_tab',
     ],
