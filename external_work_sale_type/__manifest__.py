@@ -1,6 +1,6 @@
 {
     'name': 'External Work Sale Type',
-    'version': '14.0.1.0.1',
+    'version': '16.0.1.0.0',
     'category': '',
     'description': u"""
 External Work integration with OCA sale_order_type
