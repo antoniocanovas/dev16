@@ -3,6 +3,7 @@
 
 
 from odoo import fields, models, api
+from odoo.exceptions import UserError, ValidationError
 
 class AccountMove(models.Model):
     _inherit = 'account.move'

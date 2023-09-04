@@ -10,12 +10,12 @@
 sale_order = []
 
 # Chequeos previos:
-if not record.ref: raise Warning('Indica en esta factura la referencia para imprimir en origen indicando fecha, certificación, etc. Campo referencia en pestaña Otra información')
+if not record.ref: raise UserError('Indica en esta factura la referencia para imprimir en origen indicando fecha, certificación, etc. Campo referencia en pestaña Otra información')
 
 for li in record.invoice_line_ids:
   for sol in li.sale_line_ids:
     if sol.order_id.invoice2origin_title == False:
-        raise Warning('Indica descripción de obra en pedido de venta, otra información => Obra FEO')
+        raise UserError('Indica descripción de obra en pedido de venta, otra información => Obra FEO')
     if sol.order_id.id and sol.order_id not in sale_order:
       sale_order.append(sol.order_id)
 
@@ -79,12 +79,12 @@ for so in sale_order:
 sale_order, linecount, firstline = [], False, True
 
 # Chequeos previos:
-if not record.ref: raise Warning('Indica en esta factura la referencia para imprimir en origen indicando fecha, certificación, etc. Campo referencia en pestaña Otra información')
+if not record.ref: raise UserError('Indica en esta factura la referencia para imprimir en origen indicando fecha, certificación, etc. Campo referencia en pestaña Otra información')
 
 for li in record.invoice_line_ids:
   for sol in li.sale_line_ids:
     if sol.order_id.invoice2origin_title == False:
-        raise Warning('Indica descripción de obra en pedido de venta, otra información => Obra FEO')
+        raise UserError('Indica descripción de obra en pedido de venta, otra información => Obra FEO')
     if sol.order_id.id and sol.order_id not in sale_order:
       sale_order.append(sol.order_id)
 
