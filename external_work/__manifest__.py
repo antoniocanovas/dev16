@@ -1,6 +1,6 @@
 {
     'name': 'External Work',
-    'version': '14.0.1.0.1',
+    'version': '16.0.1.0.0',
     'category': '',
     'description': u"""
 External Work app to include services, product and expenses from one place.
