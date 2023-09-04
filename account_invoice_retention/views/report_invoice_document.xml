@@ -1,5 +1,5 @@
 <odoo>
-
+<!--
     <record id="report_invoice_document_retention" model="ir.ui.view">
         <field name="name">report invoice document retention</field>
         <field name="inherit_id" ref="account.report_invoice_document"/>
@@ -30,5 +30,5 @@
             </xpath>
         </field>
     </record>
-
+-->
 </odoo>
