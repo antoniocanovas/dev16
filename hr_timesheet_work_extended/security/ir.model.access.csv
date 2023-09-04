@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_work_employee,work project user,hr_timesheet_work_extended.model_work_employee,project.group_project_user,1,0,0,0
-access_work_manager,work project manager,hr_timesheet_work_extended.model_work_employee,project.group_project_manager,1,1,1,0
-
