@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record id="external_work_sequence" model="ir.sequence">
+            <field name="name">External Work Sequence</field>
+            <field name="prefix">EW</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="code">external.work.sequence</field>
+            <field name="implementation">no_gap</field>
+        </record>
+
+    </data>
+</odoo>

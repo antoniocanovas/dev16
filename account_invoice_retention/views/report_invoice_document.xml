@@ -4,7 +4,10 @@
         <field name="name">report invoice document retention</field>
         <field name="inherit_id" ref="account.report_invoice_document"/>
         <field name="arch" type="xml">
+            <!-- Mig v16:
             <xpath expr="//tr[@class='border-black o_total']" position="after">
+            -->
+            <xpath expr="//th[@name='th_subtotal']" position="after">
                 <t t-if="o.retention_description">
                     <tr class="border-black">
                         <td>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="external_work_report" model="ir.actions.report">
+            <field name="name">External Work</field>
+            <field name="model">external.work</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">external_work.work_sheet_report_document</field>
+            <field name="report_file">external_work.work_sheet_report_document</field>
+            <field name="print_report_name">((str(object.name) or ''))</field>
+            <field name="attachment">((str(object.name) or '')+'.pdf')</field>
+            <field name="binding_model_id" ref="model_external_work"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,172 @@
+<odoo>
+
+    <record id="invoice2origin_account_move_line_qty" model="ir.actions.server">
+            <field name="name">=> F.E.O. qty</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+# Localizar pedidos de venta implicados:
+sale_order = []
+
+# Chequeos previos:
+if not record.ref: raise Warning('Indica en esta factura la referencia para imprimir en origen indicando fecha, certificación, etc. Campo referencia en pestaña Otra información')
+
+for li in record.invoice_line_ids:
+  for sol in li.sale_line_ids:
+    if sol.order_id.invoice2origin_title == False:
+        raise Warning('Indica descripción de obra en pedido de venta, otra información => Obra FEO')
+    if sol.order_id.id and sol.order_id not in sale_order:
+      sale_order.append(sol.order_id)
+
+# Nuevas líneas, recorrer SOs, añadir las que faltan y totalizar líneas ya facturadas:
+for so in sale_order:
+  # Nombre de la obra:
+  new = env['account.move.line'].create({'name':so.invoice2origin_title, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+
+  for li in so.order_line:
+    # Secciones que no se han creado automáticamente:
+    if (li.display_type == 'line_section') and (li.id not in record.invoice_line_ids.sale_line_ids.ids):
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_section', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+
+    # Notas que no se han creado automáticamente:
+    elif (li.display_type == 'line_note') and (li.id not in record.invoice_line_ids.sale_line_ids.ids):
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+
+    # Actualizar líneas facturables con la cantidad certificada total:
+    elif (li.display_type == False) and (li.id in record.invoice_line_ids.sale_line_ids.ids):
+      line = env['account.move.line'].search([('sale_line_ids','=',li.id)])
+      line['invoice2origin_qty'] = li.qty_delivered
+
+    # Líneas que no se han creado automáticamente y hacen falta para tener el total desde origen (al multiplicar por invoice2origin_qty):
+    elif (li.display_type == False) and (li.id not in record.invoice_line_ids.sale_line_ids.ids):
+      account = li.product_id.property_account_expense_id
+      if not li.product_id.property_account_expense_id.id:
+        account = li.product_id.categ_id.property_account_expense_categ_id
+
+      record['line_ids'] = [(0,0,{
+              'product_id':li.product_id.id,
+              'name': li.name,
+              'quantity':0,
+              'invoice2origin_qty':li.qty_delivered,
+              'price_unit':li.price_unit,
+              'product_uom_id':li.product_uom.id,
+              'credit': 0,
+              'account_id': account.id,
+              'analytic_account_id':li.order_id.analytic_account_id.id,
+              'partner_id': record.partner_id.id,
+              'tax_ids':li.tax_id.ids,
+              'sale_line_ids':[(6,0,[li.id])]
+          })]
+
+      # Otras líneas de factura de esta línea de venta:
+    invoiced = env['account.move.line'].search([('sale_line_ids','in',so.order_line.ids),('move_id','!=',record.id),('parent_state','=','posted')])
+      # Facturas de esas líneas anteriores:
+    invoices = invoiced.move_id
+    record['invoice2origin_previous_ids'] = [(6,0,invoices.ids)]
+
+            </field>
+    </record>
+
+<!--
+    <record id="invoice2origin_account_move_with_lines_by_product" model="ir.actions.server">
+            <field name="name">=> F.E.O. por producto</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">
+# Localizar pedidos de venta implicados:
+sale_order, linecount, firstline = [], False, True
+
+# Chequeos previos:
+if not record.ref: raise Warning('Indica en esta factura la referencia para imprimir en origen indicando fecha, certificación, etc. Campo referencia en pestaña Otra información')
+
+for li in record.invoice_line_ids:
+  for sol in li.sale_line_ids:
+    if sol.order_id.invoice2origin_title == False:
+        raise Warning('Indica descripción de obra en pedido de venta, otra información => Obra FEO')
+    if sol.order_id.id and sol.order_id not in sale_order:
+      sale_order.append(sol.order_id)
+
+# Borrar las líneas actuales ya que hay que ponerlas con total:
+record['line_ids'] = ([(6,0,[])])
+# Cabecera obra:
+
+# Nuevas líneas, recorrer SOs y buscar líneas ya facturadas:
+for so in sale_order:
+  if (firstline == True) and (so.ids):
+    new = env['account.move.line'].create({'name':so.invoice2origin_title, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+    firstline = False
+
+  for li in so.order_line:
+    if li.display_type == 'line_section':
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_section', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+    elif li.display_type == 'line_note':
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+    elif li.display_type == False:
+
+      if linecount == True:
+        new = env['account.move.line'].create({'name':'....', 'display_type':'line_section', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+      else:
+        linecount == True
+
+      account = li.product_id.property_account_expense_id
+      if not li.product_id.property_account_expense_id.id:
+        account = li.product_id.categ_id.property_account_expense_categ_id
+
+      record['line_ids'] = [(0,0,{
+              'product_id':li.product_id.id,
+              'name': li.name,
+              'quantity':li.qty_delivered,
+              'price_unit':li.price_unit,
+              'product_uom_id':li.product_uom.id,
+              'credit': abs(li.price_unit * li.qty_delivered),
+              'account_id': account.id,
+              'analytic_account_id':li.order_id.analytic_account_id.id,
+              'partner_id': record.partner_id.id,
+              'sale_line_ids':[(6,0,[li.id])]
+          }), (0, 0, {
+              'name': record.name or '/',
+              'debit': abs(li.price_unit * li.qty_delivered),
+              'account_id': record.partner_id.property_account_receivable_id.id,
+              'partner_id': record.partner_id.id,
+              'exclude_from_invoice_tab':True
+          })]
+
+        # Otras líneas de factura de esta línea de venta:
+      invoiced = env['account.move.line'].search([('sale_line_ids','=',[li.id]),('move_id','!=',record.id),('parent_state','=','posted')])
+        # Facturas de esas líneas anteriores:
+      invoices = invoiced.move_id
+        # Cantidad de otras líneas por factura:
+
+
+      for invoice in invoices:
+        linesinvoiced = env['account.move.line'].search([('sale_line_ids','=',[li.id]),('move_id','=',invoice.id),('parent_state','=','posted')])
+        total, debit = 0, 0
+        for invoiceline in linesinvoiced:
+          total += invoiceline.quantity
+          debit += invoiceline.price_subtotal
+        record['line_ids'] = [(0,0,{
+                'product_id':invoiceline.product_id.id,
+                'name': invoiceline.move_id.ref,
+                'quantity':-total,
+                'price_unit':invoiceline.price_unit,
+                'product_uom_id':invoiceline.product_uom_id.id,
+                'debit': debit,
+                'account_id': account.id,
+                'analytic_account_id':li.order_id.analytic_account_id.id,
+                'partner_id': record.partner_id.id,
+                'sale_line_ids':[(6,0,[li.id])]
+            }), (0, 0, {
+                'name': record.name or '/',
+                'credit': debit,
+                'account_id': record.partner_id.property_account_receivable_id.id,
+                'partner_id': record.partner_id.id,
+                'exclude_from_invoice_tab':True
+            })]
+
+            </field>
+    </record>
+-->
+
+</odoo>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<odoo>
+    <data>
+
+        <template id="work_sheet_report_document_report">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page">
+                    <div class="text-center">
+                        <h1><span t-field="o.name"/></h1>
+                    </div>
+                    <div class="row mt32 mb32">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>Sale Order:</strong>
+                            <p class="m-0" t-field="o.sale_id"/>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>Date:</strong>
+                            <p class="m-0" t-field="o.date" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>Employee:</strong>
+                            <p class="m-0" t-field="o.employee_id" />
+                        </div>
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>Partner:</strong>
+                            <p class="m-0" t-field="o.partner_id"/>
+                        </div>
+                        <!--<div class="col-auto col-3 mw-100 mb-2">
+                            <strong>Subtotal:</strong>
+                            <p class="m-0" t-field="o.sale_subtotal"/>
+                        </div>-->
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <strong>Sale State:</strong>
+                            <p class="m-0" t-field="o.sale_state"/>
+                        </div>
+                    </div>
+
+                    <h2>Products:</h2>
+                    <table class="table table-sm o_main_table">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_product">Product</th>
+                                <th name="td_units">Quantity</th>
+                                <th name="th_measure">Unit</th>
+                                <th name="th_date">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="o.line_ids" t-as="line">
+                                <tr t-if="line.type not in ['eni']">
+                                    <td name="td_product"><span t-field="line.product_id" /></td>
+                                    <td name="td_units"><span t-field="line.product_qty" /></td>
+                                    <td name="td_measure"><span t-field="line.uom_id.name" /></td>
+                                    <td name="td_date"><span t-field="line.date" /></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <p>Signed by: <span t-field="o.signed_by" /> on <span t-field="o.write_date" />
+                        <br/>
+                        <img t-if="o.signature" t-attf-src="data:image/*;base64,{{o.signature}}"/>
+                    </p>
+                </div>
+            </t>
+        </template>
+
+        <template id="work_sheet_report_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.partner_id.lang"/>
+                    <t t-call="external_work.work_sheet_report_document_report" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

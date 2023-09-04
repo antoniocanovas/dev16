@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="project_time_type_inh" model="ir.ui.view">
+        <field name="name">project.time.type.inh</field>
+        <field name="model">project.time.type</field>
+        <field name="inherit_id" ref="hr_timesheet_time_type.view_project_time_type_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="extra"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

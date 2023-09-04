@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_work_sheet,work_sheet timesheet user,hr_timesheet_work.model_work_sheet,hr_timesheet.group_hr_timesheet_user,1,1,1,0
+access_work_sheet_Manager,work_sheet timesheet manager,hr_timesheet_work.model_work_sheet,hr_timesheet.group_hr_timesheet_approver,1,1,1,1
+access_work_sheet_System,work_sheet timesheet sytem,hr_timesheet_work.model_work_sheet,base.group_system,1,1,1,1
+access_work_sheet_admin,work_sheet Admin,hr_timesheet_work.model_work_sheet,base.group_system,1,1,1,1
+access_timesheet_work,timesheet_work user,hr_timesheet_work.model_timesheet_work,base.group_user,1,1,1,1
+access_account_analytic_tag_user,Analytic Tag User,hr_timesheet_work.model_account_analytic_tag,project.group_project_user,1,0,0,0
+
+access_todo_employee,timesheet to-do line user,hr_timesheet_work.model_timesheet_line_todo,project.group_project_user,1,0,0,0
+access_todo_manager,timesheet to-do line manager,hr_timesheet_work.model_timesheet_line_todo,project.group_project_manager,1,1,1,1
+access_done_user,timesheet done line user,hr_timesheet_work.model_timesheet_line_done,project.group_project_user,1,1,1,1
+
+access_picking_wizard_user,timesheet work picking wizard user,hr_timesheet_work.model_work_picking_wizard,stock.group_stock_user,1,1,1,1
+access_timesheet_wizard_user,timesheet work timesheet wizard user,hr_timesheet_work.model_work_timesheet_wizard,project.group_project_manager,1,1,1,1
+access_timesheet_employee_user,timesheet work timesheet employee user,hr_timesheet_work.model_work_sheet_employee,project.group_project_user,1,1,1,1
+access_timesheet_task_user,timesheet work timesheet task user,hr_timesheet_work.model_work_sheet_task,project.group_project_user,1,1,1,1

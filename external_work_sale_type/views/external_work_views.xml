@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- EXTERNAL WORK INH TREE:   -->
+    <record id="external_work_sale_type_inh" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <field name="sale_id" position="after">
+                <field name="sale_type_id" attrs="{'readonly':[('sale_id','!=',False)]}"/>
+            </field>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" ref="external_work.external_work_form"/>
+        <field name="key" eval="False"/>
+        <field name="mode">extension</field>
+        <field name="model">external.work</field>
+        <field name="name">External Work inh sale type form view</field>
+        <field name="priority">32</field>
+        <field name="type">form</field>
+    </record>
+
+
+</odoo>

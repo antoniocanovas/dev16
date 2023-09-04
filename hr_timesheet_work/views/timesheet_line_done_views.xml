@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="timesheet_line_done_default_form" model="ir.ui.view">
+        <field name="name">Default timesheet line done form view</field>
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Timesheet line done">
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <field name="todo_id" domain="[('work_id','=',work_id)]" optional="show"/>
+                        <field name="name" optional="show"/>
+                        <field name="qty" readonly="1"/>
+                        <field name="uom_id"/>
+                        <field name="date"/>
+                        <field name="time_elapsed" widget="timesheeet_uom"/>
+                        <field name="employee_ids" widget="many2many_tags" optional="hide"/>
+                        <field name="performance"/>
+                        <field name="work_id"/>
+                        <field name="sale_line_id"/>
+                        <field name="work_sheet_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">timesheet.line.done</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+    </record>
+
+    <record id="timesheet_line_done_default_tree" model="ir.ui.view">
+        <field name="name">Default timesheet line done tree view</field>
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <tree name="lines_done" default_order="date asc" editable="top">
+                <field name="todo_id" optional="show" domain="[('work_id','=',work_id)]"/>
+                <field name="name" optional="show"/>
+                <field name="product_id" optional="hide"/>
+                <field name="qty" sum="Quantity"/>
+                <field name="uom_id"/>
+                <field name="time_elapsed" widget="timesheet_uom" sum="Time"/>
+                <field name="performance" optional="show"/>
+                <field name="employee_ids" widget="many2many_tags" optional="hide"/>
+                <field name="date" optional="show"/>
+                <field name="work_id" optional="show"/>
+                <field name="sale_line_id" optional="hide"/>
+                <field name="work_sheet_id" optional="hide"/>
+            </tree>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">timesheet.line.done</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+    <record id="timesheet_line_done_search_view" model="ir.ui.view">
+        <field name="name">Default timesheet.line.done.search</field>
+        <field name="model">timesheet.line.done</field>
+        <field name="arch" type="xml">
+            <search string="Search Work Milestone Done">
+                <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="todo_id" filter_domain="[('todo_id', 'ilike', self)]"/>
+                <field name="work_id" filter_domain="[('work_id', 'ilike', self)]"/>
+                <separator/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="work" string="Work" domain="[]" context="{'group_by' : 'work_id'}"/>
+                    <filter name="date" string="Date" domain="[]" context="{'group_by' : 'date'}"/>
+                    <filter name="product" string="Product" domain="[]" context="{'group_by' : 'product_id'}"/>
+                    <filter name="work_sheet_id" string="Sheet" context="{'group_by': 'work_sheet_id'}"/>
+                    <filter name="sale_line_id" string="Sale line" context="{'group_by': 'sale_line_id'}"/>
+                    <filter name="sale_id" string="Sale order" context="{'group_by': 'sale_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+</odoo>

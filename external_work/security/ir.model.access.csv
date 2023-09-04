@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+external_work_user,external_work_user,external_work.model_external_work,hr_timesheet.group_hr_timesheet_user,1,1,1,1
+external_work_admin,external_work_admin,external_work.model_external_work,external_work.admin_external_work_group,1,1,1,1
+external_work_line,external_work_line_user,external_work.model_external_work_line,hr_timesheet.group_hr_timesheet_user,1,1,1,1

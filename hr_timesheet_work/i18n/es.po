@@ -1,0 +1,861 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_timesheet_work
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-13 17:01+0000\n"
+"PO-Revision-Date: 2022-10-17 19:53+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.1.1\n"
+
+#. module: hr_timesheet_work
+#: model:ir.actions.report,print_report_name:hr_timesheet_work.work_sheet_report
+msgid "((str(object.time_type_id.name) or ''))"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:base.automation,name:hr_timesheet_work.update_work_line_todo_product
+#: model:ir.actions.server,name:hr_timesheet_work.update_work_line_todo_product_ir_actions_server
+msgid "=> Update Work line to-do product"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__active
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__active
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+msgid "Active"
+msgstr "Activo"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Active projects:"
+msgstr "Proyectos activos:"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decorador de excepción de actividad"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_account_analytic_tag
+msgid "Analytic Tags"
+msgstr "Etiquetas analíticas"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__project_analytic_id
+msgid ""
+"Analytic account to which this project is linked for financial management. "
+"Use an analytic account to record cost and revenue on your project."
+msgstr ""
+"Cuenta analítica a la que se vincula este proyecto para la gestión "
+"financiera. Utilice una cuenta analítica para registrar los gastos y los "
+"ingresos de su proyecto."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__attachment_id
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de Adjuntos"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Cantidad"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__note
+msgid "Comment"
+msgstr "Comentario"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.actions.act_window,help:hr_timesheet_work.act_tswork_2_line_todo
+msgid "Create a new measure item !"
+msgstr "Crear un Nuevo ítem para medir!"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Create lot services"
+msgstr "crear lote de servicios"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__create_uid
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__create_uid
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__create_uid
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__create_uid
+msgid "Created by"
+msgstr "creado por"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__create_date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__create_date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__create_date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__create_date
+msgid "Created on"
+msgstr "Creado él"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__date
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree_search
+msgid "Date"
+msgstr "Fecha"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Descripción"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_tag__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__display_name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: hr_timesheet_work
+#: model:ir.actions.act_window,name:hr_timesheet_work.act_tswork_2_line_done
+#: model:ir.actions.act_window,name:hr_timesheet_work.act_tswork_2_linedone
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line__timesheet_done
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__done_count
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__done_ids
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_work_form
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_work_inh_form
+msgid "Done"
+msgstr "Ejecutado"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__duration
+msgid "Duration"
+msgstr "Duración"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Empleado"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__employee_ids
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__employee_ids
+msgid "Employees"
+msgstr "Empleados"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Estado"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Fecha"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Firmado por:"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "seguidores (Canales)"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Partners)"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de fuente grande, ej. fa-tasks"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_tag__timesheet_hidden
+msgid "Hidden in Timesheet"
+msgstr "Oculto en Parte de horas"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Hours"
+msgstr "Horas"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_line__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_tag__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_stock_picking__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una excepción en la actividad."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_needaction
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está chequeado, los nuevos mensajes requieren tu atención."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_has_error
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está chequeado, algunos mensajes han tenido un problema de envío."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_account_analytic_tag__timesheet_hidden
+msgid "If true, this tag will be hidden in lot work timesheets creation"
+msgstr ""
+"Si es verdadero, esta etiqueta será ocultada en la creación de lotes de "
+"partes de trabajo"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_work_form
+msgid "Import Sale Lines"
+msgstr "Importar Lineas de Ventas"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__project_service_ids
+msgid "Imputaciones"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__todo_id
+msgid "Item"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_tag____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work____last_update
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__write_uid
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__write_uid
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__write_uid
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__write_date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__write_date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__write_date
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__write_date
+msgid "Last Updated on"
+msgstr "Última modificación él"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__line_done_ids
+msgid "Line Done"
+msgstr "Línea Hecha"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order__timesheet_done_count
+msgid "Lines Done"
+msgstr "Líneas Hechas"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjunto principal"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_has_error
+msgid "Message Delivery error"
+msgstr "Error en el envío del mensaje"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: hr_timesheet_work
+#: model:ir.actions.act_window,name:hr_timesheet_work.hr_work_milestone
+msgid "Milestone"
+msgstr "Ejecutado"
+
+#. module: hr_timesheet_work
+#: model:ir.ui.menu,name:hr_timesheet_work.menu_hr_work_milestone
+msgid "Milestones"
+msgstr "Ejecutados"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__name
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Próxima fecha límite de mi actividad"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sumario de siguiente actividad"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de siguiente actividad"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.actions.act_window,help:hr_timesheet_work.act_tswork_2_linedone
+msgid "No line done for this sale order, create in Timesheet Work APP !"
+msgstr ""
+"No se ha Creado ninguna línea para este pedido de venta, ¡crea en la "
+"aplicación Timesheet Work!----"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.actions.act_window,help:hr_timesheet_work.act_tswork_2_line_done
+msgid "Nothing finished in this work !"
+msgstr "¡Nada terminado aún!"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren su atención"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error en el envío"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes sin leer"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__sale_id
+msgid "Order Reference"
+msgstr "Referencia de Pedido"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Output"
+msgstr "Producido"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__picking_ids
+msgid "Pickings"
+msgstr "Albaranes"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Pickings:"
+msgstr "Albaranes:"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__product_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__product_id
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+msgid "Product"
+msgstr "Producto "
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Producto"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Productos:"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Products"
+msgstr "Productos"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Products:"
+msgstr "Productos:"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__project_analytic_id
+msgid "Proj. Analytic"
+msgstr "Analítica de Proyecto"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__project_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__project_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__project_ids
+#: model:ir.model.fields.selection,name:hr_timesheet_work.selection__timesheet_work__type__project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__project_product_ids
+msgid "Project Product"
+msgstr "Producto de proyecto"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree_search
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__qty
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_default_tree
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__work_readonly
+msgid "Read only"
+msgstr "Sólo lectura"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS error de envío"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__sale_line_id
+msgid "Sale Line"
+msgstr "Línea de Venta"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__project_so_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__task_sale_order_id
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__sale_order_ids
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__sale_order_ids
+msgid "Sale Orders"
+msgstr "Pedidos de Ventas"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__sale_line_id
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+msgid "Sale line"
+msgstr "Línea de Pedidos"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__sale_id
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+msgid "Sale order"
+msgstr "Pedidos de Ventas"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__project_so_id
+msgid "Sales order to which the project is linked."
+msgstr "Pedido de venta vinculado al proyecto."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__task_sale_order_id
+msgid "Sales order to which the task is linked."
+msgstr "Pedido de venta vinculado a la tarea."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__time_type_id
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree_search
+msgid "Schedule"
+msgstr "Calendario"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+msgid "Search Work Milestone Done"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree_search
+msgid "Search Work Sheet"
+msgstr "Buscar Partes de trabajo"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+msgid "Search Work To-Do"
+msgstr "Buscar Trabajo Pendiente"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Servicios:"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_line__set_start_stop
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__set_start_stop
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__set_start_stop
+msgid "Set start & stop time"
+msgstr "Definir tiempo de inicio y parada"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__work_sheet_id
+#: model:ir.ui.menu,name:hr_timesheet_work.menu_hr_timesheet_work_sheet
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+msgid "Sheet"
+msgstr "Parte"
+
+#. module: hr_timesheet_work
+#: model:ir.actions.act_window,name:hr_timesheet_work.action_hr_timesheet_work_sheet
+msgid "Sheets"
+msgstr "Partes"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Sign"
+msgstr "Firmar"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__signature
+msgid "Signature"
+msgstr "Firma"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__signature_status
+msgid "Signed & Approved"
+msgstr "firmado y aprobado"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__partner_id
+msgid "Signed by"
+msgstr "Firmado por"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__start
+msgid "Start"
+msgstr "Inicio"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_work_form
+msgid "Start/stop time"
+msgstr "Tiempo de inicio/fin"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estato basado en las actividades\n"
+"Atrasado: la fecha de vencimiento ya pasó\n"
+"Hoy: la fecha de la actividad es hoy\n"
+"Planificado: Futuras actividades."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__stop
+msgid "Stop"
+msgstr "Fin"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__analytic_tag_ids
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Tarea"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__task_id
+#: model:ir.ui.menu,name:hr_timesheet_work.menu_hr_timesheet_work_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__time_elapsed
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_default_tree
+msgid "Time"
+msgstr "Tiempo"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_form
+msgid "Timesheet Activities"
+msgstr "Actividades"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order__timesheet_done_ids
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line__timesheet_done_ids
+msgid "Timesheet Done"
+msgstr "Hecho"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_timesheet_line_done
+msgid "Timesheet Line Done"
+msgstr "Hecho"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_timesheet_line_todo
+msgid "Timesheet Line To-Do"
+msgstr "Por Hacer"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line__timesheet_todo_ids
+msgid "Timesheet Todo"
+msgstr "Parte de Horas"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_timesheet_work
+msgid "Timesheet Work"
+msgstr "Partes de horas"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_default_form
+msgid "Timesheet line done"
+msgstr "Línea de Parte de Horas Terminadas"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_default_form
+msgid "Timesheet line to-do"
+msgstr "Para Hacer"
+
+#. module: hr_timesheet_work
+#: model:ir.ui.menu,name:hr_timesheet_work.menu_hr_timesheet_timesheet
+msgid "Timesheets"
+msgstr "Parte de Horas"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Tipo"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.actions.act_window,name:hr_timesheet_work.act_tswork_2_line_todo
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_work_form
+msgid "To do"
+msgstr "Por Hacer"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_sale_order_line__timesheet_todo
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__todo_count
+msgid "To-do"
+msgstr "Por Hacer"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__todo_ids
+msgid "Todo"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_work__type
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción grabada."
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__uom_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__uom_id
+msgid "UOM"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "Unidad de medida"
+msgstr ""
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__performance
+msgid "Units/hour"
+msgstr "Unidades/Hora"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes sin leer"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes de Website"
+
+#. module: hr_timesheet_work
+#: model:ir.model.fields,help:hr_timesheet_work.field_work_sheet__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del Website"
+
+#. module: hr_timesheet_work
+#: model:ir.actions.act_window,name:hr_timesheet_work.action_hr_timesheet_work_work
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_done__work_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_timesheet_line_todo__work_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_work_sheet__work_id
+#: model:ir.ui.menu,name:hr_timesheet_work.menu_hr_timesheet_work_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_done_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_line_todo_search_view
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.timesheet_work_tree
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree_search
+msgid "Work"
+msgstr "Trabajo"
+
+#. module: hr_timesheet_work
+#: model:ir.actions.report,name:hr_timesheet_work.work_sheet_report
+msgid "Work Base Sheet"
+msgstr "Partes de trabajos"
+
+#. module: hr_timesheet_work
+#: model:ir.model,name:hr_timesheet_work.model_work_sheet
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_account_analytic_line__work_sheet_id
+#: model:ir.model.fields,field_description:hr_timesheet_work.field_stock_picking__work_sheet_id
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_tree
+msgid "Work Sheet"
+msgstr "Partes de trabajos"
+
+#. module: hr_timesheet_work
+#: model:ir.ui.menu,name:hr_timesheet_work.menu_hr_timesheet_work
+msgid "Work Sheets"
+msgstr "Partes de trabajos"
+
+#. module: hr_timesheet_work
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_work.work_sheet_report_document_report
+msgid "el"
+msgstr ""

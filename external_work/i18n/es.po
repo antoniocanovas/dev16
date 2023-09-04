@@ -1,0 +1,684 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* external_work
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-04 17:09+0000\n"
+"PO-Revision-Date: 2023-05-04 19:10+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. module: external_work
+#: model:ir.actions.report,print_report_name:external_work.external_work_report
+msgid "((str(object.name) or ''))"
+msgstr ""
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "<strong>Date:</strong>"
+msgstr "<strong>Fecha:</strong>"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "<strong>Employee:</strong>"
+msgstr "<strong>Empleado:</strong>"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "<strong>Partner:</strong>"
+msgstr "<strong>Cliente:</strong>"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "<strong>Sale Order:</strong>"
+msgstr "<strong>Pedido de venta:</strong>"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "<strong>Sale State:</strong>"
+msgstr "<strong>Estado del pedido:</strong>"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_needaction
+msgid "Action Needed"
+msgstr "Requiere acción"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Icono de actividad por alerta"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: external_work
+#: model:res.groups,name:external_work.admin_external_work_group
+msgid "Admin External Work"
+msgstr "Administrador de trabajo externo"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__analytic_line_id
+msgid "Analytic Line"
+msgstr "Imputación"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_attachment_count
+msgid "Attachment Count"
+msgstr "Contador de anexos"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Back to draft"
+msgstr "Pasar a borrador"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__time_begin
+msgid "Begin"
+msgstr "Comienzo"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__code
+msgid "Code"
+msgstr "Código"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__create_uid
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__create_date
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__currency_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__date
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__date
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "Date"
+msgstr "Fecha"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work_line__uom_id
+msgid "Default unit of measure used for all stock operations."
+msgstr "Unidad de medida por defecto para todas las operaciones de stock."
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__display_name
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__display_name
+#: model:ir.model.fields,field_description:external_work.field_hr_expense__display_name
+#: model:ir.model.fields,field_description:external_work.field_product_product__display_name
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work__state__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__employee_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__employee_id
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work_line__type__ein
+msgid "Employee expense billable"
+msgstr ""
+"Gasto de empleado facturable (crea línea de ventas y gasto de empleado)"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__time_end
+msgid "End"
+msgstr "Fin"
+
+#. module: external_work
+#: model:ir.model,name:external_work.model_hr_expense
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__expense_id
+msgid "Expense"
+msgstr "Gasto"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__expense_count
+msgid "Expense count"
+msgstr "Nº dietas"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__hr_expense_id
+msgid "Expense line"
+msgstr "Línea de gasto"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__expense_ids
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Expenses"
+msgstr "Dietas"
+
+#. module: external_work
+#: model:ir.actions.report,name:external_work.external_work_report
+#: model:ir.model,name:external_work.model_external_work
+#: model:ir.model.fields,field_description:external_work.field_hr_expense__external_work_id
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_tree
+msgid "External Work"
+msgstr "Trabajo externo"
+
+#. module: external_work
+#: model:ir.model,name:external_work.model_external_work_line
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_line_tree
+msgid "External Work Line"
+msgstr "Líneas"
+
+#. module: external_work
+#: model:ir.actions.act_window,name:external_work.external_work_action
+#: model:ir.ui.menu,name:external_work.external_work_action_submenu
+#: model:ir.ui.menu,name:external_work.external_work_menu_main
+msgid "External Works"
+msgstr "Trabajos externos"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (canales)"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: external_work
+#: model:ir.actions.act_window,name:external_work.action_external_expenses
+msgid "HR Expenses"
+msgstr "Dietas RRHH"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__id
+#: model:ir.model.fields,field_description:external_work.field_hr_expense__id
+#: model:ir.model.fields,field_description:external_work.field_product_product__id
+msgid "ID"
+msgstr ""
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar la excepción de actividad."
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__message_needaction
+#: model:ir.model.fields,help:external_work.field_external_work__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si chequeado, hay mensajes que requieren tu atención."
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si chequeado, algunos mensajes tienen error de entrega."
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work_line__type__eni
+msgid "Internal employee expense"
+msgstr ""
+"Gasto interno de empleado (no facturable, crea línea de gasto, no de venta)"
+
+#. module: external_work
+#: model_terms:ir.actions.act_window,help:external_work.action_external_expenses
+msgid "Internal expense lines."
+msgstr "Líneas de dietas"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__is_readonly
+msgid "Is readonly"
+msgstr "Sólo lectura"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_product_product__is_work_time
+msgid "Is working time"
+msgstr "Parte laboral"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work____last_update
+#: model:ir.model.fields,field_description:external_work.field_external_work_line____last_update
+#: model:ir.model.fields,field_description:external_work.field_hr_expense____last_update
+#: model:ir.model.fields,field_description:external_work.field_product_product____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__write_uid
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__write_date
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__line_count
+#: model:ir.model.fields,field_description:external_work.field_external_work__line_ids
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Anexo principal"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work__type__warranty
+msgid "Maintenance or warranty"
+msgstr ""
+"Mantenimiento o garantía (se añade el producto o servicio en el pedido a "
+"precio nulo)"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__material_id
+msgid "Material"
+msgstr "Materiales y otros servicios"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de mensaje de entrega"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Vencimiento de mis actividades"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+msgid "My works"
+msgstr "Los míos"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__name
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Name or VAT ..."
+msgstr "Nombre o NIF  del firmante …"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Vencimiento de próxima actividad"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_summary
+msgid "Next Activity Summary"
+msgstr "Asunto de próxima actividad"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de próxima actividad"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__note
+msgid "Note"
+msgstr "Notas y comentarios"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren atención"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes sin leer"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__partner_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__partner_id
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: external_work
+#: model:ir.model,name:external_work.model_product_product
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__product_id
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "Product"
+msgstr "Producto"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work_line__type__pin
+msgid "Product billable"
+msgstr "Producto facturable (crea línea de venta valorado)"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work_line__type__pni
+msgid "Product not billable"
+msgstr "Producto NO facturable (crea línea de venta a precio nulo)"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "Products:"
+msgstr "Productos:"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__project_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__project_id
+#: model:ir.model.fields.selection,name:external_work.selection__external_work__type__project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__product_qty
+msgid "Qty"
+msgstr "Cantidad"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__user_id
+#: model:ir.model.fields,help:external_work.field_external_work_line__user_id
+msgid "Related user name for the resource to manage its access."
+msgstr "Usuario relacionado con el recurso para gestionar su acceso."
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__activity_user_id
+msgid "Responsible User"
+msgstr "Responsable"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__sale_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__sale_id
+#: model:ir.model.fields.selection,name:external_work.selection__external_work__type__sale
+msgid "Sale"
+msgstr "Venta"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__sale_line_id
+msgid "Sale Line"
+msgstr "Línea de venta"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__sale_subtotal
+msgid "Sale subtotal"
+msgstr "Subtotal pedido"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_search
+msgid "Search External Work"
+msgstr "Buscar parte"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Sign"
+msgstr "Firmado"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__signature
+msgid "Signature"
+msgstr "Firma"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__signed_by
+msgid "Signed by"
+msgstr "Firmado por"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "Signed by:"
+msgstr "Firmado por:"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__state
+msgid "State"
+msgstr "Estado"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__sale_state
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__hr_expense_state
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__sale_state
+msgid "Status"
+msgstr "Etapa"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Etapa basado en actividades\n"
+"Vencido: Fecha de vencimiento ya pasada\n"
+"Hoy: Actividad para hoy\n"
+"Planificada: Actividades futuras."
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work_line__hr_expense_state
+msgid "Status of the expense."
+msgstr "Estado del gasto."
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__subject
+msgid "Subject"
+msgstr "Asunto"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__task_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__task_id
+msgid "Task"
+msgstr "Tarea"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work__type__task
+msgid "Tasks"
+msgstr "Tareas"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work_line__type__sin
+msgid "Technical Service billable"
+msgstr ""
+"Partes de trabajo facturables (crea línea de venta valorada y parte de "
+"trabajo)"
+
+#. module: external_work
+#: model:ir.model.fields.selection,name:external_work.selection__external_work_line__type__sni
+msgid "Technical Service not billable"
+msgstr "Partes de trabajo NO facturables (crea parte de trabajo)"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__ticket_amount
+msgid "Ticket value"
+msgstr "Importe del ticket"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__time_elapsed
+msgid "Time elapsed"
+msgstr "Tiempo transcurrido"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__type
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__type
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__work_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de alarma en el registro."
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__uom_id
+msgid "UOM"
+msgstr "Unidad"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_unread
+msgid "Unread Messages"
+msgstr "Menajes sin leer"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Update"
+msgstr "Actualizar"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__user_id
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes de la web"
+
+#. module: external_work
+#: model:ir.model.fields,help:external_work.field_external_work__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones web"
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__external_work_id
+msgid "Work"
+msgstr "Trabajo"
+
+#. module: external_work
+#: model:ir.actions.act_window,name:external_work.action_external_lines
+msgid "Work lines"
+msgstr "Líneas de parte de trabajo"
+
+#. module: external_work
+#: model_terms:ir.actions.act_window,help:external_work.action_external_lines
+msgid "Work lines for products, services  and expenses."
+msgstr "Líneas de productos, servicios y gastos."
+
+#. module: external_work
+#: model:ir.model.fields,field_description:external_work.field_external_work_line__service_id
+msgid "Work product"
+msgstr "Prod. Servicio Técnico"
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.external_work_form
+msgid "Write anything you want be printed or must be take in account."
+msgstr ""
+"Escribe algo que quieras que se imprima o tenga que ser tenido en cuenta."
+
+#. module: external_work
+#: model_terms:ir.ui.view,arch_db:external_work.work_sheet_report_document_report
+msgid "on"
+msgstr "el"
