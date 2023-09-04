@@ -96,11 +96,11 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" icon="fa-info" type="action"
-                                name="%(external_work.action_external_expenses)d" groups="base.group_user">
+                                name="%(external_work.action_external_expenses)d">
                             <field name="expense_count" string="Expenses" widget="statinfo"/>
                         </button>
                         <button class="oe_stat_button" icon="fa-info" type="action"
-                                name="%(external_work.action_external_lines)d" groups="base.group_user">
+                                name="%(external_work.action_external_lines)d">
                             <field name="line_count" string="Lines" widget="statinfo"/>
                         </button>
                     </div>
