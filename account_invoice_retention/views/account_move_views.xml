@@ -13,8 +13,8 @@
             <xpath expr="//form/sheet/notebook/page[@name='other_info']" position="after">
                 <page string="Retention" name="invoice_retention" attrs="{'invisible':[('retention_enable','=',False)]}">
                     <group>
-                        <field name="retention_description" attrs="{'required':[('retention_enable','=',True)]}"/>
-                        <field name="retention_type" attrs="{'required':[('retention_enable','=',True)]}"/>
+                        <field name="retention_type"/>
+                        <field name="retention_description" attrs="{'required':[('retention_type','!=',False)]}"/>
                         <field name="retention_percent" attrs="{'invisible':[('retention_type','in',['manual'])]}"/>
                         <field name="retention_amount" attrs="{'readonly':[('retention_type','!=','manual')]}"/>
                         <field name="retention_excluded"/>
