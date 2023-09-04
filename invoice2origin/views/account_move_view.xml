@@ -11,7 +11,7 @@
             </xpath>
             <xpath expr="//group[@class='oe_invoice_lines_tab']" position="after">
                 <div name="origin_invoices" attrs="{'invisible':[('invoice2origin_previous_ids','=',[])]}">
-                    <h4>Origin invoices</h4>
+                    <h5>Origin invoices</h5>
                     <field name="invoice2origin_previous_ids" readonly="1"/>
                 </div>
             </xpath>
