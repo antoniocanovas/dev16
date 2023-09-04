@@ -1,6 +1,6 @@
 {
     'name': 'Invoice from origin',
-    'version': '14.0.0.1',
+    'version': '16.0.1.0.0',
     'category': 'Account',
     'description': 'Permite facturación de obras en origen desde una factura generada desde el pedido de venta, teniendo en cuenta los conceptos ya facturados, según solicitan constructuras.',
     'author': 'Serincloud',
