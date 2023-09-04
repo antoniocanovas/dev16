@@ -22,16 +22,16 @@ for li in record.invoice_line_ids:
 # Nuevas líneas, recorrer SOs, añadir las que faltan y totalizar líneas ya facturadas:
 for so in sale_order:
   # Nombre de la obra:
-  new = env['account.move.line'].create({'name':so.invoice2origin_title, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+  new = env['account.move.line'].create({'name':so.invoice2origin_title, 'display_type':'line_note', 'move_id':record.id})
 
   for li in so.order_line:
     # Secciones que no se han creado automáticamente:
     if (li.display_type == 'line_section') and (li.id not in record.invoice_line_ids.sale_line_ids.ids):
-      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_section', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_section', 'move_id':record.id})
 
     # Notas que no se han creado automáticamente:
     elif (li.display_type == 'line_note') and (li.id not in record.invoice_line_ids.sale_line_ids.ids):
-      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_note', 'move_id':record.id})
 
     # Actualizar líneas facturables con la cantidad certificada total:
     elif (li.display_type == False) and (li.id in record.invoice_line_ids.sale_line_ids.ids):
@@ -95,18 +95,18 @@ record['line_ids'] = ([(6,0,[])])
 # Nuevas líneas, recorrer SOs y buscar líneas ya facturadas:
 for so in sale_order:
   if (firstline == True) and (so.ids):
-    new = env['account.move.line'].create({'name':so.invoice2origin_title, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+    new = env['account.move.line'].create({'name':so.invoice2origin_title, 'display_type':'line_note', 'move_id':record.id})
     firstline = False
 
   for li in so.order_line:
     if li.display_type == 'line_section':
-      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_section', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_section', 'move_id':record.id})
     elif li.display_type == 'line_note':
-      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_note', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+      new = env['account.move.line'].create({'name':li.name, 'display_type':'line_note', 'move_id':record.id})
     elif li.display_type == False:
 
       if linecount == True:
-        new = env['account.move.line'].create({'name':'....', 'display_type':'line_section', 'move_id':record.id, 'exclude_from_invoice_tab':False})
+        new = env['account.move.line'].create({'name':'....', 'display_type':'line_section', 'move_id':record.id})
       else:
         linecount == True
 
@@ -130,7 +130,7 @@ for so in sale_order:
               'debit': abs(li.price_unit * li.qty_delivered),
               'account_id': record.partner_id.property_account_receivable_id.id,
               'partner_id': record.partner_id.id,
-              'exclude_from_invoice_tab':True
+#v14              'exclude_from_invoice_tab':True
           })]
 
         # Otras líneas de factura de esta línea de venta:
@@ -162,7 +162,7 @@ for so in sale_order:
                 'credit': debit,
                 'account_id': record.partner_id.property_account_receivable_id.id,
                 'partner_id': record.partner_id.id,
-                'exclude_from_invoice_tab':True
+#v14                'exclude_from_invoice_tab':True
             })]
 
             </field>
