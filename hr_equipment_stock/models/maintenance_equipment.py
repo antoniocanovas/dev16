@@ -8,9 +8,7 @@ class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
 
     quant_ids = fields.Many2many(
-        comodel_name='stock.quant',
-        store=True,
-    )
+        comodel_name='stock.quant', store=True, store = True, readonly = True)
 
     @api.onchange('equipment_assign_to', 'department_id', 'employee_id')
     def get_quant_ids(self):

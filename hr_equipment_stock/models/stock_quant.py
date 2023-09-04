@@ -9,5 +9,3 @@ class StockQuant(models.Model):
 
     employee_id = fields.Many2one('hr.employee', related='location_id.employee_id')
     department_id = fields.Many2one('hr.department', related='location_id.department_id')
-
-

@@ -9,4 +9,3 @@ class StockLocation(models.Model):
 
     employee_id = fields.Many2one('hr.employee')
     department_id = fields.Many2one('hr.department')
-
