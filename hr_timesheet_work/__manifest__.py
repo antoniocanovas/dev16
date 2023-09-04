@@ -28,7 +28,6 @@ Printed format as receipt to customer.
         'views/work_timesheet_wizard_views.xml',
         'views/work_sheet_views.xml',
         'views/stock_picking_views.xml',
-        'views/account_analytic_tag_views.xml',
         'views/account_analytic_line_views.xml',
         'views/templates.xml',
         'views/work_sheet_report.xml',

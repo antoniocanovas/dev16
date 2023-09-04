@@ -25,10 +25,6 @@ class WorkTimesheetWizard(models.TransientModel):
     duration = fields.Float('Duration', store=True)
     version = fields.Integer('Version', default=0)
     set_start_stop = fields.Boolean(related='work_sheet_id.work_id.set_start_stop', string='Set start & stop time')
-    analytic_tag_ids = fields.Many2many('account.analytic.tag', store=True, string='Tags',
-                                        domain=[('timesheet_hidden', '=', False)]
-                                        )
-
 
     work_id = fields.Many2one('timesheet.work', string='Work', related='work_sheet_id.work_id')
     todo_id = fields.Many2one('timesheet.line.todo', string='Milestone', store=True)
