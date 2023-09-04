@@ -6,8 +6,8 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <field name="fiscal_position_id" position="after">
-                <field name="show_update_fpos"/>
+            <field name="show_update_fpos" position="after">
+                <field name="invoice2origin_title"/>
             </field>
         </field>
     </record>
