@@ -1,9 +1,9 @@
 from odoo import _, api, fields, models
 
-
 class Lead2OpportunityPartner(models.TransientModel):
     _inherit = 'crm.lead2opportunity.partner'
 
+    prueba = fields.Char('Prueba')
     action_konery = fields.Selection([
         ('exist', 'Link to an existing customer'),
         ('nothing', 'Do not link to a customer')
