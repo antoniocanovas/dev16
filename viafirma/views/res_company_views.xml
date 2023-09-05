@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_viafirma_service" model="ir.ui.view">
+        <field name="name">Viafirma Service</field>
+        <field name="model">res.company</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]" position="after">
+                <page name="Viafirma" string="Viafirma">
+                    <group>
+                        <field name="api_viafirma_user"/>
+                        <field name="user_viafirma"/>
+                        <field name="pass_viafirma" password="True"/>
+                        <field name="group_viafirma"/>
+                    </group>
+
+                    <group>
+                        <button name="force_sync_viafirma" string="Force Sync" type="object" class="oe_highlight oe_read_only"/>
+                        <field name="last_connection_date" readonly="True"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <data>
+
+        <record id="ir_cron_viafirma_sends" model="ir.cron">
+            <field name="name">=> Viafirma actualiza estado</field>
+            <field ref="model_viafirma" name="model_id"/>
+            <field eval="True" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">5</field>
+            <!--<field name="channel_id">1</field>-->
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field name="state">code</field>
+            <field name="code">model.upd_viafirma()</field>
+        </record>
+
+    </data>
+
+</odoo>

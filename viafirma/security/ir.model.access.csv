@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_viafirma_user,viafirma,model_viafirma,base.group_user,1,1,1,1
+access_viafirma_templates_user,viafirma.templates,model_viafirma_templates,base.group_user,1,1,1,1
+access_viafirma_lines_user,viafirma.lines,model_viafirma_lines,base.group_user,1,1,1,1
+access_viafirma_notification_user,viafirma.notification,model_viafirma_notification,base.group_user,1,1,1,1
+access_viafirma_signature_user,viafirma.signature,model_viafirma_signature,base.group_user,1,1,1,1
+access_viafirma_wizard_user,viafirma.wizard,model_viafirma_wizard,base.group_user,1,1,1,1
+

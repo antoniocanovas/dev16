@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <act_window id="viafirma_wizard" name="Wizard Viafirma" res_model="viafirma.wizard"
+                view_mode="form" target="new"/>
+
+
+    <menuitem id="menu_viafirma_wizard"
+          name="Wizard"
+          action="viafirma_wizard"
+          parent="viafirma.viafirma_main"
+          sequence="180"
+          groups="base.group_user"/>
+
+    <record id="viafirma_wizard_view" model="ir.ui.view">
+        <field name="name">Viafirma Wizard</field>
+        <field name="model">viafirma.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                    <sheet string="Viafirma">
+                        <h2>
+                            <field name="name" placeholder="Name...."/>
+                        </h2>
+                        <group name="cabecera">
+                            <group>
+                                <field name="template_id" required="1"/>
+                            </group>
+                            <group>
+                                <field name="notification_type_ids" widget="many2many_tags"
+                                       required="1"  options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <group name="document">
+                            <group>
+                                <field name="document_type"  required="1"/>
+                                 <field name="document_type_text"  invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="document_to_send" attrs="{'invisible':[('document_type_text','!=','upload')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="document_unique"/>
+                            <field name="line_ids">
+                                <tree editable="top">
+                                    <field name="name" required="1"/>
+                                    <field name="email" readonly="1"/>
+                                    <field name="mobile" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <footer>
+                            <button name="create_viafirma" string="Create" type="object" class="oe_highlight oe_right"/>
+                            <button special="cancel" string="Cancel" type="object" class="oe_right"/>
+                        </footer>
+                    </sheet>
+                </form>
+        </field>
+    </record>
+
+
+</odoo>

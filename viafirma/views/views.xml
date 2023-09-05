@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+
+        <record id="viafirma_form" model="ir.ui.view">
+            <field name="active" eval="True"/>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                         <field name="state" widget="statusbar" nolabel="1" statusbar_visible="RECEIVED,ERROR,WAITING,REJECTED,SENT"/>
+                    </header>
+                    <sheet string="Viafirma">
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                        <group name="cabecera">
+                            <group>
+                                <field name="template_id" required="1"/>
+                                <field name="noti_text"/>
+                            </group>
+                            <group>
+                                <field name="notification_type_ids" widget="many2many_tags"
+                                       required="1"  options="{'no_create': True}"/>
+                                <field name="noti_detail"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Signatures">
+                                <field name="line_ids">
+                                    <tree editable="top">
+                                        <field name="partner_id" required="1"/>
+                                        <field name="email" readonly="1"/>
+                                        <field name="mobile" readonly="1"/>
+                                        <field name="signed_date" readonly="1"/>
+                                        <field name="state" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Follow">
+                                <group name="viafirma_data" col="4">
+                                    <field name="document_signed" readonly="1"/>
+                                    <field name="document_trail" readonly="1"/>
+                                    <field name="completed_date" readonly="1"/>
+                                    <field name="tracking_code" readonly="1"/>
+                                </group>
+                                <group name="viafirma_tecnico" col="4" groups="base.group_system">
+                                    <field name="res_model" readonly="1"/>
+                                    <field name="res_id" readonly="1"/>
+                                    <field name="template_type"/>
+                                    <field name="document_to_send" />
+                                </group>
+                            </page>
+                        </notebook>
+                        <group>
+                            <button name="call_viafirma" string="Send" type="object" class="oe_highlight oe_read_only"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+                </form>
+            </field>
+            <field name="field_parent" eval="False"/>
+            <field name="groups_id" eval="[(6, 0, [])]"/>
+            <field name="inherit_id" eval="False"/>
+            <field name="key" eval="False"/>
+            <field name="mode">primary</field>
+            <field name="model">viafirma</field>
+            <field name="name">Default form view for Viafirma</field>
+            <field name="priority">16</field>
+            <field name="type">form</field>
+        </record>
+
+        <record id="viafirma_tree" model="ir.ui.view">
+            <field name="active" eval="True"/>
+            <field name="arch" type="xml">
+                <tree string="Viafirma">
+                    <field name="name"/>
+                    <field name="res_model"/>
+                    <field name="line_ids" widget="many2many_tags"/>
+                    <field name="create_date"/>
+                    <field name="write_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+            <field name="field_parent" eval="False"/>
+            <field name="groups_id" eval="[(6, 0, [])]"/>
+            <field name="inherit_id" eval="False"/>
+            <field name="key" eval="False"/>
+            <field name="mode">primary</field>
+            <field name="model">viafirma</field>
+            <field name="name">Default tree view for Viafirma</field>
+            <field name="priority">16</field>
+            <field name="type">tree</field>
+        </record>
+
+        <record id="viafirma_template_form" model="ir.ui.view">
+            <field name="active" eval="True"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Viafirma Template">
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                        <group name="basic_params" col="4">
+                            <field name="description"/>
+                            <field name="code"/>
+                            <!--<field name="multiple_signatures"/>-->
+                        </group>
+                        <group name="notifications" col="4">
+                            <field name="firma_ids" widget="many2many_tags"  options="{'no_create': True}"/>
+                            <field name="otp"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+            <field name="field_parent" eval="False"/>
+            <field name="groups_id" eval="[(6, 0, [])]"/>
+            <field name="inherit_id" eval="False"/>
+            <field name="key" eval="False"/>
+            <field name="mode">primary</field>
+            <field name="model">viafirma.templates</field>
+            <field name="name">Default form view for Viafirma Templates</field>
+            <field name="priority">16</field>
+            <field name="type">form</field>
+        </record>
+
+        <record id="viafirma_template_tree" model="ir.ui.view">
+            <field name="active" eval="True"/>
+            <field name="arch" type="xml">
+                <tree string="Viafirma Template">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+            <field name="field_parent" eval="False"/>
+            <field name="groups_id" eval="[(6, 0, [])]"/>
+            <field name="inherit_id" eval="False"/>
+            <field name="key" eval="False"/>
+            <field name="mode">primary</field>
+            <field name="model">viafirma.templates</field>
+            <field name="name">Default tree view for Viafirma Templates</field>
+            <field name="priority">16</field>
+            <field name="type">tree</field>
+        </record>
+
+    </data>
+</odoo>
