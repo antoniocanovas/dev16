@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+
+    <record id="crm_lead_konery_custom_inh_form" model="ir.ui.view">
+        <field name="name">CRM Inherit Konery Custom Form View</field>
+        <field name="model">crm.lead</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="priority">98</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet/group/group[4]/field[@name='user_id']" position="after">
+                    <field name="power_kw"/>
+                </xpath>
+                <xpath expr="//sheet/group/group[5]/field[@name='user_id']" position="after">
+                    <field name="power_kw"/>
+                </xpath>
+                <xpath expr="//group[@name='lead_info']" position="attributes">
+                    <attribute name="attrs">{'invisible':True}</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    # Para Oportunidades:
+    <record id="crm_opportunity_konery_custom_inh_tree" model="ir.ui.view">
+        <field name="name">CRM Opportunity Konery custom</field>
+        <field name="model">crm.lead</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='expected_revenue']" position="before">
+                <field name="team_id" required="1"/>
+                <field name="power_kw" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    # Para iniciativas:
+    <record id="crm_lead_konery_custom_inh_tree" model="ir.ui.view">
+        <field name="name">CRM Lead Konery custom</field>
+        <field name="model">crm.lead</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="contact_name" position="replace"/>
+            <field name="partner_name" position="replace"/>
+            <field name="email_from" position="replace"/>
+            <field name="partner_id" position="replace">
+                <field name="partner_id"/>
+            </field>
+        </field>
+    </record>
+
+</data>

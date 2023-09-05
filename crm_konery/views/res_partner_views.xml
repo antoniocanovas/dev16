@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+
+    <record id="res_partner_konery_custom_inh_form" model="ir.ui.view">
+        <field name="name">Res Partner inherit Konery Custom Form View</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">98</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="attrs">{"readonly": [["parent_id","!=",False]], "required":True}</attribute>
+                </xpath>
+                <field name="vat" position="after">
+                    <field name="power_kw"/>
+                    <field name="fv_origin"/>
+                </field>
+                <field name="category_id" position="attributes">
+                    <attribute name="options">{'color_field': 'color','no_create':True}</attribute>
+                    <attribute name="attrs">{'required':True}</attribute>
+                </field>
+            </data>
+        </field>
+    </record>
+
+    <!-- 2023.08 Solicitado Juanpe que no se creen ciudades y provincias desde vista form partner
+    (requiere habilitar en Partner => Configuración => País => forzar ciudad): -->
+    <record id="res_partner_konery_force_city_state_inh_form" model="ir.ui.view">
+        <field name="name">Res Partner inherit Konery Force city/state Custom Form View</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base_address_extended.address_street_extended_city_form"/>
+        <field name="priority">98</field>
+        <field name="arch" type="xml">
+            <data>
+                <field name="city_id" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </field>
+                <field name="state_id" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </field>
+                <field name="country_id" position="attributes">
+                    <attribute name="options">{'required':True}</attribute>
+                </field>
+            </data>
+        </field>
+    </record>
+
+
+
+</data>
