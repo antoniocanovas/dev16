@@ -18,6 +18,12 @@
                 <xpath expr="//group[@name='lead_info']" position="attributes">
                     <attribute name="attrs">{'invisible':True}</attribute>
                 </xpath>
+                <xpath expr="//group[@name='lead_partner']/field[@name='partner_name']" position="attributes">
+                    <attribute name="attrs">{'invisible':True}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='lead']/group/group/field[@name='partner_name']" position="attributes">
+                    <attribute name="attrs">{'invisible':True}</attribute>
+                </xpath>
             </data>
         </field>
     </record>

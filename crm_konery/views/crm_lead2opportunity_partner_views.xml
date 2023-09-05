@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<data>
+
+    # Ocultar la creación de contactos en el wizard de convertir a oportunidad:
+    <record id="lead2opportunity_konery_custom_inh_form" model="ir.ui.view">
+        <field name="name">CRM Lead2Opportunity Wizard Konery Custom Form View</field>
+        <field name="model">crm.lead2opportunity.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner"/>
+        <field name="priority">98</field>
+        <field name="arch" type="xml">
+            <data>
+                <field name="action" position="attributes">
+                    <attribute name="invisible">1<attribute/>
+                </field>
+            </data>
+        </field>
+    </record>
+
+</data>
