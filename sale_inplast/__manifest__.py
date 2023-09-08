@@ -8,6 +8,7 @@ Custom Inplast Sales
     'author': 'Serincloud',
     'depends': [
         'contacts',
+        'product',
         'sale_management',
     ],
     'data': [
