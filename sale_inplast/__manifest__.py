@@ -13,7 +13,7 @@ Custom Inplast Sales
     ],
     'data': [
         'views/res_partner_views.xml',
-#        'views/product_pricelist_views.xml',
+        'views/product_pricelist_views.xml',
         'views/sale_order_views.xml',
     ],
     'installable': True,

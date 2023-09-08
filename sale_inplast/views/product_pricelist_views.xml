@@ -1,18 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
+    # Mostrar los productos disponibles según tarifa:
     <record id="inplast_pricelist_view" model="ir.ui.view">
         <field name="name">inplast.pricelist.view</field>
         <field name="model">product.pricelist</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
-            <!--
-            # Mostrar los productos disponibles según esta tarifa:
             <field name="item_ids" position="after">
                 <field name="product_ids"/>
             </field>
-            -->
         </field>
     </record>
 
