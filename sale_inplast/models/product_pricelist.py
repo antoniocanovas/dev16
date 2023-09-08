@@ -10,7 +10,7 @@ class ProductPricelist(models.Model):
     @api.depends('item_ids.product_tmpl_id')
     def _get_pricelist_products(self):
         products = []
-        for li in record.item_ids:
+        for li in self.item_ids:
             if (li.product_tmpl_id.id) and not (li.product_id.id):
                 product_ids = self.env['product.product'].search([('product_tmpl_id', '=', li.product_tmpl_id.id)])
                 for pro in product_ids: products.append(pro.id)
