@@ -9,7 +9,7 @@
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
             <field name="item_ids" position="after">
-                <field name="product_ids"/>
+                <field name="product_ids" groups="base.group_no_one"/>
             </field>
         </field>
     </record>
