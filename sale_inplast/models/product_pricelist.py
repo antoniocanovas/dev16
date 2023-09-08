@@ -14,4 +14,6 @@ class ProductPricelist(models.Model):
             if li.product_id.id not in products:
                 products.append(li.product_id.id)
         self.product_ids = [(6,0,products)]
-    product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
+    product_ids = fields.Many2many('product.product', store=True,
+                                  # compute='_get_pricelist_products'
+                                   )
