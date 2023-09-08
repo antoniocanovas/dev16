@@ -21,18 +21,6 @@
                 <attribute name="domain">[('id','in',product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"</attribute>
             </xpath>
 
-<!-- Debería ser esta:
-            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="attributes">
-                <attribute name="domain">[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
-                <attribute name="domain">[('id','in', product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
-            </xpath>
-
-            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
-                <attribute name="domain">[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
-
-                <attribute name="domain">[('id','in', product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
-            </xpath>
--->
         </field>
     </record>
 
