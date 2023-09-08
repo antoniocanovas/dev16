@@ -7,10 +7,12 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
+            <!--
             # Mostrar los productos disponibles según esta tarifa:
             <field name="item_ids" position="after">
                 <field name="product_ids"/>
             </field>
+            -->
         </field>
     </record>
 
