@@ -31,8 +31,8 @@
                 <attribute name="domain">[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
 
                 <attribute name="domain">[('id','in', product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
--->
             </xpath>
+-->
         </field>
     </record>
 
