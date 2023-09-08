@@ -2,8 +2,8 @@
 <odoo>
 
     # Permitir asignar tarifas a direcciones de entrega:
-    <record id="partner_custom_inplast_form" model="ir.ui.view">
-        <field name="name">partner.custom.inplast.form</field>
+    <record id="inplast_res_partner_form" model="ir.ui.view">
+        <field name="name">inplast.res.partner.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
