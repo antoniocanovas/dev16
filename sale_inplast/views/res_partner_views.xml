@@ -16,6 +16,8 @@
                 </xpath>
             </data>
         </field>
+        <field name="priority">99</field>
+        <field name="type">form</field>
     </record>
 
 </odoo>

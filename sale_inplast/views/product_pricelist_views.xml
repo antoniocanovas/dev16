@@ -12,6 +12,7 @@
                 <field name="product_ids" groups="base.group_no_one"/>
             </field>
         </field>
+        <field name="priority">99</field>
     </record>
 
 </odoo>
