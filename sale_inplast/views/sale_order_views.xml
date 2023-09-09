@@ -12,12 +12,7 @@
             <!-- No permitir cambiar la tarifa por cliente o dirección de entrega: -->
             <xpath expr="//group[@name='order_details']/div[3]/field[@name='pricelist_id']" position="attributes">
                 <attribute name="attrs">{'readonly':True}</attribute>
-            </xpath>
-            <!-- Mostrar los productos que tiene este cliente en su tarifa: -->
-            <xpath expr="//page[@name='other_information']" position="inside">
-                <group>
-                    <field name="product_ids"/>
-                </group>
+                <attribute name="options"></attribute>
             </xpath>
 
             <!-- Limitar productos que no están en tarifa en la línea de venta (desinstalar sale_product_configurator): -->
