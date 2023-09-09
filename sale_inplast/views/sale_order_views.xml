@@ -9,7 +9,7 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <!-- No permitir cambiar la tarifa por cliente o dirección de entrega: -->
+            <!-- No permitir cambiar la tarifa por cliente o dirección de entrega y permitir acceso m2o: -->
             <xpath expr="//group[@name='order_details']/div[3]/field[@name='pricelist_id']" position="attributes">
                 <attribute name="attrs">{'readonly':True}</attribute>
                 <attribute name="options"></attribute>
