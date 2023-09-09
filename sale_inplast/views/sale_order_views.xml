@@ -9,15 +9,18 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <!-- No permitir cambiar la tarifa por cliente o dirección de entrega: -->
             <xpath expr="//group[@name='order_details']/div[3]/field[@name='pricelist_id']" position="attributes">
                 <attribute name="attrs">{'readonly':True}</attribute>
             </xpath>
+            <!-- Mostrar los productos que tiene este cliente en su tarifa: -->
             <xpath expr="//page[@name='other_information']" position="inside">
                 <group>
                     <field name="product_ids"/>
                 </group>
             </xpath>
 
+            <!-- Limitar productos que no están en tarifa en la línea de venta (desinstalar sale_product_configurator): -->
             <xpath expr="//field[@name='order_line']/tree/field[@name='company_id']" position="after">
                 <field name="product_ids" invisible="1"/>
             </xpath>
@@ -29,6 +32,21 @@
                 <field name="product_ids" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('id','in', product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
+            </xpath>
+
+            <!-- Lo mismo para Productos opcionales: -->
+            <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='is_present']" position="after">
+                <field name="product_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('id','in', product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='sale_order_option_ids']/form/field[@name='is_present']" position="after">
+                <field name="product_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_option_ids']/form/group/field[@name='product_id']" position="attributes">
                 <attribute name="domain">[('id','in', product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
             </xpath>
 
