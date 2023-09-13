@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    # 1. La tarifa no se puede modificar, es la asignada al partner o dirección de entrega:
+    # 2. Productos disponibles para esta tarifa:
+    <record id="inplast_invoice" model="ir.ui.view">
+        <field name="name">INPLAST Invoice</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>

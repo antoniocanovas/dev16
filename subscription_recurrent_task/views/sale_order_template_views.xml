@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    # 1. Cron definition in task creation:
+    <record id="subscription_recurrent_task_sale_template_inh_form" model="ir.ui.view">
+        <field name="name">subscription.recurrent.task.sale.template.inh.form</field>
+        <field name="model">sale.order.template</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sale_management.sale_order_template_view_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="create_task"/>
+            </field>
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>
