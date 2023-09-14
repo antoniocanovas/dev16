@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="after">
                 <field name="task_id" invisible="1"/>
-                <field name="task_stage" attrs="{'invisible':[('task_id','=',False)]}" optional="show"/>
+                <field name="task_stage_id" attrs="{'invisible':[('task_id','=',False)]}" optional="show"/>
             </xpath>
         </field>
         <field name="priority">99</field>
