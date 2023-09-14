@@ -3,7 +3,7 @@ from odoo import _, api, fields, models
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    @api.depends('state')
+    @api.depends('create_date','state')
     def _create_task_from_subscription(self):
         for record in self:
             if (record.state in ['draft','posted']):
