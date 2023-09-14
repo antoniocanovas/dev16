@@ -9,7 +9,7 @@
             record.create_task_from_subscription()
         </field>
         <field name="trigger">on_create_or_write</field>
-        <field name="trigger_field_ids" eval="[(6,0, [ref('account.field_accout_move__state')])]"/>
+        <field name="trigger_field_ids" eval="[(6,0, [ref('account.field_account_move__state')])]"/>
         <field name="active" eval="True"/>
     </record>
 
