@@ -1,19 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    # 1. La tarifa no se puede modificar, es la asignada al partner o dirección de entrega:
-    # 2. Productos disponibles para esta tarifa:
     <record id="sale_order_custom_inplast" model="ir.ui.view">
         <field name="name">INPLAST Custom Sale Order</field>
         <field name="model">sale.order</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_order_view_form"/>
         <field name="arch" type="xml">
             <!-- Proyecto sobre el que se crearán las tareas, si es FSM se podrá planificar: -->
             <xpath expr="//field[@name='sale_order_template_id']" position="after">
                 <field name="create_task" invisible="1"/>
                 <field name="subscription_project_id" domain="[('company_id','=',company_id)]"
-                       attrs="{'invisible':[('is_subscription', '=', True)], 'required':[('create_task','!=',False)]}"/>
+                       attrs="{'invisible':[('is_subscription', '=', False)], 'required':[('create_task','!=',False)]}"/>
             </xpath>
         </field>
         <field name="priority">99</field>
