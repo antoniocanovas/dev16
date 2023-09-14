@@ -12,6 +12,7 @@
     'depends': [
         'sale_management',
         'sale_subscription',
+        'account',
         'project',
     ],
     'data': [
