@@ -19,6 +19,7 @@ class AccountMoveLine(models.Model):
                     name = li.subscription_id.name + " - " + str(li.subscription_start_date)
                     newtask = self.env['project.task'].create({
                         'name':name,
+                        'partner_id': self.partner_id.id,
                         'project_id': li.subscription_id.subscription_project_id.id,
                     })
                     li['task_id'] = newtask.id
