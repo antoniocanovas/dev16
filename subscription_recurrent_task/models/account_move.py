@@ -11,10 +11,10 @@ class AccountMoveLine(models.Model):
                 for li in record.invoice_line_ids:
                     create_task = False
                     # If subscription need task on DRAFT and not created before:
-                    if not (li.task_id.id) and (li.subscription_id.task_create == 'draft') and (record.state == 'draft'):
+                    if not (li.task_id.id) and (li.subscription_id.create_task == 'draft') and (record.state == 'draft'):
                         create_task = True
                     # If subscription need task on POSTED and not created before:
-                    if not (li.task_id.id) and (li.subscription_id.task_create == 'posted') and (record.state == 'posted'):
+                    if not (li.task_id.id) and (li.subscription_id.create_task == 'posted') and (record.state == 'posted'):
                         create_task = True
                     if create_task == True:
                         name = li.subscription_id.name + " - " + str(li.subscription_start_date)
@@ -23,5 +23,6 @@ class AccountMoveLine(models.Model):
                             'name':name,
                             'partner_id': record.partner_id.id,
                             'project_id': li.subscription_id.subscription_project_id.id,
+                            'user_id': li.subscription_id.subscription_project_id.user_id-id,
                         })
                         li['task_id'] = newtask.id
