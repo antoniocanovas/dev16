@@ -7,7 +7,7 @@
     'category': '',
     "license": "AGPL-3",
     'website': "https://ingenieriacloud.com",
-    'summary': 'Subscription recurrent tasks, to use when invoice requires a new task compliant.',
+    'summary': 'Subscription recurrent tasks, to use when each invoice requires a new task.',
     'author': 'Serincloud',
     'depends': [
         'sale_management',
