@@ -23,6 +23,6 @@ class AccountMoveLine(models.Model):
                             'name':name,
                             'partner_id': record.partner_id.id,
                             'project_id': li.subscription_id.subscription_project_id.id,
-                            'user_id': li.subscription_id.subscription_project_id.user_id-id,
+                            'user_id': li.subscription_id.subscription_project_id.user_id.id,
                         })
                         li['task_id'] = newtask.id
