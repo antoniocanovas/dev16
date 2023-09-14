@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="subscription_recurrent_task_creation" model="base.automation">
+        <field name="name">=> Subscription recurrent task creation</field>
+        <field name="model_id" ref="sale.model_sale_order_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            record.create_task_from_subscription()
+        </field>
+        <field name="trigger">on_create_or_write</field>
+        <field name="trigger_field_ids" eval="[(6,0, [ref('account.field_accout_move__state')])]"/>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>
