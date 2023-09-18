@@ -24,7 +24,7 @@ class SaleOrder(models.Model):
                     else:
                         record['is_rental_order'] = True
                         for li in record.order_line:
-                            commitdate = record.commitment_date
-                            reservation_begin = datetime(commitdate.year, commitdate.month, commitdate.day, 0,0,0)
-                            reservation_end = datetime(commitdate.year, commitdate.month, commitdate.day, 23,0, 0)
+                            rentalday = record.rental_date
+                            reservation_begin = datetime(rentalday.year, rentalday.month, rentalday.day, 0,0,0)
+                            reservation_end = datetime(rentalday.year, rentalday.month, rentalday.day, 23,0, 0)
                             li.write({'is_rental': True, 'start_date': reservation_begin, 'return_date': reservation_end})
