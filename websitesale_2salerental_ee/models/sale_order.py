@@ -9,14 +9,13 @@ class SaleOrder(models.Model):
 
     rental_date = fields.Date('Rental date', store=True)
 
-    @api.depends('state')
+    @api.depends('rental_date')
     def sale_to_rent(self):
         for record in self:
             if not (record.user_id.id) and (record.team_id.id == record.website_id.salesteam_id.id):
                 rental = False
                 for li in record.order_line:
                     if li.product_template_id.rent_ok: rental = True
-
                 if (rental == False):
                     raise UserError('Nada que alquilar')
                 else:
