@@ -5,12 +5,14 @@
     <record id="website_sale_commitment_date_inh_form" model="ir.ui.view">
         <field name="name">website.sale.commitment.date.inh.form</field>
         <field name="type">qweb</field>
-        <field name="inherit_id" ref="website_sale.confirmation"/>
+        <field name="inherit_id" ref="website_sale.checkout"/>
         <field name="arch" type="xml">
             <data>
+<!--
                 <xpath expr="//div[@class='card-body']/div" position="replace">
                     <div><b>Billing: </b><span t-esc="order.partner_invoice_id" t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/></div>
                 </xpath>
+-->
             </data>
         </field>
         <field name="priority">99</field>
