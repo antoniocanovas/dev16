@@ -10,8 +10,10 @@
     "website": "https://www.ingenieriacloud.com",
     "license": "AGPL-3",
     "depends": [
+        "sale",
         "sale_management",
         "website_sale",
+        "sale_renting",
                 ],
     "data": [
         "views/website_sale_views.xml",
