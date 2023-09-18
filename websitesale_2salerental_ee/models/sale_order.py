@@ -7,7 +7,7 @@ from datetime import datetime
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    commitment_date = fields.Date('Delivery date')
+    commitment_date = fields.Date('Delivery date2')
 
     @api.depends('state')
     def sale_to_rent(self):
