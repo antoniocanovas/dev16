@@ -15,10 +15,10 @@ class SaleOrder(models.Model):
             rental = False
             for li in record.order_line:
                 if li.product_template_id.rent_ok: rental = True
-            if (rental == False):
+            if (rental == False) and (record.user_id.id):
                 raise UserError('Nada que alquilar')
             else:
-                if not (record.rental_date):
+                if not (record.rental_date) and (record.user_id.id):
                     raise UserError("Pon fecha de servicio")
                 else:
                     if (record.is_rental_order == False): record['is_rental_order'] = True
