@@ -10,7 +10,7 @@
                 record.sale_to_rent()
         </field>
             <field name="trigger">on_write</field>
-            <field name="trigger_field_ids" eval="[(6,0, [ref('sale.field_sale_order__state')]"/>
+            <field name="trigger_field_ids" eval="[(6,0, [ref('sale.field_sale_order__state')])]"/>
         <field name="active" eval="True"/>
     </record>
 
