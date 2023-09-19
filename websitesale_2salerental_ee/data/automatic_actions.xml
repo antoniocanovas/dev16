@@ -6,13 +6,11 @@
         <field name="model_id" ref="sale.model_sale_order"/>
         <field name="state">code</field>
         <field name="code">
-            if not (record.user_id.id) and (record.team_id.id == record.website_id.salesteam_id.id):
+            if not (record.user_id.id) and (record.team_id.id == record.website_id.salesteam_id.id) and (record.state in ['sent','sale']):
                 record.sale_to_rent()
         </field>
             <field name="trigger">on_write</field>
             <field name="trigger_field_ids" eval="[(6,0, [ref('sale.field_sale_order__state')]"/>
-        <field name="filter_pre_domain">[('user_id','=',False),('state','in',['sent','sale'])]</field>
-        <field name="filter_domain">[('user_id','=',False),('state','in',['sent','sale'])]</field>
         <field name="active" eval="True"/>
     </record>
 
