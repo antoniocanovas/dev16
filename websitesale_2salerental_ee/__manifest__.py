@@ -15,8 +15,8 @@
         "sale_renting",
                 ],
     "data": [
-        "views/website_sale_views.xml",
         "views/sale_order_views.xml",
+        "data/automatic_actions.xml",
     ],
     "installable": True,
 }
