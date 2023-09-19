@@ -13,6 +13,7 @@
         "sale_management",
         "website_sale",
         "sale_renting",
+        "base_automation",
                 ],
     "data": [
         "views/sale_order_views.xml",
