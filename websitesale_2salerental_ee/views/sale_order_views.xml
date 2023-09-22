@@ -18,7 +18,7 @@
             </xpath>
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="rental_date" attrs="{'invisible':[('is_rental_order','=',True)]}"/>
+                <field name="rental_date" attrs="{'readonly':[('is_rental_order','=',True)]}"/>
             </xpath>
 
         </field>
