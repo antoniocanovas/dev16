@@ -21,12 +21,12 @@ class ProjectTask(models.Model):
         for tag in self.tag_ids.ids:
             if tag not in self.tag_prev_ids.ids:
                 newtags.append(tag)
-                tag = env['project.tags'].search([('id', '=', tag)])
+                tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(+) " + tag.name + "\n"
         for tag in self.tag_prev_ids.ids:
             if tag not in self.tag_ids.ids:
                 deletedtags.append(tag)
-                tag = env['project.tags'].search([('id', '=', tag)])
+                tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(-) " + tag.name + "\n"
         if tagtracking != "":
             self.write({'tag_prev_ids': [(6, 0, newtags)], 'description': tagtracking})
