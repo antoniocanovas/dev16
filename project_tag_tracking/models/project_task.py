@@ -16,7 +16,7 @@ class ProjectTask(models.Model):
     )
 
 
-    @api.depends('tag_ids')
+    @api.depends('tag_ids.ids')
     def _update_task_tracking(self):
         raise UserError('hola')
         newtags, deletedtags, tagtracking = [], [], ""
