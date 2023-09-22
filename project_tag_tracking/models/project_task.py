@@ -6,8 +6,14 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
 #    tag_ids = fields.Many2many(tracking=100)
-    tag_prev_ids = fields.Many2many('project.tags', string='Previous tags', store=True, copy=False)
     tag_tracking = fields.Text('Tags tracking', store=True, tracking=100)
+    tag_prev_ids = fields.Many2one(store=True, copy=False, string="Previous tags",
+        comodel_name="project.tags",
+        relation='task_tags_rel',
+        column1='task_id',
+        column2='tag_id',
+    )
+
 
     @api.depends('tag_ids')
     def _update_task_tracking(self):
