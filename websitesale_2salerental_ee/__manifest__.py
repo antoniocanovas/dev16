@@ -4,7 +4,7 @@
 {
     "name": "Website sale to rental (EE)",
     "summary": "Convert website sales lines to rental sales automatically.",
-    "version": "16.0.1.0.0",
+    "version": "15.0.1.0.0",
     'category': 'Sales',
     "author": "Serincloud SL, ",
     "website": "https://www.ingenieriacloud.com",

@@ -27,4 +27,4 @@ class SaleOrder(models.Model):
                         rentalday = record.rental_date
                         reservation_begin = datetime(rentalday.year, rentalday.month, rentalday.day, 4,0,0)
                         reservation_end = datetime(rentalday.year, rentalday.month, rentalday.day, 21,0, 0)
-                        li.write({'is_rental': True, 'start_date': reservation_begin, 'return_date': reservation_end})
+                        li.write({'is_rental': True, 'pickup_date': reservation_begin, 'return_date': reservation_end})
