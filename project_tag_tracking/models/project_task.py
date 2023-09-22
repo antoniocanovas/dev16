@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+
+class ProjectTask(models.Model):
+    _inherit = 'project.task'
+
+#    tag_ids = fields.Many2many(tracking=100)
+    tag_prev_ids = fields.Many2many('project.tags', string='Previous tags', store=True, copy=False)
+    tag_tracking = fields.Text('Tags tracking', store=True, tracking=100)
+
+    @api.depends('tag_ids')
+    def _update_task_tracking(self):
+        newtags, deletedtags, tagtracking = [], [], ""
+        for tag in self.tag_ids.ids:
+            if tag not in self.tag_prev_ids.ids:
+                newtags.append(tag)
+                tag = env['project.tags'].search([('id', '=', tag)])
+                tagtracking += "(+) " + tag.name + "\n"
+        for tag in self.tag_prev_ids.ids:
+            if tag not in self.tag_ids.ids:
+                deletedtags.append(tag)
+                tag = env['project.tags'].search([('id', '=', tag)])
+                tagtracking += "(-) " + tag.name + "\n"
+        if tagtracking != "":
+            self.write({'tag_prev_ids': [(6, 0, newtags)], 'description': tagtracking})
