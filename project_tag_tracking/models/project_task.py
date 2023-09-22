@@ -29,4 +29,4 @@ class ProjectTask(models.Model):
                 tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(-) " + tag.name + "\n"
         if tagtracking != "":
-            self.write({'tag_prev_ids': [(6, 0, newtags)], 'description': tagtracking})
+            self.write({'tag_prev_ids': [(6, 0, self.tag_ids.ids)], 'description': tagtracking})
