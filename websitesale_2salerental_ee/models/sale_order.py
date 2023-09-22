@@ -21,7 +21,8 @@ class SaleOrder(models.Model):
                 if not (record.rental_date) and (record.user_id.id):
                     raise UserError("Pon fecha de servicio")
                 else:
-                    if (record.is_rental_order == False): record['is_rental_order'] = True
+                    if (record.is_rental_order == False):
+                        record.write({'is_rental_order': True, 'rental_status':'draft'})
                     for li in record.order_line:
                         rentalday = record.rental_date
                         reservation_begin = datetime(rentalday.year, rentalday.month, rentalday.day, 4,0,0)
