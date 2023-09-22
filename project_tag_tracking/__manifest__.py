@@ -11,7 +11,9 @@
     'maintainer': 'Serincloud',
     'website': 'https://www.ingenieriacloud.com',
     'depends': ['project'],
-    'data': [],
+    'data': [
+        'data/automatic_actions.xml',
+    ],
     'assets': {},
 
     'images': ['static/description/icon.png'],
