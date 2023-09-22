@@ -10,7 +10,10 @@
     'company': 'Serincloud',
     'maintainer': 'Serincloud',
     'website': 'https://www.ingenieriacloud.com',
-    'depends': ['project'],
+    'depends': [
+        'project',
+        'base_automation',
+        ],
     'data': [
         'data/automatic_actions.xml',
     ],
