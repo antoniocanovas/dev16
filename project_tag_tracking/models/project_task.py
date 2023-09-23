@@ -17,15 +17,16 @@ class ProjectTask(models.Model):
 
 
     def update_task_tracking(self):
-        newtags, deletedtags, tagtracking = [], [], ""
+#        newtags, deletedtags, tagtracking = [], [], ""
+        tagtracking = ""
         for tag in self.tag_ids.ids:
             if tag not in self.tag_prev_ids.ids:
-                newtags.append(tag)
+¢                newtags.append(tag)
                 tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(+) " + tag.name + "\n"
         for tag in self.tag_prev_ids.ids:
             if tag not in self.tag_ids.ids:
-                deletedtags.append(tag)
+#                deletedtags.append(tag)
                 tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(-) " + tag.name + "\n"
         if tagtracking != "":
