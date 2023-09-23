@@ -21,7 +21,7 @@ class ProjectTask(models.Model):
         tagtracking = ""
         for tag in self.tag_ids.ids:
             if tag not in self.tag_prev_ids.ids:
-¢                newtags.append(tag)
+#                newtags.append(tag)
                 tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(+) " + tag.name + "\n"
         for tag in self.tag_prev_ids.ids:
