@@ -8,7 +8,7 @@ class ProjectTask(models.Model):
 
 #    tag_ids = fields.Many2many(tracking=100)
     tag_tracking = fields.Text('Tags tracking', store=True, tracking=100)
-    tag_prev_ids = fields.Many2Many(store=True, copy=False, string="Previous tags",
+    tag_prev_ids = fields.Many2many(store=True, copy=False, string="Previous tags",
         comodel_name="project.tags",
         relation='task_tags_rel',
         column1='task_id',
@@ -27,5 +27,4 @@ class ProjectTask(models.Model):
                 tag = self.env['project.tags'].search([('id', '=', tag)])
                 tagtracking += "(-) " + tag.name + "\n"
         if tagtracking != "":
-            tags = [(6, 0, self.tag_ids.ids)]
-            self.write({'tag_prev_ids': tags, 'description': tagtracking})
+            self.write({'tag_prev_ids': [(6, 0, self.tag_ids.ids)], 'description': tagtracking})
