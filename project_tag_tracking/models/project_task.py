@@ -14,7 +14,6 @@ class ProjectTask(models.Model):
                                     column2='tag_id',
                                     )
 
-
     def update_task_tracking(self):
         tagtracking = ""
         for tag in self.tag_ids.ids:
