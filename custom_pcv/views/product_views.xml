@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- Variants Special Prices: -->
+    <record id="product_template_pcv_inh_form" model="ir.ui.view">
+        <field name="name">product.template.pcv.inh.form</field>
+        <field name="model">product.template</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_tag_ids" position="after">
+                <field name="tipo_calculo"/>
+            </field>
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page name="tipo_calculo" string="Cálculo variantes" attrs="{'invisible':[('tipo_calculo','=','no')]}">
+                    <group name="tipo_time" attrs="{'invisible':[('tipo_calculo', '!=', 'time')]}">
+                        <group>
+                            <field name="inicio_ordinaria" widget="timesheet_uom"/>
+                            <field name="final_ordinaria" widget="timesheet_uom"/>
+                            <field name="atributo_hinicio"  attrs="{'required':[('tipo_calculo','=','time')]}"/>
+                            <field name="atributo_hfin"     attrs="{'required':[('tipo_calculo','=','time')]}"/>
+                        </group>
+                        <group>
+                            <field name="horas_minimo"/>
+                            <field name="nocturnidad_ok"/>
+                            <field name="pt_hora_ordinaria" attrs="{'required':[('tipo_calculo','=','time')]}"/>
+                            <field name="pt_hora_extra"     attrs="{'required':[('tipo_calculo','=','time')]}"/>
+                        </group>
+                    </group>
+
+                    <group name="tipo_area" attrs="{'invisible':[('tipo_calculo', 'not in', ['area','length'])]}">
+                        <field name="atributo_largo"  attrs="{'required':[('tipo_calculo','in',['area','lenght'])]}"/>
+                        <field name="atributo_ancho"  attrs="{'required':[('tipo_calculo','in',['area','lenght'])]}"/>
+                        <field name="pt_area" attrs="{'required':[('tipo_calculo','in',['area','length'])]}"/>
+                    </group>
+                    <div>
+                        <button class="oe_highlight" type="object" name="compute_special_variant_price" string="Recalcula variantes"/>
+                    </div>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

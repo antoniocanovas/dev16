@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- Event, stand and credit card information (backend and website_sale) : -->
+    <record id="event_pcv_inh_form" model="ir.ui.view">
+        <field name="name">event.pcv.inh.form</field>
+        <field name="model">event.event</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='event_notes']" position="inside">
+                            <group>
+                                <label for="assembly" string="Assembly"/>
+                                <br/>
+                                <field nolabel="1" colspan="2" name="assembly" placeholder="Assembly instructions in website"/>
+                                <label for="disassembly" string="Disassembly"/>
+                                <br/>
+                                <field nolabel="1" colspan="2" name="disassembly" placeholder="Disassembly instructions in website"/>
+                            </group>
+            </xpath>
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>
