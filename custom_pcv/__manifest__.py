@@ -15,6 +15,7 @@
         "purchase",
         "website_event",
         "sale_order_line_date",
+        "base_automation",
     ],
     "data": [
         "views/product_views.xml",
