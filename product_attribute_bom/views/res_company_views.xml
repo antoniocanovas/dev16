@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="product_attribute_auto_bom_inh_form" model="ir.ui.view">
-        <field name="name">product.attribute.auto.bom</field>
+    <record id="res_company_product_attribute_auto_bom_inh_form" model="ir.ui.view">
+        <field name="name">res.company.product.attribute.auto.bom</field>
         <field name="model">res.company</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="base.view_company_form"/>
