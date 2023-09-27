@@ -8,7 +8,7 @@ class ProductAttributeValue(models.Model):
 
     set_template_id = fields.Many2one('set.template', string='Set template', store=True, copy=False)
     
-    def _get_company_bom_attribute_id(self):
+    def _get_set_hidden(self):
         company_attribute = self.env.user.company_id.product_attribute_id
         set_hidden = False
         if (company_attribute.id != self.attribute_id.id): set_hidden = True
