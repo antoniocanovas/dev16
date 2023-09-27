@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="product_from_set_inh_form" model="ir.ui.view">
+        <field name="name">Product from Set</field>
+        <field name="model">product.template</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="create_set_products" string="Create SET Products" type="object"
+                        icon="fa-tasks" class="oe_stat_button"
+                        attrs="{'invisible': [('set_template_ids', '=', [])]}"
+                        groups="sales_team.group_sale_salesman_all_leads">
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside" attrs="{'invisible':[('detailed_type','in',['service'])]}">
+                <page name="product_from_set" string="Sets">
+                    <group>
+                        <field name="set_code" attrs="{'required':[('set_template_ids','!=',[])]}"/>
+                        <field name="set_template_ids"/>
+                    </group>
+                    <group>
+                        <field name="set_product_ids"/>
+                        <field name="parent_id" attrs="{'invisible':[('parent_id','=',False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

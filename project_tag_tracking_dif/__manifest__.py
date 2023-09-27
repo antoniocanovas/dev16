@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Project and task tags traking',
+    'name': 'Project and task tags traking differential',
     'version': '16.0.1.0.0',
     'category': 'Project/Project',
     'summary': "Use Tags to follow your workflow",
