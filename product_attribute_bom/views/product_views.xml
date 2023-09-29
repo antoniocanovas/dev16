@@ -9,12 +9,13 @@
         <field name="priority">90</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="create_set_products" string="Create SET Products" type="object"
+                <button name="create_single_products" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
                         attrs="{'invisible': [('set_template_ids', '=', [])]}"
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
             </xpath>
+    <!-- Ya no hace falta porque los productos "single" se crean desde el botón"
             <xpath expr="//notebook" position="inside" attrs="{'invisible':[('detailed_type','in',['service'])]}">
                 <page name="product_from_set" string="Sets">
                     <group>
@@ -27,6 +28,7 @@
                     </group>
                 </page>
             </xpath>
+    -->
         </field>
     </record>
 

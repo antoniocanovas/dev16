@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='website']" position="after">
-                <field name="product_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
+                <field name="bom_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
             </xpath>
         </field>
     </record>

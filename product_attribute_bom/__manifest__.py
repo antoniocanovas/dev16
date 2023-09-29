@@ -19,7 +19,6 @@
         "views/product_views.xml",
         "views/res_company_views.xml",
         "views/product_attribute_views.xml",
-        #        "data/action_server.xml",
     ],
     "installable": True,
 }
