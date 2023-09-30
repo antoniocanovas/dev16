@@ -26,15 +26,24 @@ class ProductTemplate(models.Model):
         for record in self:
             # 1. Chequeo variante parametrizada de empresa:
             param = env.user.company_id.product_attribute_id
+
+            # 2. Comprobamos que ya se ha creado el producto single:
+            if not record.product_tmpl_single_id.id:
+                raise UserError('Crea el producto unitario para poder usarlo en la lista de pares del surtido.')
+
             # Hay que pasar por todas las variantes para crear sus listas de materiales con los pares del surtido:
             for pr in record.product_variant_ids:
                 # Cada variante tiene asociado probablemente algún surtido, lo buscamos:
-                set = env['product.template.attribute.value'].search([('product_tmpl_id', '=', record.id),
+                set = self.env['product.template.attribute.value'].search([('product_tmpl_id', '=', record.id),
                                                                       ('id', 'in', pr.product_template_variant_value_ids.ids),
                                                                       ('attribute_id', '=', param.id)]).product_attribute_value_id.set_template_id
                 #  raise UserError(ptav_line.product_attribute_value_id.set_template_id.name)
                 if set.id:
+                    pt_single = record.product_tmpl_single_id
+
                     for li in set.line_ids:
+                        # Buscar producto single relacionado: (falta añadir al filtro sogioemte las variantes que se buscan)
+                        pp = self.env['product.product'].search([('product_tmpl_id','=',pt_single.id)])
                 # jugar con value_id y quantity, o con el nombre que es un diccionario.
                 # 1. Crear la lista de materiales si no existe.
                 # 2. Buscar el pp_single relacionado para cada valor y rellenar el BOM.

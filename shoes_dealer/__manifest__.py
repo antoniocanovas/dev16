@@ -2,8 +2,8 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    "name": "Product Set from attributes",
-    "summary": "Set Product bom creation from set template variants.",
+    "name": "Shoes dealer",
+    "summary": "Sets, pairs and bom automation.",
     "version": "16.0.1.0.0",
     "category": "stock",
     "author": "Serincloud SL",

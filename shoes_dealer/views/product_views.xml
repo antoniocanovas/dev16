@@ -15,6 +15,12 @@
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
             </xpath>
+
+            <field name="purchase_ok" position="after">
+                <field name="product_tmpl_single_id"/>
+                <field name="product_tmpl_set_id"/>
+            </field>
+
     <!-- Ya no hace falta porque los productos "single" se crean desde el botón"
             <xpath expr="//notebook" position="inside" attrs="{'invisible':[('detailed_type','in',['service'])]}">
                 <page name="product_from_set" string="Sets">
