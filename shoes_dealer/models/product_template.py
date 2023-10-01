@@ -15,7 +15,6 @@ class ProductTemplate(models.Model):
     product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True)
     def _get_hide_set(self):
         hide = True
-        size_attribute = self.env.user.company_id.bom_attribute_id
         bom_attribute = self.env.user.company_id.bom_attribute_id
         for li in self.attribute_line_ids:
             if li.attribute_id.id == bom_attribute.id:
@@ -27,14 +26,14 @@ class ProductTemplate(models.Model):
 
     # Plantilla de producto "pares" generada desde el "surtido":
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
-    def _get_single_set(self):
+    def _get_single_hide(self):
         hide = True
         size_attribute = self.env.user.company_id.bom_attribute_id
         for li in self.attribute_line_ids:
             if li.attribute_id.id == size_attribute.id:
                 hide=False
         self.product_tmpl_single_hide = hide
-    product_tmpl_single_hide = fields.Boolean('Hide set', store=False, compute='_get_single_set')
+    product_tmpl_single_hide = fields.Boolean('Hide set', store=False, compute='_get_single_hide')
 
     # De momento no sé si pondré este o2m:
     #    set_product_ids  = fields.One2many('product.template','parent_id', string='Set products', store=True, readonly=True)
@@ -47,8 +46,11 @@ class ProductTemplate(models.Model):
             # 1. Chequeo variante parametrizada de empresa:
             bom_attribute = env.user.company_id.product_attribute_id
             size_attribute = env.user.company_id.product_attribute_id
+            pt_single = record.product_tmpl_single_id
             if not bom_attribute.id or not size_attribute.id:
                 raise UserError('Please set shoes dealer attributes in this company form (Settings => User & companies => Company')
+            if not pt_single.id:
+                raise UserError('Please create firt the single product name, I will create variants later reading Sets')
 
             # 2. Comprobamos que ya se ha creado el producto single:
             if not record.product_tmpl_single_id.id:
@@ -62,11 +64,11 @@ class ProductTemplate(models.Model):
                                                                       ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
                 #  raise UserError(ptav_line.product_attribute_value_id.set_template_id.name)
                 if set.id:
-                    pt_single = record.product_tmpl_single_id
-
                     for li in set.line_ids:
                         # Buscar producto single relacionado: (falta añadir al filtro sogioemte las variantes que se buscan)
+# VOY POR AQUÍ:
                         exist = self.env['product.product'].search([('product_tmpl_id','=',pt_single.id)])
+
                         if not exist.bom_ids.ids:
                             new_bom = self.env['mrp.bom'].create({'code': code, 'type': 'normal', 'product_qty': 1,
                                                                   'product_tmpl_id': exist.id, })
