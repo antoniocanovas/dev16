@@ -7,11 +7,13 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='website']" position="after">
-                <group name="company_shoes_dealer_group" string="Shoes dealer">
-                    <field name="bom_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
-                    <field name="size_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
-                </group>
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Shoes dealer" name="shoes_dealer">
+                    <group>
+                        <field name="bom_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
+                        <field name="size_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
