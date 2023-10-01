@@ -13,8 +13,28 @@ class ProductTemplate(models.Model):
 
     # Plantilla de producto "surtido" que general los "pares":
     product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True)
+    def _get_hide_set(self):
+        hide = True
+        size_attribute = self.env.user.company_id.bom_attribute_id
+        bom_attribute = self.env.user.company_id.bom_attribute_id
+        for li in self.attribute_line_ids:
+            if li.attribute_id.id == bom_attribute.id.id:
+                hide=False
+        self.product_tmpl_set_hide = hide
+    product_tmpl_set_hide = fields.Boolean('Hide set', store=False, compute='_get_hide_set')
+
+
+
     # Plantilla de producto "pares" generada desde el "surtido":
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
+    def _get_single_set(self):
+        hide = True
+        size_attribute = self.env.user.company_id.bom_attribute_id
+        for li in self.attribute_line_ids:
+            if li.attribute_id.id == size_attribute.id.id:
+                hide=False
+        self.product_tmpl_single_hide = hide
+    product_tmpl_single_hide = fields.Boolean('Hide set', store=False, compute='_get_single_set')
 
     # De momento no sé si pondré este o2m:
     #    set_product_ids  = fields.One2many('product.template','parent_id', string='Set products', store=True, readonly=True)
