@@ -12,6 +12,7 @@
     "depends": [
         "sale_management",
         "mrp",
+        "sale_mrp",
     ],
     "data": [
         "security/ir.model.access.csv",
