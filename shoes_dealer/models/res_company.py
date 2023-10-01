@@ -6,4 +6,5 @@ from odoo import fields, models, api
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    bom_attribute_id = fields.Many2one('product.attribute', string='Product attribute bom', store=True)
+    bom_attribute_id = fields.Many2one('product.attribute', string='Set attribute', store=True)
+    size_attribute_id = fields.Many2one('product.attribute', string='Size attribute', store=True)

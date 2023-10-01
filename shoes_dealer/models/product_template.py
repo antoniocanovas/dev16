@@ -25,7 +25,10 @@ class ProductTemplate(models.Model):
         # Nueva versión desde variantes desde atributo:
         for record in self:
             # 1. Chequeo variante parametrizada de empresa:
-            param = env.user.company_id.product_attribute_id
+            bom_attribute = env.user.company_id.product_attribute_id
+            size_attribute = env.user.company_id.product_attribute_id
+            if not bom_attribute.id or not size_attribute.id:
+                raise UserError('Please set shoes dealer attributes in this company form (Settings => User & companies => Company')
 
             # 2. Comprobamos que ya se ha creado el producto single:
             if not record.product_tmpl_single_id.id:
@@ -36,7 +39,7 @@ class ProductTemplate(models.Model):
                 # Cada variante tiene asociado probablemente algún surtido, lo buscamos:
                 set = self.env['product.template.attribute.value'].search([('product_tmpl_id', '=', record.id),
                                                                       ('id', 'in', pr.product_template_variant_value_ids.ids),
-                                                                      ('attribute_id', '=', param.id)]).product_attribute_value_id.set_template_id
+                                                                      ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
                 #  raise UserError(ptav_line.product_attribute_value_id.set_template_id.name)
                 if set.id:
                     pt_single = record.product_tmpl_single_id
