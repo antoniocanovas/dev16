@@ -18,7 +18,7 @@ class ProductTemplate(models.Model):
         size_attribute = self.env.user.company_id.bom_attribute_id
         bom_attribute = self.env.user.company_id.bom_attribute_id
         for li in self.attribute_line_ids:
-            if li.attribute_id.id == bom_attribute.id.id:
+            if li.attribute_id.id == bom_attribute.id:
                 hide=False
         self.product_tmpl_set_hide = hide
     product_tmpl_set_hide = fields.Boolean('Hide set', store=False, compute='_get_hide_set')
@@ -31,7 +31,7 @@ class ProductTemplate(models.Model):
         hide = True
         size_attribute = self.env.user.company_id.bom_attribute_id
         for li in self.attribute_line_ids:
-            if li.attribute_id.id == size_attribute.id.id:
+            if li.attribute_id.id == size_attribute.id:
                 hide=False
         self.product_tmpl_single_hide = hide
     product_tmpl_single_hide = fields.Boolean('Hide set', store=False, compute='_get_single_set')
