@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    <record id="product_from_set_inh_form" model="ir.ui.view">
-        <field name="name">Product from Set</field>
+    <record id="product_template_shoes_dealer_inh_form" model="ir.ui.view">
+        <field name="name">product.shoes.dealer</field>
         <field name="model">product.template</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="priority">90</field>
-        <field name="arch" type="xml">
+        <xpath name="arch" type="xml">
+
             <xpath expr="//header" position="inside">
                 <button name="create_single_products" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
@@ -15,26 +16,16 @@
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
             </xpath>
-
-            <field name="purchase_ok" position="after">
-                <field name="product_tmpl_single_id"/>
-                <field name="product_tmpl_set_id"/>
-            </field>
-
-    <!-- Ya no hace falta porque los productos "single" se crean desde el botón"
-            <xpath expr="//notebook" position="inside" attrs="{'invisible':[('detailed_type','in',['service'])]}">
-                <page name="product_from_set" string="Sets">
-                    <group>
-                        <field name="set_code" attrs="{'required':[('set_template_ids','!=',[])]}"/>
-                        <field name="set_template_ids"/>
-                    </group>
-                    <group>
-                        <field name="set_product_ids"/>
-                        <field name="parent_id" attrs="{'invisible':[('parent_id','=',False)]}"/>
-                    </group>
-                </page>
+            <xpath expr="//div[@name='options']" position="inside">
+                <span class="d-inline-block">
+                    <field name="product_tmpl_single_id"/>
+                    <label for="Single"/>
+                </span>
+                <span class="d-inline-block">
+                    <field name="Set"/>
+                    <label for="product_tmpl_set_id"/>
+                </span>
             </xpath>
-    -->
         </field>
     </record>
 
