@@ -19,11 +19,11 @@
             <xpath expr="//div[@name='options']" position="inside">
                 <span class="d-inline-block">
                     <field name="product_tmpl_single_id"/>
-                    <label for="Single"/>
+                    <label for="product_tmpl_single_id"/>
                 </span>
                 <span class="d-inline-block">
                     <field name="product_tmpl_set_id"/>
-                    <label for="Set"/>
+                    <label for="product_tmpl_set_id"/>
                 </span>
             </xpath>
 
