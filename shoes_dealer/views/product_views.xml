@@ -7,7 +7,7 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="priority">90</field>
-        <xpath name="arch" type="xml">
+        <field name="arch" type="xml">
 
             <xpath expr="//header" position="inside">
                 <button name="create_single_products" string="Create Pairs" type="object"
@@ -26,6 +26,7 @@
                     <label for="product_tmpl_set_id"/>
                 </span>
             </xpath>
+
         </field>
     </record>
 
