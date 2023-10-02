@@ -97,7 +97,7 @@ class ProductTemplate(models.Model):
                 # Como hay surtido, continuamos:
                 if set_template.id:
                     # Creación de LDM por surtido:
-                    code = pr.name + " // " + str(set.code) + " " + str(set.name)
+                    code = pr.name + " // " + str(set_template.code) + " " + str(set_template.name)
                     pr_set_bom = env['mrp.bom'].search([('product_id', '=', pr.id)])
 
                     if not pr_set_bom.ids:
