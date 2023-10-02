@@ -14,10 +14,10 @@ class FleetVehicleLogContract(models.Model):
 
     def _get_annual_estimated_km(self):
         dif = self.expiration_date - self.start_date
-        self.annual_estimated_km = self.contract_km / ( dif.year )
+        self.annual_estimated_km = self.contract_km / ( dif.days / 365 )
     annual_estimated_km = fields.Integer('Annual estimated km', store=False, copy=True, compute='_get_annual_estimated_km')
 
     def _get_annual_consumed_km(self):
         dif = date.today() - self.start_date
-        self.annual_consumed_km = self.vehicle_id.odometer - ( dif.year )
+        self.annual_consumed_km = self.vehicle_id.odometer - ( dif.days / 365 )
     annual_consumed_km = fields.Integer('Annual consumed km', store=False, compute='_get_annual_consumed_km')
