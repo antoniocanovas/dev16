@@ -43,9 +43,10 @@ class ProductTemplate(models.Model):
         # Nueva versión desde variantes desde atributo:
         for record in self:
             # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
-            bom_attribute = env.user.company_id.bom_attribute_id
-            size_attribute = env.user.company_id.size_attribute_id
-            color_attribute = env.user.company_id.color_attribute_id
+            bom_attribute = self.env.user.company_id.bom_attribute_id
+            size_attribute = self.env.user.company_id.size_attribute_id
+            color_attribute = self.env.user.company_id.color_attribute_id
+            prefix = self.env.user.company_id.single_prefix
             pt_single = record.product_tmpl_single_id
 
             if not bom_attribute.id or not size_attribute.id:
@@ -54,6 +55,30 @@ class ProductTemplate(models.Model):
                 raise UserError('Please create firt the single product name, I will create variants later reading Sets')
             if not record.product_tmpl_single_id.id:
                 raise UserError('Crea el producto unitario para poder usarlo en la lista de pares del surtido.')
+
+            # CREACIÓN DEL PRODUCTO PAR, SI NO EXISTE:
+            if not record.product_tmpl_single_id.id:
+                colors, sizes = [], []
+                newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
+                                                             'product_tmpl_set_id':record.id})
+                record.write({'product_tmpl_single_id': newpt.id})
+
+                for li in record.attribute_line_ids:
+                    if (li.attribute_id.id == bom_attribute.id):
+                        for ptav in li.value_ids:
+                            for set_line in ptav.set_template_id.line_ids:
+                                if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
+                        new_ptal = self.env['product.template.attribute.line'].create(
+                            {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
+                             'value_ids': [(6, 0, sizes)]})
+
+                    elif (li.attribute_id.id == color_attribute.id):
+                        for ptav in li.value_ids:
+                            if ptav.id not in colors: colors.append(ptav.id)
+                        new_ptal = self.env['product.template.attribute.line'].create(
+                            {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
+                             'value_ids': [(6, 0, colors)]})
+            # ------ FIN CREACIÓN PRODUCTO "PAR"
 
             # Variantes de surtido y color, creación de listas de materiales con los pares de la plantilla:
             for pr in record.product_variant_ids:
@@ -115,6 +140,7 @@ class ProductTemplate(models.Model):
                                                                    })
 
     # Notas del desarrollo:
+    # =====================
     # product template genera variantes en: product_variant_ids
     # Cada variante tiene unos valores de sus variantes en:
     #   Campo: product_template_variant_value_ids

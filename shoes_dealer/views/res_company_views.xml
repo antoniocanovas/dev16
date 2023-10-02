@@ -13,6 +13,7 @@
                         <field name="bom_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
                         <field name="size_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
                         <field name="color_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
+                        <field name="single_prefix"/>
                     </group>
                 </page>
             </xpath>
