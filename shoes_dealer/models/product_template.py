@@ -7,7 +7,7 @@ from odoo.exceptions import UserError, ValidationError
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    #       Ya no hace falta porque los productos "single" se generan desde las variantes:
+    #    Ya no hace falta porque los productos "single" se generan desde las variantes:
     #    set_code = fields.Char('Code', store=True, copy=False)
     #    set_template_ids = fields.Many2many('set.template', string='Set templates', store="True",)
 
@@ -113,3 +113,20 @@ class ProductTemplate(models.Model):
                                                                    'product_id': pp_single.id,
                                                                    'product_qty': size_quantity,
                                                                    })
+
+    # Notas del desarrollo:
+    # product template genera variantes en: product_variant_ids
+    # Cada variante tiene unos valores de sus variantes en:
+    #   Campo: product_template_variant_value_ids
+    #   Modelo: product.template.attribute.value
+    # El modelo product.template.attribute.value es una línea:
+    #   attribute_line_id (mo2) a product.template.attribute.line
+    #   m2o relacionado por el anterior: attribute_id
+    #   product_attribute_value_id (m2o) a product.attribute.value
+    #   name (char) related: product_attribute_value_id.name
+    # Modelo product.attribute.value:
+    #   attribute_id (m2o a product.attribute)
+    #   set_template_id (m2o) a set.template
+    # Model set.template:
+    #   name + code (mandatories)
+    #   line_ids (o2m) set.template.line (value_id, quantity)
