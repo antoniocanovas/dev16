@@ -108,12 +108,12 @@ class ProductTemplate(models.Model):
                         exist.bom_line_ids.unlink()
 
                     # Creación de líneas en LDM para cada talla del surtido:
-                    for li in set.line_ids:
+                    for li in set_template.line_ids:
                         size_value = li.value_id
                         size_quantity = li.quantity
 
                     # Creación de líneas en LDM para cada talla del surtido:
-                    for li in set.line_ids:
+                    for li in set_template.line_ids:
                         size_value = li.value_id
                         size_quantity = li.quantity
 
