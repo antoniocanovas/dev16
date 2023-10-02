@@ -1,1 +1,1 @@
-from . fleet_vehicle_log_contract import
+from . fleet_vehicle_log_contract
