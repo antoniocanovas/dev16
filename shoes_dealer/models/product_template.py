@@ -39,7 +39,6 @@ class ProductTemplate(models.Model):
     #    set_product_ids  = fields.One2many('product.template','parent_id', string='Set products', store=True, readonly=True)
 
 
-
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
         for record in self:
@@ -58,23 +57,25 @@ class ProductTemplate(models.Model):
 
             # Variantes de surtido y color, creación de listas de materiales con los pares de la plantilla:
             for pr in record.product_variant_ids:
-                # Buscar atributo de surtido y plantilla de surtido para después tomar las cantidades para la LDM:
-                set_value = env['product.template.attribute.value']. \
-                    search([('product_tmpl_id', '=', record.id),
-                            ('id', 'in',pr.product_template_variant_value_ids.ids),
-                            ('attribute_id', '=',bom_attribute.id)]).product_attribute_value_id
-                set = set_value.set_template_id
+                # Buscar en atributos el de surtido y apuntar a su plantilla, para después tomar las cantidades para la LDM:
+                set_template = self.env['product.template.attribute.value'].search([
+                    ('product_tmpl_id', '=', record.id),
+                    ('id', 'in', pr.product_template_variant_value_ids.ids),
+                    ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
 
-                # Lo mismo para el color:
-                color_value = self.env['product.template.attribute.value']. \
-                    search([('product_tmpl_id', '=', record.id),
-                            ('id', 'in',pr.product_template_variant_value_ids.ids),
-                            ('attribute_id', '=',color_attribute.id)]).product_attribute_value_id
+                # Lo mismo para buscar el color:
+                color_value = self.env['product.template.attribute.value'].search([
+                    ('product_tmpl_id', '=', record.id),
+                    ('id', 'in', pr.product_template_variant_value_ids.ids),
+                    ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
 
-                if set.id:
+                # Como hay surtido, continuamos:
+                if set_template.id:
                     # Creación de LDM por surtido:
                     code = pr.name + " // " + str(set.code) + " " + str(set.name)
-                    if not pr.bom_ids.ids:
+                    pr_set_bom = env['mrp.bom'].search([('product_id', '=', pr.id)])
+
+                    if not pr_set_bom.ids:
                         exist = self.env['mrp.bom'].create({'code': code, 'type': 'normal', 'product_qty': 1,
                                                             'product_tmpl_id': record.id, 'product_id': pr.id})
                     else:
@@ -105,7 +106,7 @@ class ProductTemplate(models.Model):
                         pp_single = self.env['product.product'].search(
                             [('product_template_variant_value_ids', 'in', ptav_size.id),
                              ('product_template_variant_value_ids', 'in', ptav_color.id)])
-                        if not pp_single.ids: raise UserError('No encuentro esa talla y color en el producto par')
+                        if not pp_single.ids: raise UserError('No encuentro esa talla y color en el producto PAR')
 
                         # Creación de las líneas de la LDM:
                         new_bom_line = env['mrp.bom.line'].create({'bom_id': exist.id,
