@@ -10,18 +10,18 @@
 
             <!-- Addional fields on group INFORMATION LEFT: -->
             <xpath expr="//sheet/group/group/field[@name='service_ids']" position="after">
-                <field name="contract_km">
-                <field name="annual_estimated_km">
+                <field name="contract_km"/>
+                <field name="annual_estimated_km"/>
             </xpath>
             <!-- Addional fields on group INFORMATION RIGHT: -->
             <xpath expr="//sheet/group/group[2]/field[@name='purchaser_id']" position="after">
-                <field name="pending_km">
-                <field name="annual_consumed_km">
+                <field name="pending_km"/>
+                <field name="annual_consumed_km"/>
             </xpath>
             <!-- Addional fields on group VEHICLE: -->
             <xpath expr="//sheet/group/group/field[@name='vehicle_id']" position="after">
-                <field name="additional_km_cost">
-                <field name="returned_km_cost">
+                <field name="additional_km_cost"/>
+                <field name="returned_km_cost"/>
             </xpath>
 
         </field>
