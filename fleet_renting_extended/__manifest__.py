@@ -11,7 +11,7 @@
     'author': 'Punt Sistemes',
     'depends': [
         'fleet',
-        'fleet_account',
+        'account_fleet',
     ],
     'data': [
         'views/fleet_vehicle_log_contract_views.xml',
