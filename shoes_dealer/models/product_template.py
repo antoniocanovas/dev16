@@ -56,70 +56,59 @@ class ProductTemplate(models.Model):
             if not record.product_tmpl_single_id.id:
                 raise UserError('Crea el producto unitario para poder usarlo en la lista de pares del surtido.')
 
-            # Pasar por todas las variantes para crear sus listas de materiales con los pares del surtido:
+            # Variantes de surtido y color, creación de listas de materiales con los pares de la plantilla:
             for pr in record.product_variant_ids:
                 # Buscar atributo de surtido y plantilla de surtido para después tomar las cantidades para la LDM:
-                set_value = env['product.template.attribute.value'].\
+                set_value = env['product.template.attribute.value']. \
                     search([('product_tmpl_id', '=', record.id),
                             ('id', 'in',pr.product_template_variant_value_ids.ids),
                             ('attribute_id', '=',bom_attribute.id)]).product_attribute_value_id
                 set = set_value.set_template_id
 
-                if set.id:
-                    size_value = li.value_id.name
-                    size_quantity = li.quantity
+                # Lo mismo para el color:
+                color_value = self.env['product.template.attribute.value']. \
+                    search([('product_tmpl_id', '=', record.id),
+                            ('id', 'in',pr.product_template_variant_value_ids.ids),
+                            ('attribute_id', '=',color_attribute.id)]).product_attribute_value_id
 
+                if set.id:
+                    # Creación de LDM por surtido:
+                    code = pr.name + " // " + str(set.code) + " " + str(set.name)
+                    if not pr.bom_ids.ids:
+                        exist = self.env['mrp.bom'].create({'code': code, 'type': 'normal', 'product_qty': 1,
+                                                            'product_tmpl_id': record.id, 'product_id': pr.id})
+                    else:
+                        exist = pr.bom_ids[0]
+                        exist.bom_line_ids.unlink()
+
+                    # Creación de líneas en LDM para cada talla del surtido:
                     for li in set.line_ids:
-                        size_value = li.value_id.name
-                        color_value = li.value_id.name
+                        size_value = li.value_id
+                        size_quantity = li.quantity
+
+                    # Creación de líneas en LDM para cada talla del surtido:
+                    for li in set.line_ids:
+                        size_value = li.value_id
                         size_quantity = li.quantity
 
                         # Buscar línea de valor para el PT de single y esta talla, que después se usará en el "pp single" (de momento sólo 1 attrib por proucto):
                         ptav_size = self.env['product.template.attribute.value'].search(
-                            [('attribute_id', '=', size_attribute.id), ('name', '=', size_value),
-                             ('product_tmpl_id','=',pt_single_id.id)])
+                            [('attribute_id', '=', size_attribute.id),
+                             ('product_attribute_value_id', '=', size_value.id),
+                             ('product_tmpl_id', '=', pt_single.id)])
                         ptav_color = self.env['product.template.attribute.value'].search(
-                            [('attribute_id', '=', color_attribute.id), ('name', '=', color_value),
-                             ('product_tmpl_id','=',pt_single_id.id)])
+                            [('attribute_id', '=', color_attribute.id),
+                             ('product_attribute_value_id', '=', color_value.id),
+                             ('product_tmpl_id', '=', pt_single.id)])
 
-                        pp_single = env['product.product'].search(
+                        # El producto "single (o par)" con estos atributos, que se usará en la LDM:
+                        pp_single = self.env['product.product'].search(
                             [('product_template_variant_value_ids', 'in', ptav_size.id),
                              ('product_template_variant_value_ids', 'in', ptav_color.id)])
+                        if not pp_single.ids: raise UserError('No encuentro esa talla y color en el producto par')
 
-
-
-
-                        # VOY POR AQUÍ:
-                        linea_variantes = env['product.template.attribute.value'].search(
-                            [('product_tmpl_id', '=', record.product_tmpl_single_id.id)])
-                        raise UserError(linea_variantes)
-
-                        exist = self.env['product.product'].search([('product_tmpl_id','=',pt_single.id)])
-
-                        if not exist.bom_ids.ids:
-                            new_bom = self.env['mrp.bom'].create({'code': code, 'type': 'normal', 'product_qty': 1,
-                                                                  'product_tmpl_id': exist.id, })
-                        # Mismo chequeo con las líneas bom:
-                        if not (exist.bom_ids.bom_line_ids.ids):
-                            # Crear las líneas del BOM tras haber buscado si existen las variantes en SELF:
-                            for va in te.line_ids:
-                                # Búsqueda de línea de valor de atributo variable para cada talla de producto en SURTIDO:
-                                ptav2 = self.env['product.template.attribute.value'].search(
-                                    [('product_tmpl_id', '=', self.id), ('product_attribute_value_id', '=', va.value_id.id)])
-                                # Búsqueda de producto con ambos valores de atributo (principal y variable):
-                                exist_pp = self.env['product.product'].search([('product_tmpl_id', '=', self.id),
-                                                                               ('product_template_variant_value_ids', 'in',
-                                                                                ptav1.id),
-                                                                               ('product_template_variant_value_ids', 'in',
-                                                                                ptav2.id)])
-                                # Creación de línea de BOM, o ERROR de que la variante (talla) no existe:
-                                if exist_pp.id:
-                                    new_bom_line = self.env['mrp.bom.line'].create({'bom_id': new_bom.id,
-                                                                                    'product_id': exist_pp.id,
-                                                                                    'product_qty': va.quantity,
-                                                                                    })
-                                else:
-                                    raise UserError("No existe: " + va.name)
-                                    # jugar con value_id y quantity, o con el nombre que es un diccionario.
-                        # 1. Crear la lista de materiales si no existe.
-                        # 2. Buscar el pp_single relacionado para cada valor y rellenar el BOM.
+                        # Creación de las líneas de la LDM:
+                        new_bom_line = env['mrp.bom.line'].create({'bom_id': exist.id,
+                                                                   'product_id': pp_single.id,
+                                                                   'product_qty': size_quantity,
+                                                                   })
