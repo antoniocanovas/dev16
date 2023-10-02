@@ -43,30 +43,57 @@ class ProductTemplate(models.Model):
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
         for record in self:
-            # 1. Chequeo variante parametrizada de empresa:
-            bom_attribute = env.user.company_id.product_attribute_id
-            size_attribute = env.user.company_id.product_attribute_id
+            # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
+            bom_attribute = env.user.company_id.bom_attribute_id
+            size_attribute = env.user.company_id.size_attribute_id
+            color_attribute = env.user.company_id.color_attribute_id
             pt_single = record.product_tmpl_single_id
+
             if not bom_attribute.id or not size_attribute.id:
                 raise UserError('Please set shoes dealer attributes in this company form (Settings => User & companies => Company')
             if not pt_single.id:
                 raise UserError('Please create firt the single product name, I will create variants later reading Sets')
-
-            # 2. Comprobamos que ya se ha creado el producto single:
             if not record.product_tmpl_single_id.id:
                 raise UserError('Crea el producto unitario para poder usarlo en la lista de pares del surtido.')
 
-            # Hay que pasar por todas las variantes para crear sus listas de materiales con los pares del surtido:
+            # Pasar por todas las variantes para crear sus listas de materiales con los pares del surtido:
             for pr in record.product_variant_ids:
-                # Cada variante tiene asociado probablemente algún surtido, lo buscamos:
-                set = self.env['product.template.attribute.value'].search([('product_tmpl_id', '=', record.id),
-                                                                      ('id', 'in', pr.product_template_variant_value_ids.ids),
-                                                                      ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
-                #  raise UserError(ptav_line.product_attribute_value_id.set_template_id.name)
+                # Buscar atributo de surtido y plantilla de surtido para después tomar las cantidades para la LDM:
+                set_value = env['product.template.attribute.value'].\
+                    search([('product_tmpl_id', '=', record.id),
+                            ('id', 'in',pr.product_template_variant_value_ids.ids),
+                            ('attribute_id', '=',bom_attribute.id)]).product_attribute_value_id
+                set = set_value.set_template_id
+
                 if set.id:
+                    size_value = li.value_id.name
+                    size_quantity = li.quantity
+
                     for li in set.line_ids:
-                        # Buscar producto single relacionado: (falta añadir al filtro sogioemte las variantes que se buscan)
-# VOY POR AQUÍ:
+                        size_value = li.value_id.name
+                        color_value = li.value_id.name
+                        size_quantity = li.quantity
+
+                        # Buscar línea de valor para el PT de single y esta talla, que después se usará en el "pp single" (de momento sólo 1 attrib por proucto):
+                        ptav_size = self.env['product.template.attribute.value'].search(
+                            [('attribute_id', '=', size_attribute.id), ('name', '=', size_value),
+                             ('product_tmpl_id','=',pt_single_id.id)])
+                        ptav_color = self.env['product.template.attribute.value'].search(
+                            [('attribute_id', '=', color_attribute.id), ('name', '=', color_value),
+                             ('product_tmpl_id','=',pt_single_id.id)])
+
+                        pp_single = env['product.product'].search(
+                            [('product_template_variant_value_ids', 'in', ptav_size.id),
+                             ('product_template_variant_value_ids', 'in', ptav_color.id)])
+
+
+
+
+                        # VOY POR AQUÍ:
+                        linea_variantes = env['product.template.attribute.value'].search(
+                            [('product_tmpl_id', '=', record.product_tmpl_single_id.id)])
+                        raise UserError(linea_variantes)
+
                         exist = self.env['product.product'].search([('product_tmpl_id','=',pt_single.id)])
 
                         if not exist.bom_ids.ids:
