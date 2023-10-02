@@ -98,7 +98,7 @@ class ProductTemplate(models.Model):
                 if set_template.id:
                     # Creación de LDM por surtido:
                     code = pr.name + " // " + str(set_template.code) + " " + str(set_template.name)
-                    pr_set_bom = env['mrp.bom'].search([('product_id', '=', pr.id)])
+                    pr_set_bom = self.env['mrp.bom'].search([('product_id', '=', pr.id)])
 
                     if not pr_set_bom.ids:
                         exist = self.env['mrp.bom'].create({'code': code, 'type': 'normal', 'product_qty': 1,
@@ -134,7 +134,7 @@ class ProductTemplate(models.Model):
                         if not pp_single.ids: raise UserError('No encuentro esa talla y color en el producto PAR')
 
                         # Creación de las líneas de la LDM:
-                        new_bom_line = env['mrp.bom.line'].create({'bom_id': exist.id,
+                        new_bom_line = self.env['mrp.bom.line'].create({'bom_id': exist.id,
                                                                    'product_id': pp_single.id,
                                                                    'product_qty': size_quantity,
                                                                    })
