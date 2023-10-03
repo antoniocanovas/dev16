@@ -34,10 +34,6 @@ class ProductTemplate(models.Model):
 
             if not bom_attribute.id or not size_attribute.id:
                 raise UserError('Please set shoes dealer attributes in this company form (Settings => User & companies => Company')
-            if not pt_single.id:
-                raise UserError('Please create firt the single product name, I will create variants later reading Sets')
-            if not record.product_tmpl_single_id.id:
-                raise UserError('Crea el producto unitario para poder usarlo en la lista de pares del surtido.')
 
             # CREACIÓN DEL PRODUCTO PAR, SI NO EXISTE:
             if not record.product_tmpl_single_id.id:
