@@ -13,6 +13,7 @@
         "sale_management",
         "mrp",
         "sale_mrp",
+        "project",
     ],
     "data": [
         "security/ir.model.access.csv",
