@@ -10,7 +10,7 @@ class ProductTemplate(models.Model):
     #    set_code = fields.Char('Code', store=True, copy=False)
     #    set_template_ids = fields.Many2many('set.template', string='Set templates', store="True",)
 
-    project_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
+    campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
     gender = fields.Selection([('man','Man'),('woman','Woman'),('unisex','Unisex')],
                               string='Serial', copy=True, store=True)
 

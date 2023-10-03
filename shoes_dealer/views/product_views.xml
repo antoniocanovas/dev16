@@ -19,8 +19,8 @@
             <xpath expr="//div[@name='options']" position="after">
                 <div name="product_shoes_dealer">
                     <span class="d-inline-block">
-                        <label for="project_id"/>
-                        <field name="project_id"/>
+                        <label for="campaign_id"/>
+                        <field name="campaign_id"/>
                     </span>
                     <span class="d-inline-block">
                         <label for="gender"/>
