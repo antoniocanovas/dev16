@@ -2,7 +2,6 @@
 
 
 from odoo import fields, models, api
-from odoo.exceptions import UserError, ValidationError
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -12,14 +11,14 @@ class ProductTemplate(models.Model):
     #    set_template_ids = fields.Many2many('set.template', string='Set templates', store="True",)
 
     project_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
+    gender = fields.Selection([('man','Man'),('woman','Woman'),('unisex','Unisex')],
+                              string='Serial', copy=True, store=True)
+
     # Plantilla de producto "surtido" que genera los "pares":
     product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True)
 
     # Plantilla de producto "pares" generada desde el "surtido":
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
-
-    # De momento no sé si pondré este o2m:
-    #    set_product_ids  = fields.One2many('product.template','parent_id', string='Set products', store=True, readonly=True)
 
 
     def create_single_products(self):
