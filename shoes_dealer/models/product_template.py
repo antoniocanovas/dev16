@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
     #    set_code = fields.Char('Code', store=True, copy=False)
     #    set_template_ids = fields.Many2many('set.template', string='Set templates', store="True",)
 
-    project_id = fields.Many2one('project.project', string="Campaign" store=True, copy=True, tracking=10)
+    project_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
     # Plantilla de producto "surtido" que genera los "pares":
     product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True)
     def _get_hide_set(self):
