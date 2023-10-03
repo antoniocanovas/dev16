@@ -21,6 +21,10 @@ class ProductTemplate(models.Model):
     # Plantilla de producto "pares" generada desde el "surtido":
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
 
+    def create_single_products_and_set_boms(self):
+        for record in self:
+            record.create_single_products()
+            record.create_set_boms()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -59,6 +63,19 @@ class ProductTemplate(models.Model):
                              'value_ids': [(6, 0, colors)]})
             # ------ FIN CREACIÓN PRODUCTO "PAR"
 
+    def create_set_boms(self):
+        for record in self:
+            # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
+            bom_attribute = self.env.user.company_id.bom_attribute_id
+            size_attribute = self.env.user.company_id.size_attribute_id
+            color_attribute = self.env.user.company_id.color_attribute_id
+            prefix = self.env.user.company_id.single_prefix
+            pt_single = record.product_tmpl_single_id
+
+            if not bom_attribute.id or not size_attribute.id:
+                raise UserError(
+                    'Please set shoes dealer attributes in this company form (Settings => User & companies => Company')
+
             # Variantes de surtido y color, creación de listas de materiales con los pares de la plantilla:
             for pr in record.product_variant_ids:
                 # Buscar en atributos el de surtido y apuntar a su plantilla, para después tomar las cantidades para la LDM:
@@ -72,6 +89,9 @@ class ProductTemplate(models.Model):
                     ('product_tmpl_id', '=', record.id),
                     ('id', 'in', pr.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
+
+                if not set_template.id or not color_value.id: raise UserError(
+                    pr.name + " " + str(set_template.name) + str(color_value.name))
 
                 # Como hay surtido, continuamos:
                 if set_template.id:
