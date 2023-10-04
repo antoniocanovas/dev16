@@ -58,6 +58,8 @@ class ProductTemplate(models.Model):
                                                              'purchase_ok': single_purchase,
                                                              'detailed_type': 'product',
                                                              'categ_id': record.categ_id,
+                                                             'brand_id': record.brand_id,
+                                                             'manufacturer_id':record.manufacturer_id,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
 

@@ -14,6 +14,9 @@
         "mrp",
         "sale_mrp",
         "project",
+        "product_brand",
+        "product_manufacturer",
+        "product_variant_sale_price",
     ],
     "data": [
         "security/ir.model.access.csv",
