@@ -9,4 +9,6 @@ class ResCompany(models.Model):
     bom_attribute_id = fields.Many2one('product.attribute', string='Set attribute', store=True)
     size_attribute_id = fields.Many2one('product.attribute', string='Size attribute', store=True)
     color_attribute_id = fields.Many2one('product.attribute', string='Color attribute', store=True)
-    single_prefix = fields.Char('Single prefix', store=True, copy=True)
+    single_prefix = fields.Char('Single prefix', store=True)
+    single_sale = fields.Boolean('Disable pair sales', store=True, default=False)
+    single_purchase = fields.Boolean('Disable pair purchase', store=True, default=False)
