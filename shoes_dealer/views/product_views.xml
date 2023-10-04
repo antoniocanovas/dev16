@@ -37,6 +37,10 @@
                 </div>
             </xpath>
 
+            <xpath expr="//group[@name='group_standard_price']/label" position="before">
+                <field name="product_tmpl_single_list_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
+            </xpath>
+
         </field>
     </record>
 

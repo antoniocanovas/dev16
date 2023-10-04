@@ -20,6 +20,7 @@ class ProductTemplate(models.Model):
 
     # Plantilla de producto "pares" generada desde el "surtido":
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
+    product_tmpl_single_list_price = fields.Monetary('Precio del par', related='product_tmpl_single_id.list_price')
 
     def create_single_products_and_set_boms(self):
         for record in self:
