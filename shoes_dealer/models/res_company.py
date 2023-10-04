@@ -6,7 +6,7 @@ from odoo import fields, models, api
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    bom_attribute_id = fields.Many2one('product.attribute', string='Set attribute', store=True, required=True)
-    size_attribute_id = fields.Many2one('product.attribute', string='Size attribute', store=True, required=True)
-    color_attribute_id = fields.Many2one('product.attribute', string='Color attribute', store=True, required=True)
-    single_prefix = fields.Char('Single prefix', store=True, copy=True, required=True)
+    bom_attribute_id = fields.Many2one('product.attribute', string='Set attribute', store=True)
+    size_attribute_id = fields.Many2one('product.attribute', string='Size attribute', store=True)
+    color_attribute_id = fields.Many2one('product.attribute', string='Color attribute', store=True)
+    single_prefix = fields.Char('Single prefix', store=True, copy=True)

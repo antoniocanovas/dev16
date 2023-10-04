@@ -10,10 +10,10 @@
             <xpath expr="//page[@name='general_info']" position="after">
                 <page string="Shoes dealer" name="shoes_dealer">
                     <group>
-                        <field name="bom_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
-                        <field name="size_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
-                        <field name="color_attribute_id" domain="[('create_variant','!=','no_variant')]"/>
-                        <field name="single_prefix"/>
+                        <field name="bom_attribute_id" domain="[('create_variant','!=','no_variant')]" required="1"/>
+                        <field name="size_attribute_id" domain="[('create_variant','!=','no_variant')]" required="1"/>
+                        <field name="color_attribute_id" domain="[('create_variant','!=','no_variant')]" required="1"/>
+                        <field name="single_prefix" required="1"/>
                     </group>
                 </page>
             </xpath>

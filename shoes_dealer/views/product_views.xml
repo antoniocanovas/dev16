@@ -12,7 +12,7 @@
             <xpath expr="//header" position="inside">
                 <button name="create_single_products_and_set_boms" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
-                        attrs="{'invisible': False}"
+                        attrs="{'invisible':[('is_product_variant','=',True)]}"
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
             </xpath>
