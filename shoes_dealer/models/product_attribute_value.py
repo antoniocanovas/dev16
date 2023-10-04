@@ -11,6 +11,6 @@ class ProductAttributeValue(models.Model):
     def _get_set_hidden(self):
         company_bom_attribute = self.env.user.company_id.bom_attribute_id
         set_hidden = True
-        if (company_bom_attribute.id) and (company_bom_attribute.id = self.attribute_id.id): set_hidden = False
+        if (company_bom_attribute.id) and (company_bom_attribute.id == self.attribute_id.id): set_hidden = False
         self.set_hidden = set_hidden
     set_hidden = fields.Boolean('Set hidden', store=False, compute='_get_set_hidden')
