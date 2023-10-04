@@ -22,6 +22,11 @@ class ProductTemplate(models.Model):
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
     product_tmpl_single_list_price = fields.Monetary('Precio del par', related='product_tmpl_single_id.list_price')
 
+    @api.depends('product_tmpl_single_list_price')
+    def _update_set_price_by_pairs(self):
+        for pp in self.product_variant_ids:
+            pp.list_price = self.product_tmpl_single_list_price * pp.pairs_count
+
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()
