@@ -4,8 +4,8 @@
 from odoo import fields, models, api
 
 class ProductPricelist(models.Model):
-    _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
-#    _inherit = ['product.pricelist']
+#    _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
+    _inherit = ['product.pricelist']
 
     pnt_campaign_id = fields.Many2one('project.project', string='Campaign', store=True, copy=False, tracking='1')
     pnt_pre_margin_amount = fields.Monetary('Pre margin', store=True, copy=True, tracking='1')
