@@ -21,6 +21,7 @@
         "views/product_views.xml",
         "views/res_company_views.xml",
         "views/product_attribute_views.xml",
+        "views/sale_order_views.xml",
     ],
     "installable": True,
 }
