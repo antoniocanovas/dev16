@@ -57,9 +57,9 @@ class ProductTemplate(models.Model):
                                                              'sale_ok': single_sale,
                                                              'purchase_ok': single_purchase,
                                                              'detailed_type': 'product',
-                                                             'categ_id': record.categ_id,
-                                                             'product_brand_id': record.product_brand_id,
-                                                             'manufacturer_id':record.manufacturer_id,
+                                                             'categ_id': record.categ_id.id,
+                                                             'product_brand_id': record.product_brand_id.id,
+                                                             'manufacturer_id':record.manufacturer_id.id,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
 
