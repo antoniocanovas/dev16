@@ -56,6 +56,8 @@ class ProductTemplate(models.Model):
                                                              'list_price': record.list_price,
                                                              'sale_ok': single_sale,
                                                              'purchase_ok': single_purchase,
+                                                             'detailed_type': 'product',
+                                                             'categ_id': record.categ_id,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
 
