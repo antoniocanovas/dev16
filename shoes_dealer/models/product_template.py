@@ -20,7 +20,7 @@ class ProductTemplate(models.Model):
 
     # Plantilla de producto "pares" generada desde el "surtido":
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
-    product_tmpl_single_list_price = fields.Monetary('Precio del par', related='product_tmpl_single_id.list_price')
+    product_tmpl_single_list_price = fields.Float('Precio del par', related='product_tmpl_single_id.list_price')
 
     @api.depends('list_price')
     def update_set_price_by_pairs(self):
