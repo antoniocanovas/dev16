@@ -6,3 +6,4 @@ from . import res_company
 from . import product_attribute_value
 from . import sale_order
 from . import sale_order_line
+from . import product_material

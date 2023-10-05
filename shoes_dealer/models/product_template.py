@@ -14,6 +14,7 @@ class ProductTemplate(models.Model):
     campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
     gender = fields.Selection([('man','Man'),('woman','Woman'),('unisex','Unisex')],
                               string='Serial', copy=True, store=True)
+    material_id = fields.Many2one('product.material', string='Material', store=True, copy=True)
 
     # Plantilla de producto "surtido" que genera los "pares":
     product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True)

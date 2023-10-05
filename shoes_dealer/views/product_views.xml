@@ -45,6 +45,10 @@
                 <field name="shipping_single_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
             </xpath>
 
+            <xpath expr="//field[@name='uom_po_id']" position="after">
+                <field name="material_id"/>
+            </xpath>
+
         </field>
     </record>
 
