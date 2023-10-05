@@ -22,6 +22,12 @@ class ProductTemplate(models.Model):
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
     product_tmpl_single_list_price = fields.Float('Precio del par', related='product_tmpl_single_id.list_price')
 
+    # El precio de coste es la suma de Exwork + portes, si existe el par se mostrará uno u otro campo:
+    exwork = fields.Monetary('Exwork', store=True, copy=True, tracking="10")
+    exwork_single = fields.Monetary('Exwork single', store=True, copy=True, tracking="10", readonly=False)
+    shipping_price = fields.Monetary('Shippin price', store=True, copy=True, tracking="10")
+    shipping_single_price = fields.Monetary('Shippin single price', store=True, copy=True, tracking="10",
+                                            'related': 'product_tmpl_single_id.shipping_price', readonly=False)
     @api.depends('list_price')
     def update_set_price_by_pairs(self):
         if self.product_tmpl_set_id.id:
@@ -54,6 +60,9 @@ class ProductTemplate(models.Model):
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
                                                              'product_tmpl_set_id': record.id,
                                                              'list_price': record.list_price,
+                                                             'standard_price': record.standard_price,
+                                                             'exwork': record.exwork,
+                                                             'shipping_price': record.shipping_price,
                                                              'sale_ok': single_sale,
                                                              'purchase_ok': single_purchase,
                                                              'detailed_type': 'product',

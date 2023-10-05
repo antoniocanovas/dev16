@@ -39,6 +39,10 @@
 
             <xpath expr="//group[@name='group_standard_price']/label" position="before">
                 <field name="product_tmpl_single_list_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
+                <field name="exwork" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
+                <field name="exwork_single" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"/>
+                <field name="shipping_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
+                <field name="shipping_single_price" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"/>
             </xpath>
 
         </field>

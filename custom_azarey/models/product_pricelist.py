@@ -19,7 +19,7 @@ class ProductPricelist(models.Model):
 
         for pt in products:
             pair = pt.product_tmpl_single_id.id
-            if pair.id:         # Es un surtido, precio distinto por producto.
+            if pair.id:         # Es un surtido, precio distinto por producto dependiendo del nº de pares que lleva.
                 for pr in pt.product_variant_ids:
                     # Cálculo del precio para la tarifa:
                     total = ((pair.list_price + self.pnt_pre_margin_amount + self.pnt_landed_amount) * \
