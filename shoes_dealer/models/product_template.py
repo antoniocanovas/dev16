@@ -60,6 +60,7 @@ class ProductTemplate(models.Model):
                 colors, sizes = [], []
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
                                                              'product_tmpl_set_id': record.id,
+                                                             'campaign_id': record.campaign_id.id,
                                                              'list_price': record.list_price,
                                                              'standard_price': record.standard_price,
                                                              'exwork': record.exwork,
