@@ -24,10 +24,11 @@ class ProductTemplate(models.Model):
 
     # El precio de coste es la suma de Exwork + portes, si existe el par se mostrará uno u otro campo:
     exwork = fields.Monetary('Exwork', store=True, copy=True, tracking="10")
-    exwork_single = fields.Monetary('Exwork single', store=True, copy=True, tracking="10", readonly=False)
+    exwork_single = fields.Monetary('Exwork single', store=True, copy=True, tracking="10",
+                                    related = 'product_tmpl_single_id.shipping_price', readonly=False)
     shipping_price = fields.Monetary('Shippin price', store=True, copy=True, tracking="10")
     shipping_single_price = fields.Monetary('Shippin single price', store=True, copy=True, tracking="10",
-                                            'related': 'product_tmpl_single_id.shipping_price', readonly=False)
+                                            related = 'product_tmpl_single_id.shipping_price', readonly=False)
     @api.depends('list_price')
     def update_set_price_by_pairs(self):
         if self.product_tmpl_set_id.id:
