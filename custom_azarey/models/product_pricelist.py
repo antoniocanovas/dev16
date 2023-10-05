@@ -13,7 +13,7 @@ class ProductPricelist(models.Model):
     pnt_margin = fields.Float('Margin %', store=True, copy=True, tracking='1')
     pnt_post_margin_amount = fields.Monetary('Post margin', store=True, copy=True, tracking='1')
 
-    def products_pricelist_recalculation_by_camaign(self):
+    def products_pricelist_recalculation_by_campaign(self):
         for record in self:
             # Pares sueltos (tarifa por plantilla de producto):
             pairs = self.env['product.product'].search([('product_tmpl_set_id', '!=', False), ('campaign_id', '=', record.pnt_campaign_id.id)])

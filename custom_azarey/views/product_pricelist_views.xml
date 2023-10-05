@@ -18,7 +18,7 @@
                 <group attrs="{'invisible':[('pnt_campaign_id','=',False)]}">
                     <button class="oe_highlight"
                             type="object"
-                            name="products_pricelist_recalculation_by_camaign"
+                            name="products_pricelist_recalculation_by_campaign"
                             string="Recalculate"/>
                 </group>
             </xpath>
