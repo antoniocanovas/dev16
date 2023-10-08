@@ -11,3 +11,9 @@ class SaleOrderLine(models.Model):
     def _get_shoes_sale_line_pair_count(self):
         self.pairs_count = self.product_id.pairs_count
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_sale_line_pair_count')
+
+    product_saleko_id = fields.Many2one('product.product', string='Product KO', store=True, copy=True)
+
+    @api.onchange('product_saleko_id')
+    def change_saleproductok_2_saleproductko(self):
+        self.product_id = self.product_saleko_id.id
