@@ -7,4 +7,4 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     #   Utilizado para filtrar las tareas con usuarios asignados, que pertenecen a las plantillas:
-    project_fold = fields.Boolean(store=True, copy=False, string="Project fold", related='project_id.fold')
+    project_fold = fields.Boolean(store=True, copy=False, string="Project fold", related='project_id.stage_id.fold')
