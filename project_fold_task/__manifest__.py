@@ -14,7 +14,7 @@
         'project',
     ],
     'data': [
-#        'data/automatic_actions.xml',
+        'views/project_task_views.xml',
     ],
     'assets': {},
 
