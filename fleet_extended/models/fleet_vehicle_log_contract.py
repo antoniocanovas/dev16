@@ -7,7 +7,6 @@ class FleetVehicleLogContract(models.Model):
     contract_km = fields.Integer('Contracted km', store=True, copy=True)
     additional_km_cost = fields.Monetary('Additional km', store=True, copy=True)
     returned_km_cost = fields.Monetary('Returned km', store=True, copy=True)
-    odometer = fields.Float('Last Odometer', store=True, copy=False, related='vehicle_id.odometer')
 
     @api.depends('expiration_date','start_date')
     def _get_leap_year_count(self):
@@ -29,7 +28,7 @@ class FleetVehicleLogContract(models.Model):
         self.year_leap_count = total
     year_leap_count = fields.Integer('Leap-year', store=True, copy=True, compute='_get_leap_year_count')
 
-    @api.depends('contract_km','vehicle_id.odometer')
+    @api.depends('contract_km','vehicle_id.odometer', 'vehicle_id.odometer_ids.value')
     def _get_pending_contract_km(self):
         self.pending_km = self.contract_km - self.vehicle_id.odometer
     pending_km = fields.Integer('Pending km', store=True, compute='_get_pending_contract_km')
