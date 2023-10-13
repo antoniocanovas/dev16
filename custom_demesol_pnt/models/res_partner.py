@@ -12,3 +12,4 @@ class ProductBrand(models.Model):
     mig_nif_pnt = fields.Char(string='mig_nif_pnt', store=True)
     mig_banco_pnt = fields.Char(string='mig_banco_pnt', store=True)
     mig_iban_pnt = fields.Char(string='mig_iban_pnt', store=True)
+    mig_exportacion_pnt = fields.Char(string='mig_exportacion_pnt', store=True)
