@@ -40,7 +40,7 @@ class FleetVehicleLogContract(models.Model):
         self.annual_estimated_km = self.contract_km / ( total_days / 365 )
     annual_estimated_km = fields.Integer('Annual estimated km', store=True, copy=True, compute='_get_annual_estimated_km')
 
-    @api.depends('start_date', 'vehicle_id.odometer')
+    @api.depends('start_date', 'vehicle_id.odometer', 'vehicle_id.odometer_ids.value')
     def _get_annual_consumed_km(self):
         annual_consumed_km, bisiestos = 0, [2024,2028,2032,2036,2040,2044,2048,2052,2056,2060]
         odometer_date = self.env['fleet.vehicle.odometer'].search([('vehicle_id', '=', self.vehicle_id.id)], order='date desc')[0]
