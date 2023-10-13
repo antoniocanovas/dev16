@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fleet_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-02 16:43+0000\n"
+"PO-Revision-Date: 2023-10-02 18:48+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4\n"
+
+#. module: fleet_extended
+#: model:ir.model.fields,field_description:fleet_extended.field_fleet_vehicle_log_contract__additional_km_cost
+msgid "Additional km"
+msgstr "Coste exceso Km"
+
+#. module: fleet_extended
+#: model:ir.model.fields,field_description:fleet_extended.field_fleet_vehicle_log_contract__annual_consumed_km
+msgid "Annual consumed km"
+msgstr "Media km/año"
+
+#. module: fleet_extended
+#: model:ir.model.fields,field_description:fleet_extended.field_fleet_vehicle_log_contract__annual_estimated_km
+msgid "Annual estimated km"
+msgstr "Media objetivo km/año"
+
+#. module: fleet_extended
+#: model:ir.model.fields,field_description:fleet_extended.field_fleet_vehicle_log_contract__contract_km
+msgid "Contracted km"
+msgstr "Kilómetros contratados"
+
+#. module: fleet_extended
+#: model:ir.model.fields,field_description:fleet_extended.field_fleet_vehicle_log_contract__pending_km
+msgid "Pending km"
+msgstr "Km restantes"
+
+#. module: fleet_extended
+#: model:ir.model.fields,field_description:fleet_extended.field_fleet_vehicle_log_contract__returned_km_cost
+msgid "Returned km"
+msgstr "Coste defecto Km"
+
+#. module: fleet_extended
+#: model:ir.model,name:fleet_extended.model_fleet_vehicle_log_contract
+msgid "Vehicle Contract"
+msgstr "Contrato"

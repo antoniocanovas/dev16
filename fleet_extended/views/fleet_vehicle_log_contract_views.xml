@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="fleet_renting_extended" model="ir.ui.view">
+        <field name="name">fleet.renting.extended</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Addional fields on group INFORMATION LEFT: -->
+            <xpath expr="//sheet/group/group/field[@name='service_ids']" position="after">
+                <field name="contract_km"/>
+                <field name="annual_estimated_km"/>
+            </xpath>
+            <!-- Addional fields on group INFORMATION RIGHT: -->
+            <xpath expr="//sheet/group/group[2]/field[@name='purchaser_id']" position="after">
+                <field name="pending_km"/>
+                <field name="annual_consumed_km"/>
+            </xpath>
+            <!-- Addional fields on group VEHICLE: -->
+            <xpath expr="//sheet/group/group/field[@name='vehicle_id']" position="after">
+                <field name="additional_km_cost"/>
+                <field name="returned_km_cost"/>
+            </xpath>
+
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>
