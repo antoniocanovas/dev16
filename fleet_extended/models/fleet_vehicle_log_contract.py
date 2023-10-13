@@ -32,7 +32,7 @@ class FleetVehicleLogContract(models.Model):
     def _get_pending_contract_km(self):
         total = 0
         odometer = self.env['fleet.vehicle.odometer'].search([('vehicle_id', '=', self.vehicle_id.id)], order='value desc')[0]
-        if odometer_date.id:
+        if odometer.id:
             total = self.contract_km - odometer.value
         self.pending_km = total
     pending_km = fields.Integer('Pending km', store=True, compute='_get_pending_contract_km')
@@ -48,7 +48,7 @@ class FleetVehicleLogContract(models.Model):
     def _get_annual_consumed_km(self):
         annual_consumed_km, bisiestos = 0, [2024,2028,2032,2036,2040,2044,2048,2052,2056,2060]
         odometer = self.env['fleet.vehicle.odometer'].search([('vehicle_id', '=', self.vehicle_id.id)], order='value desc')[0]
-        if odometer_date.id:
+        if odometer.id:
             dif = odometer.date - self.start_date
             total_days = dif.days - self.year_leap_count
             annual_consumed_km = self.vehicle_id.odometer / ( total_days / 365 )
