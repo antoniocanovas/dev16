@@ -11,6 +11,7 @@
     'author': 'Serincloud',
     'depends': [
         'purchase',
+        'project',
         'helpdesk',
     ],
     'data': [
