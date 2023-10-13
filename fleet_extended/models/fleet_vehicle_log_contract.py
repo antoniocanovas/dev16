@@ -18,9 +18,9 @@ class FleetVehicleLogContract(models.Model):
             start_year = self.start_date.year
         # Comprobación de si la fecha de expiración puede ser año bisiesto:
         if self.expiration_date.month > 2:
-            expiration_year = self.expiration_date.year
+            expiration_year = self.expiration_date.year +1
         else:
-            expiration_year = self.expiration_date.year - 1
+            expiration_year = self.expiration_date.year
         # Número de años bisiestos en el contrato:
         for i in range(start_year, expiration_year):
             if i in leaps:
