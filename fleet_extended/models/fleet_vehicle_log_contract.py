@@ -12,15 +12,15 @@ class FleetVehicleLogContract(models.Model):
     def _get_leap_year_count(self):
         total, leaps = 0, [2000,2004,2008,2012,2016,2020,2024,2028,2032,2036,2040,2044,2048,2052,2056,2060,2064,2068]
         # Comprobación de si la fecha de inicio puede ser año bisiesto:
-        if record.start_date.month > 2:
-            start_year = record.start_date.year + 1
+        if self.start_date.month > 2:
+            start_year = self.start_date.year + 1
         else:
-            start_year = record.start_date.year
+            start_year = self.start_date.year
         # Comprobación de si la fecha de expiración puede ser año bisiesto:
-        if record.expiration_date.month > 2:
-            expiration_year = record.expiration_date.year
+        if self.expiration_date.month > 2:
+            expiration_year = self.expiration_date.year
         else:
-            expiration_year = record.expiration_date.year - 1
+            expiration_year = self.expiration_date.year - 1
         # Número de años bisiestos en el contrato:
         for i in range(start_year, expiration_year):
             if i in leaps:
