@@ -5,8 +5,8 @@ class FleetVehicleLogContract(models.Model):
     _inherit = 'fleet.vehicle.log.contract'
 
     contract_km = fields.Integer('Contracted km', store=True, copy=True)
-    additional_km_cost = fields.Monetary('Additional km', store=True, copy=True)
-    returned_km_cost = fields.Monetary('Returned km', store=True, copy=True)
+    additional_km_cost = fields.Monetary('Additional km', store=True, copy=True, digits=(3,3))
+    returned_km_cost = fields.Monetary('Returned km', store=True, copy=True, digits=(3,3))
 
     @api.depends('expiration_date','start_date')
     def _get_leap_year_count(self):
