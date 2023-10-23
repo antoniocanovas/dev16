@@ -12,7 +12,7 @@ class ProductProduct(models.Model):
             count = 0
             if record.bom_ids.ids:
                 boms = self.env['mrp.bom'].search([('product_id', '=', record.id)])
-                bom = boms.sorted(key=lambda r: (r.sequence)).ensure_one()
+                bom = boms.sorted(key=lambda r: (r.sequence))[0]
                 for li in bom.bom_line_ids:
                     count += li.product_qty
             else: count = 1
