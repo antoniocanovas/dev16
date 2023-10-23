@@ -11,9 +11,10 @@ class ProductProduct(models.Model):
         for record in self:
             count = 0
             if record.bom_ids.ids:
-                bom = record.bom_ids.sorted(key=lambda r: r.sequence)[0]
-                for li in bom.bom_line_ids:
-                    count += li.product_qty
+                count = 2
+#                bom = record.bom_ids.sorted(key=lambda r: r.sequence)[0]
+#                for li in bom.bom_line_ids:
+#                    count += li.product_qty
             else: count = 1
             record['pairs_count'] = count
     pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_product_product_pair_count')
