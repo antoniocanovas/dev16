@@ -4,7 +4,7 @@
 {
     "name": "Shoes dealer",
     "summary": "Sets, pairs and bom automation.",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "stock",
     "author": "Serincloud SL",
     "website": "https://www.ingenieriacloud.com",
