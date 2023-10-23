@@ -8,5 +8,5 @@ class ProductTag(models.Model):
     _inherit = 'product.tag'
 
     pricelist_print = fields.Boolean('Pricelist printed', store=True, copy=True)
-    pricelist_image_type = fields.Binary('Image', store=True, copy=False)
-    pricelist_image_feature = fields.Binary('Feature', store=True, copy=False)
+    pricelist_image_type = fields.Binary('Type logo', store=True, copy=False)
+    pricelist_image_feature = fields.Binary('Feature logo', store=True, copy=False)

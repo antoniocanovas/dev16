@@ -9,14 +9,20 @@
             <xpath expr="//group" position="after">
                 <group>
                     <field name="pricelist_print"/>
-                    <field name="pricelist_image_type"/>
-                    <field name="pricelist_image_feature"/>
+                </group>
+                <group attrs="{'invisible':[('pricelist_print','=',False)]}">
+                    <group>
+                        <field name="pricelist_image_type" widget="image" class="oe_avatar"/>
+                    </group>
+                    <group>
+                        <field name="pricelist_image_feature" widget="image" class="oe_avatar"/>
+                    </group>
                 </group>
             </xpath>
         </field>
         <field name="inherit_id" ref="product.product_tag_form_view"/>
         <field name="key" eval="False"/>
-        <field name="mode">primary</field>
+        <field name="mode">extension</field>
         <field name="priority">66</field>
         <field name="type">form</field>
     </record>
