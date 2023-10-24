@@ -3,7 +3,7 @@
 
 {
     "name": "Custom Demesol",
-    "summary": "Customs Azarey",
+    "summary": "Customs Demesol",
     "version": "16.0.1.0.0",
     'category': 'Sales',
     "author": "Punt Sistemes SL",
