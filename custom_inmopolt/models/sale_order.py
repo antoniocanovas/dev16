@@ -7,7 +7,8 @@ class ProductProduct(models.Model):
     def name_get(self):
         result = []
         for order in self:
+            name = order.name
             if order.client_order_ref:
-                name = order.name + ' ' + order.client_order_ref
+                name += ' ' + order.client_order_ref
             result.append((order.id, name))
         return result
