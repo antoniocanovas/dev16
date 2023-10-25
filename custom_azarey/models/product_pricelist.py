@@ -4,14 +4,14 @@
 from odoo import api, fields, models, _
 
 class ProductPricelist(models.Model):
-    #    _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
-    _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
 
-    pnt_campaign_id = fields.Many2one('project.project', string='Campaign', store=True, copy=False, tracking=16)
-    pnt_pre_margin_amount = fields.Monetary('Pre margin', store=True, copy=True, tracking=16)
-    pnt_landed_amount = fields.Monetary('Landed cost', store=True, copy=True, tracking=16)
-    pnt_margin = fields.Float('Margin %', store=True, copy=True, tracking=16)
-    pnt_post_margin_amount = fields.Monetary('Post margin', store=True, copy=True, tracking=16)
+    _inherit = ['product.pricelist']
+
+    pnt_campaign_id = fields.Many2one('project.project', string='Campaign', store=True, copy=False)
+    pnt_pre_margin_amount = fields.Monetary('Pre margin', store=True, copy=True)
+    pnt_landed_amount = fields.Monetary('Landed cost', store=True, copy=True)
+    pnt_margin = fields.Float('Margin %', store=True, copy=True)
+    pnt_post_margin_amount = fields.Monetary('Post margin', store=True, copy=True)
 
     @api.depends('item_ids')
     def _get_pricelist_product_tmpl(self):
