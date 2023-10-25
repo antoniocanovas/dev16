@@ -4,7 +4,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class SaleOrder(models.Model):
+class SaleOrderOption(models.Model):
     _inherit = 'sale.order.option'
 
     product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
