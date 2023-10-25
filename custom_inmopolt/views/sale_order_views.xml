@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    # 1. Cambio de name por display name para mostrar el expediente.
+
+    <record id="sale_order_custom_innomopolt" model="ir.ui.view">
+        <field name="name">INMOPOLT Custom Sale Order</field>
+        <field name="model">sale.order</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- No permitir cambiar la tarifa por cliente o dirección de entrega y permitir acceso m2o: -->
+            <field name="name" position="replace">
+                <field name="display_name" readonly="1"/>
+                <field name="name" invisible="1"/>
+            </field>
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>

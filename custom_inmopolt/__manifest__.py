@@ -13,7 +13,7 @@
         'sale_management',
     ],
     'data': [
-
+        'views/sale_order_views.xml',
     ],
     'installable': True,
     'application': False,

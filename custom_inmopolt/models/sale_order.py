@@ -9,6 +9,6 @@ class ProductProduct(models.Model):
         for order in self:
             name = order.name
             if order.client_order_ref:
-                name += ' ' + order.client_order_ref
+                name += ' - ' + order.client_order_ref
             result.append((order.id, name))
         return result
