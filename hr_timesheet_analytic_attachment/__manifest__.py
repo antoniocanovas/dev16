@@ -17,6 +17,9 @@
     Timesheet work sheet attachments in analytic forms, when is a time record (employee assigned).
     """,
     "depends": [
+        'project',
+        'account',
+        'analytic',
         'hr_timesheet_work',
     ],
     "data": [
