@@ -59,7 +59,6 @@ class ProductTemplate(models.Model):
 
             # CREACIÓN DEL PRODUCTO PAR, SI NO EXISTE:
             if not record.product_tmpl_single_id.id:
-                raise UserError(self.id)
                 colors, sizes = [], []
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
                                                              'product_tmpl_set_id': record.id,
@@ -75,6 +74,7 @@ class ProductTemplate(models.Model):
                                                              'product_brand_id': record.product_brand_id.id,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
+                raise UserError(newpt.id)
 
                 for li in record.attribute_line_ids:
                     if (li.attribute_id.id == bom_attribute.id):
