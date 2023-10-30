@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()
-   #         record.create_set_boms()
+            record.create_set_boms()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -95,6 +95,7 @@ class ProductTemplate(models.Model):
 
     def create_set_boms(self):
         for record in self:
+            raise UserError('he llegado')
             # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
             bom_attribute = self.env.user.company_id.bom_attribute_id
             size_attribute = self.env.user.company_id.size_attribute_id
