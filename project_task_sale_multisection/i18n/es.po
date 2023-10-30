@@ -1,0 +1,419 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_wup
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-02 05:54+0000\n"
+"PO-Revision-Date: 2021-07-02 08:05+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: sale_wup
+#: model:ir.actions.server,name:sale_wup.sale_order_line_from_wup_template
+msgid "=> Add wup to sale.order.line"
+msgstr "=> Añadir wup a SOL"
+
+#. module: sale_wup
+#: model:ir.actions.server,name:sale_wup.wup_line_create_purchase_request
+msgid "=> Create purchase request"
+msgstr "=> Crear pedido de compra"
+
+#. module: sale_wup
+#: model:base.automation,name:sale_wup.update_sol_from_wup
+#: model:ir.actions.server,name:sale_wup.update_sol_from_wup_ir_actions_server
+msgid "=> Update SOL from wup_line"
+msgstr "=> Actualiza SOL desde línea WuP"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.sale_order_line_wup_form
+msgid "Add WuPs"
+msgstr "Añade WuP's"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__price_unit_cost
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__price_unit_cost
+msgid "Cost Price"
+msgstr "Precio de coste"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__wup_cost_amount
+msgid "Cost amount"
+msgstr "Coste"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__create_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__create_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__create_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__create_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__create_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__create_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__create_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__create_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__create_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__create_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__create_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__create_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: sale_wup
+#: model:ir.model.fields,help:sale_wup.field_wup_line__product_uom
+#: model:ir.model.fields,help:sale_wup.field_wup_template_line__product_uom
+msgid "Default unit of measure used for all stock operations."
+msgstr "Unidad de medida para todas las operaciones de inventario "
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__department_id
+msgid "Department"
+msgstr "Departemento"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__description
+msgid "Description"
+msgstr "Descrición"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_product_template__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__display_name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Group By"
+msgstr "Agrupado por"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_product_template__id
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order__id
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_product_template____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line____last_update
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__write_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__write_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__write_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__write_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__write_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__write_uid
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__write_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__write_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__write_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__write_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__write_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__write_date
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__line_ids
+msgid "Line"
+msgstr "Línea"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Line description"
+msgstr "Descripción de línea"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Line product"
+msgstr "Línea de producto"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__lst_price
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__lst_price
+msgid "List Price"
+msgstr "Precio"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__lst_price_discount
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__lst_price_discount
+msgid "List price discount %"
+msgstr "Precio con descuento %"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__sale_line_id
+msgid "Líneas"
+msgstr "Líneas"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_template_line
+msgid "Líneas de los productos en el set (wups):"
+msgstr "Líneas de los productos en el set (wups):"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Not requested"
+msgstr "No solicitado"
+
+#. module: sale_wup
+#: model:ir.model.fields,help:sale_wup.field_wup_template__target_id
+msgid "Office, Residential"
+msgstr "Officina, Residencia"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_product_product__our_service
+#: model:ir.model.fields,field_description:sale_wup.field_product_template__our_service
+msgid "Our Service"
+msgstr "Servicio propio"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__price_unit
+msgid "Price Unit"
+msgstr "Precio unitario"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__product_id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__product_id
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__product_brand_id
+msgid "Product brand"
+msgstr "Marca"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Products"
+msgstr "Productos"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__purchase_request_id
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Purchase Request"
+msgstr "Solicitud de compra"
+
+#. module: sale_wup
+#: model:ir.actions.act_window,name:sale_wup.sale_wup_quality
+#: model:ir.model.fields,field_description:sale_wup.field_wup_quality__name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__quality_id
+#: model:ir.ui.menu,name:sale_wup.menu_sale_wup_quality
+msgid "Quality"
+msgstr "Calidad"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__product_uom_qty
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__product_uom_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__ref
+msgid "Ref"
+msgstr "Ref"
+
+#. module: sale_wup
+#: code:addons/sale_wup/models/sale_order_line.py:0
+#, python-format
+msgid "SOL"
+msgstr "SOL"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__sale_id
+msgid "Sale"
+msgstr "Venta"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__sale_line_name
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Sale line"
+msgstr "Línea de venta"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.sale_order_line_wup_form
+msgid "Sales Order Item"
+msgstr "Objeto en pedido"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "Services"
+msgstr "Servicios"
+
+#. module: sale_wup
+#: model:ir.actions.act_window,name:sale_wup.sale_wup_style
+#: model:ir.model.fields,field_description:sale_wup.field_wup_style__name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__style_id
+#: model:ir.ui.menu,name:sale_wup.menu_sale_wup_style
+msgid "Style"
+msgstr "Estilo"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: sale_wup
+#: model:ir.actions.act_window,name:sale_wup.sale_wup_target
+#: model:ir.model.fields,field_description:sale_wup.field_wup_target__name
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__target_id
+#: model:ir.ui.menu,name:sale_wup.menu_sale_wup_target
+msgid "Target"
+msgstr "Objetivo"
+
+#. module: sale_wup
+#: model:ir.ui.menu,name:sale_wup.sale_wup_template_menu
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: sale_wup
+#: model:ir.actions.act_window,name:sale_wup.sale_wup_type
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template__type_id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_type__name
+#: model:ir.ui.menu,name:sale_wup.menu_sale_wup_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_line
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__wup_line_ids
+msgid "wup Line"
+msgstr "Línea wup"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_quality
+msgid "wup Quality "
+msgstr "Calidad wup"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_style
+msgid "wup Style "
+msgstr "Estilo wup"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_target
+msgid "wup Target "
+msgstr "Objetivo wup"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_template
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__wup_template_id
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__template_id
+msgid "wup Template"
+msgstr "Plantilla wup"
+
+#. module: sale_wup
+#: model:ir.model,name:sale_wup.model_wup_type
+msgid "wup Type "
+msgstr "Tipo wup"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order__wup_line_ids
+#: model:ir.ui.menu,name:sale_wup.menu_sale_wup_config
+#: model_terms:ir.ui.view,arch_db:sale_wup.view_order_form
+msgid "wup"
+msgstr "wup"
+
+#. module: sale_wup
+#: model:ir.actions.act_window,name:sale_wup.action_sale_wup_template
+msgid "wup Templates"
+msgstr "Plantilla wup"
+
+#. module: sale_wup
+#: model:ir.actions.act_window,name:sale_wup.action_view_wups
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order__wup_line_count
+#: model_terms:ir.actions.act_window,help:sale_wup.action_view_wups
+#: model_terms:ir.ui.view,arch_db:sale_wup.view_so_wups_form
+msgid "wups"
+msgstr "wups"
+
+#. module: sale_wup
+#: model_terms:ir.ui.view,arch_db:sale_wup.wup_line_tree_search
+msgid "wup Lines"
+msgstr "Líneas wup"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_sale_order_line__wup_qty
+msgid "wup Qty"
+msgstr "Cantidad wup"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_line__product_uom
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: sale_wup
+#: model:ir.model.fields,field_description:sale_wup.field_wup_template_line__product_uom
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
