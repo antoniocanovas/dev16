@@ -115,16 +115,18 @@ class ProductTemplate(models.Model):
                     ('product_tmpl_id', '=', record.id),
                     ('id', 'in', pr.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
+                # Caso de que sólo haya un tipo de surtido, no existe el registro anterior PTAV:
                 if not set_template.id:
                     set_template = self.env['product.template.attribute.line'].search([
                         ('product_tmpl_id', '=', record.id),
                         ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
 
-                # Lo mismo para buscar el color (el if es por si hay un sólo color y odoo no crea PTAValue):
+                # Lo mismo para buscar el color:
                 color_value = self.env['product.template.attribute.value'].search([
                     ('product_tmpl_id', '=', record.id),
                     ('id', 'in', pr.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
+                # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV:
                 if not color_value.id:
                     color_value = self.env['product.template.attribute.line'].search([
                         ('product_tmpl_id', '=', record.id),
