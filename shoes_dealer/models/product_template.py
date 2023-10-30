@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()
- #           record.create_set_boms()
+            record.create_set_boms()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -82,14 +82,14 @@ class ProductTemplate(models.Model):
                                 if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
-                             'value_ids': [(6, 0, sizes)]})
+                            'value_ids': [(6, 0, sizes)]})
 
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
                             if ptav.id not in colors: colors.append(ptav.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
-                             'value_ids': [(6, 0, colors)]})
+                            'value_ids': [(6, 0, colors)]})
             # ------ FIN CREACIÓN PRODUCTO "PAR"
 
     def create_set_boms(self):
@@ -169,13 +169,13 @@ class ProductTemplate(models.Model):
 
     # Notas del desarrollo:
     # =====================
-    # product template genera variantes en: product_variant_ids
+    # product template genera variantes (product.product) en: product_variant_ids
     # Cada variante tiene unos valores de sus variantes en:
     #   Campo: product_template_variant_value_ids
     #   Modelo: product.template.attribute.value
-    # El modelo product.template.attribute.value es una línea:
-    #   attribute_line_id (mo2) a product.template.attribute.line
-    #   m2o relacionado por el anterior: attribute_id
+    #   Este modelo product.template.attribute.value es una línea:
+    #       attribute_line_id (m2o) a product.template.attribute.line
+    #       m2o relacionado a attribute_id (product.attribute)
     #   product_attribute_value_id (m2o) a product.attribute.value
     #   name (char) related: product_attribute_value_id.name
     # Modelo product.attribute.value:
