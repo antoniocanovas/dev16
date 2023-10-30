@@ -80,10 +80,10 @@ class ProductTemplate(models.Model):
                         for ptav in li.value_ids:
                             for set_line in ptav.set_template_id.line_ids:
                                 if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
-                            raise UserError(sizes)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
                             'value_ids': [(6, 0, sizes)]})
+                        raise UserError(new_ptal.id)
 
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
