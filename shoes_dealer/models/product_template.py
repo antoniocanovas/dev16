@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()
-            record.create_set_boms()
+   #         record.create_set_boms()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -81,15 +81,9 @@ class ProductTemplate(models.Model):
                             for set_line in ptav.set_template_id.line_ids:
                                 if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
                         if len(sizes) == 1:
-                            raise UserError('longitud1')
-                            new_ptal = self.env['product.template.attribute.line'].create(
-                                {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
-                                'value_ids': [(6, 0, set_line.value_id.id)]})
-                        else:
-                            raise UserError('longitud mayor que 1')
-                            new_ptal = self.env['product.template.attribute.line'].create(
-                                {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
-                                'value_ids': [(6, 0, sizes)]})
+                        new_ptal = self.env['product.template.attribute.line'].create(
+                            {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
+                            'value_ids': [(6, 0, sizes)]})
 
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
