@@ -113,14 +113,22 @@ class ProductTemplate(models.Model):
                 # Buscar en atributos el de surtido y apuntar a su plantilla, para después tomar las cantidades para la LDM:
                 set_template = self.env['product.template.attribute.value'].search([
                     ('product_tmpl_id', '=', record.id),
-                    ('id', 'in', pr.product_template_attribute_value_ids.ids),
+                    ('id', 'in', pr.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
+                if not set_template.id:
+                    set_template = self.env['product.template.attribute.line'].search([
+                        ('product_tmpl_id', '=', record.id),
+                        ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
 
-                # Lo mismo para buscar el color:
+                # Lo mismo para buscar el color (el if es por si hay un sólo color y odoo no crea PTAValue):
                 color_value = self.env['product.template.attribute.value'].search([
                     ('product_tmpl_id', '=', record.id),
                     ('id', 'in', pr.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
+                if not color_value.id:
+                    color_value = self.env['product.template.attribute.line'].search([
+                        ('product_tmpl_id', '=', record.id),
+                        ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
 
                 if not set_template.id or not color_value.id: raise UserError(
                     "Faltan datos, producto: " + pr.name + ", con plantilla: " + str(set_template.name) + ", y color: " + str(color_value.name))
