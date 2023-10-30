@@ -7,7 +7,7 @@
 
 {
     "name": "Hr timesheet attachment in Analytic line",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Account",
     "author": "www.serincloud.com",
     "maintainer": "Antonio Cánovas",
