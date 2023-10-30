@@ -119,7 +119,7 @@ class ProductTemplate(models.Model):
                 # Lo mismo para buscar el color:
                 color_value = self.env['product.template.attribute.value'].search([
                     ('product_tmpl_id', '=', record.id),
-                    ('id', 'in', pr.product_template_attribute_value_ids.ids),
+                    ('id', 'in', pr.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
 
                 if not set_template.id or not color_value.id: raise UserError(
