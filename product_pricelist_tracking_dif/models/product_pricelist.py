@@ -6,7 +6,7 @@ from datetime import datetime
 class ProductPricelist(models.Model):
     _inherit = 'product.pricelist'
 
-    @api.depends('write_date')
+    @api.depends('write_date','item_ids.write_date')
     def update_pricelist_tracking(self):
         item_tracking = ""
         now = datetime.now()
