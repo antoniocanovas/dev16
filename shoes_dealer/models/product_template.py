@@ -44,6 +44,7 @@ class ProductTemplate(models.Model):
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
+        raise UserError(record.id)
         for record in self:
             # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
             bom_attribute = self.env.user.company_id.bom_attribute_id
@@ -59,7 +60,6 @@ class ProductTemplate(models.Model):
 
             # CREACIÓN DEL PRODUCTO PAR, SI NO EXISTE:
             if not record.product_tmpl_single_id.id:
-                raise UserError(record.id)
                 colors, sizes = [], []
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
                                                              'product_tmpl_set_id': record.id,
