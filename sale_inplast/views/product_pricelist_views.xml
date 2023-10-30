@@ -29,9 +29,6 @@
                             name="pricelist_tracking"
                             string="Pricelist Tracking"/>
                 </group>
-                <group name="product_template_in_pricelist">
-                    <field name="pnt_product_tmpl_ids" groups="base.group_no_one"/>
-                </group>
             </xpath>
             <xpath expr="//sheet" position="after">
                 <div class="oe_chatter">

@@ -6,6 +6,7 @@ _logger = logging.getLogger(__name__)
 
 class ProductPricelist(models.Model):
     _inherit = 'product.pricelist'
+    _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
 
     @api.depends('item_ids.product_tmpl_id')
     def _get_pricelist_products(self):

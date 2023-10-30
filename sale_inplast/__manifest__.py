@@ -9,6 +9,7 @@ Cada cliente sólo tiene posibilidad de ser ofertado en sus productos (ventas, f
     'author': 'Serincloud',
     'depends': [
         'contacts',
+        'mail',
         'product',
         'sale_management',
         'account_invoice_pricelist',
