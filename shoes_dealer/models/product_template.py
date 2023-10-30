@@ -74,7 +74,6 @@ class ProductTemplate(models.Model):
                                                              'product_brand_id': record.product_brand_id.id,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
-                raise UserError(newpt.id)
 
                 for li in record.attribute_line_ids:
                     if (li.attribute_id.id == bom_attribute.id):
@@ -83,14 +82,14 @@ class ProductTemplate(models.Model):
                                 if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
-                             'value_ids': [(6, 0, sizes)]})
+                            'value_ids': [(6, 0, sizes)]})
 
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
                             if ptav.id not in colors: colors.append(ptav.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
-                             'value_ids': [(6, 0, colors)]})
+                            'value_ids': [(6, 0, colors)]})
             # ------ FIN CREACIÓN PRODUCTO "PAR"
 
     def create_set_boms(self):
