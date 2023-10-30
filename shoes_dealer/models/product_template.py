@@ -113,7 +113,7 @@ class ProductTemplate(models.Model):
                 # Buscar en atributos el de surtido y apuntar a su plantilla, para después tomar las cantidades para la LDM:
                 set_template = self.env['product.template.attribute.value'].search([
                     ('product_tmpl_id', '=', record.id),
-                    ('id', 'in', pr.product_template_variant_value_ids.ids),
+                    ('id', 'in', pr.product_template_attribute_value_ids.ids),
                     ('attribute_id', '=', bom_attribute.id)]).product_attribute_value_id.set_template_id
 
                 # Lo mismo para buscar el color:
@@ -123,7 +123,7 @@ class ProductTemplate(models.Model):
                     ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
 
                 if not set_template.id or not color_value.id: raise UserError(
-                    pr.name + " " + str(set_template.name) + str(color_value.name))
+                    "Faltan datos, producto: " + pr.name + ", con plantilla: " + str(set_template.name) + ", y color: " + str(color_value.name))
 
                 # Como hay surtido, continuamos:
                 if set_template.id:
@@ -172,7 +172,7 @@ class ProductTemplate(models.Model):
 
     # Notas del desarrollo:
     # =====================
-    # product template genera variantes en: product_variant_ids
+    # product template genera PRODUCT.PRODUCT en: product_variant_ids
     # Cada variante tiene unos valores de sus variantes en:
     #   Campo: product_template_variant_value_ids
     #   Modelo: product.template.attribute.value
