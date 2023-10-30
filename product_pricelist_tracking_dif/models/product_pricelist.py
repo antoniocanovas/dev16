@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from datetime import datetime,
+from datetime import datetime
 
 class ProductPricelist(models.Model):
     _inherit = 'product.pricelist'
