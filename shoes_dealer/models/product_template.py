@@ -74,7 +74,7 @@ class ProductTemplate(models.Model):
                                                              'product_brand_id': record.product_brand_id.id,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
-
+                raise UserError(newpt.id)
                 for li in record.attribute_line_ids:
                     if (li.attribute_id.id == bom_attribute.id):
                         for ptav in li.value_ids:
