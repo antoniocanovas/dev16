@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()
-       #     record.create_set_boms()
+            record.create_set_boms()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
