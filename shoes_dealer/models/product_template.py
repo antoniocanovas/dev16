@@ -90,7 +90,7 @@ class ProductTemplate(models.Model):
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
                             if ptav.id not in colors: colors.append(ptav.id)
-                        new_ptal = self.env['product.template.attribute.line'].create(
+                        new_ptal2 = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
                             'value_ids': [(6, 0, colors)]})
             # ------ FIN CREACIÓN PRODUCTO "PAR"
