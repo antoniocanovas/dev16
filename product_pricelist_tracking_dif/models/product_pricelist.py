@@ -9,7 +9,7 @@ class ProductPricelist(models.Model):
     @api.depends('write_date')
     def update_pricelist_tracking(self):
         item_tracking = ""
-        now = datetime.datetime.now()
+        now = datetime.now()
 
         for li in self.item_ids:
             dif = (now - li.write_date).total_seconds()
