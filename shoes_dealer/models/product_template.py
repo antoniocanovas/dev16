@@ -73,22 +73,27 @@ class ProductTemplate(models.Model):
                                                              'categ_id': record.categ_id.id,
                                                              'product_brand_id': record.product_brand_id.id,
                                                              })
-                record.write({'product_tmpl_single_id': newpt._origin.id})
+                record.write({'product_tmpl_single_id': newpt.id})
 
                 for li in record.attribute_line_ids:
                     if (li.attribute_id.id == bom_attribute.id):
                         for ptav in li.value_ids:
                             for set_line in ptav.set_template_id.line_ids:
                                 if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
-                        new_ptal = self.env['product.template.attribute.line'].create(
-                            {'product_tmpl_id': newpt._origin.id, 'attribute_id': size_attribute.id,
-                            'value_ids': [(6, 0, sizes)]})
+                        if len(sizes) == 1:
+                            new_ptal = self.env['product.template.attribute.line'].create(
+                                {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
+                                'value_ids': [(6, 0, set_line.value_id.id)]})
+                        else:
+                            new_ptal = self.env['product.template.attribute.line'].create(
+                                {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
+                                'value_ids': [(6, 0, sizes)]})
 
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
                             if ptav.id not in colors: colors.append(ptav.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
-                            {'product_tmpl_id': newpt._origin.id, 'attribute_id': color_attribute.id,
+                            {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
                             'value_ids': [(6, 0, colors)]})
             # ------ FIN CREACIÓN PRODUCTO "PAR"
 
