@@ -7,11 +7,9 @@
         <field name="type">tree</field>
         <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='general_info']" position="after">
-                <field name="company_id" position="after">
-                    <field name="pairs_count" optional="show"/>
-                </field>
-            </xpath>
+            <field name="company_id" position="after">
+                <field name="pairs_count" optional="show"/>
+            </field>
         </field>
     </record>
 
