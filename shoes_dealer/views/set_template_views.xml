@@ -18,13 +18,23 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- CONFIG MENU: -->
+    <!-- SALE CONFIG MENU: -->
     <record id="product_set_template_menu" model="ir.ui.menu">
         <field name="action" ref="action_product_set_template"/>
         <field name="active" eval="True"/>
         <field name="name">Assortments</field>
         <field name="parent_id" ref="sale.menu_sale_config"/>
         <field name="sequence">100</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+    <!-- INVENTORY CONFIG MENU: -->
+    <record id="inventory_set_template_menu" model="ir.ui.menu">
+        <field name="action" ref="action_product_set_template"/>
+        <field name="active" eval="True"/>
+        <field name="name">Assortments</field>
+        <field name="parent_id" ref="stock.menu_product_in_config_stock"/>
+        <field name="sequence">90</field>
         <field name="web_icon" eval="False"/>
     </record>
 
