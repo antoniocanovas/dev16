@@ -7,7 +7,7 @@ class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
     # Pares por variante de producto, se usará en el cálculo de tarifas y líneas de venta:
-    @api.onchange('bom_line_ids','bom_line_ids.product_qty')
+    @api.depends('bom_line_ids','bom_line_ids.product_qty')
     def _get_shoes_bom_pair_count(self):
         for record in self:
             count = 0
