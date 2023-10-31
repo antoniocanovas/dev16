@@ -10,7 +10,7 @@ class ProductProduct(models.Model):
     def _get_shoes_product_product_pair_count(self):
         for record in self:
             count = 1
-            bom = self.env['mrp.bom'].search([('product_id','=',self.id)])
+            bom = self.env['mrp.bom'].search([('product_id','=',record.id)])
             if bom.ids:
                 count = bom[0].pairs_count
             record['pairs_count'] = count
