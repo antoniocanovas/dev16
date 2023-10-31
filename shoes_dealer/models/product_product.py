@@ -8,13 +8,9 @@ class ProductProduct(models.Model):
 
     # Pares por variante de producto, se usará en el cálculo de tarifas y líneas de venta:
     def _get_shoes_product_product_pair_count(self):
-        for record in self:
-            count = 0
-            if record.bom_ids.ids:
-                bom = self.env['mrp.bom'].search([('product_id','=',record.id)]).sorted(key=lambda r: r.sequence)
-                for li in bom[0].bom_line_ids:
-                    count += li.product_qty
-            else: count = 1
-            record['pairs_count'] = count
+        count = 1
+        if self.bom_ids.ids:
+            count = self.bom_ids[0].pairs_count
+        self.pairs_count = count
     pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_product_product_pair_count')
 
