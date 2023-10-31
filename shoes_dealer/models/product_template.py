@@ -119,7 +119,7 @@ class ProductTemplate(models.Model):
                 if not set_template.id:
                     set_template = self.env['product.template.attribute.line'].search([
                         ('product_tmpl_id', '=', record.id),
-                        ('attribute_id', '=', bom_attribute.id)]).product_template_value_ids[0].set_template_id
+                        ('attribute_id', '=', bom_attribute.id)]).product_template_value_ids[0].product_attribute_value_id.set_template_id
 
                 # Lo mismo para buscar el color:
                 color_value = self.env['product.template.attribute.value'].search([
@@ -130,7 +130,7 @@ class ProductTemplate(models.Model):
                 if not color_value.id:
                     color_value = self.env['product.template.attribute.line'].search([
                         ('product_tmpl_id', '=', record.id),
-                        ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0]
+                        ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
 
                 if not set_template.id or not color_value.id: raise UserError(
                     "Faltan datos, producto: " + pr.name + ", con plantilla: " + str(set_template.name) + ", y color: " + str(color_value.name))
