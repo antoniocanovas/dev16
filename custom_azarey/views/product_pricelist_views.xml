@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_pricelist_azarey_inh_form" model="ir.ui.view">
+        <field name="name">product.pricelist.azarey.inh.form</field>
+        <field name="model">product.pricelist</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='pricelist_config']" position="inside">
+                <group name="pricelist_recalculation" string="Product prices recalculation">
+                    <field name="pnt_campaign_id" required="1" widget="selection"/>
+                    <field name="pnt_product_brand_id" required="1" widget="selection"/>
+                    <field name="pnt_pre_margin_amount"/>
+                    <field name="pnt_landed_amount"/>
+                    <field name="pnt_margin"/>
+                    <field name="pnt_post_margin_amount"/>
+                </group>
+                <group attrs="{'invisible':[('pnt_campaign_id','=',False)]}">
+                    <button class="oe_highlight"
+                            type="object"
+                            name="products_pricelist_recalculation_by_campaign"
+                            string="Recalculate"/>
+                </group>
+                <group name="product_template_in_pricelist">
+                    <field name="pnt_product_tmpl_ids" groups="base.group_no_one"/>
+                </group>
+            </xpath>
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
