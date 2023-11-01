@@ -8,7 +8,7 @@
         <field name="domain" eval="False"/>
         <field name="filter" eval="False"/>
         <field name="limit">80</field>
-        <field name="name">Power CUPS</field>
+        <field name="name">Power Supply</field>
         <field name="res_model">power.cups</field>
         <field name="search_view_id" eval="False"/>
         <field name="target">current</field>

@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+                        <field name="pnt_state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                     </header>
                     <sheet string="CUPS">
                         <h2>
@@ -15,11 +15,11 @@
                         </h2>
                         <group>
                             <group name="general_data">
-                                <field name="partner_id" required="1"/>
+                                <field name="pnt_partner_id" required="1"/>
                             </group>
                             <group>
-                                <field name="dealer_id"/>
-                                <field name="marketeer_id"/>
+                                <field name="pnt_dealer_id"/>
+                                <field name="pnt_marketeer_id"/>
                             </group>
                         </group>
                     </sheet>
@@ -47,10 +47,10 @@
             <field name="arch" type="xml">
                 <tree string="Power CUPS">
                     <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="dealer_id"/>
-                    <field name="marketeer_id" optional="hide"/>
-                    <field name="state"/>
+                    <field name="pnt_partner_id"/>
+                    <field name="pnt_dealer_id"/>
+                    <field name="pnt_marketeer_id" optional="hide"/>
+                    <field name="pnt_state"/>
                 </tree>
             </field>
             <field name="field_parent" eval="False"/>

@@ -10,13 +10,13 @@ class PowerCUPS(models.Model):
     _description = 'Power CUPS'
 
     name = fields.Char('Name', store=True, copy=True, required=True)
-    state = fields.Selection(
+    pnt_state = fields.Selection(
         selection=[('draft','DRAFT'),('done','DONE')],
         string="State",
         default='draft',
         tracking=True,
     )
 
-    partner_id = fields.Many2one('res.partner', string='Contact', store=True, copy=True)
-    dealer_id = fields.Many2one('res.partner', string='Dealer', store=True, copy=True)
-    marketeer_id = fields.Many2one('res.partner', string='Marketeer', store=True, copy=True)
+    pnt_partner_id = fields.Many2one('res.partner', string='Contact', store=True, copy=True)
+    pnt_dealer_id = fields.Many2one('res.partner', string='Dealer', store=True, copy=True)
+    pnt_marketeer_id = fields.Many2one('res.partner', string='Marketeer', store=True, copy=True)

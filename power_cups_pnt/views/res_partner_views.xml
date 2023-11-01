@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <!-- Partner customization : -->
+    <record id="res_partner_power_cups_inh_form" model="ir.ui.view">
+        <field name="name">res.partner.power.cups.inh.form</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="power_cups_page" string="CUPS">
+                    <group name="power_cups_group">
+                        <field name="pnt_power_cups_id" context="{'default_pnt_partner_id':record.id}"/>
+                        <field name="pnt_dealer_id"/>
+                        <field name="pnt_marketeer_id"/>
+                        <field name="pnt_state"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>
