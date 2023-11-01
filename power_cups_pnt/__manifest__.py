@@ -16,6 +16,7 @@
         'security/user_groups.xml',
         'security/ir.model.access.csv',
         'views/power_cups_views.xml',
+        'views/res_partner_views.xml',
         'views/menu_views.xml',
     ],
     'installable': True,
