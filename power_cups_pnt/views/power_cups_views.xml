@@ -5,11 +5,9 @@
             <field name="active" eval="True"/>
             <field name="arch" type="xml">
                 <form>
-                    <!--
                     <header>
                         <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                     </header>
-                    -->
                     <sheet string="CUPS">
                         <h2>
                             <field name="name"/>
@@ -29,7 +27,7 @@
             <field name="inherit_id" eval="False"/>
             <field name="key" eval="False"/>
             <field name="mode">primary</field>
-            <field name="model">Power CUPS</field>
+            <field name="model">power.cups</field>
             <field name="name">Default form view for Power CUPS</field>
             <field name="priority">16</field>
             <field name="type">form</field>
