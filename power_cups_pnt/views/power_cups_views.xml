@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                         <field name="state" widget="statusbar" nolabel="1"/>
+                        <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                     </header>
                     <sheet string="CUPS">
                         <h2>
