@@ -3,8 +3,6 @@
 
 from odoo import api, fields, models, _
 
-STATE = [('draft', 'DRAFT'),('done', 'DONE')]
-
 
 class power.cups(models.Model):
     _name = 'power.cups'
@@ -13,7 +11,7 @@ class power.cups(models.Model):
 
     name = fields.Char('Name', store=True, copy=True)
     state = fields.Selection(
-        selection=STATE,
+        selection=[('draft','DRAFT'),('done','DONE')],
         string="State",
         default='draft',
         tracking=True,
