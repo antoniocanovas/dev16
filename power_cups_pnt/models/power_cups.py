@@ -4,7 +4,7 @@
 from odoo import api, fields, models, _
 
 
-class power.cups(models.Model):
+class PowerCUPS(models.Model):
     _name = 'power.cups'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Power CUPS'
