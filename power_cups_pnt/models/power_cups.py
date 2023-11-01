@@ -9,10 +9,12 @@ class PowerCUPS(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Power CUPS'
 
-    name = fields.Char('Name', store=True, copy=True)
+    name = fields.Char('Name', store=True, copy=True, required=True)
     state = fields.Selection(
         selection=[('draft','DRAFT'),('done','DONE')],
         string="State",
         default='draft',
         tracking=True,
     )
+
+    partner_id = fields.Many2one('res.partner', string='Contact', store=True, copy=True)

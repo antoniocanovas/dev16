@@ -1,6 +1,7 @@
 <odoo>
     <data>
 
+
         <record id="power_cups_default_form" model="ir.ui.view">
             <field name="active" eval="True"/>
             <field name="arch" type="xml">
@@ -12,7 +13,8 @@
                         <h2>
                             <field name="name"/>
                         </h2>
-                        <group name="cabecera">
+                        <group name="general_data">
+                            <field name="partner_id" required="1"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -33,11 +35,13 @@
             <field name="type">form</field>
         </record>
 
+
         <record id="power_cups_default_tree" model="ir.ui.view">
             <field name="active" eval="True"/>
             <field name="arch" type="xml">
                 <tree string="Power CUPS">
                     <field name="name"/>
+                    <field name="partner_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -51,6 +55,7 @@
             <field name="priority">16</field>
             <field name="type">tree</field>
         </record>
+
 
     </data>
 </odoo>
