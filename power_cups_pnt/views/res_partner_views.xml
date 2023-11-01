@@ -11,7 +11,12 @@
             <xpath expr="//notebook" position="inside">
                 <page name="power_cups_page" string="CUPS">
                     <group name="power_cups_group">
-                        <field name="pnt_power_cups_id" context="{'default_pnt_partner_id':record.id}"/>
+                        <field name="pnt_power_cups_id"/>
+                        <!--
+                               context="{'default_pnt_partner_id':record.id}"
+                               domain="[('pnt_partner_id','=',record.id)]"
+                        />
+                        -->
                         <field name="pnt_dealer_id"/>
                         <field name="pnt_marketeer_id"/>
                         <field name="pnt_state"/>
