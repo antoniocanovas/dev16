@@ -11,7 +11,7 @@ class PowerCUPS(models.Model):
 
     name = fields.Char('Name', store=True, copy=True, required=True)
     pnt_state = fields.Selection(
-        selection=[('draft','DRAFT'),('done','DONE')],
+        selection=[('draft','Draft'),('done','Done')],
         string="State",
         default='draft',
         tracking=True,
