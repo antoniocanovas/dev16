@@ -18,3 +18,5 @@ class PowerCUPS(models.Model):
     )
 
     partner_id = fields.Many2one('res.partner', string='Contact', store=True, copy=True)
+    dealer_id = fields.Many2one('res.partner', string='Dealer', store=True, copy=True)
+    marketeer_id = fields.Many2one('res.partner', string='Marketeer', store=True, copy=True)
