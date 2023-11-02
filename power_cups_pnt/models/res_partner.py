@@ -25,7 +25,7 @@ class ResPartner(models.Model):
                    ('tri','Trifásica')],
         string="Energy",
         default='mono',
-        store=True,
+        store=True, readonly=False,
         related='pnt_power_cups_id.pnt_electric_type',
     )
 
@@ -34,6 +34,7 @@ class ResPartner(models.Model):
                    ('asc','Autoconsumo sin compensación'),
                    ('venta','Venta a red')],
         string="Customer type",
+        store=True, readonly=False,
         related='pnt_power_cups_id.pnt_target_type',
     )
 
@@ -41,11 +42,13 @@ class ResPartner(models.Model):
         selection=[('person','Person'),('company','Company'),('community','Community'),
                    ('shared','Shared'),('residential','Residential')],
         string="Customer type",
+        store=True, readonly=False,
         related='pnt_power_cups_id.pnt_customer_type',
     )
 
     pnt_surface_type = fields.Selection(
         selection=[('roof','Roof'),('rustic','Rustic'),('flat','Flat'),('wall','Wall')],
         string="Surface",
+        store=True, readonly=False,
         related='pnt_power_cups_id.pnt_surface_type',
     )
