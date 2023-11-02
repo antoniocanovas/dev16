@@ -13,26 +13,22 @@
                         <h2>
                             <field name="name"/>
                         </h2>
-                        <group>
-                            <group name="general_data">
+                        <group name="general_data">
+                            <group>
                                 <field name="pnt_partner_id" required="1"/>
+                                <field name="pnt_customer_type"/>
+                                <field name="pnt_surface_type"/>
+                                <field name="pnt_kw_fw"/>
+                                <field name="pnt_kw_inverter"/>
+                                <field name="pnt_kw_battery"/>
                             </group>
                             <group>
-                                <group>
-                                    <field name="pnt_customer_type"/>
-                                    <field name="pnt_surface_type"/>
-                                    <field name="pnt_kw_fw"/>
-                                    <field name="pnt_kw_inverter"/>
-                                    <field name="pnt_kw_battery"/>
-                                    <field name="pnt_isolated"/>
-                                </group>
-                                <group>
-                                    <field name="pnt_dealer_id"/>
-                                    <field name="pnt_marketeer_id"/>
-                                    <field name="pnt_kw_contract"/>
-                                    <field name="pnt_kw_access"/>
-                                    <field name="pnt_target_type"/>
-                                </group>
+                                <field name="pnt_dealer_id"/>
+                                <field name="pnt_marketeer_id"/>
+                                <field name="pnt_kw_contract"/>
+                                <field name="pnt_kw_access"/>
+                                <field name="pnt_target_type"/>
+                                <field name="pnt_isolated"/>
                             </group>
                         </group>
                     </sheet>
