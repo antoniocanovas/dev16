@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    <!-- Partner customization : -->
+    <!-- CRM customization : -->
     <record id="crm_power_cups_inh_form" model="ir.ui.view">
         <field name="name">crm.power.cups.inh.form</field>
         <field name="model">crm.lead</field>
