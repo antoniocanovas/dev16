@@ -23,10 +23,11 @@ class PowerCUPS(models.Model):
 
     @api.depends('pnt_partner_id','pnt_partner_id.parent_id')
     def _get_cups_customer(self):
-        customer = self.pnt_partner_id
-        if customer.parent_id.id:
-            customer = customer.parent_id
-        self.pnt_customer_id = customer.id
+        for record in self:
+            customer = record.pnt_partner_id
+            if customer.parent_id.id:
+                customer = customer.parent_id
+            record['pnt_customer_id'] = customer.id
     pnt_customer_id = fields.Many2one('res.partner', string='Customer', store=True, compute='_get_cups_customer')
 
     pnt_kw_fw       = fields.Float('Photovoltaic (kw)', store=True, copy=True, tracking=True)
