@@ -11,13 +11,23 @@
             <xpath expr="//notebook" position="inside">
                 <page name="power_cups_page" string="CUPS">
                     <group name="power_cups_group">
-                        <field name="pnt_power_cups_id"
-                               context="{'default_pnt_partner_id':id}"
-                               domain="[('pnt_partner_id','=',id)]"
-                        />
-                        <field name="pnt_dealer_id"/>
-                        <field name="pnt_marketeer_id"/>
-                        <field name="pnt_state"/>
+                        <group>
+                            <field name="pnt_power_cups_id"
+                                   context="{'default_pnt_partner_id':id}"
+                                   domain="[('pnt_partner_id','=',id)]"
+                            />
+                            <field name="pnt_kw_fw"/>
+                            <field name="pnt_kw_inverter"/>
+                            <field name="pnt_kw_battery"/>
+                            <field name="pnt_isolated"/>
+                        </group>
+                        <group>
+                            <field name="pnt_customer_type"/>
+                            <field name="pnt_surface_type"/>
+                            <field name="pnt_dealer_id"/>
+                            <field name="pnt_marketeer_id"/>
+                            <field name="pnt_target_type"/>
+                        </group>
                     </group>
                 </page>
             </xpath>
@@ -26,3 +36,4 @@
     </record>
 
 </odoo>
+

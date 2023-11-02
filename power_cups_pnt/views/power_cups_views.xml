@@ -18,8 +18,21 @@
                                 <field name="pnt_partner_id" required="1"/>
                             </group>
                             <group>
-                                <field name="pnt_dealer_id"/>
-                                <field name="pnt_marketeer_id"/>
+                                <group>
+                                    <field name="pnt_customer_type"/>
+                                    <field name="pnt_surface_type"/>
+                                    <field name="pnt_kw_fw"/>
+                                    <field name="pnt_kw_inverter"/>
+                                    <field name="pnt_kw_battery"/>
+                                    <field name="pnt_isolated"/>
+                                </group>
+                                <group>
+                                    <field name="pnt_dealer_id"/>
+                                    <field name="pnt_marketeer_id"/>
+                                    <field name="pnt_kw_contract"/>
+                                    <field name="pnt_kw_access"/>
+                                    <field name="pnt_target_type"/>
+                                </group>
                             </group>
                         </group>
                     </sheet>
@@ -48,9 +61,18 @@
                 <tree string="Power CUPS">
                     <field name="name"/>
                     <field name="pnt_partner_id"/>
-                    <field name="pnt_dealer_id"/>
+                    <field name="pnt_kw_fw"/>
+                    <field name="pnt_kw_inverter"/>
+                    <field name="pnt_kw_battery"/>
+                    <field name="pnt_dealer_id" optional="show"/>
                     <field name="pnt_marketeer_id" optional="hide"/>
-                    <field name="pnt_state"/>
+                    <field name="pnt_customer_type" optional="show"/>
+                    <field name="pnt_surface_type" optional="show"/>
+                    <field name="pnt_isolated"/>
+                    <field name="pnt_kw_contract" optional="hide"/>
+                    <field name="pnt_kw_access" optional="hide"/>
+                    <field name="pnt_target_type" optional="hide"/>
+                    <field name="pnt_state" optional="hide"/>
                 </tree>
             </field>
             <field name="field_parent" eval="False"/>

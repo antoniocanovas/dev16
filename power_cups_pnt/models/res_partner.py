@@ -15,5 +15,27 @@ class ResPartner(models.Model):
         selection=[('draft','Draft'),('done','Done')],
         string='State', related='pnt_power_cups_id.pnt_state', store=False)
 
+    pnt_kw_fw       = fields.Float('Photovoltaic (kw)', store=True, readonly=False, related='pnt_power_cups_id.pnt_kw_fw')
+    pnt_kw_inverter = fields.Float('Inverter (kw)', store=True, readonly=False, related='pnt_power_cups_id.pnt_kw_inverter')
+    pnt_kw_battery  = fields.Float('Battery (kw)', store=True, readonly=False, related='pnt_power_cups_id.pnt_kw_battery')
+    pnt_isolated    = fields.Boolean('Isolated', store=True, readonly=False, related='pnt_power_cups_id.pnt_isolated')
+    pnt_target_type = fields.Selection(
+        selection=[('acc','Autoconsumo con compensación'),
+                   ('asc','Autoconsumo sin compensación'),
+                   ('venta','Venta a red')],
+        string="Customer type",
+        related='pnt_power_cups_id.pnt_target_type',
+    )
 
+    pnt_customer_type = fields.Selection(
+        selection=[('person','Person'),('company','Company'),('community','Community'),
+                   ('shared','Shared'),('residential','Residential')],
+        string="Customer type",
+        related='pnt_power_cups_id.pnt_customer_type',
+    )
 
+    pnt_surface_type = fields.Selection(
+        selection=[('roof','Roof'),('rustic','Rustic'),('flat','Flat'),('wall','Wall')],
+        string="Surface",
+        related='pnt_power_cups_id.pnt_surface_type',
+    )
