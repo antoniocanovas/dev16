@@ -18,6 +18,7 @@
                                 <field name="pnt_partner_id" required="1"/>
                                 <field name="pnt_customer_type"/>
                                 <field name="pnt_surface_type"/>
+                                <field name="pnt_electric_type"/>
                                 <field name="pnt_kw_fw"/>
                                 <field name="pnt_kw_inverter"/>
                                 <field name="pnt_kw_battery"/>

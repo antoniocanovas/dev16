@@ -19,6 +19,16 @@ class ResPartner(models.Model):
     pnt_kw_inverter = fields.Float('Inverter (kw)', store=True, readonly=False, related='pnt_power_cups_id.pnt_kw_inverter')
     pnt_kw_battery  = fields.Float('Battery (kw)', store=True, readonly=False, related='pnt_power_cups_id.pnt_kw_battery')
     pnt_isolated    = fields.Boolean('Isolated', store=True, readonly=False, related='pnt_power_cups_id.pnt_isolated')
+
+    pnt_electric_type = fields.Selection(
+        selection=[('mono','Monofásica'),
+                   ('tri','Trifásica')],
+        string="Energy",
+        default='mono',
+        store=True,
+        related='pnt_power_cups_id.pnt_electric_type',
+    )
+
     pnt_target_type = fields.Selection(
         selection=[('acc','Autoconsumo con compensación'),
                    ('asc','Autoconsumo sin compensación'),
