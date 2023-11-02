@@ -24,7 +24,6 @@ class CrmLead(models.Model):
         selection=[('mono','Monofásica'),
                    ('tri','Trifásica')],
         string="Electricity",
-        default='mono',
         store=True, readonly=False,
         related='pnt_power_cups_id.pnt_electric_type',
     )

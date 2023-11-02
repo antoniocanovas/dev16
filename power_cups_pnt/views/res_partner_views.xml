@@ -10,12 +10,14 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="power_cups_page" string="CUPS">
-                    <group name="power_cups_group">
+                    <group>
+                        <field name="pnt_power_cups_id"
+                               context="{'default_pnt_partner_id':id}"
+                               domain="[('pnt_partner_id','=',id)]"
+                        />
+                    </group>
+                    <group name="power_cups_group" attrs="{'invisible':[('pnt_power_cups_id','=',False)]}">
                         <group>
-                            <field name="pnt_power_cups_id"
-                                   context="{'default_pnt_partner_id':id}"
-                                   domain="[('pnt_partner_id','=',id)]"
-                            />
                             <field name="pnt_electric_type"/>
                             <field name="pnt_kw_fw"/>
                             <field name="pnt_kw_inverter"/>
