@@ -1,4 +1,4 @@
-# © 2023 Serincloud ( https://www.ingenieriacloud.com )
+# © 2023 Punt Sistemes ( https://www.puntsistemes.es )
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
