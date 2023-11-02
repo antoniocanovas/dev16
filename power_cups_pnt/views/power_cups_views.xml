@@ -24,6 +24,7 @@
                                 <field name="pnt_kw_battery"/>
                             </group>
                             <group>
+                                <field name="pnt_customer_id"/>
                                 <field name="pnt_dealer_id"/>
                                 <field name="pnt_marketeer_id"/>
                                 <field name="pnt_kw_contract"/>
@@ -57,7 +58,8 @@
             <field name="arch" type="xml">
                 <tree string="Power CUPS">
                     <field name="name"/>
-                    <field name="pnt_partner_id"/>
+                    <field name="pnt_customer_id" optional="hide"/>
+                    <field name="pnt_partner_id" optional="show"/>
                     <field name="pnt_kw_fw"/>
                     <field name="pnt_kw_inverter"/>
                     <field name="pnt_kw_battery"/>
