@@ -31,7 +31,7 @@ class PowerCUPS(models.Model):
     pnt_electric_type = fields.Selection(
         selection=[('mono','Monofásica'),
                    ('tri','Trifásica')],
-        string="Energy",
+        string="Electricity",
         default='mono',
         store=True, copy=True,
         tracking=True,
