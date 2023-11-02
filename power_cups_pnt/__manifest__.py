@@ -11,6 +11,9 @@
     'author': 'Punt Sistemes',
     'depends': [
         'mail',
+        'contacts',
+        'crm',
+        'project',
     ],
     'data': [
         'security/user_groups.xml',
