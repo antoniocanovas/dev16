@@ -14,6 +14,7 @@
         'contacts',
         'crm',
         'project',
+        'sale_management',
     ],
     'data': [
         'security/user_groups.xml',
@@ -23,6 +24,7 @@
         'views/crm_lead_views.xml',
         'views/project_project_views.xml',
         'views/project_task_views.xml',
+        'views/sale_order_views.xml',
         'views/menu_views.xml',
     ],
     'installable': True,
