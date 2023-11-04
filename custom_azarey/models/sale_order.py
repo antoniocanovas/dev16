@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
             ('sale', "Sales Order"),
             ('done', "Locked"),
             ('cancel', "Cancelled"),
-        ],
+        ],)
 
     # Evitar vender el mismo producto a dos tiendas que están juntas y son competencia:
     @api.constrains('write_date')
