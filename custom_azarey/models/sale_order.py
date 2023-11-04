@@ -6,6 +6,16 @@ from odoo.exceptions import UserError, ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    state = fields.Selection(
+        selection=[
+            ('draft', "Quotation"),
+            ('sent', "Quotation Sent"),
+            ('reservation', "Reservation"),
+            ('sale', "Sales Order"),
+            ('done', "Locked"),
+            ('cancel', "Cancelled"),
+        ],
+
     # Evitar vender el mismo producto a dos tiendas que están juntas y son competencia:
     @api.constrains('write_date')
     def _avoid_product_competency_sale_on_confirm(self):
