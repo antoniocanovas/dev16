@@ -16,6 +16,9 @@ class SaleOrder(models.Model):
             ('cancel', "Cancelled"),
         ],)
 
+    def action_reservation(self):
+        self.state = 'reservation'
+
     # Evitar vender el mismo producto a dos tiendas que están juntas y son competencia:
     @api.constrains('write_date')
     def _avoid_product_competency_sale_on_confirm(self):
