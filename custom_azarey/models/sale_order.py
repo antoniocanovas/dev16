@@ -29,7 +29,7 @@ class SaleOrder(models.Model):
             for competitor in competitors:
                 for li in record.order_line:
                     sol = self.env['sale.order.line'].search([('order_partner_id', '=', competitor.id),
-                                                              ('state', 'in', ['sale', 'done']),
+                                                              ('state', 'in', ['reservation', 'sale', 'done']),
                                                               ('product_id', '=', li.product_id.id)])
                     if sol.id:
                         mensaje = "Producto: " + sol[0].product_id.name + " , incompatible por la venta " + \
