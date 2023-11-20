@@ -37,9 +37,6 @@ class SaleOrder(models.Model):
 
     manager_commission = fields.Monetary(string='Referrer Commission', compute='_compute_manager_commission')
 
-
-
-
     @api.depends('referrer_id', 'commission_plan_id', 'sale_order_template_id', 'pricelist_id', 'order_line.price_subtotal',
                  'manager_id','manager_commission_plan_id')
     def _compute_manager_commission(self):
