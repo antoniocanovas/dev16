@@ -6,9 +6,9 @@ class SaleOrder(models.Model):
 
     # Método para heredar comisionista del cliente:
     @api.depends('partner_id')
-    def _get_default_commission_referred(self):
+    def _get_default_commission_referrer(self):
         self.referred_id = self.partner_id.referred_id.id
-    referred_id = fields.Many2one('res.partner', compute=_get_default_referred)
+    referred_id = fields.Many2one('res.partner', compute='_get_default_commission_referrer')
 
     # Método para heredar manager del comisionista:
     @api.depends('referred_id')
