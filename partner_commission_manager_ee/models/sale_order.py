@@ -21,9 +21,9 @@ class SaleOrder(models.Model):
     def _compute_manager_commission_plan(self):
         for so in self:
             if not so.is_subscription and so.state in ['draft', 'sent']:
-                so.manager_commission_plan_id = so.referrer_id.manager_id.manager_commission_plan_id.id
+                so.manager_commission_plan_id = so.referrer_id.manager_id.commission_plan_id
             elif so.is_subscription and not so.commission_plan_frozen:
-                so.commission_plan_id = so.referrer_id.manager_id.manager_commission_plan_id.id
+                so.commission_plan_id = so.referrer_id.manager_id.commission_plan_id.id
     manager_commission_plan_id = fields.Many2one(
         'commission.plan',
         'Manager Plan',
