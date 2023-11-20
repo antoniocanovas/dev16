@@ -8,15 +8,22 @@ class SaleOrder(models.Model):
     @api.depends('partner_id')
     def _get_default_commission_referrer(self):
         self.referrer_id = self.partner_id.referrer_id.id
-    referrer_id = fields.Many2one('res.partner', compute='_get_default_commission_referrer')
+    referrer_id = fields.Many2one('res.partner', readonly=False, compute='_get_default_commission_referrer')
 
     # Método para heredar manager del comisionista:
     @api.depends('referrer_id')
     def _get_commission_manager_id(self):
         self.manager_id = self.partner_id.referrer_id.manager_id.id
     manager_id = fields.Many2one('res.partner', 'Manager', domain=[('grade_id', '!=', False)], tracking=True,
-                                 compute='_get_commission_manager_id')
+                                 readonly=False, compute='_get_commission_manager_id')
 
+    @api.depends('commission_plan_frozen', 'partner_id', 'referrer_id', 'referrer_id.commission_plan_id', 'manager_id')
+    def _compute_manager_commission_plan(self):
+        for so in self:
+            if not so.is_subscription and so.state in ['draft', 'sent']:
+                so.manager_commission_plan_id = so.referrer_id.manager_id.manager_commission_plan_id.id
+            elif so.is_subscription and not so.commission_plan_frozen:
+                so.commission_plan_id = so.referrer_id.manager_id.manager_commission_plan_id.id
     manager_commission_plan_id = fields.Many2one(
         'commission.plan',
         'Manager Plan',
@@ -27,16 +34,10 @@ class SaleOrder(models.Model):
         help="Takes precedence over the Manager's commission plan."
     )
 
+
     manager_commission = fields.Monetary(string='Referrer Commission', compute='_compute_manager_commission')
 
 
-    @api.depends('commission_plan_frozen', 'partner_id', 'referrer_id', 'referrer_id.commission_plan_id', 'manager_id')
-    def _compute_manager_commission_plan(self):
-        for so in self:
-            if not so.is_subscription and so.state in ['draft', 'sent']:
-                so.manager_commission_plan_id = so.referrer_id.manager_id.manager_commission_plan_id
-            elif so.is_subscription and not so.commission_plan_frozen:
-                so.commission_plan_id = so.referrer_id.manager_id.manager_commission_plan_id
 
 
     @api.depends('referrer_id', 'commission_plan_id', 'sale_order_template_id', 'pricelist_id', 'order_line.price_subtotal',
