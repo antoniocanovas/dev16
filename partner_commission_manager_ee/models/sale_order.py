@@ -4,11 +4,18 @@ from datetime import datetime, date
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-# Añadir método para que herede del partner (este campo ya existe):
-#    referred_id = fields.Many2one()
+    # Método para heredar comisionista del cliente:
+    @api.depends('partner_id')
+    def _get_default_commission_referred(self):
+        self.referred_id = self.partner_id.referred_id.id
+    referred_id = fields.Many2one('res.partner', compute=_get_default_referred)
 
-# Añadir método para que herede del referred_id:
-    manager_id = fields.Many2one('res.partner', 'Manager', domain=[('grade_id', '!=', False)], tracking=True)
+    # Método para heredar manager del comisionista:
+    @api.depends('referred_id')
+    def _get_commission_manager_id(self):
+        self.manager_id = self.partner_id.referred_id.manager_id.id
+    manager_id = fields.Many2one('res.partner', 'Manager', domain=[('grade_id', '!=', False)], tracking=True,
+                                 compute='_get_commission_manager_id')
 
     manager_commission_plan_id = fields.Many2one(
         'commission.plan',
@@ -17,7 +24,8 @@ class SaleOrder(models.Model):
         inverse='_set_commission_plan',
         store=True,
         tracking=True,
-        help="Takes precedence over the Manager's commission plan.")
+        help="Takes precedence over the Manager's commission plan."
+    )
 
     manager_commission = fields.Monetary(string='Referrer Commission', compute='_compute_manager_commission')
 
