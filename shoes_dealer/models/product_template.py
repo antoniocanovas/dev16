@@ -55,12 +55,12 @@ class ProductTemplate(models.Model):
     pt_colors = fields.Char('Product colors', store=False, compute='_get_product_colors')
 
     # Actualizar el precio de los surtidos cuando cambia el precio del par:
-    @api.depends('product_tmpl_single_price')
+    @api.onchage('list_price')
     def update_set_price_by_pairs(self):
-        pair_price = self.product_tmpl_single_list_price
-        if self.product_tmpl_set_id.id:
-            for pp in self.product_tmpl_set_id.product_variant_ids:
-                pp.list_price.write({'list_price': pair_price * pp.pairs_count})
+        for record in self:
+            if record.product_tmpl_set_id.id:
+                for pp in record.product_tmpl_set_id.product_variant_ids:
+                    pp.list_price.write({'list_price': record.list_price * pp.pairs_count})
 
     def create_single_products_and_set_boms(self):
         for record in self:
