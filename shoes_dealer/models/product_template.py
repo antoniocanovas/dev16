@@ -60,7 +60,7 @@ class ProductTemplate(models.Model):
         for record in self:
             if record.product_tmpl_set_id.id:
                 for pp in record.product_tmpl_set_id.product_variant_ids:
-                    pp.write({'list_price': record.list_price * pp.pairs_count})
+                    pp.write({'lst_price': record.list_price * pp.pairs_count})
 
     def create_single_products_and_set_boms(self):
         for record in self:
