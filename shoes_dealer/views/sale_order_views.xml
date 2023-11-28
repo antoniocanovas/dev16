@@ -23,9 +23,6 @@
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="pairs_count"/>
             </xpath>
-            <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
-                <field name="pairs_count"/>
-            </xpath>
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']" position="before">
                 <field name="product_saleko_id" force_save="1" widget="sol_product_many2one" optional="hide"
                        attrs="{'readonly': [('product_updatable', '=', False)]}"
