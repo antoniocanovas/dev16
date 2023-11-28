@@ -33,6 +33,7 @@
         "reports/pricelist_report.xml",
         "reports/product_pricelist_report_template.xml",
         "reports/pnt_report_invoice.xml",
+        "reports/product_product_templates.xml",
         "wizard/pnt_product_pricelist_report_wizard_view.xml",
         "reports/project_task_report.xml",
         "reports/project_task_report_template.xml",

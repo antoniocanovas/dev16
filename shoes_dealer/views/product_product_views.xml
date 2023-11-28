@@ -14,4 +14,27 @@
         </field>
     </record>
 
+    <record id="product_kanban_view_inh" model="ir.ui.view">
+        <field name="name">product.kanban.view.inh</field>
+        <field name="model">product.product</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_kanban_view"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='id']" position="after">
+                 <field name="product_tmpl_single_id"/>
+                 <field name="product_tmpl_single_list_price"/>
+            </xpath>
+            <xpath expr="//ul" position="replace">
+                <ul t-if="!record.product_tmpl_single_id">
+                    <li><strong>Price: <field name="lst_price"/></strong></li>
+                </ul>
+                <ul t-else="">
+                    <li><strong>Price: <field name="product_tmpl_single_list_price"/></strong></li>
+                </ul>
+            </xpath>
+        </field>
+    </record>
+
+
 </odoo>

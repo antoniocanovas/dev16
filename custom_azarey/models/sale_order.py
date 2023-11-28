@@ -6,15 +6,9 @@ from odoo.exceptions import UserError, ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    state = fields.Selection(
-        selection=[
-            ('draft', "Quotation"),
-            ('sent', "Quotation Sent"),
-            ('reservation', "Reservation"),
-            ('sale', "Sales Order"),
-            ('done', "Locked"),
-            ('cancel', "Cancelled"),
-        ],)
+    state = fields.Selection(selection_add = [('reservation', "Reservation"), ('sale',)],
+                             ondelete={'reservation': 'set default'}
+    )
 
     def action_reservation(self):
         self.state = 'reservation'

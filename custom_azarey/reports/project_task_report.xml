@@ -25,8 +25,6 @@
             <field name="print_report_name">((str(object.name) or ''))</field>
             <field name="paperformat_id" ref="custom_azarey.paperformat_task_report"/>
             <field name="attachment">((str(object.name) or '')+'.pdf')</field>
-            <field name="binding_model_id" ref="model_project_task"/>
-            <field name="binding_type">report</field>
         </record>
 
     </data>

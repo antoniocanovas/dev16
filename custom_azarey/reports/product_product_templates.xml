@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="report_simple_label5x6">
+            <t t-set="barcode_size" t-value="'width:33mm;height:14mm'"/>
+            <t t-set="table_style" t-value="'width:97mm;height:37.1mm;' + table_style"/>
+            <td t-att-style="make_invisible and 'visibility:hidden;'" >
+                <div class="o_label_full" t-att-style="table_style">
+                    <div class="o_label_name">
+                        <strong t-field="product.display_name"/>
+                    </div>
+                    <div class="o_label_data">
+                        <div class="text-center o_label_left_column">
+                            <span class="text-nowrap" t-field="product.default_code"/>
+                            <t t-if="barcode">
+                                <div t-out="barcode" t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': barcode_size}"/>
+                                <span class="text-center" t-out="barcode"/>
+                            </t>
+                        </div>
+                        <div class="text-end" style="line-height:normal">
+                            <div class="o_label_extra_data">
+                                <t t-out="extra_html"/>
+                            </div>
+                            <t t-if="product.is_product_variant">
+                                <strong class="o_label_price" t-field="product.lst_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
+                            </t>
+                            <t t-else="">
+                                <strong class="o_label_price" t-field="product.list_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
+                            </t>
+                        </div>
+                        <div class="o_label_clear"></div>
+                    </div>
+                </div>
+            </td>
+        </template>
+
+        <template id="report_productlabel_inherit" inherit_id="product.report_productlabel">
+            <xpath expr="//t[@t-if='columns and rows']" position="inside">
+                <t t-if="columns == 5 and rows == 6">
+                    <t t-set="padding_page" t-value="'padding: 14mm 3mm'"/>
+                    <t t-set="report_to_call" t-value="'custom_azarey.report_simple_label5x6'"/>
+                </t>
+            </xpath>
+            <xpath expr="//t/t/t/div/table/t/tr/t/t[6]" position="replace">
+                 <t t-call="custom_azarey.report_simple_label5x6"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
