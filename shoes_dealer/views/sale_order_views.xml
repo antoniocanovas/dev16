@@ -21,8 +21,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
-                <field name="pairs_count" optional="show"/>
-                <field name="pair_price" optional="show"/>
+                <field name="pairs_count"/>
             </xpath>
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
                 <field name="pairs_count"/>
@@ -38,6 +37,11 @@
                        ('company_id', '=', parent.company_id)]"
                 />
             </xpath>
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="pairs_count" optional="show"/>
+                <field name="pair_price" optional="show"/>
+            </xpath>
+
         </field>
     </record>
 
