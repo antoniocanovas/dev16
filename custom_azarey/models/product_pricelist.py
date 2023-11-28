@@ -15,6 +15,10 @@ class ProductPricelist(models.Model):
     pnt_post_margin_amount = fields.Monetary('Post margin', store=True, copy=True, tracking=16)
     pnt_product_brand_id = fields.Many2one('product.brand', string='Brand', store=True, copy=True, tracking=16)
 
+    pnt_product_tmpl_item_ids = fields.One2many('product.pricelist.item', 'pricelist_id',
+                                                domain=[('applied_on','=','1_product')]
+                                                )
+
     @api.depends('item_ids')
     def _get_pricelist_product_tmpl(self):
         templates = []
