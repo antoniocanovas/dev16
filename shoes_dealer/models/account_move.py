@@ -10,7 +10,7 @@ class AccountMove(models.Model):
     def _get_shoes_pair_count(self):
         for record in self:
             count = 0
-            for li in record.order_line:
+            for li in record.invoice_line_ids:
                 count += li.pairs_count
             record['pairs_count'] = count
     pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_pair_count')
