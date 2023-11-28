@@ -16,7 +16,9 @@ class SaleOrderLine(models.Model):
     @api.depends('product_id','price_unit')
     def _get_shoes_pair_price(self):
         for record in self:
-            record['pair_price'] = record.price_subtotal / record.pairs_count
+            total = 0
+            if record.pairs_count != 0: total = record.price_subtotal / record.pairs_count
+            record['pair_price'] = total
     pair_price = fields.Float('Pair price', store=True, compute='_get_shoes_pair_price')
 
     product_saleko_id = fields.Many2one('product.product', string='Product KO', store=True, copy=True)
