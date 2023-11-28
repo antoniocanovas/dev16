@@ -71,9 +71,9 @@ class ProductPricelist(models.Model):
                 if not product_bom.bom_line_ids.ids:
                     message = pr.name + " has no Bill of Materials, please review and press CREATE PAIRS"
                     raise UserError(message)
-                else:
-                    single = product_bom[0].product_id
-                # Actualizar el precio del set en base al producto anterior ¿Para qué? HABLAMOS DE TARIFAS:
+# ELIMINADO 27/11/23 (error recálculo precios base)                else:
+#                    single = product_bom[0].product_id
+#                # Actualizar el precio del set en base al producto anterior ¿Para qué? HABLAMOS DE TARIFAS:
 #                pr.write({'lst_price': single.lst_price * pr.pairs_count,
 #                          'standard_price': single.standard_price * pr.pairs_count})
 
