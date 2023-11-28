@@ -6,7 +6,7 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     # Comercialmente en cada pedido quieren saber cuántos pares se han facturado:
-    @api.depends('product_id', 'product_uom_qty')
+    @api.depends('product_id', 'quantity')
     def _get_shoes_invoice_line_pair_count(self):
         for record in self:
             record['pairs_count'] = record.product_id.pairs_count * record.quantity
