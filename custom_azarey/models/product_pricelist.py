@@ -73,9 +73,9 @@ class ProductPricelist(models.Model):
                     raise UserError(message)
                 else:
                     single = product_bom[0].product_id
-                # Actualizar el precio del set en base al producto anterior:
-                pr.write({'lst_price': single.lst_price * pr.pairs_count,
-                          'standard_price': single.standard_price * pr.pairs_count})
+                # Actualizar el precio del set en base al producto anterior ¿Para qué? HABLAMOS DE TARIFAS:
+#                pr.write({'lst_price': single.lst_price * pr.pairs_count,
+#                          'standard_price': single.standard_price * pr.pairs_count})
 
                 # Crear líneas de tarifa (podría haber valido la búsqueda anterior??):
                 single_price = pr.product_tmpl_single_id.list_price
