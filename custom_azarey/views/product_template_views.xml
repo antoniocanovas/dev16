@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="product_template_azarey_inh_form" model="ir.ui.view">
+        <field name="name">product.template.azarey.inh.form</field>
+        <field name="model">product.template</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='inventory']" position="after">
+                <page string="migration_data">
+                    <group>
+                        <field name="mig_peso"/>
+                        <field name="mig_partidaarancelaria"/>
+                        <field name="mig_msgbloqueo"/>
+                        <field name="mig_imagen"/>
+                        <field name="mig_material"/>
+                        <field name="mig_costefab"/>
+                        <field name="mig_costetrans"/>
+                        <field name="mig_manufacturer"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

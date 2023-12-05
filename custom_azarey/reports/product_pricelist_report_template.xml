@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<odoo>
+    <data>
+
+        <template id="external_document_layout">
+            <t t-name="docs_base.external_document_layout">
+                <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                    <t t-call="web.address_layout"/>
+                    <t t-raw="0"/>
+                </div>
+
+                <div class="footer o_standard_footer">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                        <div t-if="report_type == 'pdf'" class="text-muted">
+                            Page: <span class="page"/> / <span class="topage"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="product_pricelist_report_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page">
+                    <p style="text-align:center;font-weight: 500;width: 100%;line-height: 15px;font-size:30px">
+                        MODELS REPORT
+                    </p>
+                    <table class="table-border" style="width:100%;border-color:transparent;">
+                        <thead>
+                            <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                <th style="padding-top: 10px; padding-bottom:10px;" t-attf-class="text-center"><span>Image</span></th>
+                                <th style="width:30%" t-attf-class="text-start"><span>Model</span></th>
+                                <th style="width:30%" t-attf-class="text-start"><span>S.price</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.pnt_product_tmpl_ids" t-as="line">
+                                <tr>
+                                    <td t-attf-class="text-start"  t-if="line.image_1920" class="text-right"
+                                        style="padding-top: 10px; padding-bottom:10px;text-align:left;">
+                                        <img t-att-src="image_data_uri(line.image_1920)" style="margin-left:120px;max-height: 1cm; max-width: 2cm;"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.list_price"/><span>/Pair</span>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="product_pricelist_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="custom_azarey.product_pricelist_report_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
