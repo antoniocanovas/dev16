@@ -4,48 +4,101 @@
 
         <template id="report_simple_label5x6">
             <t t-set="barcode_size" t-value="'width:33mm;height:14mm'"/>
-            <t t-set="table_style" t-value="'width:97mm;height:37.1mm;' + table_style"/>
-            <td t-att-style="make_invisible and 'visibility:hidden;'" >
+            <t t-set="table_style" t-value="'width:40mm;height:40.1mm;' + table_style"/>
+            <td t-att-style="make_invisible and 'visibility:hidden;'">
                 <div class="o_label_full" t-att-style="table_style">
-                    <div class="o_label_name">
-                        <strong t-field="product.display_name"/>
+                    <div style="font-size:14px;text-align:center;">
+                        <strong><span>MOD.</span></strong><strong t-field="product.display_name"/>
                     </div>
-                    <div class="o_label_data">
-                        <div class="text-center o_label_left_column">
-                            <span class="text-nowrap" t-field="product.default_code"/>
-                            <t t-if="barcode">
-                                <div t-out="barcode" t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': barcode_size}"/>
-                                <span class="text-center" t-out="barcode"/>
-                            </t>
-                        </div>
-                        <div class="text-end" style="line-height:normal">
-                            <div class="o_label_extra_data">
-                                <t t-out="extra_html"/>
-                            </div>
-                            <t t-if="product.is_product_variant">
-                                <strong class="o_label_price" t-field="product.lst_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
-                            </t>
-                            <t t-else="">
-                                <strong class="o_label_price" t-field="product.list_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
-                            </t>
-                        </div>
-                        <div class="o_label_clear"></div>
+                    <div>
+                        <table>
+                                <tr>
+                                    <td colspan="2"><img t-att-src="image_data_uri(product.material_id.image)" style="max-height: 40px;"/></td>
+                                    <td colspan="2" rowspan="2" style="font-size: 9px;vertical-align:top;text-align:center;padding-left: 20px;">
+                                        <t t-foreach="product.pt_colors_ids" t-as="color">
+                                            <span style="font-size: 8px; vertical-align:top;text-align:center;line-height: 3px;" t-field="color.name"/><br/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><img t-att-src="image_data_uri(product.image_1920)" style="max-height: 40px;margin-top: 10px"/></td>
+                                </tr>
+
+                        </table>
+                    </div>
+                    <div>
+                        <table cellspacing="2">
+                            <tr>
+                                <td style="vertical-align:bottom;line-height: 1px;">
+                                    <span style="font-size:6px;" t-field="product.material_id"/>
+                                </td>
+                                <td style="font-size:7px; vertical-align:bottom;padding-left: 30px;">
+                                        <t t-if="product.is_product_variant">
+                                            <strong class="o_label_price" t-field="product.lst_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <strong class="o_label_price" t-field="product.list_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
+                                        </t>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </td>
         </template>
 
-        <template id="report_productlabel_inherit" inherit_id="product.report_productlabel">
-            <xpath expr="//t[@t-if='columns and rows']" position="inside">
-                <t t-if="columns == 5 and rows == 6">
-                    <t t-set="padding_page" t-value="'padding: 14mm 3mm'"/>
-                    <t t-set="report_to_call" t-value="'custom_azarey.report_simple_label5x6'"/>
+        <template id="pnt_report_productlabel">
+            <t t-call="web.html_container">
+                <t t-if="columns and rows">
+                    <t t-set="rows" t-value="6"/>
+                    <t t-set="columns" t-value="5"/>
+                    <t t-foreach="range(page_numbers)" t-as="page">
+                        <div class="o_label_sheet" t-att-style="padding_page">
+                            <table class="my-0 table table-sm table-borderless">
+                                <t t-foreach="range(rows)" t-as="row">
+                                    <tr>
+                                        <t t-foreach="range(columns)" t-as="column">
+                                            <t t-if="not current_quantity and quantity and not (current_data and current_data[1])">
+                                                <t t-set="current_data" t-value="quantity.popitem()"/>
+                                                <t t-set="product" t-value="current_data[0]"/>
+                                                <t t-set="barcode_and_qty" t-value="current_data[1].pop()"/>
+                                                <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                                                <t t-set="current_quantity" t-value="barcode_and_qty[1]"/>
+                                            </t>
+                                            <t t-if="current_quantity">
+                                                <t t-set="make_invisible" t-value="False"/>
+                                                <t t-set="current_quantity" t-value="current_quantity - 1"/>
+                                            </t>
+                                            <t t-elif="current_data and current_data[1]">
+                                                <t t-set="barcode_and_qty" t-value="current_data[1].pop()"/>
+                                                <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                                                <t t-set="current_quantity" t-value="barcode_and_qty[1] - 1"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="make_invisible" t-value="True"/>
+                                            </t>
+                                            <t t-set="table_style" t-value="'border: 1px solid %s;' % (product.env.user.company_id.primary_color or 'black')"/>
+                                            <t t-call="custom_azarey.report_simple_label5x6"/>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
                 </t>
-            </xpath>
-            <xpath expr="//t/t/t/div/table/t/tr/t/t[6]" position="replace">
-                 <t t-call="custom_azarey.report_simple_label5x6"/>
-            </xpath>
+            </t>
         </template>
+
+        <template id="pnt_report_producttemplatelabel">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-call="custom_azarey.pnt_report_productlabel">
+                        <t t-set="products" t-value="products"/>
+                    </t>
+                </div>
+            </t>
+        </template>
+
 
     </data>
 </odoo>

@@ -1,47 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_invoice_document_pnt" inherit_id="account.report_invoice_document">
-        <xpath expr="//div[@class='row']" position="replace">
-            <div class="row">
-                <div class="col-5">
-                    <strong> Order Number: <span  t-field="o.name"/></strong><br/>
-                    <strong> Order Date: <span  t-field="o.invoice_date"/></strong><br/>
-                    <!--<strong> Payment mode: <span  t-field="o.payment_mode_id"/></strong><br/>-->
-                    <strong> Salesman: <span  t-field="o.invoice_user_id"/></strong><br/>
-                </div>
-                <div class="col-7" name="customer_data">
-                    <div style="border: solid black 2px">
-
-                        <address class="mb-0" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-                        <div t-if="o.partner_id.vat" id="partner_vat_address_not_same_as_shipping">
-                            <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-esc="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
-                            <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </xpath>
-        <xpath expr="//t/t/div[@class='mt-5']/div/h2" position="replace">
-        </xpath>
-        <xpath expr="//t/t/div[@class='mt-5']/div/div[@id='informations']" position="replace">
-        </xpath>
         <xpath expr="//t/t/div[@class='mt-5']/div/table[@name='invoice_line_table']" position="replace">
             <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                 <thead>
-                    <tr >
-                        <th style="background-color:transparent"/>
-                        <th style="background-color:#D3D3D3" name="th_part_number" class="text-start"><span>Part Nº</span></th>
-                        <th style="background-color:#D3D3D3" name="th_model" class="text-end"><span>Model</span></th>
-                        <th style="background-color:#D3D3D3" name="th_description" class="text-end"><span>Description / Colour</span></th>
-                        <th style="background-color:#D3D3D3" name="th_pvp" class="text-end"><span>P.S.P</span></th>
-                        <th style="background-color:#D3D3D3" name="th_qty" class="text-end"><span>Boxes</span></th>
-                        <th style="background-color:#D3D3D3" name="th_pairs_count" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Pairs count</span></th>
-                        <!--<th name="th_priceunit" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span></th>-->
-                        <th style="background-color:#D3D3D3" name="th_price_unit" t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <tr>
+                        <th name="th_description" class="text-start"><span>Description</span></th>
+                        <th name="th_quantity" class="text-end"><span>Boxes</span></th>
+                        <th name="th_priceunit" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Pair Price</span></th>
+                        <th name="th_priceunit" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Pair Count</span></th>
+                        <th name="th_price_unit" t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                             <span>Disc.%</span>
                         </th>
-                        <!--<th name="th_taxes" t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>-->
-                        <th style="background-color:#D3D3D3" name="th_subtotal" class="text-end">
+                        <th name="th_taxes" t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
+                        <th name="th_subtotal" class="text-end">
                             <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
                             <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
                         </th>
@@ -57,37 +29,22 @@
 
                         <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="line.display_type == 'product'" name="account_invoice_line_accountable">
-                                <td class="text-start" style="padding-top:15px">
-                                    <img t-if="line.product_id.image_1920" t-att-src="image_data_uri(line.product_id.image_1920)" style="height: 60px;"/>
-                                </td>
-                                <td/>
-                                <td/>
-                                <td name="account_invoice_line_name">
-                                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
-                                </td>
-
-                                <!--<td t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span class="text-nowrap" t-field="line.price_unit"/>
-                                </td>-->
-
-                                <!--<td t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))" id="line_tax_ids" widget="many2many_tags"/>
-                                </td>-->
-                                <td class="text-end">
-                                    <span t-esc="line.product_id.product_tmpl_single_id.list_price"
-                                          t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                    <!--<t t-set="computed_pvp" t-value="line.price_total/line.product_id.pairs_count"/>
-                                    <t t-out="'%.2f'% computed_pvp" />-->
-                                </td>
+                                <td name="account_invoice_line_name"><span t-field="line.name" t-options="{'widget': 'text'}"/></td>
                                 <td class="text-end">
                                     <span t-field="line.quantity"/>
                                     <span t-field="line.product_uom_id" groups="uom.group_uom"/>
                                 </td>
                                 <td t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span class="text-nowrap" t-field="line.product_id.pairs_count"/>
+                                    <span class="text-nowrap" t-field="line.pair_price"/>
+                                </td>
+                                <td t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span class="text-nowrap" t-field="line.pairs_count"/>
                                 </td>
                                 <td t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                     <span class="text-nowrap" t-field="line.discount"/>
+                                </td>
+                                <td t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))" id="line_tax_ids"/>
                                 </td>
                                 <td class="text-end o_price_total">
                                     <span class="text-nowrap" t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
@@ -106,14 +63,6 @@
                                     <span t-field="line.name" t-options="{'widget': 'text'}"/>
                                 </td>
                             </t>
-                        </tr>
-                        <tr style="border-bottom: 2px solid black;border-style: dashed;font-size:14px" t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
-                            <td class="text-start">
-                            </td>
-                            <td colspan="99" class="text-start">
-                                <strong><span t-field="line.product_id.assortment_code" t-options="{'widget': 'text'}"/></strong>
-                            </td>
-
                         </tr>
 
                         <t t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">

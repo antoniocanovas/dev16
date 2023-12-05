@@ -48,7 +48,16 @@ class ProductPricelist(models.Model):
             for pr in pairs:
                 price = pr.lst_price
                 pr.write({'standard_price': pr.exwork + pr.shipping_price})
-                total = (price + pre_margin + landed) * (1 + margin / 100) + post_margin
+                gross_price = (price + pre_margin + landed) * (1 + margin / 100) + post_margin
+
+                # Redondeo a 5 centimos, siempre al alza (hay que hacerlo con 2 round porque hace cosas raras):
+                cents = round((gross_price - int(gross_price)), 2)
+                cent = round(cents * 10 - int(cents * 10), 1)
+                if cent in [0, 0.5]:  addition = 0
+                elif cent < 0.5:      addition = 0.05 - cent / 10
+                else:                 addition = 0.1 - cent / 10
+                rounded_price = gross_price + addition
+
                 if pr.product_tmpl_id.id not in pair_templates:
                     # Creamos una línea nueva:
                     pricelist_line = self.env['product.pricelist.item'].create({'pricelist_id': record.id,
@@ -56,7 +65,7 @@ class ProductPricelist(models.Model):
                                                                                 'compute_price': 'fixed',
                                                                                 'applied_on': '1_product',
                                                                                 'product_id': False,
-                                                                                'fixed_price': total})
+                                                                                'fixed_price': rounded_price})
 
                     # Añadimos al array para que no escriba lo mismo:
                     pair_templates.append(pr.product_tmpl_id.id)
@@ -71,15 +80,19 @@ class ProductPricelist(models.Model):
                 if not product_bom.bom_line_ids.ids:
                     message = pr.name + " has no Bill of Materials, please review and press CREATE PAIRS"
                     raise UserError(message)
-# ELIMINADO 27/11/23 (error recálculo precios base)                else:
-#                    single = product_bom[0].product_id
-#                # Actualizar el precio del set en base al producto anterior ¿Para qué? HABLAMOS DE TARIFAS:
-#                pr.write({'lst_price': single.lst_price * pr.pairs_count,
-#                          'standard_price': single.standard_price * pr.pairs_count})
 
-                # Crear líneas de tarifa (podría haber valido la búsqueda anterior??):
+                # Crear líneas de tarifa:
                 single_price = pr.product_tmpl_single_id.list_price
-                total =  pr.pairs_count * ((single_price + pre_margin + landed) * (1 + margin / 100) + post_margin)
+                gross_price =  (single_price + pre_margin + landed) * (1 + margin / 100) + post_margin
+
+                # Redondeo a 5 centimos, siempre al alza:
+                # Redondeo a 5 centimos, siempre al alza (hay que hacerlo con 2 round porque hace cosas raras):
+                cents = round((gross_price - int(gross_price)), 2)
+                cent = round(cents * 10 - int(cents * 10), 1)
+                if cent in [0, 0.5]:   addition = 0
+                elif cent < 0.5:       addition = 0.05 - cent / 10
+                else:                  addition = 0.1 - cent / 10
+                rounded_price = gross_price + addition
 
                 # Creamos una línea nueva:
                 pricelist_line = self.env['product.pricelist.item'].create({'pricelist_id': record.id,
@@ -87,7 +100,7 @@ class ProductPricelist(models.Model):
                                                                             'product_id': pr.id,
                                                                             'compute_price': 'fixed',
                                                                             'applied_on': '0_product_variant',
-                                                                            'fixed_price': total})
+                                                                            'fixed_price': rounded_price})
 
     def call_report_wizard(self):
 

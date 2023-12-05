@@ -4,7 +4,6 @@
     <data>
 
         <template id="report_task2x5">
-            <t t-set="image_size" t-value="'max-width:20mm;max-height:10mm'"/>
             <t t-set="table_style" t-value="'width:97mm;height:50mm;' + table_style"/>
             <td>
                 <div class="o_label_full" t-att-style="table_style">
@@ -19,7 +18,7 @@
 
                             <t t-if="task.displayed_image_id.datas">
                                 <!--<img t-attf-src="data:image/*;base64,{{task.displayed_image_id.datas}}" style="margin-left:10%;max-height:250px; max-width:250;"/>-->
-                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;height: 3.5cm; width: 7cm;"/>
+                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;max-height:150px"/>
                             </t>
                         </div>
                         <div class="o_label_clear"/>
@@ -29,7 +28,6 @@
         </template>
 
         <template id="report_task1x2">
-            <t t-set="image_size" t-value="'width: 150px;height: 150px'"/>
             <t t-set="table_style" t-value="'width:200mm;height:100mm;' + table_style"/>
             <td>
                 <div class="o_label_full" t-att-style="table_style">
@@ -39,14 +37,13 @@
                                 <span class="text-nowrap" style="color:red;" t-field="task.outfit"/>
                         </t>
                     </div>
-                    <div class="o_label_data">
+                   <div class="o_label_data">
                         <div class="text-center o_label_left_column">
 
                             <t t-if="task.displayed_image_id.datas">
-                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;height: 7cm; width: 14cm;"/>
+                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;max-height:250px"/>
                             </t>
                         </div>
-                        <div class="o_label_clear"/>
                     </div>
                 </div>
             </td>

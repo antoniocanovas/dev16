@@ -24,8 +24,6 @@ class ProductPricelistReportWizard(models.TransientModel):
     pnt_product_pricelist_id = fields.Many2one('product.pricelist', string="Product pricelist")
 
     def print_product_pricelist_report(self):
-
-        print("HOLA")
         #data = {'description_sale': 'Nueva Descripción'}
         #print(self.pnt_product_pricelist_id)
         #query = """select pr.name,fv.name as truck,gt.name as goods,tb.from_location,tb.to_location,tb.distance,
