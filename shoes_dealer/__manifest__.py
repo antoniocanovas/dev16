@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": [
         "sale_management",
+        "purchase",
         "mrp",
         "sale_mrp",
         "project",
