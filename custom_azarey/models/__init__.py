@@ -6,4 +6,4 @@ from . import res_partner
 from . import sale_order
 from . import product_product
 from . import project_task
-from . import project_project
+ from . import project_project
