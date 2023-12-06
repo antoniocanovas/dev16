@@ -6,5 +6,5 @@ from odoo import fields, models, api
 class ProjectProject(models.Model):
     _inherit = "project.project"
 
-    # Para borrar después de la migración:
+    # Cambio de moneda estimado para cálculo de precios de pares y surtidos en base a exwork:
     currency_exchange = fields.Float('Dollar exchange', store=True, copy=False)

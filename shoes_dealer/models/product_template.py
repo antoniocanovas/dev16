@@ -89,7 +89,7 @@ class ProductTemplate(models.Model):
                 colors, sizes = [], []
                 # Cálculo de precio de coste con cambio de moneda:
                 standard_price = record.standard_price
-                if (record.campaign_id.id) and (record.campaign_id.currency_exchange):
+                if (record.campaign_id.id) and (record.campaign_id.currency_exchange) and (record.exwork):
                     standard_price = record.exwork * record.campaign_id.currency_exchange
 
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
@@ -125,7 +125,11 @@ class ProductTemplate(models.Model):
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
                             'value_ids': [(6, 0, colors)]})
-            # ------ FIN CREACIÓN PRODUCTO "PAR"
+
+            # ------ FIN CREACIÓN PRODUCTO "PAR", AHORA PONEMSO PRECIO DE COSTE (probando):
+                for li in newpt.product_variant_ids:
+                    li.standard_price = standard_price
+
 
     def create_set_boms(self):
         for record in self:
