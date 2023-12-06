@@ -16,6 +16,7 @@
                         <field name="single_prefix" required="1"/>
                         <field name="single_sale"/>
                         <field name="single_purchase"/>
+                        <field name="exwork_currency_id"/>
                     </group>
                 </page>
             </xpath>

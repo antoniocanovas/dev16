@@ -85,7 +85,6 @@ class ProductPricelist(models.Model):
                 single_price = pr.product_tmpl_single_id.list_price
                 gross_price =  (single_price + pre_margin + landed) * (1 + margin / 100) + post_margin
 
-                # Redondeo a 5 centimos, siempre al alza:
                 # Redondeo a 5 centimos, siempre al alza (hay que hacerlo con 2 round porque hace cosas raras):
                 cents = round((gross_price - int(gross_price)), 2)
                 cent = round(cents * 10 - int(cents * 10), 1)
