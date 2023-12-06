@@ -25,7 +25,8 @@ class ProductTemplate(models.Model):
     product_tmpl_single_list_price = fields.Float('Precio del par', related='product_tmpl_single_id.list_price')
 
     # El precio de coste es la suma de Exwork + portes, si existe el par se mostrará uno u otro campo:
-    exwork_currency_id = fields.Many2one('res.currency', store=False, related='company_id.exwork_currency_id')
+    exwork_currency_id = fields.Many2one('res.currency', store=False,
+                                         default=lambda self: self.env.user.company_id.exwork_currency_id)
     exwork = fields.Monetary('Exwork', store=True, copy=True, tracking="10")
     exwork_single = fields.Monetary('Exwork single', store=True, copy=True, tracking="10",
                                     related = 'product_tmpl_single_id.exwork', readonly=False)
