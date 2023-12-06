@@ -45,7 +45,7 @@
                        options="{'currency_field':'exwork_currency_id'}"/>
                 <field name="shipping_price" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"/>
                 <field name="shipping_single_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
-                <field name="exwork_currency_id" readonly="1"/>
+                <field name="exwork_currency_id" invisible="1"/>
             </xpath>
 
             <xpath expr="//field[@name='uom_po_id']" position="after">
