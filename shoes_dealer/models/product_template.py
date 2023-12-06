@@ -25,7 +25,7 @@ class ProductTemplate(models.Model):
     product_tmpl_single_list_price = fields.Float('Precio del par', related='product_tmpl_single_id.list_price')
 
     # El precio de coste es la suma de Exwork + portes, si existe el par se mostrará uno u otro campo:
-    @api.depends('company_id.exwork_currency_id')
+    @api.depends('company_id.exwork_currency_id','create_date')
     def _get_exwork_currency(self):
         exwork_currency = self.company_id.currency_id
         if self.company_id.exwork_currency_id.id:
