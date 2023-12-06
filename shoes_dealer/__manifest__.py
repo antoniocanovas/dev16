@@ -31,6 +31,7 @@
         "views/account_move_views.xml",
         "views/product_material_views.xml",
         "views/mrp_bom_views.xml",
+        "views/project_project_views.xml",
     ],
     "installable": True,
 }

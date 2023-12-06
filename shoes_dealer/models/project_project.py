@@ -7,4 +7,4 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
 
     # Para borrar después de la migración:
-    pnt_dollar_exchange = fields.Float('Dollar exchange', store=True, copy=False)
+    currency_exchange = fields.Float('Dollar exchange', store=True, copy=False)

@@ -87,6 +87,11 @@ class ProductTemplate(models.Model):
             # CREACIÓN DEL PRODUCTO PAR, SI NO EXISTE:
             if not record.product_tmpl_single_id.id:
                 colors, sizes = [], []
+                # Cálculo de precio de coste con cambio de moneda:
+                standard_price = record.standard_price
+                if (record.campaign_id.id) and (record.campaign_id.currency_exchange):
+                    standard_price = record.exwork * record.campaign_id.currency_exchange
+
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
                                                              'product_tmpl_set_id': record.id,
                                                              'campaign_id': record.campaign_id.id,
