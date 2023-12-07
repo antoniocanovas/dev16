@@ -19,10 +19,12 @@
                         icon="fa-spinner" class="oe_stat_button"
                         type="object" string="Upd Codes">
                 </button>
+<!-- Ya lo hace automático:
                 <button name="update_standard_price_on_variants"
                         icon="fa-bars" class="oe_stat_button"
                         type="object" string="Upd Costs">
                 </button>
+-->
             </xpath>
 
             <xpath expr="//div[@name='options']" position="after">
