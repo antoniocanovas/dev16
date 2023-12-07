@@ -19,15 +19,11 @@
                         icon="fa-spinner" class="oe_stat_button"
                         type="object" string="Upd Codes">
                 </button>
+                <button name="enable_sale_pairs"
+                        icon="fa-bars" class="oe_stat_button"
+                        type="object" string="Enable Pairs">
+                </button>
             </xpath>
-
-            <xpath expr="//div[@name='button_box']" position="inside">
-            </xpath>
-
-
-
-
-
 
             <xpath expr="//div[@name='options']" position="after">
                 <div name="product_shoes_dealer">
