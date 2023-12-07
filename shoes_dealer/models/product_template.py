@@ -33,6 +33,7 @@ class ProductTemplate(models.Model):
     shipping_price = fields.Monetary('Shippin price', store=True, copy=True, tracking="10")
     shipping_single_price = fields.Monetary('Shippin single price', store=True, copy=True, tracking="10",
                                             related = 'product_tmpl_single_id.shipping_price', readonly=False)
+    campaign_code = fields.Char('Campaign Code', store=True, copy=False)
 
     # Product colors (to be printed on labels):
     def _get_product_colors(self):
@@ -65,32 +66,35 @@ class ProductTemplate(models.Model):
                     pp.write({'lst_price': record.list_price * pp.pairs_count})
 
 
-    # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
-    # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
-    def update_standard_price_on_variants(self):
-        # Caso de actualizar el precio desde el PAR:
+    def update_product_product_search_code(self):
+        # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
         for record in self:
-            if record.product_tmpl_set_id.id:
-                standard_price = record.exwork * record.campaign_id.currency_exchange
-                for pp in record.product_variant_ids:
-                    pp.write({'standard_price':standard_price})
-                for pp in record.product_tmpl_set_id.product_variant_ids:
-                    pp.write({'standard_price': standard_price * pp.pairs_count})
+            if not record.campaign_id.id:
+                raise UserError('Please, assign campaign prior to create codes !!')
+            code = str(record.campaign_id.sequence_code) + ". "
+            # Caso de actualizar desde el PAR (código "Pxx.")
+#            if record.product_tmpl_set_id.id:
+            #                for pp in record.product_variant_ids:
+            #        pp.write({'standard_price':standard_price})
+            #   for pp in record.product_tmpl_set_id.product_variant_ids:
+            #       pp.write({'standard_price': standard_price * pp.pairs_count})
             # Caso de actualizarse el precio desde el SURTIDO:
-            if record.product_tmpl_single_id.id:
-                standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
-                for pp in record.product_variant_ids:
-                    pp.write({'standard_price': standard_price * pp.pairs_count})
-                for pp in record.product_tmpl_single_id.product_variant_ids:
-                    pp.write({'standard_price':standard_price})
+            #     if record.product_tmpl_single_id.id:
+            #   standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
+            #   for pp in record.product_variant_ids:
+            #       pp.write({'standard_price': standard_price * pp.pairs_count})
+            #   for pp in record.product_tmpl_single_id.product_variant_ids:
+        #       pp.write({'standard_price':standard_price})
 
-    def update_product_product_internal_references(self):
         return True
 
     def create_single_products_and_set_boms(self):
         for record in self:
+            if not record.campaign_id.id:
+                raise UserError('Assign a campaign before pairs creation !!')
             record.create_single_products()
             record.create_set_boms()
+            record.update_standard_price_on_variants()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -231,6 +235,26 @@ class ProductTemplate(models.Model):
                                                                         'product_id': pp_single.id,
                                                                         'product_qty': size_quantity,
                                                                         })
+
+    # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
+    # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
+    def update_standard_price_on_variants(self):
+        # Caso de actualizar el precio desde el PAR:
+        for record in self:
+            if record.product_tmpl_set_id.id:
+                standard_price = record.exwork * record.campaign_id.currency_exchange
+                for pp in record.product_variant_ids:
+                    pp.write({'standard_price':standard_price})
+                for pp in record.product_tmpl_set_id.product_variant_ids:
+                    pp.write({'standard_price': standard_price * pp.pairs_count})
+            # Caso de actualizarse el precio desde el SURTIDO:
+            if record.product_tmpl_single_id.id:
+                standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
+                for pp in record.product_variant_ids:
+                    pp.write({'standard_price': standard_price * pp.pairs_count})
+                for pp in record.product_tmpl_single_id.product_variant_ids:
+                    pp.write({'standard_price':standard_price})
+
 
 
     # Notas del desarrollo:
