@@ -90,7 +90,8 @@ class ProductTemplate(models.Model):
 
             # CREACIÓN DEL PRODUCTO PAR, SI NO EXISTE:
             if not record.product_tmpl_single_id.id:
-                colors, sizes = [], []
+                colors, sizes, campaign_code = [], [], ""
+                if record.campaign_code: campaign_code = "P" + record.campaign_code
                 # Cálculo de precio de coste con cambio de moneda:
                 standard_price = record.standard_price
                 if (record.campaign_id.id) and (record.campaign_id.currency_exchange) and (record.exwork):
@@ -108,6 +109,7 @@ class ProductTemplate(models.Model):
                                                              'detailed_type': 'product',
                                                              'categ_id': record.categ_id.id,
                                                              'product_brand_id': record.product_brand_id.id,
+                                                             'campaign_code': campaign_code,
                                                              })
                 record.write({'product_tmpl_single_id': newpt.id})
 
