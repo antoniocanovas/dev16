@@ -114,14 +114,14 @@ class ProductTemplate(models.Model):
                                 if set_line.value_id.id not in sizes: sizes.append(set_line.value_id.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
-                            'value_ids': [(6, 0, sizes)]})
+                             'value_ids': [(6, 0, sizes)]})
 
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
                             if ptav.id not in colors: colors.append(ptav.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
-                            'value_ids': [(6, 0, colors)]})
+                             'value_ids': [(6, 0, colors)]})
 
 
     def create_set_boms(self):
@@ -205,27 +205,29 @@ class ProductTemplate(models.Model):
 
                         # Creación de las líneas de la LDM:
                         new_bom_line = self.env['mrp.bom.line'].create({'bom_id': exist.id,
-                                                                   'product_id': pp_single.id,
-                                                                   'product_qty': size_quantity,
-                                                                   })
+                                                                        'product_id': pp_single.id,
+                                                                        'product_qty': size_quantity,
+                                                                        })
 
 
-    # ------ TRAS CREACIÓN PRODUCTO "PAR", PRECIO DE COSTE:
-    @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
+    # Actualizar precios de coste en variantes, en base al exwork y cambio de moneda:
+    @api.depends('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
     def update_pair_standard_price(self):
-        standard_single_price = self.exwork * self.campaign_id.currency_exchange
-        # Caso de actualizar el precio de coste desde el producto PAR:
-        if self.product_tmpl_set_id.id:
-            for pp in self.product_variant_ids:
-                pp.standard_price = standard_single_price
-            for pp in self.product_tmpl_set_id.product_variant_ids:
-                pp.standard_price = standard_single_price * pp.pairs_count
-        # Caso de actualizarse el precio desde el surtido:
-        if self.product_tmpl_single_id.id:
-            for pp in self.product_tmpl_single_id.product_variant_ids:
-                pp.standard_price = standard_single_price
-            for pp in self.product_variant_ids:
-                pp.standard_price = standard_single_price * pp.pairs_count
+        for record in self:
+            if record.product_tmpl_set_id.id:
+                standard_price = record.exwork * record.campaign_id.currency_exchange
+                for pp in record.product_variant_ids:
+                    pp['standard_price'] = standard_price
+                for pp in record.product_tmpl_set_id.product_variant_ids:
+                    pp['standard_price'] = standard_price * pp.pairs_count
+
+            # Caso de actualizarse el precio desde el surtido:
+            if record.product_tmpl_single_id.id:
+                standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
+                for pp in record.product_variant_ids:
+                    pp['standard_price'] = standard_price * pp.pairs_count
+                for pp in record.product_tmpl_single_id.product_variant_ids:
+                    pp['standard_price'] = standard_price
 
     # Notas del desarrollo:
     # =====================
