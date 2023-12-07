@@ -64,6 +64,26 @@ class ProductTemplate(models.Model):
                 for pp in record.product_tmpl_set_id.product_variant_ids:
                     pp.write({'lst_price': record.list_price * pp.pairs_count})
 
+
+    # Actualizar precios de coste, en base al exwork y cambio de moneda:
+    @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
+    def update_pair_standard_price(self):
+        # Caso de actualizar el precio desde el PAR:
+        for record in self:
+            if record.product_tmpl_set_id.id:
+                standard_price = record.exwork * record.campaign_id.currency_exchange
+                for pp in record.product_variant_ids:
+                    pp.write({'standard_price':standard_price})
+                for pp in record.product_tmpl_set_id.product_variant_ids:
+                    pp.write({'standard_price': standard_price * pp.pairs_count})
+            # Caso de actualizarse el precio desde el SURTIDO:
+            if record.product_tmpl_single_id.id:
+                standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
+                for pp in record.product_variant_ids:
+                    pp.write({'standard_price': standard_price * pp.pairs_count})
+                for pp in record.product_tmpl_single_id.product_variant_ids:
+                    pp.write({'standard_price':standard_price})
+
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()
@@ -209,25 +229,6 @@ class ProductTemplate(models.Model):
                                                                         'product_qty': size_quantity,
                                                                         })
 
-
-    # Actualizar precios de coste en variantes, en base al exwork y cambio de moneda:
-    @api.depends('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
-    def update_pair_standard_price(self):
-        for record in self:
-            if record.product_tmpl_set_id.id:
-                standard_price = record.exwork * record.campaign_id.currency_exchange
-                for pp in record.product_variant_ids:
-                    pp['standard_price'] = standard_price
-                for pp in record.product_tmpl_set_id.product_variant_ids:
-                    pp['standard_price'] = standard_price * pp.pairs_count
-
-            # Caso de actualizarse el precio desde el surtido:
-            if record.product_tmpl_single_id.id:
-                standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
-                for pp in record.product_variant_ids:
-                    pp['standard_price'] = standard_price * pp.pairs_count
-                for pp in record.product_tmpl_single_id.product_variant_ids:
-                    pp['standard_price'] = standard_price
 
     # Notas del desarrollo:
     # =====================
