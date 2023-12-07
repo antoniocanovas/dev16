@@ -15,12 +15,13 @@
                         attrs="{'invisible':[('is_product_variant','=',True)]}"
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
+                <button name="update_product_product_internal_references"
+                        icon="fa-spinner" class="oe_stat_button"
+                        type="object" string="Upd Codes">
+                </button>
             </xpath>
 
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button class="oe_stat_button" icon="fa-spinner" type="object" string="Upd Codes"
-                        name="update_product_product_internal_references"/>
-                </button>
             </xpath>
 
 
