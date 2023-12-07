@@ -211,7 +211,7 @@ class ProductTemplate(models.Model):
 
 
     # ------ TRAS CREACIÓN PRODUCTO "PAR", PRECIO DE COSTE:
-    @api.depends('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
+    @api.onchage('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
     def update_pair_standard_price(self):
         standard_single_price = self.exwork * self.campaign_id.currency_exchange
         # Caso de actualizar el precio de coste desde el producto PAR:
