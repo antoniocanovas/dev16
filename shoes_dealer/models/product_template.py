@@ -87,9 +87,6 @@ class ProductTemplate(models.Model):
     def update_product_product_internal_references(self):
         return True
 
-    def enable_sale_pairs(self):
-        return True
-
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()

@@ -19,9 +19,9 @@
                         icon="fa-spinner" class="oe_stat_button"
                         type="object" string="Upd Codes">
                 </button>
-                <button name="enable_sale_pairs"
+                <button name="update_standard_price_on_variants"
                         icon="fa-bars" class="oe_stat_button"
-                        type="object" string="Enable Pairs">
+                        type="object" string="Upd Costs">
                 </button>
             </xpath>
 

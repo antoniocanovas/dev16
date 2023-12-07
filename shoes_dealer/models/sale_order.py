@@ -16,3 +16,6 @@ class SaleOrder(models.Model):
     pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_pair_count')
 
     campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
+
+    def enable_sale_pairs(self):
+        return True

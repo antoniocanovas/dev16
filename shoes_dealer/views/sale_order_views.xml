@@ -20,6 +20,12 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="enable_sale_pairs"
+                        icon="fa-bars" class="oe_stat_button"
+                        type="object" string="Enable Pairs">
+                </button>
+            </xpath>
             <field name="partner_id" position="before">
                 <field name="campaign_id" options="{'no_quick_create':1, 'no_create_edit':1}"/>
             </field>
