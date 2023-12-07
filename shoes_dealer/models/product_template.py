@@ -71,9 +71,8 @@ class ProductTemplate(models.Model):
                 raise UserError('Assign a campaign before pairs creation !!')
             record.create_single_products()
             record.create_set_boms()
-            sleep(3)
-            record.update_standard_price_on_variants()
-            record.update_product_template_campaign_code()
+#            record.update_standard_price_on_variants()
+#            record.update_product_template_campaign_code()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
