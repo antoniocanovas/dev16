@@ -17,7 +17,8 @@
                 </button>
                 <button name="update_product_template_campaign_code"
                         icon="fa-spinner" class="oe_stat_button"
-                        type="object" string="Upd Codes">
+                        type="object" string="Upd Codes"
+                        attrs="{'invisible':[('campaign_code','!=',False)]}">
                 </button>
 
             </xpath>
