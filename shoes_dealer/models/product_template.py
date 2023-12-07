@@ -70,7 +70,7 @@ class ProductTemplate(models.Model):
         for record in self:
             if not record.campaign_id.id:
                 raise UserError('Please, assign campaign prior to create codes !!')
-            code = str(record.campaign_id.sequence_code) + ". "
+            code = str(record.campaign_id.campaign_code) + ". "
             # Caso de actualizar desde el PAR (código "Pxx.")
 #            if record.product_tmpl_set_id.id:
             #                for pp in record.product_variant_ids:
