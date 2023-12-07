@@ -18,6 +18,7 @@
         "product_brand",
         "product_variant_sale_price",
         "sale_product_template_tags",
+        "base_automation",
     ],
     "data": [
         "security/ir.model.access.csv",
