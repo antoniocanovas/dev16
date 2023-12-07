@@ -39,7 +39,9 @@ class ProductTemplate(models.Model):
     def _name_search(self, name='', args=None, operator='ilike', limit=100):
         if args is None:
             args = []
-        domain = args + ['|', '|',('campaign_code', operator, self), ('name', operator, self), ('default_code', operator, self)]
+        domain = args + ['|', '|',('campaign_code', operator, name),
+                         ('name', operator, name),
+                         ('default_code', operator, name)]
         return super(ProductTemplate, self).search(domain, limit=limit).name_get()
 
     # Product colors (to be printed on labels):
