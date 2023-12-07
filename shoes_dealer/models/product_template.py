@@ -84,6 +84,10 @@ class ProductTemplate(models.Model):
                 for pp in record.product_tmpl_single_id.product_variant_ids:
                     pp.write({'standard_price':standard_price})
 
+    def update_product_product_internal_references(self):
+        return True
+
+
     def create_single_products_and_set_boms(self):
         for record in self:
             record.create_single_products()

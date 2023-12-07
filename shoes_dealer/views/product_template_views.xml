@@ -16,6 +16,18 @@
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
             </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" icon="fa-spinner" type="object" string="Upd Codes"
+                        name="update_product_product_internal_references"/>
+                </button>
+            </xpath>
+
+
+
+
+
+
             <xpath expr="//div[@name='options']" position="after">
                 <div name="product_shoes_dealer">
                     <span class="d-inline-block">
@@ -55,10 +67,10 @@
 
             <!-- Ocultar el list_price en product.template si tiene par asignado: -->
             <xpath expr="//label[@for='list_price']" position="attributes">
-               <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
             </xpath>
             <xpath expr="//div[@name='pricing']" position="attributes">
-               <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
+                <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
             </xpath>
 
         </field>
@@ -83,14 +95,14 @@
         </field>
     </record>
 
-     <record id="product_template_kanban_view_inh" model="ir.ui.view">
+    <record id="product_template_kanban_view_inh" model="ir.ui.view">
         <field name="name">product.template.kanban.view.inh</field>
         <field name="model">product.template</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="product.product_template_kanban_view"/>
         <field name="priority">90</field>
         <field name="arch" type="xml">
-           <xpath expr="//field[@name='currency_id']" position="after">
+            <xpath expr="//field[@name='currency_id']" position="after">
                 <field name="product_tmpl_single_id"/>
                 <field name="product_tmpl_single_list_price"/>
             </xpath>
