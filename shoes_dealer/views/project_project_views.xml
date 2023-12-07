@@ -11,7 +11,7 @@
 
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="currency_exchange" required="1"/>
-                <field name="campaign_code" readonly="1" invisible="not campaign_code"/>
+                <field name="campaign_code" readonly="1" invisible="[('campaign_code','=',False)]"/>
             </xpath>
 
         </field>
