@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="currency_exchange"/>
+                <field name="currency_exchange" required="1"/>
             </xpath>
 
         </field>

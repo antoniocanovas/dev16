@@ -116,19 +116,12 @@ class ProductTemplate(models.Model):
                             {'product_tmpl_id': newpt.id, 'attribute_id': size_attribute.id,
                             'value_ids': [(6, 0, sizes)]})
 
-
-
-
                     elif (li.attribute_id.id == color_attribute.id):
                         for ptav in li.value_ids:
                             if ptav.id not in colors: colors.append(ptav.id)
                         new_ptal = self.env['product.template.attribute.line'].create(
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
                             'value_ids': [(6, 0, colors)]})
-
-            # ------ FIN CREACIÓN PRODUCTO "PAR", AHORA PONEMSO PRECIO DE COSTE (probando):
-                for li in newpt.product_variant_ids:
-                    li.standard_price = standard_price
 
 
     def create_set_boms(self):
@@ -215,6 +208,24 @@ class ProductTemplate(models.Model):
                                                                    'product_id': pp_single.id,
                                                                    'product_qty': size_quantity,
                                                                    })
+
+
+    # ------ TRAS CREACIÓN PRODUCTO "PAR", PRECIO DE COSTE:
+    @api.depends('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
+    def update_pair_standard_price(self):
+        standard_single_price = self.exwork * self.campaign_id.currency_exchange
+        # Caso de actualizar el precio de coste desde el producto PAR:
+        if self.product_tmpl_set_id.id:
+            for pp in self.product_variant_ids:
+                pp.standard_price = standard_single_price
+            for pp in self.product_tmpl_set_id.product_variant_ids:
+                pp.standard_price = standard_single_price * pp.pairs_count
+        # Caso de actualizarse el precio desde el surtido:
+        if self.product_tmpl_single_id.id:
+            for pp in self.product_tmpl_single_id.product_variant_ids:
+                pp.standard_price = standard_single_price
+            for pp in self.product_variant_ids:
+                pp.standard_price = standard_single_price * pp.pairs_count
 
     # Notas del desarrollo:
     # =====================
