@@ -9,7 +9,7 @@
             record.update_standard_price_on_variants()
         </field>
         <field name="trigger">on_write</field>
-        <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_template__campaign_id')])]"</field>
+        <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_template__campaign_id')])]"/>
 
         <field name="active" eval="True"/>
     </record>
