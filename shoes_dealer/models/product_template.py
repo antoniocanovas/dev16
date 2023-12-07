@@ -165,8 +165,10 @@ class ProductTemplate(models.Model):
                         ('product_tmpl_id', '=', record.id),
                         ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
 
-                if not set_template.id or not color_value.id: raise UserError(
-                    "Faltan datos, producto: " + pr.name + ", con plantilla: " + str(set_template.name) + ", y color: " + str(color_value.name))
+                if not set_template.id or not color_value.id:
+                    raise UserError("Faltan datos, producto: " + pr.name +
+                                    ", con plantilla: " + str(set_template.name) +
+                                    ", y color: " + str(color_value.name))
 
                 # Como hay surtido, continuamos:
                 if set_template.id:
@@ -205,7 +207,8 @@ class ProductTemplate(models.Model):
                         pp_single = self.env['product.product'].search(
                             [('product_template_variant_value_ids', 'in', ptav_size.id),
                              ('product_template_variant_value_ids', 'in', ptav_color.id)])
-                        if not pp_single.ids: raise UserError('No encuentro esa talla y color en el producto PAR')
+                        if not pp_single.ids:
+                            raise UserError('No encuentro esa talla y color en el producto PAR')
 
                         # Creación de las líneas de la LDM:
                         new_bom_line = self.env['mrp.bom.line'].create({'bom_id': exist.id,
