@@ -66,8 +66,7 @@ class ProductTemplate(models.Model):
 
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda:
-#    @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
-    @api.onchange('exwork')
+    @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
     def update_pair_standard_price(self):
         # Caso de actualizar el precio desde el PAR:
         for record in self:
