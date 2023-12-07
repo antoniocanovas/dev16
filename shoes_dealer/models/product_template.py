@@ -35,15 +35,6 @@ class ProductTemplate(models.Model):
                                             related = 'product_tmpl_single_id.shipping_price', readonly=False)
     campaign_code = fields.Char('Campaign Code', store=True, copy=False)
 
-    @api.model
-    def _name_search(self, name='', args=None, operator='ilike', limit=100):
-        if args is None:
-            args = []
-        domain = args + ['|', '|',('campaign_code', operator, name),
-                         ('name', operator, name),
-                         ('default_code', operator, name)]
-        return super(ProductTemplate, self).search(domain, limit=limit).name_get()
-
     # Product colors (to be printed on labels):
     def _get_product_colors(self):
         for record in self:
