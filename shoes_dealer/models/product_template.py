@@ -242,7 +242,7 @@ class ProductTemplate(models.Model):
                 code = str(record.campaign_id.campaign_code) + "."
                 # Caso de actualizar desde el PAR (código "Pxx.")
                 if record.product_tmpl_set_id.id:
-                    record.write({['campaign_code': "P" + code
+                    record.write({'campaign_code': "P" + code})
                     record.product_tmpl_set_id.write({'campaign_code':code})
                 # Caso de actualizarse el precio desde el SURTIDO:
                 if record.product_tmpl_single_id.id:
