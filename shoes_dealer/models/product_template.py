@@ -56,7 +56,6 @@ class ProductTemplate(models.Model):
     pt_colors_ids = fields.Many2many('product.attribute.value','Product colors', store=False, compute='_get_product_colors')
 
 
-
     # Actualizar el precio de los surtidos cuando cambia el precio del par:
     @api.onchange('list_price')
     def update_set_price_by_pairs(self):
@@ -66,7 +65,7 @@ class ProductTemplate(models.Model):
                     pp.write({'lst_price': record.list_price * pp.pairs_count})
 
 
-    def update_product_product_search_code(self):
+    def update_product_template_campaign_code(self):
         # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
         for record in self:
             if not record.campaign_id.id:
@@ -86,7 +85,6 @@ class ProductTemplate(models.Model):
             #   for pp in record.product_tmpl_single_id.product_variant_ids:
         #       pp.write({'standard_price':standard_price})
 
-        return True
 
     def create_single_products_and_set_boms(self):
         for record in self:
