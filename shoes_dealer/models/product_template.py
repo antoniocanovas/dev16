@@ -64,28 +64,6 @@ class ProductTemplate(models.Model):
                 for pp in record.product_tmpl_set_id.product_variant_ids:
                     pp.write({'lst_price': record.list_price * pp.pairs_count})
 
-
-    def update_product_template_campaign_code(self):
-        # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
-        for record in self:
-            if not record.campaign_id.id:
-                raise UserError('Please, assign campaign prior to create codes !!')
-            code = str(record.campaign_id.campaign_code) + ". "
-            # Caso de actualizar desde el PAR (código "Pxx.")
-#            if record.product_tmpl_set_id.id:
-            #                for pp in record.product_variant_ids:
-            #        pp.write({'standard_price':standard_price})
-            #   for pp in record.product_tmpl_set_id.product_variant_ids:
-            #       pp.write({'standard_price': standard_price * pp.pairs_count})
-            # Caso de actualizarse el precio desde el SURTIDO:
-            #     if record.product_tmpl_single_id.id:
-            #   standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
-            #   for pp in record.product_variant_ids:
-            #       pp.write({'standard_price': standard_price * pp.pairs_count})
-            #   for pp in record.product_tmpl_single_id.product_variant_ids:
-        #       pp.write({'standard_price':standard_price})
-
-
     def create_single_products_and_set_boms(self):
         for record in self:
             if not record.campaign_id.id:
@@ -93,6 +71,7 @@ class ProductTemplate(models.Model):
             record.create_single_products()
             record.create_set_boms()
             record.update_standard_price_on_variants()
+            record.update_product_template_campaign_code()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -253,6 +232,24 @@ class ProductTemplate(models.Model):
                 for pp in record.product_tmpl_single_id.product_variant_ids:
                     pp.write({'standard_price':standard_price})
 
+
+    def update_product_template_campaign_code(self):
+        # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
+        for record in self:
+            if not record.campaign_id.id:
+                raise UserError('Please, assign campaign prior to create codes !!')
+            if not record.camapaign_code:
+                code = str(record.campaign_id.campaign_code) + "."
+                # Caso de actualizar desde el PAR (código "Pxx.")
+                if record.product_tmpl_set_id.id:
+                    record.write({['campaign_code': "P" + code
+                    record.product_tmpl_set_id.write({'campaign_code':code})
+                # Caso de actualizarse el precio desde el SURTIDO:
+                if record.product_tmpl_single_id.id:
+                    record.write({'campaign_code':code})
+                    record.product_tmpl_single_id.write({'campaign_code':"P" + code})
+                next_code = record.campaign_id.campaign_code + 1
+                record.campaign_id.write({'campaign_code':next_code})
 
 
     # Notas del desarrollo:
