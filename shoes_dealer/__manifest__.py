@@ -32,6 +32,7 @@
         "views/product_material_views.xml",
         "views/mrp_bom_views.xml",
         "views/project_project_views.xml",
+        "data/automatic_actions.xml",
     ],
     "installable": True,
 }

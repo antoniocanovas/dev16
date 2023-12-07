@@ -65,7 +65,7 @@ class ProductTemplate(models.Model):
                     pp.write({'lst_price': record.list_price * pp.pairs_count})
 
 
-    # Actualizar precios de coste, en base al exwork y cambio de moneda:
+    # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE):
     @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
     def update_standard_price_on_variants(self):
         # Caso de actualizar el precio desde el PAR:
