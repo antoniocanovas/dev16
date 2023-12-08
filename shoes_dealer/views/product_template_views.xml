@@ -12,7 +12,7 @@
             <xpath expr="//header" position="inside">
                 <button name="create_single_products_and_set_boms" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
-                        attrs="{'invisible':['|',('is_product_variant','=',True),
+                        attrs="{'invisible':['|','|', ('is_product_variant','=',True),
                                 ('product_tmpl_set_id','!=',False),
                                 ('product_tmpl_single_id','!=',False)]}"
                         groups="sales_team.group_sale_salesman_all_leads">
@@ -61,6 +61,11 @@
             <xpath expr="//field[@name='uom_po_id']" position="after">
                 <field name="material_id"/>
                 <field name="manufacturer_id"/>
+            </xpath>
+
+            <!-- Dominio para mostrar sólo los productos de la campaña: -->
+            <xpath expr="//field[@name='product_template_id']" position="attributes">
+                <attribute name="domain">[('sale_ok','=',True),('campaign_id','=',campaign_id)]</attribute>
             </xpath>
 
             <!-- Ocultar el list_price en product.template si tiene par asignado: -->
