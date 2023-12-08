@@ -44,8 +44,9 @@
                 />
             </xpath>
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
-                <field name="pairs_count" optional="show"/>
-                <field name="pair_price" optional="show"/>
+                <field name="pairs_count"/>
+                <field name="pair_price"/>
+                <field name="campaign_id" invisible="1"/>
             </xpath>
 
         </field>
