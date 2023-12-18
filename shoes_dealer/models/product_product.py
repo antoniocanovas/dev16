@@ -61,5 +61,24 @@ class ProductProduct(models.Model):
                 color_value = self.env['product.template.attribute.line'].search([
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
-            record['color_id'] = color_value.id
-    color_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='get_product_color')
+            record['color_attribute_id'] = color_value.id
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='get_product_color')
+
+    @api.depends('create_date')
+    def get_product_size(self):
+        for record in self:
+            size_attribute = self.env.company.size_attribute_id
+
+            # Para buscar el color:
+            color_value = self.env['product.template.attribute.value'].search([
+                ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                ('id', 'in', record.product_template_variant_value_ids.ids),
+                ('attribute_id', '=', size_attribute.id)]).product_attribute_value_id
+
+            # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
+            if not color_value.id:
+                color_value = self.env['product.template.attribute.line'].search([
+                    ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                    ('attribute_id', '=', size_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
+            record['size_attribute_id'] = size_value.id
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True, compute='get_product_color')
