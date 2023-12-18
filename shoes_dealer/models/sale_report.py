@@ -13,7 +13,7 @@ class SaleReport(models.Model):
             pairs_count = 1
             if record.product_id.pairs_count: pairs_count = record.product_id.pairs_count
             record['pairs_count'] = pairs_count * record.product_uom_qty
-    pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_pair_count')
+    pairs_count = fields.Integer('Pairs', store=True, default=1, compute='_get_shoes_pair_count')
 
     @api.depends('product_id')
     def get_sale_report_color(self):
@@ -32,4 +32,4 @@ class SaleReport(models.Model):
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
             record['color_id'] = color_value.id
-    color_id = fields.Many2one('product.attribute.value', string='Color', store=False, compute='get_sale_report_color')
+    color_id = fields.Many2one('product.attribute.value', string='Color', store=True, default=1, compute='get_sale_report_color')
