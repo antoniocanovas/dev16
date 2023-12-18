@@ -62,4 +62,4 @@ class ProductProduct(models.Model):
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
             record['color_id'] = color_value.id
-    color_id = fields.Many2one('product.attribute.value', string='Color', store=False, compute='get_product_color')
+    color_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='get_product_color')
