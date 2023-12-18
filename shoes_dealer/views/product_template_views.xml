@@ -13,16 +13,6 @@
                 <field name="campaign_code" readonly="1"/>
             </xpath>
 
-
-            <!-- Ocultar el list_price en product.template si tiene par asignado: -->
-            <!-- PENDIENTE:
-            <xpath expr="//label[@for='list_price']" position="attributes">
-                <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
-            </xpath>
-            <xpath expr="//div[@name='pricing']" position="attributes">
-                <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
-            </xpath>
--->
         </field>
     </record>
 
@@ -34,6 +24,7 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="priority">90</field>
         <field name="arch" type="xml">
+
             <xpath expr="//header" position="inside">
                 <button name="create_single_products_and_set_boms" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
@@ -81,6 +72,14 @@
                 <field name="exwork_currency_id" invisible="1"/>
             </xpath>
 
+            <!-- Ocultar el list_price en product.template si tiene par asignado: -->
+            <xpath expr="//label[@for='list_price']" position="attributes">
+                <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="attrs">{'invisible':[('product_tmpl_single_id','!=',False)]}</attribute>
+            </xpath>
+
             <xpath expr="//field[@name='uom_po_id']" position="after">
                 <field name="material_id"/>
                 <field name="manufacturer_id"/>
@@ -123,9 +122,6 @@
             </xpath>
         </field>
     </record>
-
-
-
 
 
     <!-- VISTAS DE BÚSQUEDA: -->
