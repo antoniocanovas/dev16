@@ -58,6 +58,7 @@ class ProductProduct(models.Model):
 
             # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
             if not color_value:
+                self.ensure_one()
                 color_value = self.env['product.template.attribute.line'].search([
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', color_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
@@ -78,6 +79,7 @@ class ProductProduct(models.Model):
 
             # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
             if not size_value:
+                self.ensure_one()
                 size_value = self.env['product.template.attribute.line'].search([
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
