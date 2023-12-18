@@ -31,8 +31,8 @@
             </xpath>
 -->
 
-            <!-- PENDIENTE:
             <xpath expr="//group[@name='group_standard_price']/label" position="before">
+<!-- PENDIENTE:
                 <field name="product_tmpl_single_list_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
                 <field name="exwork" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"
                        options="{'currency_field':'exwork_currency_id'}"/>
@@ -41,9 +41,9 @@
                 <field name="shipping_price" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"/>
                 <field name="shipping_single_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
                 <field name="exwork_currency_id" invisible="1"/>
+-->
                 <field name="campaign_code" readonly="1"/>
             </xpath>
--->
             <xpath expr="//field[@name='uom_po_id']" position="after">
                 <field name="material_id"/>
                 <field name="manufacturer_id"/>
