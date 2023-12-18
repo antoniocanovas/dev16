@@ -53,7 +53,7 @@ class ProductProduct(models.Model):
             # Para buscar el color:
             color_value = self.env['product.template.attribute.value'].search([
                 ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                ('id', 'in', record.product_id.product_template_variant_value_ids.ids),
+                ('id', 'in', record.product_template_variant_value_ids.ids),
                 ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
 
             # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
