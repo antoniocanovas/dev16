@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="priority">90</field>
         <field name="arch" type="xml">
-
+<!--
             <xpath expr="//header" position="inside">
                 <button name="create_single_products_and_set_boms" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
@@ -44,7 +44,7 @@
                     </span>
                 </div>
             </xpath>
-
+-->
         </field>
     </record>
 
@@ -57,7 +57,6 @@
         <field name="priority">90</field>
         <field name="arch" type="xml">
 
-
             <xpath expr="//header" position="inside">
                 <button name="create_single_products_and_set_boms" string="Create Pairs" type="object"
                         icon="fa-tasks" class="oe_stat_button"
@@ -93,13 +92,6 @@
                     </span>
                 </div>
             </xpath>
-
-
-
-
-
-
-
 
             <xpath expr="//group[@name='group_standard_price']/label" position="before">
                 <field name="product_tmpl_single_list_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
