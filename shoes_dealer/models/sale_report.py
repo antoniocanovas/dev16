@@ -8,7 +8,7 @@ class SaleReport(models.Model):
 
 
     @api.depends('product_id')
-    def _get_shoes_sale_line_pair_count(self):
+    def _get_shoes_pair_count(self):
         for record in self:
             pairs_count = 1
             if record.product_id.pairs_count: pairs_count = record.product_id.pairs_count
