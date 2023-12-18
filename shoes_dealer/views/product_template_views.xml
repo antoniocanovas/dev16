@@ -125,12 +125,10 @@
                         <label for="gender"/>
                         <field name="gender"/>
                     </span>
-<!--
                     <span class="d-inline-block" attrs="{'invisible':[('product_tmpl_set_id','!=',False)]}">
                         <label for="product_tmpl_single_id"/>
                         <field name="product_tmpl_single_id"/>
                     </span>
--->
                     <span class="d-inline-block" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}">
                         <label for="product_tmpl_set_id"/>
                         <field name="product_tmpl_set_id"/>
