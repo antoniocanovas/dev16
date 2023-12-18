@@ -11,8 +11,9 @@
     "license": "AGPL-3",
     "depends": [
         "sale_management",
+        "sale_enterprise",
         "purchase",
-        "inventory",
+        "stock",
         "mrp",
         "sale_mrp",
         "project",
@@ -21,7 +22,6 @@
         "sale_product_template_tags",
         "base_automation",
         "website_sale",
-        "website_sale_dashboard",
     ],
     "data": [
         "security/ir.model.access.csv",
