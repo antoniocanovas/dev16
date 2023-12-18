@@ -20,6 +20,7 @@
         "sale_product_template_tags",
         "base_automation",
         "website_sale",
+        "website_sale_dashboard",
     ],
     "data": [
         "security/ir.model.access.csv",
