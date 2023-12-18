@@ -44,3 +44,22 @@ class ProductProduct(models.Model):
                 assortment_code = ptvv.product_attribute_value_id.set_template_id.code
             record['assortment_code'] = assortment_code
     assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
+
+    @api.depends('create_date')
+    def get_product_color(self):
+        for record in self:
+            color_attribute = self.env.company.color_attribute_id
+
+            # Para buscar el color:
+            color_value = self.env['product.template.attribute.value'].search([
+                ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                ('id', 'in', record.product_id.product_template_variant_value_ids.ids),
+                ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id
+
+            # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
+            if not color_value.id:
+                color_value = self.env['product.template.attribute.line'].search([
+                    ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                    ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
+            record['color_id'] = color_value.id
+    color_id = fields.Many2one('product.attribute.value', string='Color', store=False, compute='get_sale_report_color')
