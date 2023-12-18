@@ -34,5 +34,6 @@ class SaleReport(models.Model):
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', color_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
             record['color_id'] = color_value.id
-    color_id = fields.Many2one('product.attribute.value', string='Color', store=True, default=0,
+    color_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+                               default=lambda self: self.company.color_attribute_id.id,
                                compute='get_sale_report_color')
