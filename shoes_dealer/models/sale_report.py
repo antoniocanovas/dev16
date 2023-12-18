@@ -7,12 +7,12 @@ class SaleReport(models.Model):
     _inherit = "sale.report"
 
     # Informes de ventas:
-    def _get_shoes_pair_count(self):
-        for record in self:
-            pairs_count = 1
-            #if record.product_id.pairs_count: pairs_count = record.product_id.pairs_count
-            record['pairs_count'] = pairs_count * record.product_uom_qty
-    pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_pair_count')
+#    def _get_shoes_pair_count(self):
+    #        for record in self:
+    #        pairs_count = 1
+    #        #if record.product_id.pairs_count: pairs_count = record.product_id.pairs_count
+    #        record['pairs_count'] = pairs_count * record.product_uom_qty
+    #    pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_pair_count')
 
     @api.depends('product_id')
     def get_sale_report_color(self):
