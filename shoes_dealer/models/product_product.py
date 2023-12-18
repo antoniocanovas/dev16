@@ -70,14 +70,14 @@ class ProductProduct(models.Model):
             size_attribute = self.env.company.size_attribute_id
 
             # Para buscar el color:
-            color_value = self.env['product.template.attribute.value'].search([
+            size_value = self.env['product.template.attribute.value'].search([
                 ('product_tmpl_id', '=', record.product_tmpl_id.id),
                 ('id', 'in', record.product_template_variant_value_ids.ids),
                 ('attribute_id', '=', size_attribute.id)]).product_attribute_value_id
 
             # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
             if not color_value.id:
-                color_value = self.env['product.template.attribute.line'].search([
+                size_value = self.env['product.template.attribute.line'].search([
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('attribute_id', '=', size_attribute.id)]).product_template_value_ids[0].product_attribute_value_id
             record['size_attribute_id'] = size_value.id
