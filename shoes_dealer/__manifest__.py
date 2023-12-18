@@ -12,6 +12,7 @@
     "depends": [
         "sale_management",
         "purchase",
+        "inventory",
         "mrp",
         "sale_mrp",
         "project",

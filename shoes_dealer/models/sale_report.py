@@ -7,6 +7,9 @@ class SaleReport(models.Model):
     _inherit = "sale.report"
 
     # Informes de ventas:
+
+
+#   @api.depends('product_id')
 #    def _get_shoes_pair_count(self):
     #        for record in self:
     #        pairs_count = 1
