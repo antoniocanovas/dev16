@@ -227,7 +227,7 @@ class ProductTemplate(models.Model):
                     # manteniendo el campo del desarrollo paris_count en los distintos modelos:
                     base_unit_count = 0
                     for bom_line in exist.bom_line_ids:
-                        base_unit_count += bom_line.size_quantity
+                        base_unit_count += bom_line.product_qty
                     if base_unit_count == 1: base_unit_count = 0
                     pr.write({'base_unit_count': base_unit_count})
 
