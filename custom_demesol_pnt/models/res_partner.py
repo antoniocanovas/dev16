@@ -2,7 +2,6 @@
 
 from odoo import fields, models, api
 
-
 class ProductBrand(models.Model):
     _inherit = "res.partner"
 
