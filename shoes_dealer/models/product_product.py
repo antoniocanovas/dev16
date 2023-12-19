@@ -84,6 +84,7 @@ class ProductProduct(models.Model):
                     self.ensure_one()
                     size_value = self.env['product.template.attribute.line'].search([
                         ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                        ('id', 'in', record.product_template_variant_value_ids.ids),
                         ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
             else:
                 size_value = 0
