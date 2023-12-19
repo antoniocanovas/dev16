@@ -23,15 +23,15 @@ class SaleReport(models.Model):
 
     def _select_additional_fields(self):
         res = super()._select_additional_fields()
-        res['color_attribute_id'] = "s.color_attribute_id"
-        res['size_attribute_id'] = "s.size_attribute_id"
-        res['pairs_count'] = "s.pairs_count"
+        res['color_attribute_id'] = "p.color_attribute_id"
+        res['size_attribute_id'] = "p.size_attribute_id"
+        res['pairs_count'] = "p.pairs_count"
         return res
 
     def _group_by_sale(self):
         res = super()._group_by_sale()
         res += """,
-        s.color_attribute_id,
-        s.size_attribute_id,
-             s.pairs_count"""
+        p.color_attribute_id,
+        p.size_attribute_id,
+             p.pairs_count"""
         return res
