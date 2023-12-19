@@ -82,7 +82,9 @@ class ProductProduct(models.Model):
                 self.ensure_one()
                 size_value = self.env['product.template.attribute.line'].search([
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                    ('id', 'in', record.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
+
             if not size_value: size_value = 0
             record['size_attribute_id'] = size_value
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True, compute='get_product_size')
