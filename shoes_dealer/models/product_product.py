@@ -71,21 +71,22 @@ class ProductProduct(models.Model):
         for record in self:
             size_attribute = self.env.company.size_attribute_id
 
-            # Para buscar la talla:
-            size_value = self.env['product.template.attribute.value'].search([
-                ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                ('id', 'in', record.product_template_variant_value_ids.ids),
-                ('attribute_id', '=', size_attribute.id)]).product_attribute_value_id.id
-
-            # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
-            if not size_value:
-                self.ensure_one()
-                size_value = self.env['product.template.attribute.line'].search([
+            # Si es un par suelto tiene talla, si es un surtido son varias y no aplica:
+            if record.product_tmpl_set_id.id:
+                # Para buscar la talla:
+                size_value = self.env['product.template.attribute.value'].search([
                     ('product_tmpl_id', '=', record.product_tmpl_id.id),
                     ('id', 'in', record.product_template_variant_value_ids.ids),
-                    ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
+                    ('attribute_id', '=', size_attribute.id)]).product_attribute_value_id.id
 
-            # Si es un surtido las tallas son múltiples y no hay que asignarlas:
-            if (not size_value.id) or (len(size_value) > 1): size_value = 0
+                # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
+                if not size_value:
+                    self.ensure_one()
+                    size_value = self.env['product.template.attribute.line'].search([
+                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                        ('id', 'in', record.product_template_variant_value_ids.ids),
+                        ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
+            else:
+                size_value = 0
             record['size_attribute_id'] = size_value
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True, compute='get_product_size')
