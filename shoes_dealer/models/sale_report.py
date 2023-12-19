@@ -31,7 +31,7 @@ class SaleReport(models.Model):
     def _group_by_sale(self):
         res = super()._group_by_sale()
         res += """,
-        s.color_attribute_id",
+        s.color_attribute_id,
         s.size_attribute_id",
              s.pairs_count"""
         return res
