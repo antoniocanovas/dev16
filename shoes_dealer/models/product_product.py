@@ -66,7 +66,7 @@ class ProductProduct(models.Model):
             record['color_attribute_id'] = color_value
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='get_product_color')
 
-#    @api.depends('create_date')
+    @api.depends('create_date')
     def get_product_size(self):
         for record in self:
             size_attribute = self.env.company.size_attribute_id
@@ -85,6 +85,7 @@ class ProductProduct(models.Model):
                     ('id', 'in', record.product_template_variant_value_ids.ids),
                     ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
 
-            if not size_value: size_value = 0
-#            record['size_attribute_id'] = size_value
-#    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True, compute='get_product_size')
+            # Si es un surtido las tallas son múltiples y no hay que asignarlas:
+            if (not size_value.id) or (len(size_value) > 1): size_value = 0
+            record['size_attribute_id'] = size_value
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True, compute='get_product_size')
