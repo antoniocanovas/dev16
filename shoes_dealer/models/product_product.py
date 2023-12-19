@@ -45,12 +45,13 @@ class ProductProduct(models.Model):
             record['assortment_code'] = assortment_code
     assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
 
-#    @api.depends('create_date')
+    @api.depends('create_date')
     def get_product_color(self):
         for record in self:
             color_attribute = self.env.company.color_attribute_id
 
             # Para buscar el color:
+            self.ensure_one()
             color_value = self.env['product.template.attribute.value'].search([
                 ('product_tmpl_id', '=', record.product_tmpl_id.id),
                 ('id', 'in', record.product_template_variant_value_ids.ids),
@@ -64,7 +65,7 @@ class ProductProduct(models.Model):
                     ('attribute_id', '=', color_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
             if not color_value: color_value = 0
             record['color_attribute_id'] = color_value
-#    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='get_product_color')
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='get_product_color')
 
 #    @api.depends('create_date')
     def get_product_size(self):
