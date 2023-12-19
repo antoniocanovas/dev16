@@ -78,6 +78,7 @@ class ProductTemplate(models.Model):
             if not record.campaign_id.id:
                 raise UserError('Assign a campaign before pairs creation !!')
             record.create_single_products()
+            record.update_color_and_size_attributes()
             record.create_set_boms()
             record.update_standard_price_on_variants()
             record.update_product_template_campaign_code()
@@ -138,6 +139,12 @@ class ProductTemplate(models.Model):
                             {'product_tmpl_id': newpt.id, 'attribute_id': color_attribute.id,
                              'value_ids': [(6, 0, colors)]})
 
+    def update_color_and_size_attributes(self):
+        for record in self:
+            for pp in record.product_variant_ids:
+                pp.set_color_and_size()
+            for pp in record.child_id.product_variant_ids:
+                pp.set_color_and_size()
 
     def create_set_boms(self):
         for record in self:
