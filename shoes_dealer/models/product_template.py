@@ -219,8 +219,8 @@ class ProductTemplate(models.Model):
 
 
 
-                        # Asignación de color y talla al product.product (dic 2023):
-                        pp_single.write({'color_attribute_id':ptav_size.id, 'size_attribute_id': ptav_color.id})
+                        # Asignación de color y talla al product.product (dic 2023 no funciona):
+#                        pp_single.write({'color_attribute_id':ptav_size.id, 'size_attribute_id': ptav_color.id})
 
 
                         # Creación de las líneas de la LDM:
