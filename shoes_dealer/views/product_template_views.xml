@@ -119,6 +119,8 @@
             <xpath expr="//field[@name='uom_po_id']" position="after">
                 <field name="material_id" readonly="1"/>
                 <field name="manufacturer_id" readonly="1"/>
+                <field name="color_attribute_id" readonly="1"/>
+                <field name="size_attribute_id" readonly="1"/>
             </xpath>
         </field>
     </record>
