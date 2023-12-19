@@ -49,7 +49,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
 
     @api.depends('create_date')
-    def _get_color_and_size(self):
+    def get_color_and_size(self):
         for record in self:
             size_attribute = self.env.company.size_attribute_id
             color_attribute = self.env.company.color_attribute_id
