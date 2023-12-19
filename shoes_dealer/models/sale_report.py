@@ -13,14 +13,11 @@ class SaleReport(models.Model):
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                          compute='_get_product_color')
 
-    #                                         related='product_id.color_attribute_id')
-
     @api.depends('product_id')
     def _get_product_size(self):
         self.size_attribute_id = self.product_id.size_attribute_id.id
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
                                         compute='_get_product_size')
-#                                         related='product_id.size_attribute_id')
 
     @api.depends('product_id')
     def _get_shoes_pair_count(self):

@@ -45,48 +45,53 @@ class ProductProduct(models.Model):
             record['assortment_code'] = assortment_code
     assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
 
-#    @api.depends('create_date')
-    def get_product_color(self):
-        for record in self:
-            color_attribute = self.env.company.color_attribute_id
-
-            # Para buscar el color:
-            color_value = self.env['product.template.attribute.value'].search([
-                ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                ('id', 'in', record.product_template_variant_value_ids.ids),
-                ('attribute_id', '=', color_attribute.id)]).product_attribute_value_id.id
-
-            # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
-            if not color_value:
-                self.ensure_one()
-                color_value = self.env['product.template.attribute.line'].search([
-                    ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                    ('attribute_id', '=', color_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
-            if not color_value: color_value = 0
-            record['color_attribute_id'] = color_value
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
 
-#    @api.depends('create_date')
-    def get_product_size(self):
+    @api.depends('create_date')
+    def _get_color_and_size(self):
         for record in self:
             size_attribute = self.env.company.size_attribute_id
+            color_attribute = self.env.company.color_attribute_id
 
-            # Si es un par suelto tiene talla, si es un surtido son varias y no aplica:
-            if record.product_tmpl_set_id.id:
-                # Para buscar la talla:
-                size_value = self.env['product.template.attribute.value'].search([
-                    ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                    ('id', 'in', record.product_template_variant_value_ids.ids),
-                    ('attribute_id', '=', size_attribute.id)]).product_attribute_value_id.id
+            size, color, len_size_attribute, len_color_attribute, size_value, color_value = False, False, 0, 0, False, False
 
-                # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
-                if not size_value:
-                    self.ensure_one()
-                    size_value = self.env['product.template.attribute.line'].search([
+            for li in record.product_template_variant_value_ids:
+                #  Parámetros de empresa:
+                if li.attribute_id.id == size_attribute.id: size_value = li
+                if li.attribute_id.id == color_attribute.id: color_value = li
+
+                # Comprobar si sólo hay una variante de color o talla, porque en este caso no se crean product.template.attribute.line:
+                pt_attrib_lines = record.product_tmpl_id.attribute_line_ids
+                for li in pt_attrib_lines:
+                    if li.attribute_id == size_attribute:
+                        size_line = li
+                        len_size_attribute = len(li.value_ids.ids)
+                    if li.attribute_id == color_attribute:
+                        color_line = li
+                        len_color_attribute = len(li.value_ids.ids)
+
+                # Caso de que haya un un sólo color o talla en la plantilla, asignación:
+                if len_size_attribute == 1:
+                    size_value = size_line.value_ids[0].id
+                if len_color_attribute == 1:
+                    color_value = color_line.value_ids[0].id
+
+                # Casos de que haya varios colores o tallas en la plantilla de producto:
+                if len_size_attribute > 1:
+                    # Para buscar la talla:
+                    size_value = self.env['product.template.attribute.value'].search([
                         ('product_tmpl_id', '=', record.product_tmpl_id.id),
                         ('id', 'in', record.product_template_variant_value_ids.ids),
-                        ('attribute_id', '=', size_attribute.id)]).product_template_value_ids.product_attribute_value_id.id
-            else:
-                size_value = 0
-            record['size_attribute_id'] = size_value
-    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
+                        ('attribute_id', '=', size_attribute.id)
+                    ]).product_attribute_value_id.id
+
+                if len_color_attribute > 1:
+                    # Para buscar el color:
+                    color_value = self.env['product.template.attribute.value'].search([
+                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                        ('id', 'in', record.product_template_variant_value_ids.ids),
+                        ('attribute_id', '=', color_attribute.id)
+                    ]).product_attribute_value_id.id
+
+                record.write({'size_attribute_id': size_value, 'color_attribute_id': color_value})
