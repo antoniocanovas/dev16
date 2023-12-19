@@ -143,7 +143,7 @@ class ProductTemplate(models.Model):
         for record in self:
             for pp in record.product_variant_ids:
                 pp.set_color_and_size()
-            for pp in record.child_id.product_variant_ids:
+            for pp in record.product_tmpl_child_id.product_variant_ids:
                 pp.set_color_and_size()
 
     def create_set_boms(self):
