@@ -216,6 +216,13 @@ class ProductTemplate(models.Model):
                         if not pp_single.ids:
                             raise UserError('No encuentro esa talla y color en el producto PAR')
 
+
+
+
+                        # Asignación de color y talla al product.product (dic 2023):
+                        pp_single.write({'color_attribute_id':ptav_size.id, 'size_attribute_id': ptav_color.id})
+
+
                         # Creación de las líneas de la LDM:
                         new_bom_line = self.env['mrp.bom.line'].create({'bom_id': exist.id,
                                                                         'product_id': pp_single.id,
