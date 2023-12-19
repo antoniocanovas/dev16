@@ -7,11 +7,11 @@
             <field name="model_id" ref="model_product_template"/>
             <field name="state">code</field>
             <field name="code">
-                # Actualizar color, talla y precios de coste:
-                for r in records:
-                    r.update_color_and_size_attributes()
-                    r.update_standard_price_on_variants()
-                    r.update_product_template_campaign_code()
+# Actualizar color, talla y precios de coste:
+for r in records:
+    r.update_color_and_size_attributes()
+    r.update_standard_price_on_variants()
+    r.update_product_template_campaign_code()
             </field>
         </record>
 
