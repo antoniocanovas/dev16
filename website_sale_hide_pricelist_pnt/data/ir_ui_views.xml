@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+
+  <!-- Pricelist view archived on webiste sale: -->
+  <record id="website_sale.pricelist_list" model="ir.ui.views">
+    <field name="active">False</field>>
+  </record>
+
+</odoo>

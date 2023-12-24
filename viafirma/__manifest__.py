@@ -27,7 +27,7 @@
     # always loaded
     'data': [
         'data/update_sends.xml',
-        'security/ir.model.access.csv',
+        'data/ir.model.access.csv',
         'views/views.xml',
         'views/views_menu.xml',
         'views/res_company_views.xml',

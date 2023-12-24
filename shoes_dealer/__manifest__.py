@@ -23,7 +23,7 @@
         "website_sale",
     ],
     "data": [
-        "security/ir.model.access.csv",
+        "data/ir.model.access.csv",
         "views/set_template_views.xml",
         "views/product_template_views.xml",
         "views/product_product_views.xml",

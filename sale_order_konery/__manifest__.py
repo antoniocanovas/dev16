@@ -13,7 +13,7 @@ Sale Order Konery
         'data/server_actions.xml',
         'views/sale_order_margin_wizard_views.xml',
         'views/sale_order_views.xml',
-        'security/ir.model.access.csv',
+        'data/ir.model.access.csv',
     ],
     'installable': True,
 }

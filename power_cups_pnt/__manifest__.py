@@ -17,8 +17,8 @@
         'sale_management',
     ],
     'data': [
-        'security/user_groups.xml',
-        'security/ir.model.access.csv',
+        'data/user_groups.xml',
+        'data/ir.model.access.csv',
         'views/power_cups_views.xml',
         'views/res_partner_views.xml',
         'views/crm_lead_views.xml',

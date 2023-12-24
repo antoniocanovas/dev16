@@ -15,8 +15,8 @@
         'helpdesk',
     ],
     'data': [
-        'security/user_groups.xml',
-        'security/rules.xml',
+        'data/user_groups.xml',
+        'data/rules.xml',
     ],
     'installable': True,
     'application': False,
