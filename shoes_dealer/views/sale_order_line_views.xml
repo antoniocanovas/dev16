@@ -13,7 +13,7 @@
                 <field name="qty_quoted" optional="hide"/>
             </field>
             <field name="price_subtotal" position="after">
-                <field name="pair_price" optional="show" avg="Pair price"/>
+                <field name="pair_price" optional="show" avg=""/>
                 <field name="pairs_count" optional="show"/>
             </field>
         </field>
