@@ -33,6 +33,16 @@ class ProductTemplate(models.Model):
     product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
     product_tmpl_single_list_price = fields.Float('Precio del par', related='product_tmpl_single_id.list_price')
 
+    # Plantilla de producto para relacionar surtidos y pares con el modelo para informes (independiente de talla):
+    @api.depends('product_tmpl_single_id', 'product_tmpl_set_id')
+    def _get_pt_shoes_model(self):
+        model = False
+        if self.product_tmpl_single_id.id:  model = self.product_tmpl_single_id.id
+        if self.product_tmpl_set_id.id:     model = self.id
+        self.product_tmpl_model_id = model
+    product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True, compute='_get_pt_shoes_model')
+
+
     # El precio de coste es la suma de Exwork + portes, si existe el par se mostrará uno u otro campo:
     exwork_currency_id = fields.Many2one('res.currency', store=False,
                                          default=lambda self: self.env.user.company_id.exwork_currency_id)
