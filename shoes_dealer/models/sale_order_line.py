@@ -21,6 +21,14 @@ class SaleOrderLine(models.Model):
                                             related='product_id.color_attribute_id')
     shoes_campaign_id = fields.Many2one('project.project', string='Campaign', store=True,
                                         related='order_id.shoes_campaign_id')
+    @api.depends('state')
+    def _get_quoted_quantity(self):
+        for record in self:
+            total = 0
+            if record.state not in ['sale','done','cancel']:
+                total = record.product_uom_qty
+            record['qty_quoted'] = total
+    qty_quoted = fields.Float('Quoted qty', store=True, copy=False, compute='_get_quoted_quantity')
 
     # Precio por par según tarifa:
     @api.depends('product_id','price_unit')
