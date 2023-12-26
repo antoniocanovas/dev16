@@ -6,6 +6,8 @@
         <field name="arch" type="xml">
             <field name="order_id" position="after">
                 <field name="order_line_image" widget="image" optional="show"/>
+                <field name="shoes_campaign_id" optional="show"/>
+                <field name="product_brand_id" optional="hide"/>
                 <field name="product_tmpl_model_id" optional="hide"/>
                 <field name="color_attribute_id" optional="hide"/>
             </field>
