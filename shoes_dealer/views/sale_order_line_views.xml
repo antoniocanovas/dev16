@@ -40,7 +40,7 @@
                 <filter name="groupby_campaign" string="Campaign" context="{'group_by' : 'shoes_campaign_id'}"/>
                 <filter name="groupby_model" string="Model" context="{'group_by' : 'product_tmpl_model_id'}"/>
                 <filter name="groupby_color" string="Color" context="{'group_by' : 'color_attribute_id'}"/>
-                <filter name="groupby_customer" string="Customer" context="{'group_by' : 'partner_id'}"/>
+                <filter name="groupby_customer" string="Customer" context="{'group_by' : 'order_partner_id'}"/>
                 <filter name="groupby_brand" string="Brand" context="{'group_by' : 'product_brand_id'}"/>
             </xpath>
 
