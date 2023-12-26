@@ -15,6 +15,7 @@
         "stock",
         "mrp",
         "sale_mrp",
+        "account",
         "project",
         "product_brand",
         "product_variant_sale_price",
