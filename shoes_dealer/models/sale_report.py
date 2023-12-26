@@ -20,6 +20,12 @@ class SaleReport(models.Model):
                                         compute='_get_product_size')
 
     @api.depends('product_id')
+    def _get_product_shoes_model(self):
+        self.product_tmpl_model_id = self.product_id.product_tmpl_model_id.id
+    product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True,
+                                            compute='_get_product_shoes_model')
+
+    @api.depends('product_id')
     def _get_shoes_pair_count(self):
         for record in self:
             pairs_count = 1
