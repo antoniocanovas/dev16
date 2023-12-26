@@ -37,7 +37,7 @@ class SaleReport(models.Model):
         res = super()._select_additional_fields()
         res['color_attribute_id'] = "p.color_attribute_id"
         res['size_attribute_id'] = "p.size_attribute_id"
-        res['product_tmpl_model_id'] = "p.product_tmpl_model_id"
+        res['product_tmpl_model_id'] = "t.product_tmpl_model_id"
         res['pairs_count'] = "l.pairs_count"
         return res
 
@@ -46,6 +46,6 @@ class SaleReport(models.Model):
         res += """,
         p.color_attribute_id,
         p.size_attribute_id,
-        p.product_tmpl_model_id,
+        t.product_tmpl_model_id,
              l.pairs_count"""
         return res
