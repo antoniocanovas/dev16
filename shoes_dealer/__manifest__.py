@@ -21,6 +21,10 @@
         "sale_product_template_tags",
         "base_automation",
         "website_sale",
+        "website_sale",
+        "sale_order_line_menu",
+        "sale_order_line_image",
+        "sale_order_line_date",
     ],
     "data": [
         "security/ir.model.access.csv",
