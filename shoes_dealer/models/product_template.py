@@ -92,6 +92,7 @@ class ProductTemplate(models.Model):
             record.create_set_boms()
             record.update_standard_price_on_variants()
             record.update_product_template_campaign_code()
+            record.update_set_price_by_pairs()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
