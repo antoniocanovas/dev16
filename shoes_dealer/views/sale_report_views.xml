@@ -12,11 +12,6 @@
                     context="{'group_by':'product_tmpl_model_id'}"
                 />
                 <filter
-                    string="Size"
-                    name="size"
-                    context="{'group_by':'size_attribute_id'}"
-                />
-                <filter
                     string="Color"
                     name="color"
                     context="{'group_by':'color_attribute_id'}"
