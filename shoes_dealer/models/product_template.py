@@ -83,6 +83,10 @@ class ProductTemplate(models.Model):
             if record.product_tmpl_set_id.id:
                 for pp in record.product_tmpl_set_id.product_variant_ids:
                     pp.write({'lst_price': record.list_price * pp.pairs_count})
+            # Esta parte funcionará al ser llamada desde la creación de pares:
+            if record.product_tmpl_single_id.id:
+                for pp in record.product_variant_ids:
+                    pp.write({'lst_price': record.list_price * pp.pairs_count})
 
     def create_single_products_and_set_boms(self):
         for record in self:
@@ -93,6 +97,7 @@ class ProductTemplate(models.Model):
             record.create_set_boms()
             record.update_standard_price_on_variants()
             record.update_product_template_campaign_code()
+            record.update_set_price_by_pairs()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -255,8 +260,7 @@ class ProductTemplate(models.Model):
                     for bom_line in exist.bom_line_ids:
                         base_unit_count += bom_line.product_qty
                     if base_unit_count == 1: base_unit_count = 0
-                    pr.write({'base_unit_count': base_unit_count,
-                              'lst_price': pr.product_tmpl_single_id.list_price * pr.pairs_count})
+                    pr.write({'base_unit_count': base_unit_count})
 
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
