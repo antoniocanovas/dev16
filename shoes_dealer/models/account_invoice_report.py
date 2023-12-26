@@ -33,19 +33,21 @@ class AccountInvoiceReport(models.Model):
             record['pairs_count'] = pairs_count * record.product_uom_qty
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_pair_count')
 
-    def _select_additional_fields(self):
-        res = super()._select_additional_fields()
-        res['color_attribute_id'] = "p.color_attribute_id"
-        res['size_attribute_id'] = "p.size_attribute_id"
-        res['product_tmpl_model_id'] = "t.product_tmpl_model_id"
-        res['pairs_count'] = "l.pairs_count"
-        return res
+#    def _select_additional_fields(self):
+    #        res = super()._select_additional_fields()
+    #    res['color_attribute_id'] = "p.color_attribute_id"
+    #    res['size_attribute_id'] = "p.size_attribute_id"
+    #    res['product_tmpl_model_id'] = "t.product_tmpl_model_id"
+    #       res['pairs_count'] = "l.pairs_count"
 
-    def _group_by_sale(self):
-        res = super()._group_by_sale()
-        res += """,
-        p.color_attribute_id,
-        p.size_attribute_id,
-        t.product_tmpl_model_id,
-             l.pairs_count"""
-        return res
+
+#    return res
+
+    #    def _group_by_sale(self):
+    #    res = super()._group_by_sale()
+    #    res += """,
+    #    p.color_attribute_id,
+    #    p.size_attribute_id,
+    #    t.product_tmpl_model_id,
+    #         l.pairs_count"""
+#    return res
