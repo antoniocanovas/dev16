@@ -46,5 +46,6 @@ class SaleReport(models.Model):
         res += """,
         p.color_attribute_id,
         p.size_attribute_id,
+        t.product_tmpl_model_id,
              l.pairs_count"""
         return res
