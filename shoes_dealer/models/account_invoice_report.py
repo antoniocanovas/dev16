@@ -7,23 +7,23 @@ class AccountInvoiceReport(models.Model):
     _inherit = "account.invoice.report"
 
 
-    @api.depends('product_id')
-    def _get_product_color(self):
-        self.color_attribute_id = self.product_id.color_attribute_id.id
-    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
-                                         compute='_get_product_color')
+    #@api.depends('product_id')
+    #def _get_product_color(self):
+    #    self.color_attribute_id = self.product_id.color_attribute_id.id
+    #color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+        #                                 compute='_get_product_color')
 
-    @api.depends('product_id')
-    def _get_product_size(self):
-        self.size_attribute_id = self.product_id.size_attribute_id.id
-    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
-                                        compute='_get_product_size')
+    #@api.depends('product_id')
+    #def _get_product_size(self):
+    #    self.size_attribute_id = self.product_id.size_attribute_id.id
+    #size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
+         #                               compute='_get_product_size')
 
-    @api.depends('product_id')
-    def _get_product_shoes_model(self):
-        self.product_tmpl_model_id = self.product_id.product_tmpl_model_id.id
-    product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True,
-                                            compute='_get_product_shoes_model')
+    #@api.depends('product_id')
+    #def _get_product_shoes_model(self):
+    #    self.product_tmpl_model_id = self.product_id.product_tmpl_model_id.id
+    #product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True,
+         #                                   compute='_get_product_shoes_model')
 
     @api.depends('product_id')
     def _get_shoes_pair_count(self):
@@ -34,7 +34,8 @@ class AccountInvoiceReport(models.Model):
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_pair_count')
 
     def _select(self):
-        return super()._select() + ", line.product_id.color_attribute_id as color_attribute_id , line.product_id.size_attribute_id as size_attribute_id, line.pairs_count, line.product_id.product_tmpl_model_id as product_tmpl_model_id"
+        return super()._select() + ", line.pairs_count"
+
 
 #    def _select_additional_fields(self):
     #        res = super()._select_additional_fields()
