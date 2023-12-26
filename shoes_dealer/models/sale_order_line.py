@@ -19,6 +19,8 @@ class SaleOrderLine(models.Model):
                                             related='product_id.product_tmpl_model_id')
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                             related='product_id.color_attribute_id')
+    shoes_campaign_id = fields.Many2one('project.project', string='Campaign', store=True,
+                                        related='order_id.shoes_campaign_id')
 
     # Precio por par según tarifa:
     @api.depends('product_id','price_unit')
