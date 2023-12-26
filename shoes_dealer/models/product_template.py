@@ -92,7 +92,6 @@ class ProductTemplate(models.Model):
             record.create_set_boms()
             record.update_standard_price_on_variants()
             record.update_product_template_campaign_code()
-            record.update_set_price_by_pairs()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -250,11 +249,13 @@ class ProductTemplate(models.Model):
                     # Actualizar campo base_unit_count del estándar para que muestre precio unitario en website_sale,
                     # si fuera un par sólo, la cantidad a indicar es 0 para que no se muestre, por esta razón seguimos
                     # manteniendo el campo del desarrollo paris_count en los distintos modelos:
+                    # 2º actualizamos el precio de venta del surtido al crear:
                     base_unit_count = 0
                     for bom_line in exist.bom_line_ids:
                         base_unit_count += bom_line.product_qty
                     if base_unit_count == 1: base_unit_count = 0
-                    pr.write({'base_unit_count': base_unit_count})
+                    pr.write({'base_unit_count': base_unit_count,
+                              'lst_price': pr.product_tmpl_sigle_id.list_price * pr.pairs_count})
 
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
