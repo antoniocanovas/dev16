@@ -7,7 +7,7 @@
             <field name="order_id" position="after">
                 <field name="order_line_image" widget="image" optional="show"/>
                 <field name="product_tmpl_model_id" optional="hide"/>
-                <field name="attribute_color_id" optional="hide"/>
+                <field name="color_attribute_id" optional="hide"/>
             </field>
             <field name="product_uom_qty" position="after">
                 <field name="qty_quoted" optional="hide"/>
