@@ -13,8 +13,12 @@ class SaleOrderLine(models.Model):
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_sale_line_pair_count')
 
     shoes_campaign_id = fields.Many2one('project.project', string='Campaign', related='order_id.shoes_campaign_id')
+
+    # Para informes:
     product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True,
                                             related='product_id.product_tmpl_model_id')
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+                                            related='product_id.color_attribute_id')
 
     # Precio por par según tarifa:
     @api.depends('product_id','price_unit')
