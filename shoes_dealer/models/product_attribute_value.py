@@ -6,7 +6,8 @@ from odoo import fields, models, api
 class ProductAttributeValue(models.Model):
     _inherit = 'product.attribute.value'
 
-    set_template_id = fields.Many2one('set.template', string='Set template', store=True, copy=False)
+    set_template_id = fields.Many2one('set.template', string='Set template', store=True, copy=False,
+                                      default=lambda self: self.env.user.company_id.size_attribute_id)
     
     def _get_set_hidden(self):
         company_bom_attribute = self.env.user.company_id.bom_attribute_id
