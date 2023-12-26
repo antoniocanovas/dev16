@@ -10,12 +10,12 @@
     "website": "https://www.ingenieriacloud.com",
     "license": "AGPL-3",
     "depends": [
+        "sale",
         "sale_management",
         "purchase",
         "stock",
         "mrp",
         "sale_mrp",
-        "account",
         "project",
         "product_brand",
         "product_variant_sale_price",
