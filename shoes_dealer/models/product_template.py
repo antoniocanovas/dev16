@@ -27,10 +27,10 @@ class ProductTemplate(models.Model):
     manufacturer_id = fields.Many2one('res.partner', string='Manufacturer', store=True, copy=True)
 
     # Plantilla de producto "surtido" que genera los "pares":
-    product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True)
+    product_tmpl_set_id = fields.Many2one('product.template', string='Parent', store=True, copy=False)
 
     # Plantilla de producto "pares" generada desde el "surtido":
-    product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True)
+    product_tmpl_single_id  = fields.Many2one('product.template', string='Child', store=True, copy=False)
     product_tmpl_single_list_price = fields.Float('Precio del par', related='product_tmpl_single_id.list_price')
 
     # Plantilla de producto para relacionar surtidos y pares con el modelo para informes (independiente de talla):
