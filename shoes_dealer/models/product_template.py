@@ -255,7 +255,7 @@ class ProductTemplate(models.Model):
                         base_unit_count += bom_line.product_qty
                     if base_unit_count == 1: base_unit_count = 0
                     pr.write({'base_unit_count': base_unit_count,
-                              'lst_price': pr.product_tmpl_sigle_id.list_price * pr.pairs_count})
+                              'lst_price': pr.product_tmpl_single_id.list_price * pr.pairs_count})
 
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
