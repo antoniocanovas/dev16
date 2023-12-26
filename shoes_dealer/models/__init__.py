@@ -14,4 +14,4 @@ from . import product_material
 from . import mrp_bom
 from . import project_project
 from . import sale_report
-from . import account_invoice_report
+#from . import account_invoice_report
