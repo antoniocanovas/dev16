@@ -21,7 +21,7 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <field name="partner_id" position="before">
-                <field name="campaign_id" options="{'no_quick_create':1, 'no_create_edit':1}"/>
+                <field name="shoes_campaign_id" options="{'no_quick_create':1, 'no_create_edit':1}"/>
             </field>
             <field name="partner_id" position="after">
                 <field name="pairs_count"/>

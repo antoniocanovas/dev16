@@ -12,7 +12,8 @@ class SaleOrderLine(models.Model):
             record['pairs_count'] = record.product_id.pairs_count * record.product_uom_qty
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_sale_line_pair_count')
 
-    campaign_id = fields.Many2one('project.project', string='Campaign', related='order_id.campaign_id')
+    campaign_id = fields.Many2one('project.project', string='Campaign (borrar)', related='order_id.campaign_id')
+    shoes_campaign_id = fields.Many2one('project.project', string='Campaign', related='order_id.shoes_campaign_id')
 
     # Precio por par según tarifa:
     @api.depends('product_id','price_unit')

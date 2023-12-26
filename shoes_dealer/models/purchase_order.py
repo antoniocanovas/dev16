@@ -14,4 +14,5 @@ class PurchaseOrder(models.Model):
             record['pairs_count'] = count
     pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_pair_count')
 
-    campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
+    campaign_id = fields.Many2one('project.project', string="Campaign (borrar)", store=True, copy=True, tracking=10)
+    shoes_campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)

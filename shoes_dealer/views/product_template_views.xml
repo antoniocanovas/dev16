@@ -47,6 +47,10 @@
                         <field name="campaign_id"/>
                     </span>
                     <span class="d-inline-block">
+                        <label for="shoes_campaign_id"/>
+                        <field name="shoes_campaign_id"/>
+                    </span>
+                    <span class="d-inline-block">
                         <label for="gender"/>
                         <field name="gender"/>
                     </span>
@@ -101,6 +105,10 @@
                     <span class="d-inline-block">
                         <label for="campaign_id"/>
                         <field name="campaign_id" readonly="1"/>
+                    </span>
+                    <span class="d-inline-block">
+                        <label for="shoes_campaign_id"/>
+                        <field name="shoes_campaign_id" readonly="1"/>
                     </span>
                     <span class="d-inline-block" attrs="{'invisible':[('gender','=',False)]}">
                         <label for="gender"/>
