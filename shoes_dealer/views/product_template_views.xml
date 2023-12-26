@@ -43,10 +43,6 @@
             <xpath expr="//div[@name='options']" position="after">
                 <div name="product_shoes_dealer">
                     <span class="d-inline-block">
-                        <label for="campaign_id"/>
-                        <field name="campaign_id"/>
-                    </span>
-                    <span class="d-inline-block">
                         <label for="shoes_campaign_id"/>
                         <field name="shoes_campaign_id"/>
                     </span>
@@ -103,10 +99,6 @@
             <xpath expr="//div[@name='options']" position="after">
                 <div name="product_shoes_dealer">
                     <span class="d-inline-block">
-                        <label for="campaign_id"/>
-                        <field name="campaign_id" readonly="1"/>
-                    </span>
-                    <span class="d-inline-block">
                         <label for="shoes_campaign_id"/>
                         <field name="shoes_campaign_id" readonly="1"/>
                     </span>
@@ -144,11 +136,11 @@
         <field name="arch" type="xml">
             <data>
                 <field name="categ_id" position="after">
-                    <field name="campaign_id"/>
+                    <field name="shoes_campaign_id"/>
                     <field name="product_tmpl_model_id"/>
                 </field>
                 <xpath expr="//group/filter[@name='type']" position="after">
-                    <filter string="Campaign" name="campaign" context="{'group_by':'campaign_id'}"/>
+                    <filter string="Campaign" name="campaign" context="{'group_by':'shoes_campaign_id'}"/>
                     <filter string="Model" name="Model" context="{'group_by':'product_tmpl_model_id'}"/>
                 </xpath>
             </data>

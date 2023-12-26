@@ -20,7 +20,6 @@ class ProductTemplate(models.Model):
     #    set_code = fields.Char('Code', store=True, copy=False)
     #    set_template_ids = fields.Many2many('set.template', string='Set templates', store="True",)
 
-    campaign_id = fields.Many2one('project.project', string="Campaign (borrar)", store=True, copy=True, tracking=10)
     shoes_campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
     gender = fields.Selection([('man','Man'),('woman','Woman'),('unisex','Unisex')],
                               string='Serial', copy=True, store=True)
@@ -37,10 +36,11 @@ class ProductTemplate(models.Model):
     # Plantilla de producto para relacionar surtidos y pares con el modelo para informes (independiente de talla):
     @api.depends('product_tmpl_single_id', 'product_tmpl_set_id')
     def _get_pt_shoes_model(self):
-        model = False
-        if self.product_tmpl_single_id.id:  model = self.product_tmpl_single_id.id
-        if self.product_tmpl_set_id.id:     model = self.id
-        self.product_tmpl_model_id = model
+        for record in self:
+            model = False
+            if record.product_tmpl_single_id.id:  model = record.product_tmpl_single_id.id
+            if record.product_tmpl_set_id.id:     model = record.id
+            record['product_tmpl_model_id'] = model
     product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True, compute='_get_pt_shoes_model')
 
 
@@ -86,7 +86,7 @@ class ProductTemplate(models.Model):
 
     def create_single_products_and_set_boms(self):
         for record in self:
-            if not record.campaign_id.id:
+            if not record.shoes_campaign_id.id:
                 raise UserError('Assign a campaign before pairs creation !!')
             record.create_single_products()
             record.update_color_and_size_attributes()
@@ -115,12 +115,12 @@ class ProductTemplate(models.Model):
                 if record.campaign_code: campaign_code = "P" + record.campaign_code
                 # Cálculo de precio de coste con cambio de moneda:
                 standard_price = record.standard_price
-                if (record.campaign_id.id) and (record.campaign_id.currency_exchange) and (record.exwork):
-                    standard_price = record.exwork * record.campaign_id.currency_exchange
+                if (record.shoes_campaign_id.id) and (record.shoes_campaign_id.currency_exchange) and (record.exwork):
+                    standard_price = record.exwork * record.shoes_campaign_id.currency_exchange
 
                 newpt = self.env['product.template'].create({'name': str(prefix) + record.name,
                                                              'product_tmpl_set_id': record.id,
-                                                             'campaign_id': record.campaign_id.id,
+                                                             'shoes_campaign_id': record.shoes_campaign_id.id,
                                                              'list_price': record.list_price,
                                                              'standard_price': record.standard_price,
                                                              'exwork': record.exwork,
@@ -265,14 +265,14 @@ class ProductTemplate(models.Model):
         # Caso de actualizar el precio desde el PAR:
         for record in self:
             if record.product_tmpl_set_id.id:
-                standard_price = record.exwork * record.campaign_id.currency_exchange
+                standard_price = record.exwork * record.shoes_campaign_id.currency_exchange
                 for pp in record.product_variant_ids:
                     pp.write({'standard_price':standard_price})
                 for pp in record.product_tmpl_set_id.product_variant_ids:
                     pp.write({'standard_price': standard_price * pp.pairs_count})
             # Caso de actualizarse el precio desde el SURTIDO:
             if record.product_tmpl_single_id.id:
-                standard_price = record.product_tmpl_single_id.exwork * record.campaign_id.currency_exchange
+                standard_price = record.product_tmpl_single_id.exwork * record.shoes_campaign_id.currency_exchange
                 for pp in record.product_variant_ids:
                     pp.write({'standard_price': standard_price * pp.pairs_count})
                 for pp in record.product_tmpl_single_id.product_variant_ids:
@@ -282,10 +282,10 @@ class ProductTemplate(models.Model):
     def update_product_template_campaign_code(self):
         # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
         for record in self:
-            if not record.campaign_id.id:
+            if not record.shoes_campaign_id.id:
                 raise UserError('Please, assign campaign prior to create codes !!')
             if not record.campaign_code:
-                code = str(record.campaign_id.campaign_code) + "."
+                code = str(record.shoes_campaign_id.campaign_code) + "."
                 # Caso de actualizar desde el PAR (código "Pxx.")
                 if record.product_tmpl_set_id.id:
                     record.write({'campaign_code': "P" + code})
@@ -294,8 +294,8 @@ class ProductTemplate(models.Model):
                 if record.product_tmpl_single_id.id:
                     record.write({'campaign_code':code})
                     record.product_tmpl_single_id.write({'campaign_code':"P" + code})
-                next_code = record.campaign_id.campaign_code + 1
-                record.campaign_id.write({'campaign_code':next_code})
+                next_code = record.shoes_campaign_id.campaign_code + 1
+                record.shoes_campaign_id.write({'campaign_code':next_code})
 
 
     # Notas del desarrollo:
