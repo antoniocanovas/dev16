@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
 
     # Considerar el estado RESERVADO para los riesgos financieros:
     def _get_risk_states(self):
-        super()._get_risk_states()
+        super()._get_risk_states(self)
         risk_states.append("reservation")
         return risk_states
 
