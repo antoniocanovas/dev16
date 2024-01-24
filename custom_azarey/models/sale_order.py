@@ -12,6 +12,13 @@ class SaleOrder(models.Model):
 
     risk_remaining_value = fields.Monetary('Risk', store=True, related='partner_id.risk_remaining_value')
 
+    # Considerar el estado RESERVADO para los riesgos financieros:
+    def _get_risk_states(self):
+        super()._get_risk_states()
+        risk_states.append("reservation")
+        return risk_states
+
+    # Copiado de OCA, lo mismo que hace al confirmar pedido, que lo haga en el nuestro de RESERVAR:
     def action_reservation(self):
         if not self.env.context.get("bypass_risk", False):
             for order in self:
