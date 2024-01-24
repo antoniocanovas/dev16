@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+user_pnt_product_pricelist_report_wizard_class,user.pnt.product.pricelist.report.wizard.class,model_product_pricelist_report_wizard,base.group_user,1,1,1,1
+user_pnt_project_task_report_wizard_class,user.pnt.project.task.report.wizard.class,model_project_task_report_wizard,base.group_user,1,1,1,1
+user_pnt_product_report_wizard_class,user.pnt.product.report.wizard.class,model_product_report_wizard,base.group_user,1,1,1,1
+

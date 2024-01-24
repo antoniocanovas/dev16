@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_order_document_pnt" inherit_id="sale.report_saleorder_document" priority="9999">
+        <xpath expr="//t/t/t[3]" position="replace">
+            <div class="row">
+                <div class="col-5">
+                    <strong> Order Number: <span  t-field="doc.name"/></strong><br/>
+                    <strong> Order Date: <span  t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/></strong><br/>
+                    <strong> Service Date: <span  t-field="doc.commitment_date" t-options="{&quot;widget&quot;: &quot;date&quot;}"/></strong><br/>
+                    <!--<strong> Payment mode: <span  t-field="o.payment_mode_id"/></strong><br/>-->
+                    <strong> Salesman: <span  t-field="doc.referrer_id"/></strong><br/>
+                </div>
+                <div class="col-7" name="customer_data">
+                    <div style="border: solid black 2px">
+                        <address class="mb-0" t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                        <div t-if="doc.partner_id.vat" id="partner_vat_address_not_same_as_shipping">
+                            <t t-if="doc.company_id.account_fiscal_country_id.vat_label" t-esc="doc.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                            <t t-else="">Tax ID</t>: <span t-field="doc.partner_id.vat"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//t/t/t[3]" position="replace">
+        </xpath>
+        <xpath expr="//t/t/div[2]/h2" position="replace">
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="replace">
+            <div t-if="not doc.name" class="row mt-4 mb-4" id="informations">
+                <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
+                    <strong>Your Reference:</strong>
+                    <p class="m-0" t-field="doc.client_order_ref"/>
+                </div>
+                <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2" name="informations_date">
+                    <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
+                    <strong t-else="">Order Date:</strong>
+                    <p class="m-0" t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                </div>
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date">
+                    <strong>Expiration:</strong>
+                    <p class="m-0" t-field="doc.validity_date"/>
+                </div>
+                <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Salesperson:</strong>
+                    <p class="m-0" t-field="doc.user_id"/>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//t/t/div[2]/table[hasclass('o_main_table')]" position="replace">
+            <table class="table table-sm o_main_table table-borderless mt-4">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr>
+                        <th style="background-color:transparent"/>
+                        <th style="background-color:#D3D3D3;max-width:220px" name="th_description" class="text-start"><span>Description</span></th>
+                        <th style="background-color:#D3D3D3" name="th_pvp" class="text-end"><span>P.V.P</span></th>
+                        <th style="background-color:#D3D3D3" name="th_qty" class="text-end"><span>Boxes</span></th>
+                        <th style="background-color:#D3D3D3" name="th_pairs_count" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Pairs count</span></th>
+                        <th style="background-color:#D3D3D3" name="th_price_unit" t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <span>Disc.%</span>
+                        </th>
+                        <th style="background-color:#D3D3D3" name="th_subtotal" class="text-end">
+                            <span groups="account.group_show_line_subtotals_tax_excluded">Importe</span>
+                            <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <t t-set="current_subtotal" t-value="0"/>
+                    <t t-set="current_pairs" t-value="0"/>
+                    <t t-set="current_boxes" t-value="0"/>
+                    <t t-foreach="lines_to_report" t-as="line">
+
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                        <t t-set="current_pairs" t-value="current_pairs + line.pairs_count"/>
+                        <t t-set="current_boxes" t-value="current_boxes + line.product_uom_qty"/>
+
+                        <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                            <t t-if="not line.display_type">
+                                <td class="text-start" style="padding-top:15px">
+                                    <img t-if="line.product_id.image_1920" t-att-src="image_data_uri(line.product_id.image_1920)" style="height: 60px;"/>
+                                </td>
+                                <td name="td_name" class="text-start" style="font-size: 12px;max-width:220px">
+                                    <span t-esc="line.name"/>
+                                </td>
+                                <td name="td_pricepair" class="text-end">
+                                    <span t-field="line.pair_price"/>
+                                </td>
+                                <td name="td_quantity" class="text-end">
+                                    <span t-field="line.product_uom_qty"/>
+                                </td>
+                                <td name="td_pairscount" class="text-center">
+                                    <span t-field="line.pairs_count"/>
+                                </td>
+                                <td t-if="display_discount" class="text-end">
+                                    <span t-field="line.discount"/>
+                                </td>
+                                <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                                    <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                </td>
+                            </t>
+                            <t t-elif="line.display_type == 'line_section'">
+                                <td name="td_section_line" colspan="99">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <t t-set="current_section" t-value="line"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+                            </t>
+                            <t t-elif="line.display_type == 'line_note'">
+                                <td name="td_note_line" colspan="99">
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                        </tr>
+
+                        <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section') and not line.is_downpayment">
+                            <tr class="is-subtotal text-end">
+                                <td name="td_section_subtotal" colspan="99">
+                                    <strong class="mr16">Subtotal</strong>
+                                    <span t-out="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+        </xpath>
+        <xpath expr="//div[@name='so_total_summary']" position="before">
+            <div class="clearfix" name="so_total_box_pairs">
+                <div id="total" class="row" name="total">
+                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td><strong>Total Boxes</strong></td>
+                                <td class="text-end">
+                                    <span t-esc="current_boxes"/>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td><strong>Total Pairs</strong></td>
+                                <td class="text-end">
+                                    <span t-esc="current_pairs"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

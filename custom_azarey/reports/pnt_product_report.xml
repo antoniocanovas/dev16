@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pnt_model_product_multi_report" model="ir.actions.report">
+            <field name="name">Multi</field>
+            <field name="model">product.product</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_azarey.product_multi_report</field>
+            <field name="report_file">custom_azarey.product_multi_report</field>
+            <field name="print_report_name">((str(object.name) or ''))</field>
+            <field name="attachment">((str(object.name) or '')+'.pdf')</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
