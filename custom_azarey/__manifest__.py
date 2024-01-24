@@ -21,6 +21,7 @@
         "product_variant_sale_price",
         "project",
         "account_financial_risk",
+        "sale_financial_risk",
     ],
     "data": [
         "wizard/pnt_product_report_wizard_view.xml",
