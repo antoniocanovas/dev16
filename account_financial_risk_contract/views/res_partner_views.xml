@@ -30,7 +30,7 @@
             </xpath>
 
             <field name="credit_policy" position="replace">
-                <field name="risk_contract_id"/>
+                <field name="risk_contract_id" readonly="1"/>
                 <field name="risk_contract_description"/>
             </field>
 
