@@ -19,7 +19,7 @@
     <record id="partner_risk_contract_form" model="ir.ui.view">
         <field name="name">partner.risk.contract.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="account_financial_risk.res_partner_view_risk"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button class="oe_stat_button" icon="fa-info" type="action"
@@ -36,5 +36,6 @@
 
         </field>
     </record>
+
 
 </odoo>
