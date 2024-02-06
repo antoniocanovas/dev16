@@ -41,4 +41,4 @@ class RiskContract(models.Model):
             else:
                 partner.write({'credit_limit': record.amount})
 
-    _sql_constraints = [('unique_name', 'unique(name)', 'This code already exists']
+    _sql_constraints = [('unique_name', 'unique(name)', 'This code already exists')]
