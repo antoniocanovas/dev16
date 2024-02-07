@@ -43,12 +43,15 @@ class ProductPricelist(models.Model):
             post_margin = record.pnt_post_margin_amount
 
             # Pricelist item deletion to avoid old prices of pairs changed of campaign:
-            record.item_ids.unlink()
+            lines = self.env['product.pricelist.item'].search(
+                ['|', ('product_id.shoes_campaign_id', '=', record.pnt_campaign_id.id),
+                 ('product_tmpl_id.shoes_campaign_id', '=', record.pnt_campaign_id.id)])
+            lines.unlink()
 
             for pr in pairs:
                 price = pr.lst_price
                 pr.write({'standard_price': pr.exwork + pr.shipping_price})
-                gross_price = (price + pre_margin + landed) * (1 + margin / 100) + post_margin
+                gross_price = round(((price + pre_margin + landed) * (1 + margin / 100) + post_margin), 2)
 
                 # Redondeo a 5 centimos, siempre al alza (hay que hacerlo con 2 round porque hace cosas raras):
                 cents = round((gross_price - int(gross_price)), 2)
@@ -83,7 +86,7 @@ class ProductPricelist(models.Model):
 
                 # Crear líneas de tarifa:
                 single_price = pr.product_tmpl_single_id.list_price
-                gross_price =  (single_price + pre_margin + landed) * (1 + margin / 100) + post_margin
+                gross_price = round(((single_price + pre_margin + landed) * (1 + margin / 100) + post_margin), 2)
 
                 # Redondeo a 5 centimos, siempre al alza (hay que hacerlo con 2 round porque hace cosas raras):
                 cents = round((gross_price - int(gross_price)), 2)
