@@ -385,7 +385,7 @@ msgstr "Es seguidor"
 #. module: custom_azarey
 #: model:ir.model.fields,field_description:custom_azarey.field_product_pricelist__pnt_landed_amount
 msgid "Landed cost"
-msgstr "Precio de costo"
+msgstr "Precio de envio"
 
 #. module: custom_azarey
 #: model:ir.model.fields,field_description:custom_azarey.field_product_pricelist_report_wizard____last_update
@@ -577,12 +577,12 @@ msgstr "Pnt filas"
 #. module: custom_azarey
 #: model:ir.model.fields,field_description:custom_azarey.field_product_pricelist__pnt_post_margin_amount
 msgid "Post margin"
-msgstr "Margen de publicación"
+msgstr "Margen posterior"
 
 #. module: custom_azarey
 #: model:ir.model.fields,field_description:custom_azarey.field_product_pricelist__pnt_pre_margin_amount
 msgid "Pre margin"
-msgstr "Pre margen"
+msgstr "Margen previo"
 
 #. module: custom_azarey
 #: model:ir.actions.report,name:custom_azarey.pnt_model_pricelist_report

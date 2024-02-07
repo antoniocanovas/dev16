@@ -7,3 +7,4 @@ from . import sale_order
 from . import product_product
 from . import project_task
 from . import pnt_stock_picking
+from . import project_project

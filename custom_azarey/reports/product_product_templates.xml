@@ -13,7 +13,12 @@
                     <div>
                         <table class="table-sm table-borderless">
                             <tr>
-                                <td colspan="2"><img t-att-src="image_data_uri(product.material_id.image)" style="max-height: 40px;"/></td>
+                                <td colspan="2">
+                                    <t t-if="product.material_id.image">
+                                        <img t-att-src="image_data_uri(product.material_id.image)" style="max-height: 40px;"/>
+                                    </t>
+                                </td>
+
                                 <td colspan="2" rowspan="2" style="font-size: 9px;vertical-align:top;text-align:center;padding-left: 20px;">
                                     <t t-foreach="product.pt_colors_ids" t-as="color">
                                         <span style="font-size: 8px; vertical-align:top;text-align:center;line-height: 3px;" t-field="color.name"/><br/>
@@ -21,7 +26,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2"><img t-att-src="image_data_uri(product.image_1920)" style="max-height: 40px;padding-top:0px"/></td>
+                                <td colspan="2">
+                                    <t t-if="product.image_1920">
+                                        <img t-att-src="image_data_uri(product.image_1920)" style="max-height: 40px;padding-top:0px"/>
+                                    </t>
+                                </td>
                             </tr>
 
                         </table>
@@ -31,11 +40,11 @@
                             <tr>
                                 <t t-if="price_included">
                                     <td style="vertical-align:bottom;line-height: 1px;padding-left: 5px;">
-                                        <t t-if="product.is_product_variant">
-                                            <strong style="font-size:12px;font-weight: bold;" t-field="product.lst_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
-                                        </t>
-                                        <t t-else="">
+                                        <t t-if="product.is_product_variant or product.product_tmpl_set_id">
                                             <strong style="font-size:12px;font-weight: bold;" t-field="product.list_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
+                                        </t>
+                                        <t t-if="product.product_tmpl_single_id">
+                                            <strong style="font-size:12px;font-weight: bold;" t-field="product.product_tmpl_single_list_price" t-options="{'widget': 'monetary', 'label_price': True}"/>
                                         </t>
                                     </td>
                                 </t>
@@ -69,9 +78,24 @@
                             <t t-foreach="range(rows)" t-as="row">
                                 <tr>
                                     <t t-foreach="range(columns)" t-as="column">
-                                        <t t-if="not (current_data and current_data[1])">
+                                        <t t-if="not current_quantity and quantity and not (current_data and current_data[1])">
                                             <t t-set="current_data" t-value="quantity.popitem()"/>
                                             <t t-set="product" t-value="current_data[0]"/>
+                                            <t t-set="barcode_and_qty" t-value="current_data[1].pop()"/>
+                                            <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                                            <t t-set="current_quantity" t-value="barcode_and_qty[1]"/>
+                                        </t>
+                                        <t t-if="current_quantity">
+                                            <t t-set="make_invisible" t-value="False"/>
+                                            <t t-set="current_quantity" t-value="current_quantity - 1"/>
+                                        </t>
+                                        <t t-elif="current_data and current_data[1]">
+                                            <t t-set="barcode_and_qty" t-value="current_data[1].pop()"/>
+                                            <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                                            <t t-set="current_quantity" t-value="barcode_and_qty[1] - 1"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-set="make_invisible" t-value="True"/>
                                         </t>
                                         <t t-call="custom_azarey.report_simple_label5x6"/>
                                     </t>

@@ -12,7 +12,6 @@
                         <th name="th_price_unit" t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                             <span>Disc.%</span>
                         </th>
-                        <th name="th_taxes" t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
                         <th name="th_subtotal" class="text-end">
                             <span groups="account.group_show_line_subtotals_tax_excluded">Importe</span>
                             <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
@@ -47,9 +46,7 @@
                                 <td t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                     <span class="text-nowrap" t-field="line.discount"/>
                                 </td>
-                                <td t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))" id="line_tax_ids"/>
-                                </td>
+
                                 <td class="text-end o_price_total">
                                     <span class="text-nowrap" t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                                     <span class="text-nowrap" t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
@@ -99,6 +96,35 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='origin']" position="replace">
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div class="col-auto col-3 mw-100 mb-2" t-if="o.referrer_id" name="referrer">
+                <strong>Referrer:</strong>
+                <p class="m-0" t-field="o.referrer_id"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='comment']" position="after">
+            <div name="confidencialidad">
+                <p/>
+                <p class="text-center">Confidencialidad</p>
+                <p style="font-size:9px">
+                    En cumplimiento de lo establecido en el Reglamento General de
+                    Protección de Datos, y LOPDGDD le informamos que los datos que aparecen
+                    en la presente factura han sido incorporados a un tratamiento
+                    titularidad de BROTHERS A&amp;A INTERNATIONAL SHOES, S.L., con la finalidad
+                    de realizar la gestión administrativa, contable y fiscal. Los datos proporcionados
+                    se conservarán mientras se mantenga la relación comercial, o durante el tiempo
+                    necesario para cumplir las obligaciones legales. Los datos no se cederán a terceros
+                    salvo en los casos en que exista una obligación legal y los trataremos en base a su
+                    consentimiento o la ejecución de un contrato o por obligación legal.
+                    Asimismo, le informamos de la posibilidad de ejercer los siguientes derechos sobre sus
+                    datos personales: derecho de acceso, rectificación, supresión u olvido,
+                    limitación, oposición, portabilidad y a retirar el consentimiento prestado.
+                    Para ello podrá enviar un email a : info@azarey.es.
+                </p>
             </div>
         </xpath>
     </template>

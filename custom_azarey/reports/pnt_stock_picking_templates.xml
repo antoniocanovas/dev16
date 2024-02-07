@@ -22,97 +22,97 @@
 
 ^FX Nombre y dirección del cliente
 
-^CF0,25
+^CF0,30
 
 ^FO30,270^FD Estación de^FS
 
 ^FO50,300^FD Destino^FS
 
-^CF0,25
+^CF0,30
 
 ^FO200,285^FD<t t-esc="o.partner_id.name"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,400^FD Consignatario:^FS
 
-^CFA,20
+^CFA,30
 
-^FO200,400^FD^FD<t t-esc="o.user_id.name"/>^FS
+^FO230,400^FD^FD<t t-esc="o.user_id.name"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,500^FD Teléfono:^FS
 
-^CFA,20
+^CFA,30
 
-^FO200,500^FD<t t-esc="o.partner_id.mobile"/>^FS
+^FO160,500^FD<t t-esc="o.partner_id.mobile"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,600^FD Domicilio:^FS
 
-^CFA,15
+^CFA,30
 
-^FO200,590^FD<t t-esc="o.partner_id.street"/>^FS
+^FO180,575^FD<t t-esc="o.partner_id.street"/>^FS
 
-^FO200,610^FD<t t-esc="o.partner_id.street2"/>^FS
+^FO180,625^FD<t t-esc="o.partner_id.street2"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,700^FD Población:^FS
 
-^CFA,20
+^CFA,30
 
-^FO200,700^FD<t t-esc="o.partner_id.zip"/> <t t-esc="o.partner_id.state_id.name"/> <t t-esc="o.partner_id.city"/>^FS
+^FO180,700^FD<t t-esc="o.partner_id.zip"/><t t-esc="o.partner_id.state_id.name"/><t t-esc="o.partner_id.city"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,800^FD Otros:^FS
 
-^CFA,20
+^CFA,30
 
-^FO125,800^FD<t t-esc="o.note"/> ^FS
+^FO115,800^FD<t t-esc="o.note"/> ^FS
 
-^CF0,25
+^CF0,30
 
 ^FO400,800^FD Bultos:^FS
 
-^CFA,20
+^CFA,30
 
-^FO450,800^FD <t t-esc="i"/> / <t t-esc="len(o.move_ids_without_package)"/>^FS
+^FO495,800^FD<t t-esc="i"/> / <t t-esc="len(o.move_ids_without_package)"/>^FS
 
-^CF0,25
+^CF0,30
 
-^FO550,800^FD Kgs:^FS
+^FO590,800^FD Kgs:^FS
 
-^CFA,20
+^CFA,30
 
-^FO600,800^FD <t t-esc="o.shipping_weight"/>^FS
+^FO640,800^FD <t t-esc="o.shipping_weight"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,940^FD Remitido el día^FS
 
-^CFA,20
+^CFA,30
 
-^FO200,940^FD <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>^FS
+^FO230,940^FD <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO30,1050^FD Por:^FS
 
-^CFA,20
+^CFA,30
 
-^FO150,1050^FD <t t-esc="o.carrier_id.name"/> ^FS
+^FO80,1050^FD <t t-esc="o.carrier_id.name"/>^FS
 
-^CF0,25
+^CF0,30
 
 ^FO450,1050^FD Portes:^FS
 
-^CFA,20
+^CFA,30
 
-^FO500,1050^FD <t t-esc="o.sale_id.amount_delivery"/>^FS
+^FO530,1050^FD <t t-esc="o.sale_id.amount_delivery"/>^FS
 
 ^XZ
                 </t>
