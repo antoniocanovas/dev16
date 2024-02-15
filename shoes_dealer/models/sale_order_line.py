@@ -17,10 +17,10 @@ class SaleOrderLine(models.Model):
     # Precio especial del para en la línea de ventas, recalculará precio unitario del producto surtido:
     special_pair_price = fields.Monetary('SPP')
 
-    @api.onchange(special_pair_price)
+    @api.onchange('special_pair_price')
     def _update_price_unit_from_spp(self):
         for record in self:
-            record['price_unit'] = record.pairs_count * record.special_pair_price
+            record['price_unit'] = record.pairs_count * record.special_pair_price / record.product_uom_qty
 
     # Para informes:
     product_tmpl_model_id = fields.Many2one('product.template', string='Model', store=True,
