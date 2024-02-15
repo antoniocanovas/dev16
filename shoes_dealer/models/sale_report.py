@@ -33,11 +33,14 @@ class SaleReport(models.Model):
             record['pairs_count'] = pairs_count * record.product_uom_qty
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_pair_count')
 
+    referrer_id = fields.Many2one('res.partner', string='Referrer')
+
     def _select_additional_fields(self):
         res = super()._select_additional_fields()
         res['color_attribute_id'] = "p.color_attribute_id"
         res['size_attribute_id'] = "p.size_attribute_id"
         res['product_tmpl_model_id'] = "t.product_tmpl_model_id"
+        res['referrer_id'] = "s.referrer_id"
         res['pairs_count'] = "l.pairs_count"
         return res
 
@@ -47,5 +50,6 @@ class SaleReport(models.Model):
         p.color_attribute_id,
         p.size_attribute_id,
         t.product_tmpl_model_id,
+        s.referrer_id,
              l.pairs_count"""
         return res

@@ -45,6 +45,7 @@
                         </group>
                         <group>
                             <field name="comment"/>
+                            <field name="is_skin"/>
                         </group>
                     </group>
                 </sheet>

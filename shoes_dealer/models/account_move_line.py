@@ -20,3 +20,11 @@ class AccountMoveLine(models.Model):
             if record.pairs_count != 0: total = record.price_subtotal / record.pairs_count
             record['pair_price'] = total
     pair_price = fields.Float('Pair price', store=True, compute='_get_shoes_invoice_pair_price')
+
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color',
+                                         store=True,
+                                         related='product_id.color_attribute_id')
+
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Size',
+                                         store=True,
+                                         related='product_id.size_attribute_id')

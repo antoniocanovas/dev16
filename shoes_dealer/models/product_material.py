@@ -11,3 +11,4 @@ class ProductMaterial(models.Model):
     name = fields.Char('Name', store=True)
     image = fields.Binary('Image', store=True, copy=False)
     comment = fields.Html('Comments', store=True, copy=False)
+    is_skin = fields.Boolean('Skin', store=True, copy=False)
