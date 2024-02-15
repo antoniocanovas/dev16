@@ -15,7 +15,7 @@ class SaleOrderLine(models.Model):
     shoes_campaign_id = fields.Many2one('project.project', string='Campaign', related='order_id.shoes_campaign_id')
 
     # Precio especial del para en la línea de ventas, recalculará precio unitario del producto surtido:
-    special_pair_price = fields.Monetary('SPP')
+    special_pair_price = fields.Monetary('SPP', help='Special pair price')
 
     @api.onchange('special_pair_price')
     def _update_price_unit_from_spp(self):
