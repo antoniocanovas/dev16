@@ -52,7 +52,7 @@ class ProductProduct(models.Model):
     assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
 
 
-    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=False)
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
