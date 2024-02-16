@@ -59,7 +59,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
-    @api.model_create_multi
+    @api.model_create()
     def set_color_and_size(self):
         for record in self:
             size_attribute = self.env.company.size_attribute_id
