@@ -81,13 +81,8 @@ class ProductProduct(models.Model):
                         ('id', 'in', record.product_template_variant_value_ids.ids),
                         ('attribute_id', '=', color_attribute.id)
                     ]).product_attribute_value_id.id
-                record.write({'size_attribute_id': size_value,
-                              'color_attribute_id': color_value,
-                              'assortment_attribute_id': assortment_value
-                              })
-
-
-    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
+            record['size_attribute_id'] = color_value
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='_get_pp_color')
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
@@ -153,7 +148,7 @@ class ProductProduct(models.Model):
                         ('attribute_id', '=', assortment_attribute.id)
                     ]).product_attribute_value_id.id
 
-            record.write({'size_attribute_id': size_value,
-                          'color_attribute_id': color_value,
-                          'assortment_attribute_id': assortment_value
-                          })
+                record.write({'size_attribute_id': size_value,
+                              'color_attribute_id': color_value,
+                              'assortment_attribute_id': assortment_value
+                              })
