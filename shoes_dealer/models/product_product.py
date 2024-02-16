@@ -82,7 +82,7 @@ class ProductProduct(models.Model):
                         ('attribute_id', '=', color_attribute.id)
                     ]).product_attribute_value_id.id
             record['size_attribute_id'] = color_value
-    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True, compute='_get_pp_color')
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=False, compute='_get_pp_color')
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
