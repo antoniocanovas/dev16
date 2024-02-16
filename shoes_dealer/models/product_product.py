@@ -52,7 +52,7 @@ class ProductProduct(models.Model):
     assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
 
 
-    @api.depends('create_date')
+    @api.depends('id, name')
     def _get_pp_color(self):
         for record in self:
             color_attribute = self.env.company.color_attribute_id
