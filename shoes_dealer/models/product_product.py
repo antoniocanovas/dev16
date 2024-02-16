@@ -52,7 +52,39 @@ class ProductProduct(models.Model):
     assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
 
 
+    @api.depends('create_date')
+    def _get_pp_color(self):
+        for record in self:
+            color_attribute = self.env.company.color_attribute_id
+            len_color_attribute, color_value = 0, False
 
+            for li in record.product_template_variant_value_ids:
+                #  Parámetros de empresa:
+                if li.attribute_id.id == color_attribute.id: color_value = li
+
+                # Comprobar si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
+                pt_attrib_lines = record.product_tmpl_id.attribute_line_ids
+                for li in pt_attrib_lines:
+                    if li.attribute_id == color_attribute:
+                        color_line = li
+                        len_color_attribute = len(li.value_ids.ids)
+
+                # Caso de que haya uno sólo, asignación:
+                if len_color_attribute == 1:
+                    color_value = color_line.value_ids[0].id
+
+                # Casos de que haya varios:
+                if len_color_attribute > 1:
+                    # Para buscar el color:
+                    color_value = self.env['product.template.attribute.value'].search([
+                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                        ('id', 'in', record.product_template_variant_value_ids.ids),
+                        ('attribute_id', '=', color_attribute.id)
+                    ]).product_attribute_value_id.id
+                record.write({'size_attribute_id': size_value,
+                              'color_attribute_id': color_value,
+                              'assortment_attribute_id': assortment_value
+                              })
 
 
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
@@ -121,7 +153,7 @@ class ProductProduct(models.Model):
                         ('attribute_id', '=', assortment_attribute.id)
                     ]).product_attribute_value_id.id
 
-                record.write({'size_attribute_id': size_value,
-                              'color_attribute_id': color_value,
-                              'assortment_attribute_id': assortment_value
-                              })
+            record.write({'size_attribute_id': size_value,
+                          'color_attribute_id': color_value,
+                          'assortment_attribute_id': assortment_value
+                          })
