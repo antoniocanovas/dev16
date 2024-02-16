@@ -10,7 +10,7 @@ class ProductProduct(models.Model):
 
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
-    assortment_attribute_id = fiels.Many2one('product.attribute.value', string='Assortment', store=True)
+    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
     @api.depends('create_date')
     def set_color_and_size(self):
