@@ -8,6 +8,53 @@ class ProductProduct(models.Model):
 
 
 
+
+
+
+    # Pares por variante de producto, se usará en el cálculo de tarifas y líneas de venta:
+    def _get_shoes_product_product_pair_count(self):
+        for record in self:
+            count = 1
+            bom = self.env['mrp.bom'].search([('product_id','=',record.id)])
+            if bom.ids:
+                count = bom[0].pairs_count
+            record['pairs_count'] = count
+    pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_product_product_pair_count')
+
+    # Product assortment (to be printed on sale.order and account.move reports):
+    # 2024/02 REVISAR ESTO, POSIBLEMENTE SE PUEDE CAMBIAR POR UN RELATED DE assortment_attribute_id.set_template_id.code
+    def _get_product_assortment_code(self):
+        for record in self:
+            assortment_code = ""
+            assortment_attribute = self.env.user.company_id.bom_attribute_id
+
+            # El campo en el product.product es product_template_variant_value_ids
+            # Este campo es un m2m a product.template.attribute.value
+            # Dentro de ese modelo hay un attribute_id que apunta a product_attribute (que ha de ser el de la compañía) y
+            # un product_attribute_value_id que apunta a product.attribute.value
+
+            # Si hay varios atributos sería lo siguiente:
+            if record.product_template_variant_value_ids.ids:
+                ptvv = self.env['product.template.attribute.value'].search(
+                    [('id', 'in', record.product_template_variant_value_ids.ids),
+                     ('attribute_id', '=', assortment_attribute.id)])
+            # Para el caso de una sóla variante en el template el valor del campo es False:
+            else:
+                ptvv = self.env['product.template.attribute.value'].search(
+                    [('product_tmpl_id', '=', record.product_tmpl_id.id),
+                     ('attribute_id', '=', assortment_attribute.id)])
+
+            # este modelo tiene un campo que es "set_template_id" que apunta al modelo "set.template"
+            # Los valores que nos interesan son las líneas de este último, pero utilizamos el campo code para impresión)
+            if ptvv.id:
+                assortment_code = ptvv.product_attribute_value_id.set_template_id.code
+            record['assortment_code'] = assortment_code
+    assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
+
+
+
+
+
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
@@ -19,7 +66,6 @@ class ProductProduct(models.Model):
             color_attribute = self.env.company.color_attribute_id
             assortment_attribute = self.env.company.bom_attribute_id
 
-            size, color, assortment = False, False, False
             len_size_attribute, len_color_attribute, len_assortment_attribute = 0, 0, 0
             size_value, color_value, assortment_value = False, False, False
 
@@ -79,47 +125,3 @@ class ProductProduct(models.Model):
                               'color_attribute_id': color_value,
                               'assortment_attribute_id': assortment_value
                               })
-
-
-
-
-    # Pares por variante de producto, se usará en el cálculo de tarifas y líneas de venta:
-    def _get_shoes_product_product_pair_count(self):
-        for record in self:
-            count = 1
-            bom = self.env['mrp.bom'].search([('product_id','=',record.id)])
-            if bom.ids:
-                count = bom[0].pairs_count
-            record['pairs_count'] = count
-    pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_product_product_pair_count')
-
-    # Product assortment (to be printed on sale.order and account.move reports):
-    # 2024/02 REVISAR ESTO, POSIBLEMENTE SE PUEDE CAMBIAR POR UN RELATED DE assortment_attribute_id.set_template_id.code
-    def _get_product_assortment_code(self):
-        for record in self:
-            assortment_code = ""
-            assortment_attribute = self.env.user.company_id.bom_attribute_id
-
-            # El campo en el product.product es product_template_variant_value_ids
-            # Este campo es un m2m a product.template.attribute.value
-            # Dentro de ese modelo hay un attribute_id que apunta a product_attribute (que ha de ser el de la compañía) y
-            # un product_attribute_value_id que apunta a product.attribute.value
-
-            # Si hay varios atributos sería lo siguiente:
-            if record.product_template_variant_value_ids.ids:
-                ptvv = self.env['product.template.attribute.value'].search(
-                    [('id', 'in', record.product_template_variant_value_ids.ids),
-                     ('attribute_id', '=', assortment_attribute.id)])
-            # Para el caso de una sóla variante en el template el valor del campo es False:
-            else:
-                ptvv = self.env['product.template.attribute.value'].search(
-                    [('product_tmpl_id', '=', record.product_tmpl_id.id),
-                     ('attribute_id', '=', assortment_attribute.id)])
-
-            # este modelo tiene un campo que es "set_template_id" que apunta al modelo "set.template"
-            # Los valores que nos interesan son las líneas de este último, pero utilizamos el campo code para impresión)
-            if ptvv.id:
-                assortment_code = ptvv.product_attribute_value_id.set_template_id.code
-            record['assortment_code'] = assortment_code
-    assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
-
