@@ -94,7 +94,7 @@ class ProductProduct(models.Model):
                 if len_color_attribute == 1:
                     color_value = color_line.value_ids[0].id
                 if len_assortment_attribute == 1:
-                    assortment_value = color_line.value_ids[0].id
+                    assortment_value = assortment_line.value_ids[0].id
 
                 # Casos de que haya varios surtidos, colores o tallas en la plantilla de producto:
                 if len_size_attribute > 1:
