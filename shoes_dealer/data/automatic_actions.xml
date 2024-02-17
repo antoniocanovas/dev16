@@ -9,7 +9,8 @@
 record.update_shoes_pp()
         </field>
         <field name="trigger">on_write</field>
-#        <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_product__product_tmpl_single_id'),
+        <field name="trigger_field_ids"></field>
+#                eval="[(6,0, [ref('shoes_dealer.field_product_product__product_tmpl_single_id'),
 #                                                    ref('product.field_product_product__create_date')])]"/>
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
