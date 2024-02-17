@@ -145,7 +145,7 @@ class ProductProduct(models.Model):
                     # Buscar línea de valor para el PT de single y esta talla, que después se usará en el "pp single" (de momento sólo 1 attrib por proucto):
                     ptav_size = self.env["product.template.attribute.value"].search(
                         [
-                            ("attribute_id", "=", size_attribute.id),
+                            ("attribute_id", "=", size_value.attribute_id.id),
                             ("product_attribute_value_id", "=", size_value.id),
                             ("product_tmpl_id", "=", pt_single.id),
                         ]
