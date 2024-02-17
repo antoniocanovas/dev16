@@ -109,7 +109,7 @@ class ProductProduct(models.Model):
             set_template = record.assortment_attribute_id.set_template_id
             color_value = record.color_attribute_id
 
-            if pt_single_id.id and set_template.id and color_value.id:
+            if pt_single.id and set_template.id and color_value.id:
                 # Creación de LDM:
                 code = (
                     record.name
