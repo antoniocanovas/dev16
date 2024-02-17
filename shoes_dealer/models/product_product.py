@@ -116,8 +116,9 @@ class ProductProduct(models.Model):
         ptal = self.env["product.template.attribute.line"].search(
             [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
              ('attribute_id', '=', self.color_attribute_id.attribute_id.id)])
-        # Si no existe, se crea:
-        ptal['value_ids'] = [(4, self.color_attribute_id.id)]
+        # Si no existe, se añade:
+        if self.color_attribute_id.id not in ptal.value_ids:
+            ptal['value_ids'] = [(4, self.color_attribute_id.id)]
 
         # Lo mismo para todas las tallas del surtido:
         for li in self.assortment_attribute_id.set_template_id.line_ids:
@@ -125,8 +126,9 @@ class ProductProduct(models.Model):
             ptal = self.env["product.template.attribute.line"].search(
                 [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
                  ('attribute_id', '=', self.env.company.size_attribute_id.id)])
-            # Si no existe, se crea:
-            ptal['value_ids'] = [(4, size)]
+            # Si no existe, se añade:
+            if size not in ptal.value_ids:
+                ptal['value_ids'] = [(4, size)]
 
     ####################################### EN CURSO
     # Estaría bien borrar LDMS si deja de existir el single.id
