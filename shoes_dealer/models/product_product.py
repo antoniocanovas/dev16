@@ -16,11 +16,22 @@ class ProductProduct(models.Model):
     def update_shoes_pp(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         self.shoes_dealer_check_environment()
+
         # Asignar valores de color, talla y surtido directamente en la variante:
         if not self.color_attribute_id.id and not self.size_attribute_id.id and not self.assortment_attribute_id.id:
             self.set_assortment_color_and_size()
+
+        # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
+        if (self.product_tmpl_single_id.id) and (self.color_attribute_id.id) and (self.assortment_attribute_id.id):
+            self.check_for_new_sizes_and_colors()
+
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         self.create_set_bom()
+
+
+
+
+
 
     def shoes_dealer_check_environment(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
@@ -100,9 +111,18 @@ class ProductProduct(models.Model):
                           'assortment_attribute_id': assortment_value
                           })
 
+    def check_for_new_sizes_and_colors(self):
+        # Buscar en PTAL de CHILD el valor de la variante:
+        ptal = self.env["product.template.attribute.line"].search(
+            [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+             ('attribute_id', '=', record.color_attribute_id.attribute_id.id)])
+        # Si no existe, se crea:
+        ptal['value_ids'] = [(4, record.color_attribute_id.id)]
 
-####################################### EN CURSO
-# Estaría bien borrar LDMS si deja de existir el single.id
+
+
+    ####################################### EN CURSO
+    # Estaría bien borrar LDMS si deja de existir el single.id
     def create_set_bom(self):
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         for record in self:
@@ -113,11 +133,11 @@ class ProductProduct(models.Model):
             if pt_single.id and set_template.id and color_value.id:
                 # Creación de LDM:
                 code = (
-                    record.name
-                    + " // "
-                    + str(set_template.code)
-                    + " "
-                    + str(set_template.name)
+                        record.name
+                        + " // "
+                        + str(set_template.code)
+                        + " "
+                        + str(set_template.name)
                 )
                 pp_set_bom = self.env["mrp.bom"].search(
                     [("product_id", "=", record.id)], order = 'sequence asc'
@@ -169,15 +189,15 @@ class ProductProduct(models.Model):
                     )
                     if not pp_single.ids:
                         # Prueba para ver si crea nueva talla dinámicamente:
-                        ptal = self.env["product.template.attribute.line"].search(
-                            [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
-                             ('attribute_id', '=', record.size_attribute_id.attribute_id.id)])
-                        ptal['value_ids'] = [(4, record.size_attribute_id.id)]
+                        #                        ptal = self.env["product.template.attribute.line"].search(
+                        #                            [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                        #                             ('attribute_id', '=', record.size_attribute_id.attribute_id.id)])
+                        #                        ptal['value_ids'] = [(4, record.size_attribute_id.id)]
 
                         # Lo que funcionaba:
-#                        raise UserError(
-#                            "No encuentro esa talla y color en el producto PAR"
-#                        )
+                        raise UserError(
+                            "No encuentro esa talla y color en el producto PAR"
+                        )
 
 
 
