@@ -169,17 +169,15 @@ class ProductProduct(models.Model):
                     )
                     if not pp_single.ids:
                         # Prueba para ver si crea nueva talla dinámicamente:
-#                        new_ptal = self.env["product.template.attribute.line"].create(
-#                            {
-#                                "product_tmpl_id": pt_single.id,
-#                                "attribute_id": size_value.attribute_id.id,
-#                                "value_ids": [(4, size_value.id)],
-#                            }
-#                        )
+                        ptal = self.env["product.template.attribute.line"].search(
+                            [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                             ('attribute_id', '=', record.size_attribute_id.attribute_id.id)])
+                        ptal['value_ids'] = [(4, record.size_attribute_id.id)]
+
                         # Lo que funcionaba:
-                        raise UserError(
-                            "No encuentro esa talla y color en el producto PAR"
-                        )
+#                        raise UserError(
+#                            "No encuentro esa talla y color en el producto PAR"
+#                        )
 
 
 
