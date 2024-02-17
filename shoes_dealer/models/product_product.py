@@ -19,6 +19,7 @@ class ProductProduct(models.Model):
         if not self.color_attribute_id.id and not self.size_attribute_id.id and not self.assortment_attribute_id.id:
             self.set_assortment_color_and_size()
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
+        self.create_set_bom()
 
     def shoes_dealer_check_environment(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
@@ -101,7 +102,7 @@ class ProductProduct(models.Model):
 
 ####################################### EN CURSO
 # Estaría bien borrar LDMS si deja de existir el single.id
-    def create_set_boms(self):
+    def create_set_bom(self):
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         for record in self:
             pt_single = record.product_tmpl_single_id
