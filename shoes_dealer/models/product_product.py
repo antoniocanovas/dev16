@@ -172,7 +172,7 @@ class ProductProduct(models.Model):
                             {
                                 "product_tmpl_id": pt_single.id,
                                 "attribute_id": size_value.attribute_id.id,
-                                "value_ids": [(4, color_value.id)],
+                                "value_ids": [(4, size_value.id)],
                             }
                         )
                         # Lo que funcionaba:
