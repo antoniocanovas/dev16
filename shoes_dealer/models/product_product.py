@@ -114,10 +114,10 @@ class ProductProduct(models.Model):
     def check_for_new_sizes_and_colors(self):
         # Buscar en PTAL de CHILD el valor de la variante:
         ptal = self.env["product.template.attribute.line"].search(
-            [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
-             ('attribute_id', '=', record.color_attribute_id.attribute_id.id)])
+            [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
+             ('attribute_id', '=', self.color_attribute_id.attribute_id.id)])
         # Si no existe, se crea:
-        ptal['value_ids'] = [(4, record.color_attribute_id.id)]
+        ptal['value_ids'] = [(4, self.color_attribute_id.id)]
 
 
 
