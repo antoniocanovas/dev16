@@ -26,7 +26,7 @@ class ProductProduct(models.Model):
             self.check_for_new_sizes_and_colors()
 
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
-        self.create_set_bom()
+#        self.create_set_bom()
 
 
 
