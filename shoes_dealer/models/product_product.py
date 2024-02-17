@@ -119,7 +119,7 @@ class ProductProduct(models.Model):
                     + str(set_template.name)
                 )
                 pp_set_bom = self.env["mrp.bom"].search(
-                    [("product_id", "=", pr.id)], order = 'sequence asc'
+                    [("product_id", "=", record.id)], order = 'sequence asc'
                 )
 
                 if not pp_set_bom.ids:
