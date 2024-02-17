@@ -13,10 +13,26 @@ class ProductProduct(models.Model):
 
 
     def update_shoes_pp(self):
+        # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
+        self.shoes_dealer_check_environment()
+        # Asignar valores de color, talla y surtido directamente en la variante:
         if not self.color_attribute_id.id and not self.size_attribute_id.id and not self.assortment_attribute_id.id:
-            self.set_color_and_size()
+            self.set_assortment_color_and_size()
+        # Crear lista de materiales, si es surtido y ya tiene par asignado:
 
-    def set_color_and_size(self):
+    def shoes_dealer_check_environment(self):
+        # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
+        bom_attribute = self.env.user.company_id.bom_attribute_id
+        size_attribute = self.env.user.company_id.size_attribute_id
+        color_attribute = self.env.user.company_id.color_attribute_id
+        prefix = self.env.user.company_id.single_prefix
+        if not bom_attribute.id or not size_attribute.id or not color_attribute.id or prefix=="":
+            raise UserError(
+                "Please set shoes dealer attributes in this company form (Settings => User & companies => Company"
+            )
+
+    def set_assortment_color_and_size(self):
+        # Asignar valores de color, talla y surtido directamente en la variante:
         for record in self:
             size_attribute = self.env.company.size_attribute_id
             color_attribute = self.env.company.color_attribute_id
@@ -83,8 +99,96 @@ class ProductProduct(models.Model):
                           })
 
 
+####################################### EN CURSO
+# Estaría bien borrar LDMS si deja de existir el single.id
+    def create_set_boms(self):
+        # Crear lista de materiales, si es surtido y ya tiene par asignado:
+        for record in self:
+            pt_single = record.product_tmpl_single_id
+            set_template = record.assortment_attribute_id.set_template_id
+            color_value = record.color_attribute_id
 
+            if pt_single_id.id and set_template.id and color_value.id:
+                # Creación de LDM:
+                code = (
+                    record.name
+                    + " // "
+                    + str(set_template.code)
+                    + " "
+                    + str(set_template.name)
+                )
+                pp_set_bom = self.env["mrp.bom"].search(
+                    [("product_id", "=", pr.id)], order = 'sequence asc'
+                )
 
+                if not pp_set_bom.ids:
+                    pp_set_bom = self.env["mrp.bom"].create(
+                        {
+                            "code": code,
+                            "type": "normal",
+                            "product_qty": 1,
+                            "product_tmpl_id": record.product_tmpl_id.id,
+                            "product_id": record.id,
+                        }
+                    )
+                else:
+                    pp_set_bom = pp_set_bom[0]
+                    # ¿Esto hace falta? Chequear antes y eliminar si pairs_count != pairs_count producto:
+                    pp_set_bom.bom_line_ids.unlink()
+
+                # Creación de líneas en LDM para cada talla del surtido:
+                for li in set_template.line_ids:
+                    size_value = li.value_id
+                    size_quantity = li.quantity
+
+                    # Buscar línea de valor para el PT de single y esta talla, que después se usará en el "pp single" (de momento sólo 1 attrib por proucto):
+                    ptav_size = self.env["product.template.attribute.value"].search(
+                        [
+                            ("attribute_id", "=", size_attribute.id),
+                            ("product_attribute_value_id", "=", size_value.id),
+                            ("product_tmpl_id", "=", pt_single.id),
+                        ]
+                    )
+
+                    # El producto "single (o par)" con estos atributos, que se usará en la LDM:
+                    pp_single = self.env["product.product"].search(
+                        [
+                            (
+                                "product_template_variant_value_ids",
+                                "in",
+                                ptav_size.id,
+                            ),
+                            (
+                                "product_template_variant_value_ids",
+                                "in",
+                                color_value.id,
+                            ),
+                        ]
+                    )
+                    if not pp_single.ids:
+                        raise UserError(
+                            "No encuentro esa talla y color en el producto PAR"
+                        )
+
+                    # Creación de las líneas de la LDM:
+                    new_bom_line = self.env["mrp.bom.line"].create(
+                        {
+                            "bom_id": pp_set_bom.id,
+                            "product_id": pp_single.id,
+                            "product_qty": size_quantity,
+                        }
+                    )
+
+                # Actualizar campo base_unit_count del estándar para que muestre precio unitario en website_sale,
+                # si fuera un par sólo, la cantidad a indicar es 0 para que no se muestre, por esta razón seguimos
+                # manteniendo el campo del desarrollo paris_count en los distintos modelos:
+                # 2º actualizamos el precio de venta del surtido al crear:
+                base_unit_count = 0
+                for bom_line in exist.bom_line_ids:
+                    base_unit_count += bom_line.product_qty
+                if base_unit_count == 1:
+                    base_unit_count = 0
+                record.write({"base_unit_count": base_unit_count})
 
 
 

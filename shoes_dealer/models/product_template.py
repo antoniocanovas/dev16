@@ -93,7 +93,7 @@ class ProductTemplate(models.Model):
     )
     campaign_code = fields.Char("Campaign Code", store=True, copy=False)
 
-    # Product colors (to be printed on labels):
+    # Product colors from product.template.attribute.line (to be printed on labels):
     def _get_product_colors(self):
         for record in self:
             colors = []
@@ -223,12 +223,13 @@ class ProductTemplate(models.Model):
                             }
                         )
 
+    # 2024.02 Esto ya no haría falta desde PT si funciona la AA de PP.
     def update_color_and_size_attributes(self):
         for record in self:
             for pp in record.product_variant_ids:
-                pp.set_color_and_size()
+                pp.set_assortment_color_and_size()
             for pp in record.product_tmpl_single_id.product_variant_ids:
-                pp.set_color_and_size()
+                pp.set_assortment_color_and_size()
 
     def create_set_boms(self):
         for record in self:
