@@ -3,6 +3,7 @@
 
 from odoo import fields, models, api
 from odoo.exceptions import UserError
+from time import sleep
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
@@ -24,6 +25,8 @@ class ProductProduct(models.Model):
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
         if (self.product_tmpl_single_id.id) and (self.color_attribute_id.id) and (self.assortment_attribute_id.id):
             self.check_for_new_sizes_and_colors()
+
+        self.sleep(2)
 
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         if (self.product_tmpl_single_id.id) and (self.color_attribute_id.id) and (self.assortment_attribute_id.id):
@@ -183,33 +186,11 @@ class ProductProduct(models.Model):
                     )
 
                     # El producto "single (o par)" con estos atributos, que se usará en la LDM:
-                    pp_single = self.env["product.product"].search(
-                        [
-                            (
-                                "product_template_variant_value_ids",
-                                "in",
-                                ptav_size.id,
-                            ),
-                            (
-                                "product_template_variant_value_ids",
-                                "in",
-                                color_value.id,
-                            ),
-                        ]
-                    )
-#                    if not pp_single.ids:
-                        # Prueba para ver si crea nueva talla dinámicamente:
-                        #                        ptal = self.env["product.template.attribute.line"].search(
-                        #                            [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
-                        #                             ('attribute_id', '=', record.size_attribute_id.attribute_id.id)])
-                        #                        ptal['value_ids'] = [(4, record.size_attribute_id.id)]
-
-                        # Lo que funcionaba:
-#                        raise UserError(
-#                            "No encuentro esa talla y color en el producto PAR"
-#                        )
-
-
+                    pp_single = self.env["product.product"].search([
+                        ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                        ('size_attribute_id', '=', ptav_size.product_attribute_value_id.id),
+                        ('color_attribute_id', '=', color_value.id)
+                    ])
 
                     # Creación de las líneas de la LDM:
                     new_bom_line = self.env["mrp.bom.line"].create(
@@ -230,8 +211,6 @@ class ProductProduct(models.Model):
                 if base_unit_count == 1:
                     base_unit_count = 0
                 record.write({"base_unit_count": base_unit_count})
-
-
 
 
 
