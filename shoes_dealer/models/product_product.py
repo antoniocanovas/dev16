@@ -119,6 +119,15 @@ class ProductProduct(models.Model):
         # Si no existe, se crea:
         ptal['value_ids'] = [(4, self.color_attribute_id.id)]
 
+        # Lo mismo para todas las tallas del surtido:
+        for li in self.assortment_attribute_id.set_template_id.line_ids:
+            size = li.value_id.id
+            ptal = self.env["product.template.attribute.line"].search(
+                [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
+                 ('attribute_id', '=', self.size_attribute_id.attribute_id.id)])
+            # Si no existe, se crea:
+            ptal['value_ids'] = [(4, size)]
+
 
 
     ####################################### EN CURSO
