@@ -9,7 +9,6 @@
 record.update_shoes_pp()
         </field>
         <field name="trigger">on_write</field>
-        <field name="trigger_field_ids"></field>
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
         <field name="active" eval="True"/>
