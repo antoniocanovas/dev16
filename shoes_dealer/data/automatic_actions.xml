@@ -6,7 +6,7 @@
         <field name="model_id" ref="product.model_product_product"/>
         <field name="state">code</field>
         <field name="code">
-            record.update_shoes_pp()
+record.update_shoes_pp()
         </field>
         <field name="trigger">on_write</field>
         <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_product__product_tmpl_single_id'),
@@ -24,7 +24,7 @@
         <field name="model_id" ref="product.model_product_template"/>
         <field name="state">code</field>
         <field name="code">
-            record.update_standard_price_on_variants()
+record.update_standard_price_on_variants()
         </field>
         <field name="trigger">on_write</field>
         <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_template__shoes_campaign_id'),
@@ -41,7 +41,7 @@
         <field name="model_id" ref="product.model_product_template"/>
         <field name="state">code</field>
         <field name="code">
-            record.update_supplier_info()
+record.update_supplier_info()
         </field>
         <field name="trigger">on_write</field>
         <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_template__exwork_single'),
