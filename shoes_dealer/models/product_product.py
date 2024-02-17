@@ -117,7 +117,7 @@ class ProductProduct(models.Model):
             [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
              ('attribute_id', '=', self.color_attribute_id.attribute_id.id)])
         # Si no existe, se añade:
-        if self.color_attribute_id.id not in ptal.value_ids:
+        if self.color_attribute_id.id not in ptal.value_ids.ids:
             ptal['value_ids'] = [(4, self.color_attribute_id.id)]
 
         # Lo mismo para todas las tallas del surtido:
@@ -127,7 +127,7 @@ class ProductProduct(models.Model):
                 [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
                  ('attribute_id', '=', self.env.company.size_attribute_id.id)])
             # Si no existe, se añade:
-            if size not in ptal.value_ids:
+            if size not in ptal.value_ids.ids:
                 ptal['value_ids'] = [(4, size)]
 
     ####################################### EN CURSO
