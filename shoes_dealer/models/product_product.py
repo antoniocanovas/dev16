@@ -124,11 +124,9 @@ class ProductProduct(models.Model):
             size = li.value_id.id
             ptal = self.env["product.template.attribute.line"].search(
                 [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
-                 ('attribute_id', '=', self.size_attribute_id.attribute_id.id)])
+                 ('attribute_id', '=', self.env.company.size_attribute_id.id)])
             # Si no existe, se crea:
             ptal['value_ids'] = [(4, size)]
-
-
 
     ####################################### EN CURSO
     # Estaría bien borrar LDMS si deja de existir el single.id
