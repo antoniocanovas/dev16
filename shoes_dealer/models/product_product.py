@@ -171,7 +171,7 @@ class ProductProduct(models.Model):
                         new_ptal = self.env["product.template.attribute.line"].create(
                             {
                                 "product_tmpl_id": pt_single.id,
-                                "attribute_id": size_attribute.id,
+                                "attribute_id": size_value.attribute_id.id,
                                 "value_ids": [(4, color_value.id)],
                             }
                         )
