@@ -139,7 +139,7 @@ class ProductProduct(models.Model):
             # Limpieza de BOMS huérfanas:
             bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
-            if pt_single.id and set_template.id and color_value.id:
+            if pt_single.id and set_template.id and color_value.id and record.bom_line_ids == False:
                 # Creación de LDM:
                 code = (
                         record.name
