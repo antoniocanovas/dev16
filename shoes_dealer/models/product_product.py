@@ -22,8 +22,8 @@ class ProductProduct(models.Model):
             self.set_assortment_color_and_size()
 
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.check_for_new_sizes_and_colors()
+        #if (self.product_tmpl_single_id.id) and (self.is_assortment):
+        self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
 
