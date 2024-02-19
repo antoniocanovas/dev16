@@ -51,7 +51,7 @@ class ProductTemplate(models.Model):
         if (color_attribute in attributes) and (size_attribute in attributes):
             pair = True
         self.is_assortment = pair
-    is_pair = fields.Boolean('Is Assortment', store=True, compute='_get_is_pair')
+    is_pair = fields.Boolean('Is Pair', store=True, compute='_get_is_pair')
 
     material_id = fields.Many2one(
         "product.material", string="Material", store=True, copy=True
