@@ -165,11 +165,11 @@ class ProductTemplate(models.Model):
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
-            record.update_color_and_size_attributes()
-            record.create_set_boms()
-            record.update_standard_price_on_variants()
-            record.update_product_template_campaign_code()
-            record.update_set_price_by_pairs()
+#            record.update_color_and_size_attributes()
+#            record.create_set_boms()
+#            record.update_standard_price_on_variants()
+#            record.update_product_template_campaign_code()
+#            record.update_set_price_by_pairs()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
