@@ -16,3 +16,13 @@ class SetTemplate(models.Model):
     attribute_id = fields.Many2one('product.attribute', string='Size Attribute', store=False,
                                    default=lambda self: self.env.user.company_id.size_attribute_id)
     line_ids = fields.One2many('set.template.line', 'set_id', string='Lines', store=True, copy=True)
+
+    # Pares del SET, para chequear con listas de materiales:
+    @api.depends('line_ids','line_ids.quantity')
+    def _get_shoes_set_pair_count(self):
+        for record in self:
+            count = 0
+            for li in record.line_ids:
+                count += li.quantity
+            record['pairs_count'] = count
+    pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_set_pair_count')
