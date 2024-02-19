@@ -18,3 +18,6 @@ class MrpBom(models.Model):
             record['pairs_count'] = count
     pairs_count = fields.Integer('Pairs', store=True, compute='_get_shoes_bom_pair_count')
 
+    set_pairs_count = fields.Integer('Set pairs',
+                                     related='product_id.assortment_attribute_id.set_template_id.pairs_count')
+
