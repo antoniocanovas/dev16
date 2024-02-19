@@ -167,8 +167,11 @@ class ProductTemplate(models.Model):
             record.create_single_products()
 #            record.update_color_and_size_attributes()
 #            record.create_set_boms()
+            #REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
+            # REVISAR, FÁCIL LLEVAR A PP:
             record.update_product_template_campaign_code()
+            # REVISAR, TIENE UN DEPENDS:
             record.update_set_price_by_pairs()
 
     def create_single_products(self):
