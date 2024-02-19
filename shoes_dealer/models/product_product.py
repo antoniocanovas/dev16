@@ -12,7 +12,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
 
 
-    @api.depends('is_assortment','is_pair')
+    @api.depends('product_tmpl_id.is_assortment','product_tmpl_id.
     def _get_assortment(self):
         for record in self:
             size_attribute = self.env.company.size_attribute_id
