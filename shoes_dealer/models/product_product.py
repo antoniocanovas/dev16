@@ -174,7 +174,7 @@ class ProductProduct(models.Model):
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
                     # El producto "single (o par)" con estos atributos, que se usará en la LDM:
-                    pp_size = env['product.product'].search([
+                    pp_size = self.env['product.product'].search([
                         ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
                         ('color_attribute_id', '=', record.color_attribute_id.id),
                         ('size_attribute_id', '=', li.value_id.id)])
