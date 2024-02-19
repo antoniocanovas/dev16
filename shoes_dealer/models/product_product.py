@@ -29,6 +29,7 @@ class ProductProduct(models.Model):
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
             self.create_set_bom()
 
+        # Crear líneas de BOM:
 
 
     def shoes_dealer_check_environment(self):
@@ -165,7 +166,6 @@ class ProductProduct(models.Model):
                     # ¿Esto hace falta? Chequear antes y eliminar si pairs_count != pairs_count producto:
                     pp_set_bom.bom_line_ids.unlink()
 
-    def backup_del_anterior(self):
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
                     size_value = li.value_id
@@ -195,6 +195,8 @@ class ProductProduct(models.Model):
                             "product_qty": size_quantity,
                         }
                     )
+
+    def backup_del_anterior(self):
 
                 # Actualizar campo base_unit_count del estándar para que muestre precio unitario en website_sale,
                 # si fuera un par sólo, la cantidad a indicar es 0 para que no se muestre, por esta razón seguimos
