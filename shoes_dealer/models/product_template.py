@@ -52,7 +52,7 @@ class ProductTemplate(models.Model):
             if li.attribute_id == color_attribute: color = True
             if li.attribute_id == size_attribute: assortment = True
         if color and size: is_pair = True
-        self.is_assortment = is_pair
+        self.is_pair = is_pair
     is_pair = fields.Boolean('Is Pair', store=True, compute='_get_is_pair')
 
 
