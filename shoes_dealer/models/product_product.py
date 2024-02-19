@@ -18,7 +18,7 @@ class ProductProduct(models.Model):
         self.shoes_dealer_check_environment()
 
         # Asignar valores de color, talla y surtido directamente en la variante:
-        if not self.color_attribute_id.id and not self.size_attribute_id.id and not self.assortment_attribute_id.id:
+        if self.is_pair or self.is_assortment:
             self.set_assortment_color_and_size()
 
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
@@ -26,7 +26,7 @@ class ProductProduct(models.Model):
             self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
-        
+
     #    if (self.product_tmpl_single_id.id) and (self.is_assortment):
     #        self.create_set_bom()
 
