@@ -161,7 +161,7 @@ class ProductProduct(models.Model):
 
                 # Parche porque el último par creado no es asignado por la AA de crear/actualizar pp:
                 variants_review = self.env['product.product'].search(
-                    [('is_pair', '=', True), ('size_attribute_id', '=', False)])
+                    [('is_pair', '=', True), ('product_tmpl_id','=', record.product_tmpl_single_id.id),('size_attribute_id', '=', False)])
                 for va in variants_review:
                     va.set_assortment_color_and_size()
 
