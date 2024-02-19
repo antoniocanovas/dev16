@@ -137,7 +137,7 @@ class ProductProduct(models.Model):
             color_value = record.color_attribute_id
 
             # Limpieza de BOMS huérfanas:
-            boms = env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
+            bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
             if pt_single.id and set_template.id and color_value.id:
                 # Creación de LDM:
@@ -166,7 +166,7 @@ class ProductProduct(models.Model):
                     pp_set_bom = pp_set_bom[0]
 
                 # Parche porque el último par creado no es asignado por la AA de crear/actualizar pp:
-                variants_review = env['product.product'].search(
+                variants_review = self.env['product.product'].search(
                     [('is_pair', '=', True), ('size_attribute_id', '=', False)])
                 for va in variants_review:
                     va.set_assortment_color_and_size()
