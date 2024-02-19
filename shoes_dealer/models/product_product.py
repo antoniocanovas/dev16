@@ -163,9 +163,7 @@ class ProductProduct(models.Model):
                 else:
                     pp_set_bom = pp_set_bom[0]
                     # ¿Esto hace falta? Chequear antes y eliminar si pairs_count != pairs_count producto:
-                    pp_set_bom.bom_line_ids.unlink()
-
-    def backup_del_anterior(self):
+                    #pp_set_bom.bom_line_ids.unlink()
 
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
