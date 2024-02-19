@@ -5,7 +5,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     # Campo para heredar en sale.order:
-    referrer_id = fields.Many2one('res.partner', 'Referrer', domain=[('grade_id', '!=', False)])
+    referrer_id = fields.Many2one('res.partner', 'Referrer', domain=[('grade_id', '!=', False)], index=True)
 
     # Campos para ampliar funcionalidad de comisionistas:
     manager_id = fields.Many2one('res.partner', 'Manager', domain=[('grade_id', '!=', False)], tracking=True)
