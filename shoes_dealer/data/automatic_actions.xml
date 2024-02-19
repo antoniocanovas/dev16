@@ -11,7 +11,7 @@
         <field name="trigger">on_write</field>
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
     </record>
 
 
