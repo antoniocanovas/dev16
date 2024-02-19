@@ -30,6 +30,29 @@ class ProductTemplate(models.Model):
         copy=True,
         store=True,
     )
+
+    @api.depends('attribute_line_ids')
+    def _get_is_assortment(self):
+        assortment = False
+        color_attribute = self.env.company.color_attribute_id
+        assortment_attribute = self.env.company.bom_attribute_id
+        attributes = self.attribute_line_ids.attribute_id
+        if (color_attribute in attributes) and (assortment_attribute in attributes):
+            assortment = True
+        self.is_assortment = assortment
+    is_assortment = fields.Boolean('Is Assortment', store=True, compute='_get_is_assortment')
+
+    @api.depends('attribute_line_ids')
+    def _get_is_pair(self):
+        pair = False
+        color_attribute = self.env.company.color_attribute_id
+        size_attribute = self.env.company.size_attribute_id
+        attributes = self.attribute_line_ids.attribute_id
+        if (color_attribute in attributes) and (size_attribute in attributes):
+            pair = True
+        self.is_assortment = pair
+    is_pair = fields.Boolean('Is Assortment', store=True, compute='_get_is_pair')
+
     material_id = fields.Many2one(
         "product.material", string="Material", store=True, copy=True
     )

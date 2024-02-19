@@ -3,7 +3,6 @@
 
 from odoo import fields, models, api
 from odoo.exceptions import UserError
-from time import sleep
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
@@ -26,14 +25,9 @@ class ProductProduct(models.Model):
         if (self.product_tmpl_single_id.id) and (self.color_attribute_id.id) and (self.assortment_attribute_id.id):
             self.check_for_new_sizes_and_colors()
 
-        self.sleep(2)
-
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         if (self.product_tmpl_single_id.id) and (self.color_attribute_id.id) and (self.assortment_attribute_id.id):
             self.create_set_bom()
-
-
-
 
 
 
