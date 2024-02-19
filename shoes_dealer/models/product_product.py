@@ -139,7 +139,7 @@ class ProductProduct(models.Model):
             # Limpieza de BOMS huérfanas:
             bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
-            if pt_single.id and set_template.id and color_value.id and record.bom_line_ids == False:
+            if pt_single.id and record.is_assortment and not record.variant_bom_ids:
                 # Creación de LDM:
                 code = (
                         record.name
@@ -148,22 +148,16 @@ class ProductProduct(models.Model):
                         + " "
                         + str(color_value.name)
                 )
-                boms = self.env["mrp.bom"].search(
-                    [("product_id", "=", record.id)], order = 'sequence asc'
-                )
 
-                if not boms.ids:
-                    bom = self.env["mrp.bom"].create(
-                        {
-                            "code": code,
-                            "type": "normal",
-                            "product_qty": 1,
-                            "product_tmpl_id": record.product_tmpl_id.id,
-                            "product_id": record.id,
-                        }
-                    )
-                else:
-                    bom = boms[0]
+                bom = self.env["mrp.bom"].create(
+                    {
+                        "code": code,
+                        "type": "normal",
+                        "product_qty": 1,
+                        "product_tmpl_id": record.product_tmpl_id.id,
+                        "product_id": record.id,
+                    }
+                )
 
                 # Parche porque el último par creado no es asignado por la AA de crear/actualizar pp:
                 variants_review = self.env['product.product'].search(
