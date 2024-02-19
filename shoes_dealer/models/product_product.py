@@ -60,8 +60,7 @@ class ProductProduct(models.Model):
                 if li.attribute_id.id == assortment_attribute.id: assortment_value = li
 
                 # Comprobar si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
-                pt_attrib_lines = record.product_tmpl_id.attribute_line_ids
-                for li in pt_attrib_lines:
+                for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == size_attribute:
                         size_line = li
                         len_size_attribute = len(li.value_ids.ids)
@@ -107,7 +106,7 @@ class ProductProduct(models.Model):
 
             record.write({'size_attribute_id': size_value,
                           'color_attribute_id': color_value,
-                          'assortment_attribute_id': assortment_value
+                          'assortment_attribute_id': assortment_value,
                           })
 
     def check_for_new_sizes_and_colors(self):
