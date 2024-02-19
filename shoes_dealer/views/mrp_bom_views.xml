@@ -9,6 +9,7 @@
         <field name="arch" type="xml">
             <field name="company_id" position="after">
                 <field name="pairs_count" optional="show"/>
+                <field name="set_pairs_count" optional="show"/>
             </field>
         </field>
     </record>
