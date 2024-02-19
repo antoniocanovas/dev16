@@ -33,25 +33,28 @@ class ProductTemplate(models.Model):
 
     @api.depends('attribute_line_ids')
     def _get_is_assortment(self):
-        assortment = False
+        is_assortment, color, assortment = False, False, False
         color_attribute = self.env.company.color_attribute_id
         assortment_attribute = self.env.company.bom_attribute_id
-        attributes = self.attribute_line_ids.attribute_id
-        if (color_attribute in attributes) and (assortment_attribute in attributes):
-            assortment = True
-        self.is_assortment = assortment
+        for li in self.attribute_line_ids:
+            if li.attribute_id == color_attribute: color = True
+            if li.attribute_id == assortment_attribute: assortment = True
+        if color and assortment: is_assortment = True
+        self.is_assortment = is_assortment
     is_assortment = fields.Boolean('Is Assortment', store=True, compute='_get_is_assortment')
 
     @api.depends('attribute_line_ids')
     def _get_is_pair(self):
-        pair = False
+        is_pair, color, size = False, False, False
         color_attribute = self.env.company.color_attribute_id
         size_attribute = self.env.company.size_attribute_id
-        attributes = self.attribute_line_ids.attribute_id
-        if (color_attribute in attributes) and (size_attribute in attributes):
-            pair = True
-        self.is_assortment = pair
+        for li in self.attribute_line_ids:
+            if li.attribute_id == color_attribute: color = True
+            if li.attribute_id == size_attribute: assortment = True
+        if color and size: is_pair = True
+        self.is_assortment = is_pair
     is_pair = fields.Boolean('Is Pair', store=True, compute='_get_is_pair')
+
 
     material_id = fields.Many2one(
         "product.material", string="Material", store=True, copy=True
