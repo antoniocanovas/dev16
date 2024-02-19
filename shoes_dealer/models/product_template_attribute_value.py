@@ -22,7 +22,7 @@ class ProductTemplateAttributeValue(models.Model):
             if (record.product_tmpl_id.is_assortment) and (pt_single.id):
                 # Los colores se pueden borrar directamente ya que tienen relacion directa con pt_single:
                 if (attribute.id == color_attribute):
-                    ptal_color_single = env['product.template.attribute.line'].search(
+                    ptal_color_single = self.env['product.template.attribute.line'].search(
                         [('product_tmpl_id', '=', pt_single.id), ('attribute_id', '=', attribute.id)])
                     ptal_color_single['value_ids'] = [(3, value.id)]
             # Faltan los pares:
