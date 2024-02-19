@@ -10,7 +10,42 @@ class ProductProduct(models.Model):
 
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
-    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
+
+
+    @api.depends('is_assortment','is_pair')
+    def _get_assortment(self):
+        for record in self:
+            size_attribute = self.env.company.size_attribute_id
+            color_attribute = self.env.company.color_attribute_id
+            assortment_attribute = self.env.company.bom_attribute_id
+
+            len_size_attribute, len_color_attribute, len_assortment_attribute = 0, 0, 0
+            size_value, color_value, assortment_value = False, False, False
+
+            for li in record.product_template_variant_value_ids:
+                if li.attribute_id.id == assortment_attribute.id: assortment_value = li
+
+                # Comprobar si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
+                for li in record.product_tmpl_id.attribute_line_ids:
+                    if li.attribute_id == assortment_attribute:
+                        assortment_line = li
+                        len_assortment_attribute = len(li.value_ids.ids)
+
+                # Caso de que haya un un sólo surtido, color o talla en la plantilla, asignación:
+                if len_assortment_attribute == 1:
+                    assortment_value = assortment_line.value_ids[0].id
+
+                # Casos de que haya varios surtidos, colores o tallas en la plantilla de producto:
+                if len_assortment_attribute > 1:
+                    # Para buscar el surtido:
+                    assortment_value = self.env['product.template.attribute.value'].search([
+                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                        ('id', 'in', record.product_template_variant_value_ids.ids),
+                        ('attribute_id', '=', assortment_attribute.id)
+                    ]).product_attribute_value_id.id
+
+            record['assortment_attribute_id'] = assortment_value
+    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True, compute='_get_assortment')
 
 
     def update_shoes_pp(self):
@@ -22,8 +57,8 @@ class ProductProduct(models.Model):
             self.set_assortment_color_and_size()
 
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
-        #if (self.product_tmpl_single_id.id) and (self.is_assortment):
-        self.check_for_new_sizes_and_colors()
+        if (self.product_tmpl_single_id.id) and (self.is_assortment):
+            self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
 
