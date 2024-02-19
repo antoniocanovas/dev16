@@ -21,6 +21,8 @@ class MrpBom(models.Model):
     set_pairs_count = fields.Integer('Set pairs',
                                      related='product_id.assortment_attribute_id.set_template_id.pairs_count')
 
+    is_assortment = fields.Boolean(related='product_tmpl_id.is_assortment')
+
     def _create_assortment_bom_lines(self):
         for record in self:
             # Creación de líneas en LDM para cada surtido:
