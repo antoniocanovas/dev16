@@ -22,7 +22,19 @@ class ProductTemplateAttributeValue(models.Model):
             if (record.product_tmpl_id.is_assortment) and (pt_single.id):
                 # Los colores se pueden borrar directamente ya que tienen relacion directa con pt_single:
                 if (attribute.id == color_attribute):
-                    ptal_color_single = self.env['product.template.attribute.line'].search(
-                        [('product_tmpl_id', '=', pt_single.id), ('attribute_id', '=', attribute.id)])
-                    ptal_color_single['value_ids'] = [(3, value.id)]
-            # Faltan los pares:
+                    ptal['value_ids'] = [(3, value.id)]
+
+                # Ahora la posible eliminación de un surtido:
+                if (attribute.id == assortment_attribute):
+                    sizes = []
+                    # PTAL de tallas en pares:
+                    ptal_size_single = self.env['product.template.attribute.line'].search(
+                        [('product_tmpl_id', '=', pt_single.id), ('attribute_id', '=', size_attribute)])
+                    # PTAL surtidos del surtido, para buscar todas las tallas:
+                    for val in ptal.value_ids:
+                        for size in val.set_template_id.line_ids:
+                            if size.id not in sizes: sizes.append(size.id)
+                    # Revisión desde PT PAR para eliminar las tallas que sobran:
+                    for val in ptal_size_single.value_ids:
+                        if val.id not in sizes:
+                            ptal_size_single['value_ids'] = [(3, val.id)]
