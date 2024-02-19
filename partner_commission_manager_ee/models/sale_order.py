@@ -4,11 +4,25 @@ from datetime import datetime, date
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+
+
+    commission_plan_id = fields.Many2one(index=True)
+
     # Método para heredar comisionista del cliente:
     @api.depends('partner_id')
     def _get_default_commission_referrer(self):
         self.referrer_id = self.partner_id.referrer_id.id
-    referrer_id = fields.Many2one('res.partner', readonly=False, compute='_get_default_commission_referrer', index=True)
+    referrer_id = fields.Many2one('res.partner', readonly=False, compute='_get_default_commission_referrer',
+                                  index=True,
+                                  store=True,
+                                  #search='_referrer_search',
+                                  )
+
+    #def _referrer_search(self, operator, value):
+    #    recs = self.env['res.partner'].search(
+    #        [('id', 'in', value)]).ids
+    #    if recs:
+    #        return [('id', 'in', recs)]
 
     # Método para heredar manager del comisionista:
     @api.depends('referrer_id')
@@ -35,7 +49,7 @@ class SaleOrder(models.Model):
     )
 
 
-    manager_commission = fields.Monetary(string='Referrer Commission', compute='_compute_manager_commission')
+    manager_commission = fields.Monetary(string='Manager Commission', compute='_compute_manager_commission')
 
     @api.depends('referrer_id', 'commission_plan_id', 'sale_order_template_id', 'pricelist_id', 'order_line.price_subtotal',
                  'manager_id','manager_commission_plan_id')
@@ -61,3 +75,28 @@ class SaleOrder(models.Model):
                         comm_by_rule[r] = amount
 
                 so.manager_commission = sum(comm_by_rule.values())
+
+    def _prepare_invoice(self):
+        invoice_vals = super()._prepare_invoice()
+        if self.referrer_id:
+            invoice_vals.update({
+                'referrer_id': self.referrer_id.id,
+            })
+        if self.manager_id:
+            invoice_vals.update({
+                'manager_id': self.manager_id.id,
+            })
+        return invoice_vals
+
+    def _prepare_upsell_renew_order_values(self, subscription_management):
+        self.ensure_one()
+        values = super()._prepare_upsell_renew_order_values(subscription_management)
+        if self.referrer_id:
+            values.update({
+                'referrer_id': self.referrer_id.id,
+                'commission_plan_id': self.commission_plan_id.id,
+                'commission_plan_frozen': self.referrer_id.commission_plan_id != self.commission_plan_id,
+                'manager_id': self.manager_id.id,
+                'manager_commission_plan_id': self.manager_commission_plan_id.id,
+            })
+        return values

@@ -10,11 +10,10 @@
 
             <!-- Addional fields for Commissions manager: -->
             <xpath expr="//field[@name='commission_plan_id']" position="after">
-                <field name="manager_id" attrs="{'invisible':[('referrer_id','=',False)]}"/>
-                <field name="manager_commission_plan_id"
-                       attrs="{'readonly': [('is_subscription', '=', True), ('commission_plan_frozen', '=', False)],
+                <field name="manager_id" domain="[('id','!=',referrer_id),('grade_id','!=',False)]" attrs="{'invisible':[('referrer_id','=',False)]}"/>                <field name="manager_commission_plan_id"
+                                                                                                                                                                              attrs="{'readonly': [('is_subscription', '=', True), ('commission_plan_frozen', '=', False)],
                              'invisible': ['|',('referrer_id', '=', False),('manager_id','=',False)]}"
-                       domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
+                                                                                                                                                                              domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
             </xpath>
 
         </field>
