@@ -21,10 +21,13 @@ class ProductTemplateAttributeValue(models.Model):
 
             if (record.product_tmpl_id.is_assortment) and (pt_single.id):
                 # Los colores se pueden borrar directamente ya que tienen relacion directa con pt_single:
+                # Como mejora, busca en todos los colores, no sólo en el que se borra (como abajo en surtidos)
                 if (attribute.id == color_attribute):
                     ptal_color_single = self.env['product.template.attribute.line'].search(
                         [('product_tmpl_id', '=', pt_single.id), ('attribute_id', '=', attribute.id)])
-                    ptal_color_single['value_ids'] = [(3, value.id)]
+                    for color in ptal_color_single.value_ids:
+                        if color.id not in ptal.value_ids.ids:
+                            ptal_color_single['value_ids'] = [(3, color.id)]
 
                 # Ahora la posible eliminación de un surtido:
                 if (attribute.id == assortment_attribute):
