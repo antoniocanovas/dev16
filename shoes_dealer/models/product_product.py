@@ -200,7 +200,7 @@ class ProductProduct(models.Model):
                 # manteniendo el campo del desarrollo paris_count en los distintos modelos:
                 # 2º actualizamos el precio de venta del surtido al crear:
                 base_unit_count = 0
-                for bom_line in exist.bom_line_ids:
+                for bom_line in pp_set_bom.bom_line_ids:
                     base_unit_count += bom_line.product_qty
                 if base_unit_count == 1:
                     base_unit_count = 0
