@@ -142,7 +142,7 @@ class ProductProduct(models.Model):
 
             record.write({'size_attribute_id': size_value,
                           'color_attribute_id': color_value,
-                          'assortment_attribute_id': assortment_value,
+                          #'assortment_attribute_id': assortment_value,
                           })
 
     def check_for_new_sizes_and_colors(self):
