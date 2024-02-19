@@ -10,42 +10,7 @@ class ProductProduct(models.Model):
 
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True)
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
-
-
-    @api.depends('product_tmpl_id.is_assortment','product_tmpl_id.is_pair')
-    def _get_assortment(self):
-        for record in self:
-            size_attribute = self.env.company.size_attribute_id
-            color_attribute = self.env.company.color_attribute_id
-            assortment_attribute = self.env.company.bom_attribute_id
-
-            len_size_attribute, len_color_attribute, len_assortment_attribute = 0, 0, 0
-            size_value, color_value, assortment_value = False, False, False
-
-            for li in record.product_template_variant_value_ids:
-                if li.attribute_id.id == assortment_attribute.id: assortment_value = li
-
-                # Comprobar si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
-                for li in record.product_tmpl_id.attribute_line_ids:
-                    if li.attribute_id == assortment_attribute:
-                        assortment_line = li
-                        len_assortment_attribute = len(li.value_ids.ids)
-
-                # Caso de que haya un un sólo surtido, color o talla en la plantilla, asignación:
-                if len_assortment_attribute == 1:
-                    assortment_value = assortment_line.value_ids[0].id
-
-                # Casos de que haya varios surtidos, colores o tallas en la plantilla de producto:
-                if len_assortment_attribute > 1:
-                    # Para buscar el surtido:
-                    assortment_value = self.env['product.template.attribute.value'].search([
-                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                        ('id', 'in', record.product_template_variant_value_ids.ids),
-                        ('attribute_id', '=', assortment_attribute.id)
-                    ]).product_attribute_value_id.id
-
-            record['assortment_attribute_id'] = assortment_value
-    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True, compute='_get_assortment')
+    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
 
     def update_shoes_pp(self):
@@ -61,11 +26,9 @@ class ProductProduct(models.Model):
             self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
+        if (self.product_tmpl_single_id.id) and (self.is_assortment):
+            self.create_set_bom()
 
-    #    if (self.product_tmpl_single_id.id) and (self.is_assortment):
-    #        self.create_set_bom()
-
-        # Crear líneas de BOM:
 
 
     def shoes_dealer_check_environment(self):
@@ -142,7 +105,7 @@ class ProductProduct(models.Model):
 
             record.write({'size_attribute_id': size_value,
                           'color_attribute_id': color_value,
-                          #'assortment_attribute_id': assortment_value,
+                          'assortment_attribute_id': assortment_value,
                           })
 
     def check_for_new_sizes_and_colors(self):
@@ -164,14 +127,17 @@ class ProductProduct(models.Model):
             if size not in ptal.value_ids.ids:
                 ptal['value_ids'] = [(4, size)]
 
-    ####################################### EN CURSO
-    # Estaría bien borrar LDMS si deja de existir el single.id
+
+
     def create_set_bom(self):
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         for record in self:
             pt_single = record.product_tmpl_single_id
             set_template = record.assortment_attribute_id.set_template_id
             color_value = record.color_attribute_id
+
+            # Limpieza de BOMS huérfanas:
+            boms = env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
             if pt_single.id and set_template.id and color_value.id:
                 # Creación de LDM:
@@ -180,7 +146,7 @@ class ProductProduct(models.Model):
                         + " // "
                         + str(set_template.code)
                         + " "
-                        + str(set_template.name)
+                        + str(color_value.name)
                 )
                 pp_set_bom = self.env["mrp.bom"].search(
                     [("product_id", "=", record.id)], order = 'sequence asc'
@@ -198,8 +164,12 @@ class ProductProduct(models.Model):
                     )
                 else:
                     pp_set_bom = pp_set_bom[0]
-                    # ¿Esto hace falta? Chequear antes y eliminar si pairs_count != pairs_count producto:
-                    #pp_set_bom.bom_line_ids.unlink()
+
+                # Parche porque el último par creado no es asignado por la AA de crear/actualizar pp:
+                variants_review = env['product.product'].search(
+                    [('is_pair', '=', True), ('size_attribute_id', '=', False)])
+                for va in variants_review:
+                    va.set_assortment_color_and_size()
 
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
