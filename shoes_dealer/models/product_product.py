@@ -148,12 +148,12 @@ class ProductProduct(models.Model):
                         + " "
                         + str(color_value.name)
                 )
-                pp_set_bom = self.env["mrp.bom"].search(
+                boms = self.env["mrp.bom"].search(
                     [("product_id", "=", record.id)], order = 'sequence asc'
                 )
 
-                if not pp_set_bom.ids:
-                    pp_set_bom = self.env["mrp.bom"].create(
+                if not boms.ids:
+                    bom = self.env["mrp.bom"].create(
                         {
                             "code": code,
                             "type": "normal",
@@ -163,7 +163,7 @@ class ProductProduct(models.Model):
                         }
                     )
                 else:
-                    pp_set_bom = pp_set_bom[0]
+                    bom = boms[0]
 
                 # Parche porque el último par creado no es asignado por la AA de crear/actualizar pp:
                 variants_review = self.env['product.product'].search(
@@ -173,31 +173,18 @@ class ProductProduct(models.Model):
 
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
-                    size_value = li.value_id
-                    size_quantity = li.quantity
-
-                    # Buscar línea de valor para el PT de single y esta talla, que después se usará en el "pp single" (de momento sólo 1 attrib por proucto):
-                    ptav_size = self.env["product.template.attribute.value"].search(
-                        [
-                            ("attribute_id", "=", size_value.attribute_id.id),
-                            ("product_attribute_value_id", "=", size_value.id),
-                            ("product_tmpl_id", "=", pt_single.id),
-                        ]
-                    )
-
                     # El producto "single (o par)" con estos atributos, que se usará en la LDM:
-                    pp_single = self.env["product.product"].search([
+                    pp_size = env['product.product'].search([
                         ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
-                        ('size_attribute_id', '=', ptav_size.product_attribute_value_id.id),
-                        ('color_attribute_id', '=', color_value.id)
-                    ])
+                        ('color_attribute_id', '=', record.color_attribute_id.id),
+                        ('size_attribute_id', '=', li.value_id.id)])
 
                     # Creación de las líneas de la LDM:
                     new_bom_line = self.env["mrp.bom.line"].create(
                         {
-                            "bom_id": pp_set_bom.id,
-                            "product_id": pp_single.id,
-                            "product_qty": size_quantity,
+                            "bom_id": bom.id,
+                            "product_id": pp_size.id,
+                            "product_qty": li.quantity,
                         }
                     )
 
@@ -207,7 +194,7 @@ class ProductProduct(models.Model):
                 # manteniendo el campo del desarrollo paris_count en los distintos modelos:
                 # 2º actualizamos el precio de venta del surtido al crear:
                 base_unit_count = 0
-                for bom_line in pp_set_bom.bom_line_ids:
+                for bom_line in bom.bom_line_ids:
                     base_unit_count += bom_line.product_qty
                 if base_unit_count == 1:
                     base_unit_count = 0
