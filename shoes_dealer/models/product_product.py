@@ -116,6 +116,7 @@ class ProductProduct(models.Model):
         # Si no existe, se añade:
         if self.color_attribute_id.id not in ptal.value_ids.ids:
             ptal['value_ids'] = [(4, self.color_attribute_id.id)]
+            ptal._update_product_template_attribute_values()
 
         # Lo mismo para todas las tallas del surtido:
         for li in self.assortment_attribute_id.set_template_id.line_ids:
@@ -163,7 +164,8 @@ class ProductProduct(models.Model):
 #                variants_review = self.env['product.product'].search(
 #                    [('is_pair', '=', True), ('product_tmpl_id','=', record.product_tmpl_single_id.id),('size_attribute_id', '=', False)])
 #                for va in variants_review:
-                pt_single.product_variant_ids._compute_combination_indices()
+#                for va in pt_single.product_variant_ids:
+#                    va._compute_combination_indices()
 
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
