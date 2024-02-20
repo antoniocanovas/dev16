@@ -27,8 +27,8 @@
         <field name="priority">90</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='id']" position="after">
-                 <field name="product_tmpl_single_id"/>
-                 <field name="product_tmpl_single_list_price"/>
+                <field name="product_tmpl_single_id"/>
+                <field name="product_tmpl_single_list_price"/>
             </xpath>
             <xpath expr="//ul" position="replace">
                 <ul t-if="!record.product_tmpl_single_id">
@@ -40,6 +40,29 @@
             </xpath>
         </field>
     </record>
+
+
+    <!-- VISTAS DE BÚSQUEDA: -->
+    <record id="product_product_shoes_dealer_inh_search" model="ir.ui.view">
+        <field name="name">product.product.shoes.dealer.inh.search</field>
+        <field name="model">product.product</field>
+        <field name="type">search</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <data>
+                <field name="name" position="after">
+                    <separator/>
+                    <filter string="Color" name="color_value" context="{'group_by':'color_attribute_id'}"/>
+                    <filter string="Size" name="size_value" context="{'group_by':'size_attribute_id'}"/>
+                    <filter string="Assortment" name="assortment_value" context="{'group_by':'assortment_attribute_id'}"/>
+                    <separator/>
+                </field>
+            </data>
+        </field>
+    </record>
+
+
 
 
 </odoo>
