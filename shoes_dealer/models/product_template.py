@@ -164,7 +164,7 @@ class ProductTemplate(models.Model):
         for record in self:
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
-            record.create_single_products()
+#            record.create_single_products()
 #            record.update_color_and_size_attributes()
 #            record.create_set_boms()
             #REVISAR, TIENE AA:
