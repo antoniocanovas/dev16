@@ -58,14 +58,14 @@ class ProductProduct(models.Model):
                 if li.attribute_id.id == color_attribute.id: color_value = li
                 if li.attribute_id.id == assortment_attribute.id: assortment_value = li
 
-                # Caso de una sola variante:
+                # Caso de una sola variante (funciona a AS, aquí no porque :
                 if len(record.product_tmpl_id.product_variant_ids) == 1:
                     size, color, assortment = False, False, False
                     for val in record.product_tmpl_id.attribute_line_ids:
-                        if val.attribute_id == self.env.company.color_attribute_id: color = val.value_ids[0].id
-                        if val.attribute_id == self.env.company.size_attribute_id: size = val.value_ids[0].id
-                        if val.attribute_id == self.env.company.bom_attribute_id: assortment = val.value_ids[0].id
-                    record.write({'color_attribute_id':color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
+                        if val.attribute_id == self.env.company.color_attribute_id: color_value = val.value_ids[0].id
+                        if val.attribute_id == self.env.company.size_attribute_id: size_value = val.value_ids[0].id
+                        if val.attribute_id == self.env.company.bom_attribute_id: assortment_value = val.value_ids[0].id
+     #               record.write({'color_attribute_id':color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
 
                 """
                 # Comprobar en PTAL si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
