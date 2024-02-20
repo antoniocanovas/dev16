@@ -26,8 +26,8 @@ class ProductProduct(models.Model):
             self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
-#        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-#            self.create_set_bom()
+    #        if (self.product_tmpl_single_id.id) and (self.is_assortment):
+    #            self.create_set_bom()
 
 
 
@@ -58,7 +58,17 @@ class ProductProduct(models.Model):
                 if li.attribute_id.id == color_attribute.id: color_value = li
                 if li.attribute_id.id == assortment_attribute.id: assortment_value = li
 
-                # Comprobar si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
+                # Caso de una sola variante:
+                if len(record.product_variant_ids) == 1:
+                    pp = record.product_variant_ids[0]
+                    for li in record.attribute_line_ids:
+                        if li.attribute_id == self.env.company.color_attribute_id: color = li.value_ids.ids
+                        if li.attribute_id == self.env.company.size_attribute_id: size = li.value_ids.ids
+                        if li.attribute_id == self.env.company.bom_attribute_id: assortment = li.value_ids.ids
+                    pp.write({'color_attribute_id':color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
+
+                """
+                # Comprobar en PTAL si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == size_attribute:
                         size_line = li
@@ -77,6 +87,7 @@ class ProductProduct(models.Model):
                     color_value = color_line.value_ids[0].id
                 if len_assortment_attribute == 1:
                     assortment_value = assortment_line.value_ids[0].id
+"""
 
                 # Casos de que haya varios surtidos, colores o tallas en la plantilla de producto:
                 if len_size_attribute > 1:
