@@ -62,9 +62,9 @@ class ProductProduct(models.Model):
                 if len(record.product_tmpl_id.product_variant_ids) == 1:
                     size, color, assortment = False, False, False
                     for li in record.product_tmpl_id.attribute_line_ids:
-                        if li.attribute_id == self.env.company.color_attribute_id: color = li.value_ids.ids
-                        if li.attribute_id == self.env.company.size_attribute_id: size = li.value_ids.ids
-                        if li.attribute_id == self.env.company.bom_attribute_id: assortment = li.value_ids.ids
+                        if li.attribute_id == self.env.company.color_attribute_id: color = li.value_ids[0].id
+                        if li.attribute_id == self.env.company.size_attribute_id: size = li.value_ids[0].id
+                        if li.attribute_id == self.env.company.bom_attribute_id: assortment = li.value_ids[0].id
                     record.write({'color_attribute_id':color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
 
                 """
