@@ -127,6 +127,7 @@ class ProductProduct(models.Model):
             # Si no existe, se añade:
             if size not in ptal.value_ids.ids:
                 ptal['value_ids'] = [(4, size)]
+                ptal._update_product_template_attribute_values()
 
 
 
@@ -159,13 +160,6 @@ class ProductProduct(models.Model):
                         "product_id": record.id,
                     }
                 )
-
-                # Parche porque el último par creado no es asignado por la AA de crear/actualizar pp:
-#                variants_review = self.env['product.product'].search(
-#                    [('is_pair', '=', True), ('product_tmpl_id','=', record.product_tmpl_single_id.id),('size_attribute_id', '=', False)])
-#                for va in variants_review:
-#                for va in pt_single.product_variant_ids:
-#                    va._compute_combination_indices()
 
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:

@@ -28,6 +28,7 @@ class ProductTemplateAttributeValue(models.Model):
                     for color in ptal_color_single.value_ids:
                         if color.id not in ptal.value_ids.ids:
                             ptal_color_single['value_ids'] = [(3, color.id)]
+                            ptal_color_single._update_product_template_attribute_values()
 
                 # Ahora la posible eliminación de un surtido:
                 if (attribute.id == assortment_attribute):
@@ -43,3 +44,4 @@ class ProductTemplateAttributeValue(models.Model):
                     for val in ptal_size_single.value_ids:
                         if val.id not in sizes:
                             ptal_size_single['value_ids'] = [(3, val.id)]
+                            ptal_size_single._update_product_template_attribute_values()
