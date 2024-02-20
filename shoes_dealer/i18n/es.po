@@ -151,8 +151,8 @@ msgstr "Compañías"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.product_template_only_shoes_dealer_inh_form
-msgid "Update Pairs/BoM"
-msgstr "Actualizar Pares/LdM"
+msgid "Create Pairs"
+msgstr "Crear Pares"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_material__create_uid

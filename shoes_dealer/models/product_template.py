@@ -157,7 +157,7 @@ class ProductTemplate(models.Model):
                 for pp in record.product_variant_ids:
                     pp.write({"lst_price": record.list_price * pp.pairs_count})
 
-    def create_single_products_and_set_boms(self):
+    def create_shoe_pairs(self):
         for record in self:
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
