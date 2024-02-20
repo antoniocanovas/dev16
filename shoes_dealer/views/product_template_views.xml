@@ -141,6 +141,10 @@
                 <field name="categ_id" position="after">
                     <field name="shoes_campaign_id"/>
                     <field name="product_tmpl_model_id"/>
+                    <separator/>
+                    <field name="is_pair"/>
+                    <field name="is_assortment"/>
+                    <separator/>
                 </field>
                 <xpath expr="//group/filter[@name='type']" position="after">
                     <filter string="Campaign" name="campaign" context="{'group_by':'shoes_campaign_id'}"/>
