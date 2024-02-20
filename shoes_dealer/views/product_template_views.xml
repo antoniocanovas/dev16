@@ -149,6 +149,9 @@
                 <xpath expr="//group/filter[@name='type']" position="after">
                     <filter string="Campaign" name="campaign" context="{'group_by':'shoes_campaign_id'}"/>
                     <filter string="Model" name="Model" context="{'group_by':'product_tmpl_model_id'}"/>
+                    <filter string="Color" name="color_value" context="{'group_by':'color_attribute_id'}"/>
+                    <filter string="Size" name="size_value" context="{'group_by':'size_attribute_id'}"/>
+                    <filter string="Assortment" name="assortment_value" context="{'group_by':'assortment_attribute_id'}"/>
                 </xpath>
             </data>
         </field>
