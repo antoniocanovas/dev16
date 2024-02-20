@@ -26,8 +26,8 @@ class ProductProduct(models.Model):
             self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.create_set_bom()
+#        if (self.product_tmpl_single_id.id) and (self.is_assortment):
+#            self.create_set_bom()
 
 
 
