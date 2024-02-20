@@ -142,8 +142,8 @@
                     <field name="shoes_campaign_id"/>
                     <field name="product_tmpl_model_id"/>
                     <separator/>
-                    <filter name="is_pair"/>
-                    <filter name="is_assortment"/>
+                    <filter name="is_pair" string="Pairs" domain="[('is_pair','=',True)]"/>
+                    <filter name="is_assortment" string="Assortments" domain="[('is_assortment','=',True)]"/>
                     <separator/>
                 </field>
                 <xpath expr="//group/filter[@name='type']" position="after">
