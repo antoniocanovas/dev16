@@ -163,7 +163,7 @@ class ProductProduct(models.Model):
                 variants_review = self.env['product.product'].search(
                     [('is_pair', '=', True), ('product_tmpl_id','=', record.product_tmpl_single_id.id),('size_attribute_id', '=', False)])
                 for va in variants_review:
-                    va.set_assortment_color_and_size()
+                    va._compute_combination_indices()
 
                 # Creación de líneas en LDM para cada talla del surtido:
                 for li in set_template.line_ids:
