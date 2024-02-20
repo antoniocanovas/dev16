@@ -17,9 +17,6 @@ class ProductTemplate(models.Model):
     _mail_post_access = "read"
     _check_company_auto = True
 
-    #    Ya no hace falta porque los productos "single" se generan desde las variantes:
-    #    set_code = fields.Char('Code', store=True, copy=False)
-    #    set_template_ids = fields.Many2many('set.template', string='Set templates', store="True",)
 
     shoes_campaign_id = fields.Many2one(
         "project.project", string="Campaign", store=True, copy=True, tracking=10
@@ -166,7 +163,6 @@ class ProductTemplate(models.Model):
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
             record.update_color_and_size_attributes()
-#            record.create_set_boms()
             #REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
             # REVISAR, FÁCIL LLEVAR A PP:
@@ -184,7 +180,6 @@ class ProductTemplate(models.Model):
             prefix = self.env.user.company_id.single_prefix
             single_sale = self.env.user.company_id.single_sale
             single_purchase = self.env.user.company_id.single_purchase
-            pt_single = record.product_tmpl_single_id
 
             if not bom_attribute.id or not size_attribute.id:
                 raise UserError(
@@ -260,177 +255,6 @@ class ProductTemplate(models.Model):
             for pp in record.product_tmpl_single_id.product_variant_ids:
                 pp.set_assortment_color_and_size()
 
-    def create_set_boms(self):
-        for record in self:
-            # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
-            bom_attribute = self.env.user.company_id.bom_attribute_id
-            size_attribute = self.env.user.company_id.size_attribute_id
-            color_attribute = self.env.user.company_id.color_attribute_id
-            prefix = self.env.user.company_id.single_prefix
-            pt_single = record.product_tmpl_single_id
-
-            if not bom_attribute.id or not size_attribute.id:
-                raise UserError(
-                    "Please set shoes dealer attributes in this company form (Settings => User & companies => Company"
-                )
-
-            # Variantes de surtido y color, creación de listas de materiales con los pares de la plantilla:
-            for pr in record.product_variant_ids:
-                # Buscar en atributos el de surtido y apuntar a su plantilla, para después tomar las cantidades para la LDM:
-                set_template = (
-                    self.env["product.template.attribute.value"]
-                    .search(
-                        [
-                            ("product_tmpl_id", "=", record.id),
-                            ("id", "in", pr.product_template_variant_value_ids.ids),
-                            ("attribute_id", "=", bom_attribute.id),
-                        ]
-                    )
-                    .product_attribute_value_id.set_template_id
-                )
-                # Caso de que sólo haya un tipo de surtido, no existe el registro anterior PTAV, buscamos en PT => Atributo:
-                if not set_template.id:
-                    set_template = (
-                        self.env["product.template.attribute.line"]
-                        .search(
-                            [
-                                ("product_tmpl_id", "=", record.id),
-                                ("attribute_id", "=", bom_attribute.id),
-                            ]
-                        )
-                        .product_template_value_ids[0]
-                        .product_attribute_value_id.set_template_id
-                    )
-
-                # Lo mismo para buscar el color:
-                color_value = (
-                    self.env["product.template.attribute.value"]
-                    .search(
-                        [
-                            ("product_tmpl_id", "=", record.id),
-                            ("id", "in", pr.product_template_variant_value_ids.ids),
-                            ("attribute_id", "=", color_attribute.id),
-                        ]
-                    )
-                    .product_attribute_value_id
-                )
-                # Caso de que sólo haya un COLOR, no existe el registro anterior PTAV, buscamos en la línea atributo de PT:
-                if not color_value.id:
-                    color_value = (
-                        self.env["product.template.attribute.line"]
-                        .search(
-                            [
-                                ("product_tmpl_id", "=", record.id),
-                                ("attribute_id", "=", color_attribute.id),
-                            ]
-                        )
-                        .product_template_value_ids[0]
-                        .product_attribute_value_id
-                    )
-
-                if not set_template.id or not color_value.id:
-                    raise UserError(
-                        "Faltan datos, producto: "
-                        + pr.name
-                        + ", con plantilla: "
-                        + str(set_template.name)
-                        + ", y color: "
-                        + str(color_value.name)
-                    )
-
-                # Como hay surtido, continuamos:
-                if set_template.id:
-                    # Creación de LDM por surtido:
-                    code = (
-                        pr.name
-                        + " // "
-                        + str(set_template.code)
-                        + " "
-                        + str(set_template.name)
-                    )
-                    pr_set_bom = self.env["mrp.bom"].search(
-                        [("product_id", "=", pr.id)]
-                    )
-
-                    if not pr_set_bom.ids:
-                        exist = self.env["mrp.bom"].create(
-                            {
-                                "code": code,
-                                "type": "normal",
-                                "product_qty": 1,
-                                "product_tmpl_id": record.id,
-                                "product_id": pr.id,
-                            }
-                        )
-                    else:
-                        exist = pr.bom_ids[0]
-                        exist.bom_line_ids.unlink()
-
-                    # Creación de líneas en LDM para cada talla del surtido:
-                    for li in set_template.line_ids:
-                        size_value = li.value_id
-                        size_quantity = li.quantity
-
-                        # Buscar línea de valor para el PT de single y esta talla, que después se usará en el "pp single" (de momento sólo 1 attrib por proucto):
-                        ptav_size = self.env["product.template.attribute.value"].search(
-                            [
-                                ("attribute_id", "=", size_attribute.id),
-                                ("product_attribute_value_id", "=", size_value.id),
-                                ("product_tmpl_id", "=", pt_single.id),
-                            ]
-                        )
-                        ptav_color = self.env[
-                            "product.template.attribute.value"
-                        ].search(
-                            [
-                                ("attribute_id", "=", color_attribute.id),
-                                ("product_attribute_value_id", "=", color_value.id),
-                                ("product_tmpl_id", "=", pt_single.id),
-                            ]
-                        )
-
-                        # El producto "single (o par)" con estos atributos, que se usará en la LDM:
-                        pp_single = self.env["product.product"].search(
-                            [
-                                (
-                                    "product_template_variant_value_ids",
-                                    "in",
-                                    ptav_size.id,
-                                ),
-                                (
-                                    "product_template_variant_value_ids",
-                                    "in",
-                                    ptav_color.id,
-                                ),
-                            ]
-                        )
-                        if not pp_single.ids:
-                            raise UserError(
-                                "No encuentro esa talla y color en el producto PAR"
-                            )
-
-                        # Asignación de color y talla al product.product (dic 2023 no funciona):
-                        #                        pp_single.write({'color_attribute_id':ptav_size.id, 'size_attribute_id': ptav_color.id})
-
-                        # Creación de las líneas de la LDM:
-                        new_bom_line = self.env["mrp.bom.line"].create(
-                            {
-                                "bom_id": exist.id,
-                                "product_id": pp_single.id,
-                                "product_qty": size_quantity,
-                            }
-                        )
-
-                    # Actualizar campo base_unit_count del estándar para que muestre precio unitario en website_sale,
-                    # si fuera un par sólo, la cantidad a indicar es 0 para que no se muestre, por esta razón seguimos
-                    # manteniendo el campo del desarrollo paris_count en los distintos modelos:
-                    # 2º actualizamos el precio de venta del surtido al crear:
-                    base_unit_count = 0
-                    for bom_line in exist.bom_line_ids:
-                        base_unit_count += bom_line.product_qty
-                    if base_unit_count == 1:
-                        base_unit_count = 0
-                    pr.write({"base_unit_count": base_unit_count})
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
@@ -456,6 +280,7 @@ class ProductTemplate(models.Model):
                 for pp in record.product_tmpl_single_id.product_variant_ids:
                     pp.write({"standard_price": standard_price})
 
+
     def update_product_template_campaign_code(self):
         # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
         for record in self:
@@ -473,6 +298,7 @@ class ProductTemplate(models.Model):
                     record.product_tmpl_single_id.write({"campaign_code": "P" + code})
                 next_code = record.shoes_campaign_id.campaign_code + 1
                 record.shoes_campaign_id.write({"campaign_code": next_code})
+
 
     def name_get(self):
         # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
