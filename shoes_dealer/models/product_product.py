@@ -52,73 +52,45 @@ class ProductProduct(models.Model):
             len_size_attribute, len_color_attribute, len_assortment_attribute = 0, 0, 0
             size_value, color_value, assortment_value = False, False, False
 
-            for li in record.product_template_variant_value_ids:
-                #  Parámetros de empresa:
-                if li.attribute_id.id == size_attribute.id: size_value = li
-                if li.attribute_id.id == color_attribute.id: color_value = li
-                if li.attribute_id.id == assortment_attribute.id: assortment_value = li
+            # Caso de una sola variante:
+            if len(record.product_tmpl_id.product_variant_ids) == 1:
+                size_value, color_value, assortment_value = False, False, False
+                for val in record.product_tmpl_id.attribute_line_ids:
+                    if val.attribute_id == self.env.company.color_attribute_id:
+                        color_value = val.value_ids[0].id
+                    if val.attribute_id == self.env.company.size_attribute_id:
+                        size_value = val.value_ids[0].id
+                    if val.attribute_id == self.env.company.bom_attribute_id:
+                        assortment_value = val.value_ids[0].id
+                #record.write({'color_attribute_id':color_value, 'assortment_attribute_id':assortment_value, 'size_attribute_id':size_value})
 
-                # Caso de una sola variante (funciona a AS, aquí no porque :
-                if len(record.product_tmpl_id.product_variant_ids) == 1:
-                    size, color, assortment = False, False, False
-                    for val in record.product_tmpl_id.attribute_line_ids:
-                        if val.attribute_id == self.env.company.color_attribute_id:
-                            color_value = val.value_ids[0]
-                            color_value = color_value.id
-                        if val.attribute_id == self.env.company.size_attribute_id:
-                            size_value = val.value_ids[0]
-                            size_value = size_value.id
-                        if val.attribute_id == self.env.company.bom_attribute_id:
-                            assortment_value = val.value_ids[0]
-                            assortment_value = assortment_value.id
-     #               record.write({'color_attribute_id':color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
+            else:
+                for li in record.product_template_variant_value_ids:
+                    #  Parámetros de empresa:
+                    if li.attribute_id.id == size_attribute.id: size_value = li
+                    if li.attribute_id.id == color_attribute.id: color_value = li
+                    if li.attribute_id.id == assortment_attribute.id: assortment_value = li
 
-                """
-                # Comprobar en PTAL si sólo hay una variante de surtido, color o talla, porque en este caso no se crean product.template.attribute.line:
-                for li in record.product_tmpl_id.attribute_line_ids:
-                    if li.attribute_id == size_attribute:
-                        size_line = li
-                        len_size_attribute = len(li.value_ids.ids)
-                    if li.attribute_id == color_attribute:
-                        color_line = li
-                        len_color_attribute = len(li.value_ids.ids)
-                    if li.attribute_id == assortment_attribute:
-                        assortment_line = li
-                        len_assortment_attribute = len(li.value_ids.ids)
+                        # Para buscar la talla:
+                        size_value = self.env['product.template.attribute.value'].search([
+                            ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                            ('id', 'in', record.product_template_variant_value_ids.ids),
+                            ('attribute_id', '=', size_attribute.id)
+                        ]).product_attribute_value_id.id
 
-                # Caso de que haya un un sólo surtido, color o talla en la plantilla, asignación:
-                if len_size_attribute == 1:
-                    size_value = size_line.value_ids[0].id
-                if len_color_attribute == 1:
-                    color_value = color_line.value_ids[0].id
-                if len_assortment_attribute == 1:
-                    assortment_value = assortment_line.value_ids[0].id
-"""
+                        # Para buscar el color:
+                        color_value = self.env['product.template.attribute.value'].search([
+                            ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                            ('id', 'in', record.product_template_variant_value_ids.ids),
+                            ('attribute_id', '=', color_attribute.id)
+                        ]).product_attribute_value_id.id
 
-                # Casos de que haya varios surtidos, colores o tallas en la plantilla de producto:
-                if len_size_attribute > 1:
-                    # Para buscar la talla:
-                    size_value = self.env['product.template.attribute.value'].search([
-                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                        ('id', 'in', record.product_template_variant_value_ids.ids),
-                        ('attribute_id', '=', size_attribute.id)
-                    ]).product_attribute_value_id.id
-
-                if len_color_attribute > 1:
-                    # Para buscar el color:
-                    color_value = self.env['product.template.attribute.value'].search([
-                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                        ('id', 'in', record.product_template_variant_value_ids.ids),
-                        ('attribute_id', '=', color_attribute.id)
-                    ]).product_attribute_value_id.id
-
-                if len_assortment_attribute > 1:
-                    # Para buscar el surtido:
-                    assortment_value = self.env['product.template.attribute.value'].search([
-                        ('product_tmpl_id', '=', record.product_tmpl_id.id),
-                        ('id', 'in', record.product_template_variant_value_ids.ids),
-                        ('attribute_id', '=', assortment_attribute.id)
-                    ]).product_attribute_value_id.id
+                        # Para buscar el surtido:
+                        assortment_value = self.env['product.template.attribute.value'].search([
+                            ('product_tmpl_id', '=', record.product_tmpl_id.id),
+                            ('id', 'in', record.product_template_variant_value_ids.ids),
+                            ('attribute_id', '=', assortment_attribute.id)
+                        ]).product_attribute_value_id.id
 
             record.write({'size_attribute_id': size_value,
                           'color_attribute_id': color_value,
