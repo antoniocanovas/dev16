@@ -61,6 +61,7 @@ class ProductProduct(models.Model):
                 # Caso de una sola variante:
                 if len(record.product_variant_ids) == 1:
                     pp = record.product_variant_ids[0]
+                    size, color, assortment = False, False, False
                     for li in record.attribute_line_ids:
                         if li.attribute_id == self.env.company.color_attribute_id: color = li.value_ids.ids
                         if li.attribute_id == self.env.company.size_attribute_id: size = li.value_ids.ids
