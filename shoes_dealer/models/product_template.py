@@ -35,8 +35,8 @@ class ProductTemplate(models.Model):
                 for va in at.value_ids:
                     valueids += str(va.id)
         record['valueids'] = valueids
-    valueids = fields.Char('Value IDS', string='Control value IDS', store=True,
-                           compute='_get_shoes_product_update_required',
+    valueids = fields.Char("Value IDS", string="Control value IDS", store=True,
+                           compute="_get_shoes_product_update_required",
                            help='Internal field used to update product variants attributes and BOM from AA')
     @api.depends("attribute_line_ids")
     def _get_is_assortment(self):
