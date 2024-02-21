@@ -16,7 +16,7 @@
 
 
     <record id="shoes_dealer_update_product_product" model="base.automation">
-        <field name="name">=> Update shoes product product</field>
+        <field name="name">=> Update shoes product attributes, variants and boms</field>
         <field name="model_id" ref="product.model_product_product"/>
         <field name="state">code</field>
         <field name="code">

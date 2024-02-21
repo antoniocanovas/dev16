@@ -62,6 +62,7 @@
                             </tree>
                         </field>
                         <field name="pairs_count"/>
+                        <field name="value_ids" widget="many2many_tags"/>
                     </group>
                 </sheet>
             </form>

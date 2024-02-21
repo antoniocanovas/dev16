@@ -17,7 +17,6 @@ class ProductTemplate(models.Model):
     _mail_post_access = "read"
     _check_company_auto = True
 
-
     shoes_campaign_id = fields.Many2one(
         "project.project", string="Campaign", store=True, copy=True, tracking=10
     )
@@ -28,30 +27,39 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
-    @api.depends('attribute_line_ids')
+    @api.depends("attribute_line_ids")
     def _get_is_assortment(self):
         is_assortment, color, assortment = False, False, False
         color_attribute = self.env.company.color_attribute_id
         assortment_attribute = self.env.company.bom_attribute_id
         for li in self.attribute_line_ids:
-            if li.attribute_id == color_attribute: color = True
-            if li.attribute_id == assortment_attribute: assortment = True
-        if color and assortment: is_assortment = True
+            if li.attribute_id == color_attribute:
+                color = True
+            if li.attribute_id == assortment_attribute:
+                assortment = True
+        if color and assortment:
+            is_assortment = True
         self.is_assortment = is_assortment
-    is_assortment = fields.Boolean('Is Assortment', store=True, compute='_get_is_assortment')
 
-    @api.depends('attribute_line_ids')
+    is_assortment = fields.Boolean(
+        "Is Assortment", store=True, compute="_get_is_assortment"
+    )
+
+    @api.depends("attribute_line_ids")
     def _get_is_pair(self):
         is_pair, color, size = False, False, False
         color_attribute = self.env.company.color_attribute_id
         size_attribute = self.env.company.size_attribute_id
         for li in self.attribute_line_ids:
-            if li.attribute_id == color_attribute: color = True
-            if li.attribute_id == size_attribute: size = True
-        if color and size: is_pair = True
+            if li.attribute_id == color_attribute:
+                color = True
+            if li.attribute_id == size_attribute:
+                size = True
+        if color and size:
+            is_pair = True
         self.is_pair = is_pair
-    is_pair = fields.Boolean('Is Pair', store=True, compute='_get_is_pair')
 
+    is_pair = fields.Boolean("Is Pair", store=True, compute="_get_is_pair")
 
     material_id = fields.Many2one(
         "product.material", string="Material", store=True, copy=True
@@ -162,8 +170,8 @@ class ProductTemplate(models.Model):
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
-            record.update_color_and_size_attributes()
-            #REVISAR, TIENE AA:
+            # record.update_color_and_size_attributes()
+            # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
             # REVISAR, FÁCIL LLEVAR A PP:
             record.update_product_template_campaign_code()
@@ -234,6 +242,7 @@ class ProductTemplate(models.Model):
                                 "value_ids": [(6, 0, sizes)],
                             }
                         )
+                        new_ptal._update_product_template_attribute_values()
 
                     elif li.attribute_id.id == color_attribute.id:
                         for ptav in li.value_ids:
@@ -246,6 +255,7 @@ class ProductTemplate(models.Model):
                                 "value_ids": [(6, 0, colors)],
                             }
                         )
+                        new_ptal._update_product_template_attribute_values()
 
     # 2024.02 Esto ya no haría falta desde PT si funciona la AA de PP.
     def update_color_and_size_attributes(self):
@@ -254,7 +264,6 @@ class ProductTemplate(models.Model):
                 pp.set_assortment_color_and_size()
             for pp in record.product_tmpl_single_id.product_variant_ids:
                 pp.set_assortment_color_and_size()
-
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
@@ -280,7 +289,6 @@ class ProductTemplate(models.Model):
                 for pp in record.product_tmpl_single_id.product_variant_ids:
                     pp.write({"standard_price": standard_price})
 
-
     def update_product_template_campaign_code(self):
         # default_code no vale porque se requite cada año y no está disponible en PT si hay variantes.
         for record in self:
@@ -298,7 +306,6 @@ class ProductTemplate(models.Model):
                     record.product_tmpl_single_id.write({"campaign_code": "P" + code})
                 next_code = record.shoes_campaign_id.campaign_code + 1
                 record.shoes_campaign_id.write({"campaign_code": next_code})
-
 
     def name_get(self):
         # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
@@ -319,7 +326,11 @@ class ProductTemplate(models.Model):
     def update_supplier_info(self):
         for product in self:
             if not product.manufacturer_id.id:
-                raise UserError('Asigna el fabricante para poder actualizar la tarifa de proveedor.' + ": " + product.name)
+                raise UserError(
+                    "Asigna el fabricante para poder actualizar la tarifa de proveedor."
+                    + ": "
+                    + product.name
+                )
             product.variant_seller_ids.unlink()
             for variant in product.product_variant_ids:
                 price = product.exwork_single

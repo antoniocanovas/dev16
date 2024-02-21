@@ -16,6 +16,23 @@
         </field>
     </record>
 
+    <!-- VISTAS TREE COMUNES: -->
+    <record id="product_shoes_dealer_inh_tree" model="ir.ui.view">
+        <field name="name">product.shoes.dealer.inh.tree</field>
+        <field name="model">product.template</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+
+            <field name="categ_id" position="after">
+                <field name="is_pair" optional="show"/>
+                <field name="is_assortment" optional="show"/>
+            </field>
+
+        </field>
+    </record>
+
     <!-- VISTAS FORM SÓLO PRODUCT TEMPLATE: -->
     <record id="product_template_only_shoes_dealer_inh_form" model="ir.ui.view">
         <field name="name">product.template.only.shoes.dealer.inh.form</field>
