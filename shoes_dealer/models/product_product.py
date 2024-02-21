@@ -13,13 +13,13 @@ class ProductProduct(models.Model):
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
     product_template_variant_value_ids = fields.Many2many(domain=[])
-"""
+    """
     @api.depends('product_template_variant_value_ids')
     def get_valueids(self):
         self.valueids = str(self.product_template_variant_value_ids)
     valueids = fields.Char("Value IDS", store=True, compute='get_valueids')
 
-"""
+    """
 
     def update_shoes_pp(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
