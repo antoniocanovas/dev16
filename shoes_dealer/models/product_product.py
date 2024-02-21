@@ -16,7 +16,7 @@ class ProductProduct(models.Model):
 
     @api.depends('product_template_variant_value_ids')
     def get_valueids(self):
-        self.valueids = str(self.product_template_variant_value_ids.ids)
+        self.valueids = str(self.product_template_variant_value_ids)
     valueids = fields.Char("Value IDS", store=True, compute='get_valueids')
 
 
