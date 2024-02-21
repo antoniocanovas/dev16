@@ -25,7 +25,7 @@ msgstr ""
 #. module: shoes_dealer
 #: model:ir.actions.server,name:shoes_dealer.shoes_dealer_update_standard_price_ir_actions_server
 msgid "=> Update cost prices"
-msgstr "==> Actualizar precios de coste"
+msgstr "=> Actualizar precios de coste"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_set_template__message_needaction
