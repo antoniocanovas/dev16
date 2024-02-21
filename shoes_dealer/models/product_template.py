@@ -179,7 +179,6 @@ class ProductTemplate(models.Model):
                     pp.write({"lst_price": record.list_price * pp.pairs_count})
 
     # Cuando se actualicen los atributos de PT, que lo hagan los PP:
-    @api.onchange('valueids')
     def update_shoes_variants(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         bom_attribute = self.env.user.company_id.bom_attribute_id

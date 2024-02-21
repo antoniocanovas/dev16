@@ -12,6 +12,8 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
+    product_template_variant_value_ids = fields.Many2many(domain=[])
+
 
     # Pares por variante de producto, se usará en el cálculo de tarifas y líneas de venta:
     def _get_shoes_product_product_pair_count(self):
