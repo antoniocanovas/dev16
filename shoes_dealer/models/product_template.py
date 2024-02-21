@@ -191,21 +191,20 @@ class ProductTemplate(models.Model):
                 "Please set shoes dealer attributes in this company form (Settings => User & companies => Company"
             )
 
-        for record in self:
-            # Actualizar variantes:
-            for pp in record.product_variant_ids:
-                # Asignar valores de color, talla y surtido directamente en la variante:
-                if pp.is_pair or pp.is_assortment:
-                    pp.set_assortment_color_and_size()
-                # Chequear si existen las tallas en el producto par y listas de materiales (sólo para surtidos):
-                if (pp.product_tmpl_single_id.id) and (pp.is_assortment):
-                    pp.check_for_new_sizes_and_colors()
-                    pp.create_set_bom()
+        # Actualizar variantes:
+        for pp in self.product_variant_ids:
+            # Asignar valores de color, talla y surtido directamente en la variante:
+            if pp.is_pair or pp.is_assortment:
+                pp.set_assortment_color_and_size()
+            # Chequear si existen las tallas en el producto par y listas de materiales (sólo para surtidos):
+            if (pp.product_tmpl_single_id.id) and (pp.is_assortment):
+                pp.check_for_new_sizes_and_colors()
+                pp.create_set_bom()
 
-            for pp in record.product_tmpl_single_id.product_variant_ids:
-                # Asignar valores de color, talla y surtido directamente en la variante:
-                if pp.is_pair or pp.is_assortment:
-                    pp.set_assortment_color_and_size()
+        for pp in self.product_tmpl_single_id.product_variant_ids:
+            # Asignar valores de color, talla y surtido directamente en la variante:
+            if pp.is_pair or pp.is_assortment:
+                pp.set_assortment_color_and_size()
 
 
 
