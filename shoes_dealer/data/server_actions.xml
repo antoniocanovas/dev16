@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+        <record id="product_template_saction_update" model="ir.actions.server">
+            <field name="name">=> Actualizar color, talla, código de campaña y precios de coste</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">
+# Actualizar color, talla y precios de coste:
+for r in records:
+    r.update_color_and_size_attributes()
+    r.update_standard_price_on_variants()
+    r.update_product_template_campaign_code()
+            </field>
+        </record>
+
+        <record id="product_product_toggle_active_all" model="ir.actions.server">
+            <field name="name">=> Archivar Todo</field>
+            <field name="model_id" ref="model_product_template"/>
+            <field name="binding_model_id" ref="model_product_template" />
+            <field name="state">code</field>
+            <field name="code">
+# Archivar Surtidos y pares:
+for record in records:
+  if record.product_tmpl_single_id:
+    record.product_tmpl_single_id.toggle_active()
+  if record.product_tmpl_set_id:
+    record.product_tmpl_set_id.toggle_active()
+  record.toggle_active()
+            </field>
+        </record>
+
+</odoo>
