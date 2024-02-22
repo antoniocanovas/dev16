@@ -21,7 +21,12 @@ class ProductProduct(models.Model):
         color_attribute = self.env.user.company_id.color_attribute_id
         prefix = self.env.user.company_id.single_prefix
 
-        if bom_attribute.id and size_attribute.id and color_attribute.id and prefix != "":
+        if (
+                self.env.user.company_id.bom_attribute_id and
+                self.env.user.company_id.size_attribute_id.id and
+                self.env.user.company_id.color_attribute_id.id and
+                self.env.user.company_id.single_prefix != ""
+        ):
             # PARES:
             products = self.env['product.product'].search(
                 [
