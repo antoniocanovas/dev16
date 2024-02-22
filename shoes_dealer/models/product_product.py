@@ -47,7 +47,7 @@ class ProductProduct(models.Model):
             for pp in products:
                 pp.set_assortment_color_and_size()
                 pp.check_for_new_sizes_and_colors()
-
+            commit()
             # LDM de Surtidos:
             empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
             products = self.env['product.product'].search(
