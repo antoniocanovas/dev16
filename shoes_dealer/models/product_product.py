@@ -21,16 +21,6 @@ class ProductProduct(models.Model):
                 self.env.user.company_id.color_attribute_id.id and
                 self.env.user.company_id.single_prefix != ""
         ):
-            # PARES:
-            products = self.env['product.product'].search(
-                [
-                    ('attribute_line_ids', '!=', False),
-                    ('color_attribute_id', '=', False),
-                    ('is_pair', '=', True)
-                ])
-            for pp in products:
-                pp.set_assortment_color_and_size()
-                pp.check_for_new_sizes_and_colors()
 
             # SURTIDOS:
             products = self.env['product.product'].search(
@@ -41,19 +31,29 @@ class ProductProduct(models.Model):
                 ])
             for pp in products:
                 pp.set_assortment_color_and_size()
+
+            # PARES:
+            products = self.env['product.product'].search(
+                [
+                    ('attribute_line_ids', '!=', False),
+                    ('color_attribute_id', '=', False),
+                    ('is_pair', '=', True)
+                ])
+            for pp in products:
                 pp.check_for_new_sizes_and_colors()
-    def update_shoes_boms_cron(self):
-        # LDM de Surtidos:
-        empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
-        products = self.env['product.product'].search(
-            [
-                ('attribute_line_ids', '!=', False),
-                ('is_assortment', '=', True),
-                ('variant_bom_ids', '=', False),
-                ('product_tmpl_single_id', '!=', False)
-            ])
-        for pp in products:
-            pp.create_set_bom()
+                pp.set_assortment_color_and_size()
+
+            # LDM de Surtidos:
+            empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
+            products = self.env['product.product'].search(
+                [
+                    ('attribute_line_ids', '!=', False),
+                    ('is_assortment', '=', True),
+                    ('variant_bom_ids', '=', False),
+                    ('product_tmpl_single_id', '!=', False)
+                ])
+            for pp in products:
+                pp.create_set_bom()
 
 
     def shoes_dealer_check_environment(self):
