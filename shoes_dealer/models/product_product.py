@@ -151,25 +151,26 @@ class ProductProduct(models.Model):
                           })
 
     def check_for_new_sizes_and_colors(self):
-        # Buscar en PTAL de CHILD el valor de la variante:
-        ptal = self.env["product.template.attribute.line"].search(
-            [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
-             ('attribute_id', '=', self.color_attribute_id.attribute_id.id)])
-        # Si no existe, se añade:
-        if self.color_attribute_id.id not in ptal.value_ids.ids:
-            ptal['value_ids'] = [(4, self.color_attribute_id.id)]
-            ptal._update_product_template_attribute_values()
-
-        # Lo mismo para todas las tallas del surtido:
-        for li in self.assortment_attribute_id.set_template_id.line_ids:
-            size = li.value_id.id
+        for record in self:
+            # Buscar en PTAL de CHILD el valor de la variante:
             ptal = self.env["product.template.attribute.line"].search(
-                [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
-                 ('attribute_id', '=', self.env.company.size_attribute_id.id)])
+                [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                 ('attribute_id', '=', record.color_attribute_id.attribute_id.id)])
             # Si no existe, se añade:
-            if size not in ptal.value_ids.ids:
-                ptal['value_ids'] = [(4, size)]
+            if record.color_attribute_id.id not in ptal.value_ids.ids:
+                ptal['value_ids'] = [(4, record.color_attribute_id.id)]
                 ptal._update_product_template_attribute_values()
+
+            # Lo mismo para todas las tallas del surtido:
+            for li in record.assortment_attribute_id.set_template_id.line_ids:
+                size = li.value_id.id
+                ptal = self.env["product.template.attribute.line"].search(
+                    [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                     ('attribute_id', '=', record.env.company.size_attribute_id.id)])
+                # Si no existe, se añade:
+                if size not in ptal.value_ids.ids:
+                    ptal['value_ids'] = [(4, size)]
+                    ptal._update_product_template_attribute_values()
 
 
 
