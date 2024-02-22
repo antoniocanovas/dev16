@@ -32,7 +32,7 @@ class ProductProduct(models.Model):
                 [
                     ('attribute_line_ids', '!=', False),
                     ('color_attribute_id', '=', False),
-                    '|', ('is_pair', '=', True), ('is_assortment', '=', True)
+           #         ('is_pair', '=', True), '|', ('is_assortment', '=', True)
                 ])
             for pp in products:
                 pp.set_assortment_color_and_size()
