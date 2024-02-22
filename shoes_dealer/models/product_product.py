@@ -15,6 +15,12 @@ class ProductProduct(models.Model):
     product_template_variant_value_ids = fields.Many2many(domain=[])
 
     def update_shoes_products(self):
+        # 1. Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
+        bom_attribute = self.env.user.company_id.bom_attribute_id
+        size_attribute = self.env.user.company_id.size_attribute_id
+        if not bom_attribute.id or not size_attribute.id:
+            continue()
+
         # PARES:
         products = self.env['product.product'].search(
             [
