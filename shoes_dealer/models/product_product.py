@@ -27,17 +27,19 @@ class ProductProduct(models.Model):
                 self.env.user.company_id.color_attribute_id.id and
                 self.env.user.company_id.single_prefix != ""
         ):
+            pts = []
             # PARES:
             products = self.env['product.product'].search(
                 [
                     ('attribute_line_ids', '!=', False),
                     ('color_attribute_id', '=', False),
-           #         ('is_pair', '=', True), '|', ('is_assortment', '=', True)
+                    ('is_pair', '=', True)
                 ])
             for pp in products:
+                if pp.product_tmpl_id not in pts: pts.append(pp.product_tmpl_id)
                 pp.set_assortment_color_and_size()
-                pp.check_for_new_sizes_and_colors()
-            """
+    #            pp.check_for_new_sizes_and_colors()
+
             # SURTIDOS:
             products = self.env['product.product'].search(
                 [
@@ -46,9 +48,13 @@ class ProductProduct(models.Model):
                     ('is_assortment', '=', True)
                 ])
             for pp in products:
+                if pp.product_tmpl_id not in pts: pts.append(pp.product_tmpl_id)
                 pp.set_assortment_color_and_size()
-                pp.check_for_new_sizes_and_colors()
-            """
+
+            for pt in pts:
+                for pp in pt.product_variant_ids:
+                    pp.check_for_new_sizes_and_colors()
+
             # LDM de Surtidos:
             empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
             products = self.env['product.product'].search(
