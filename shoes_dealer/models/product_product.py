@@ -12,6 +12,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True)
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True)
 
+    product_template_variant_value_ids = fields.Many2many(domain=[])
 
     def update_shoes_products(self):
         # PARES:
