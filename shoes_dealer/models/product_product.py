@@ -32,11 +32,12 @@ class ProductProduct(models.Model):
                 [
                     ('attribute_line_ids', '!=', False),
                     ('color_attribute_id', '=', False),
-                    ('is_pair', '=', True)
+                    '|', ('is_pair', '=', True), ('is_assortment', '=', True)
                 ])
             for pp in products:
                 pp.set_assortment_color_and_size()
-
+                pp.check_for_new_sizes_and_colors()
+"""
             # SURTIDOS:
             products = self.env['product.product'].search(
                 [
@@ -47,7 +48,7 @@ class ProductProduct(models.Model):
             for pp in products:
                 pp.set_assortment_color_and_size()
                 pp.check_for_new_sizes_and_colors()
-
+"""
             # LDM de Surtidos:
             empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
             products = self.env['product.product'].search(
