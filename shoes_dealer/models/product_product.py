@@ -15,19 +15,12 @@ class ProductProduct(models.Model):
     product_template_variant_value_ids = fields.Many2many(domain=[])
 
     def update_shoes_products(self):
-        # Chequeo variante parametrizada de empresa y producto, con sus mensajes de alerta:
-        bom_attribute = self.env.user.company_id.bom_attribute_id
-        size_attribute = self.env.user.company_id.size_attribute_id
-        color_attribute = self.env.user.company_id.color_attribute_id
-        prefix = self.env.user.company_id.single_prefix
-
         if (
                 self.env.user.company_id.bom_attribute_id and
                 self.env.user.company_id.size_attribute_id.id and
                 self.env.user.company_id.color_attribute_id.id and
                 self.env.user.company_id.single_prefix != ""
         ):
-            pts = []
             # PARES:
             products = self.env['product.product'].search(
                 [
@@ -36,9 +29,8 @@ class ProductProduct(models.Model):
                     ('is_pair', '=', True)
                 ])
             for pp in products:
-                if pp.product_tmpl_id not in pts: pts.append(pp.product_tmpl_id)
                 pp.set_assortment_color_and_size()
-    #            pp.check_for_new_sizes_and_colors()
+                pp.check_for_new_sizes_and_colors()
 
             # SURTIDOS:
             products = self.env['product.product'].search(
@@ -48,24 +40,20 @@ class ProductProduct(models.Model):
                     ('is_assortment', '=', True)
                 ])
             for pp in products:
-                if pp.product_tmpl_id not in pts: pts.append(pp.product_tmpl_id)
                 pp.set_assortment_color_and_size()
-
-            for pt in pts:
-                for pp in pt.product_variant_ids:
-                    pp.check_for_new_sizes_and_colors()
-
-            # LDM de Surtidos:
-            empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
-            products = self.env['product.product'].search(
-                [
-                    ('attribute_line_ids', '!=', False),
-                    ('is_assortment', '=', True),
-                    ('variant_bom_ids', '=', False),
-                    ('product_tmpl_single_id', '!=', False)
-                ])
-            for pp in products:
-                pp.create_set_bom()
+                pp.check_for_new_sizes_and_colors()
+    def update_shoes_boms_cron
+        # LDM de Surtidos:
+        empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
+        products = self.env['product.product'].search(
+            [
+                ('attribute_line_ids', '!=', False),
+                ('is_assortment', '=', True),
+                ('variant_bom_ids', '=', False),
+                ('product_tmpl_single_id', '!=', False)
+            ])
+        for pp in products:
+            pp.create_set_bom()
 
 
     def shoes_dealer_check_environment(self):
