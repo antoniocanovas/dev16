@@ -47,7 +47,7 @@ class ProductProduct(models.Model):
             value = False
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
-                    if li.attribute_id == self.env.company.bom_size_id:
+                    if li.attribute_id == self.env.company.bom_attribute_id:
                         value = li.product_attribute_value_id.id
             if len(record.product_tmpl_id.product_variant_ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
