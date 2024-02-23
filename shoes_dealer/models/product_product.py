@@ -12,7 +12,7 @@ class ProductProduct(models.Model):
     def _get_color_attribute_value(self):
         for record in self:
             value = False
-            lenattrs=len(product_template_variant_value_ids.ids)
+            lenattrs=len(record.product_template_variant_value_ids.ids)
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
                     if li.attribute_id == self.env.company.color_attribute_id:
