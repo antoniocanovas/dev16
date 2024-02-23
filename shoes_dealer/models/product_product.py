@@ -16,10 +16,12 @@ class ProductProduct(models.Model):
                 for li in record.product_template_variant_value_ids:
                     if li.attribute_id == self.env.company.color_attribute_id:
                         value = li.product_attribute_value_id.id
-            if len(record.product_tmpl_id.product_variant_ids) == 1:
+            else:
+            #if len(record.product_tmpl_id.product_variant_ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == self.env.company.color_attribute_id:
                         value = li.value_ids[0]
+
             record['color_attribute_id'] = value
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                          compute='_get_color_attribute_value')
@@ -41,7 +43,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
                                         compute = '_get_color_attribute_value')
 
-    @api.depends('product_template_variant_value_ids','product_variant_ids')
+    @api.depends('product_template_variant_value_ids','create_')
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
