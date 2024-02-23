@@ -42,7 +42,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
                                         compute = '_get_color_attribute_value')
 
-    @api.depends('product_template_variant_value_ids','product_variant_ids',)
+    @api.depends('product_template_variant_value_ids','product_variant_ids','color_attribute_id')
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
