@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <record id="shoes_dealer_update_product_product" model="base.automation">
-        <field name="name">=> Update shoes product product</field>
-        <field name="model_id" ref="product.model_product_product"/>
+    <record id="shoes_dealer_product_ir_cron" model="ir.cron">
+        <field name="name">=> Update shoes products attributes and boms</field>
+        <field ref="model_product_product" name="model_id"/>
+        <field eval="True" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
         <field name="state">code</field>
-        <field name="code">
-            record.update_shoes_pp()
-        </field>
-        <field name="trigger">on_create_or_write</field>
-        <field name="filter_pre_domain"></field>
-        <field name="filter_domain"></field>
-        <field name="active" eval="True"/>
+        <field name="code">model.update_shoes_products()</field>
     </record>
 
 

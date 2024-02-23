@@ -100,7 +100,7 @@ class ProductTemplate(models.Model):
     exwork_currency_id = fields.Many2one(
         "res.currency",
         store=False,
-        default=lambda self: self.env.user.company_id.exwork_currency_id,
+        related="manufacturer_id.property_purchase_currency_id",
     )
     exwork = fields.Monetary("Exwork", store=True, copy=True, tracking="10")
     exwork_single = fields.Monetary(
@@ -169,14 +169,17 @@ class ProductTemplate(models.Model):
         for record in self:
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
-            record.create_single_products()
-            # record.update_color_and_size_attributes()
-            # REVISAR, TIENE AA:
-            record.update_standard_price_on_variants()
-            # REVISAR, FÁCIL LLEVAR A PP:
-            record.update_product_template_campaign_code()
-            # REVISAR, TIENE UN DEPENDS:
-            record.update_set_price_by_pairs()
+            if not record.product_tmpl_single_id.id:
+                record.create_single_products()
+                # REVISAR, TIENE AA:
+                record.update_standard_price_on_variants()
+                # REVISAR, FÁCIL LLEVAR A PP:
+                record.update_product_template_campaign_code()
+                # REVISAR, TIENE UN DEPENDS:
+                record.update_set_price_by_pairs()
+            else:
+                for pp in record.product_tmpl_single_id.product_variant_ids: pp.update_shoes_products()
+                for pp in record.product_tmpl_id.product_variant_ids: pp.update_shoes_products()
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -203,6 +206,7 @@ class ProductTemplate(models.Model):
                 standard_price = record.standard_price
                 if (
                     (record.shoes_campaign_id.id)
+                    and (record.exwork_currency_id != self.env.company.currency_id)
                     and (record.shoes_campaign_id.currency_exchange)
                     and (record.exwork)
                 ):
@@ -257,13 +261,7 @@ class ProductTemplate(models.Model):
                         )
                         new_ptal._update_product_template_attribute_values()
 
-    # 2024.02 Esto ya no haría falta desde PT si funciona la AA de PP.
-    def update_color_and_size_attributes(self):
-        for record in self:
-            for pp in record.product_variant_ids:
-                pp.set_assortment_color_and_size()
-            for pp in record.product_tmpl_single_id.product_variant_ids:
-                pp.set_assortment_color_and_size()
+
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
@@ -342,7 +340,7 @@ class ProductTemplate(models.Model):
                         "min_qty": "1",
                         "price": price,
                         "product_id": variant.id,
-                        "currency_id": self.env.company.exwork_currency_id.id,
+                        "currency_id": product.exwork_currency_id.id,
                         "product_tmpl_id": product.id,
                     }
                 )

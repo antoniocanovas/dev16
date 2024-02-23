@@ -56,26 +56,53 @@ class ProductProduct(models.Model):
             record['assortment_attribute_id'] = value
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True,
                                               compute='_get_assortment_attribute_value')
-    def update_shoes_pp(self):
-        # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
-        self.shoes_dealer_check_environment()
 
-        # Asignar valores de color, talla y surtido directamente en la variante:
-    #    if self.is_pair or self.is_assortment:
-    #        self.set_assortment_color_and_size()
+    product_template_variant_value_ids = fields.Many2many(domain=[])
 
-        # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.check_for_new_sizes_and_colors()
+    def update_shoes_products(self):
+        if (
+                self.env.user.company_id.bom_attribute_id and
+                self.env.user.company_id.size_attribute_id.id and
+                self.env.user.company_id.color_attribute_id.id and
+                self.env.user.company_id.single_prefix != ""
+        ):
 
-        # Revisar listas de materiales, si es surtido y ya tiene par asignado:
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.create_set_bom()
+            # SURTIDOS:
+            products = self.env['product.product'].search(
+                [
+                    ('attribute_line_ids', '!=', False),
+                    ('color_attribute_id', '=', False),
+                    ('is_assortment', '=', True)
+                ])
+            for pp in products:
+                pp.set_assortment_color_and_size()
 
+            # PARES:
+            products = self.env['product.product'].search(
+                [
+                    ('attribute_line_ids', '!=', False),
+                    ('color_attribute_id', '=', False),
+                    ('is_pair', '=', True)
+                ])
+            for pp in products:
+                pp.check_for_new_sizes_and_colors()
+                pp.set_assortment_color_and_size()
+
+            # LDM de Surtidos:
+            empty_bom = self.env['mrp.bom'].search(['|', ('product_id', '=', False), ('bom_line_ids', '=', False)]).unlink()
+            products = self.env['product.product'].search(
+                [
+                    ('attribute_line_ids', '!=', False),
+                    ('is_assortment', '=', True),
+                    ('variant_bom_ids', '=', False),
+                    ('product_tmpl_single_id', '!=', False)
+                ])
+            for pp in products:
+                pp.create_set_bom()
 
 
     def shoes_dealer_check_environment(self):
-        # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
+        # Chequear si existen las variables de empresa para shoes_dealer.cron, con sus mensajes de alerta:
         bom_attribute = self.env.user.company_id.bom_attribute_id
         size_attribute = self.env.user.company_id.size_attribute_id
         color_attribute = self.env.user.company_id.color_attribute_id
@@ -164,25 +191,26 @@ class ProductProduct(models.Model):
                           })
 
     def check_for_new_sizes_and_colors(self):
-        # Buscar en PTAL de CHILD el valor de la variante:
-        ptal = self.env["product.template.attribute.line"].search(
-            [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
-             ('attribute_id', '=', self.color_attribute_id.attribute_id.id)])
-        # Si no existe, se añade:
-        if self.color_attribute_id.id not in ptal.value_ids.ids:
-            ptal['value_ids'] = [(4, self.color_attribute_id.id)]
-            ptal._update_product_template_attribute_values()
-
-        # Lo mismo para todas las tallas del surtido:
-        for li in self.assortment_attribute_id.set_template_id.line_ids:
-            size = li.value_id.id
+        for record in self:
+            # Buscar en PTAL de CHILD el valor de la variante:
             ptal = self.env["product.template.attribute.line"].search(
-                [('product_tmpl_id', '=', self.product_tmpl_single_id.id),
-                 ('attribute_id', '=', self.env.company.size_attribute_id.id)])
+                [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                 ('attribute_id', '=', record.color_attribute_id.attribute_id.id)])
             # Si no existe, se añade:
-            if size not in ptal.value_ids.ids:
-                ptal['value_ids'] = [(4, size)]
+            if record.color_attribute_id.id not in ptal.value_ids.ids:
+                ptal['value_ids'] = [(4, record.color_attribute_id.id)]
                 ptal._update_product_template_attribute_values()
+
+            # Lo mismo para todas las tallas del surtido:
+            for li in record.assortment_attribute_id.set_template_id.line_ids:
+                size = li.value_id.id
+                ptal = self.env["product.template.attribute.line"].search(
+                    [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                     ('attribute_id', '=', record.env.company.size_attribute_id.id)])
+                # Si no existe, se añade:
+                if size not in ptal.value_ids.ids:
+                    ptal['value_ids'] = [(4, size)]
+                    ptal._update_product_template_attribute_values()
 
 
 
@@ -228,7 +256,7 @@ class ProductProduct(models.Model):
                         ('size_attribute_id', '=', li.value_id.id)])
 
                     if not pp_size.id:
-                        raise UserError("No encuentro el par de talla " + str(li.value.id) + ", o no tiene ATRIBUTO TALLA")
+                        raise UserError("No encuentro el par de talla " + str(li.value_id.name) + ", o no tiene ATRIBUTO TALLA")
 
                     # Creación de las líneas de la LDM:
                     new_bom_line = self.env["mrp.bom.line"].create(

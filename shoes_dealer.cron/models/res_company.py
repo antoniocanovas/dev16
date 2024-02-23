@@ -12,5 +12,3 @@ class ResCompany(models.Model):
     single_prefix = fields.Char('Single prefix', store=True)
     single_sale = fields.Boolean('Enable pair sales', store=True, default=False)
     single_purchase = fields.Boolean('Enable pair purchase', store=True, default=False)
-    exwork_currency_id = fields.Many2one('res.currency', store=True,
-                                         default=lambda self: self.env.user.company_id.currency_id)
