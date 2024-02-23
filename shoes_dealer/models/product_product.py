@@ -8,7 +8,7 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
 
-    @api.depends('product_template_variant_value_ids')
+    @api.depends('product_template_variant_value_ids','product_variant_ids')
     def _get_color_attribute_value(self):
         for record in self:
             value = False
@@ -25,7 +25,7 @@ class ProductProduct(models.Model):
                                          compute='_get_color_attribute_value')
 
 
-    @api.depends('product_template_variant_value_ids')
+    @api.depends('product_template_variant_value_ids','product_variant_ids')
     def _get_size_attribute_value(self):
         for record in self:
             value = False
@@ -41,7 +41,7 @@ class ProductProduct(models.Model):
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
                                         compute = '_get_color_attribute_value')
 
-    @api.depends('product_template_variant_value_ids')
+    @api.depends('product_template_variant_value_ids','product_variant_ids')
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
