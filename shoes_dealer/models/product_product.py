@@ -14,11 +14,9 @@ class ProductProduct(models.Model):
             value = False
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
-                    if li.attribute_id == self.env.company.color_attribute_id:
+                    if li.attribute_id == self.env.company.color_attribute_id and len(li.value_ids.ids) > 1:
                         value = li.product_attribute_value_id.id
-            if len(record.product_variant_ids.ids) == 1:
-                for li in record.product_tmpl_id.attribute_line_ids:
-                    if li.attribute_id == self.env.company.color_attribute_id:
+                    elif li.attribute_id == self.env.company.color_attribute_id and len(li.value_ids.ids) == 1:
                         value = li.value_ids[0]
             record['color_attribute_id'] = value
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
