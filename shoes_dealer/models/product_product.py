@@ -8,6 +8,8 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
 
+    product_template_variant_value_ids = fields.Many2many(domain=[])
+
     @api.depends('product_template_variant_value_ids','product_variant_ids',)
     def _get_color_attribute_value(self):
         for record in self:
