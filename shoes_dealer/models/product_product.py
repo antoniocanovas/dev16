@@ -57,42 +57,6 @@ class ProductProduct(models.Model):
                                          compute='_get_size_attribute_value')
 
 
-    """
-    @api.depends('product_template_variant_value_ids','product_variant_ids',)
-    def _get_assortment_attribute_value(self):
-        for record in self:
-            value = False
-            record.clear_caches()
-            if record.product_template_variant_value_ids.ids:
-                for li in record.product_template_variant_value_ids:
-                    if li.attribute_id == self.env.company.bom_attribute_id:
-                        value = li.product_attribute_value_id.id
-            if len(record.product_variant_ids.ids) == 1:
-                for li in record.product_tmpl_id.attribute_line_ids:
-                    if li.attribute_id == self.env.company.bom_attribute_id:
-                        value = li.value_ids[0]
-            record['assortment_attribute_id'] = value
-    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True,
-                                              compute='_get_assortment_attribute_value')
-
-    @api.depends('product_template_variant_value_ids','product_variant_ids',)
-    def _get_size_attribute_value(self):
-        for record in self:
-            value = False
-            if record.product_template_variant_value_ids.ids:
-                for li in record.product_template_variant_value_ids:
-                    if li.attribute_id == self.env.company.size_attribute_id:
-                        value = li.product_attribute_value_id.id
-            if len(record.product_variant_ids.ids) == 1:
-                for li in record.product_tmpl_id.attribute_line_ids:
-                    if li.attribute_id == self.env.company.size_attribute_id:
-                        value = li.value_ids[0]
-            record['size_attribute_id'] = value
-    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
-                                        compute = '_get_size_attribute_value')
-    
-    """
-
     def update_shoes_pp(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         self.shoes_dealer_check_environment()
@@ -107,7 +71,7 @@ class ProductProduct(models.Model):
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.create_set_bom()
+#            self.create_set_bom()
 
 
 
