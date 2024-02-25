@@ -11,7 +11,7 @@ class ProductProduct(models.Model):
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
 
 
-    @api.depends('write_date')
+    @api.depends('product_template_variant_value_ids','product_variant_ids',)
     def _get_color_attribute_value(self):
         for record in self:
             if not record.color_attribute_id.id and record.product_template_variant_value_ids.ids:
