@@ -18,7 +18,7 @@ class ProductProduct(models.Model):
     activation = fields.Boolean('activation', default=False, store=True, copy=False,
                                 compute='get_boolean_assortment_activation')
 
-    @api.depends('activation',)
+    @api.depends('activation')
     def _get_color_attribute_value(self):
         for record in self:
             value = False
