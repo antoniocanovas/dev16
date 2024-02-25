@@ -170,7 +170,6 @@ class ProductTemplate(models.Model):
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
-            # record.update_color_and_size_attributes()
             # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
             # REVISAR, FÁCIL LLEVAR A PP:
@@ -257,13 +256,6 @@ class ProductTemplate(models.Model):
                         )
                         new_ptal._update_product_template_attribute_values()
 
-    # 2024.02 Esto ya no haría falta desde PT si funciona la AA de PP.
-    def update_color_and_size_attributes(self):
-        for record in self:
-            for pp in record.product_variant_ids:
-                pp.set_assortment_color_and_size()
-            for pp in record.product_tmpl_single_id.product_variant_ids:
-                pp.set_assortment_color_and_size()
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
