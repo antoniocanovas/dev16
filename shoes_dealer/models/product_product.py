@@ -16,7 +16,7 @@ class ProductProduct(models.Model):
             value = False
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
-                    if (li.attribute_id == self.env.company.color_attribute_id:
+                    if (li.attribute_id == self.env.company.color_attribute_id):
 #                            and len(record.product_template_variant_value_ids.ids) > 2):
                         value = li.product_attribute_value_id.id
 #                    elif li.attribute_id == self.env.company.color_attribute_id and len(record.product_template_variant_value_ids.ids) == 2:
