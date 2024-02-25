@@ -16,8 +16,7 @@ class ProductProduct(models.Model):
         for record in self:
             total = False
             for li in record.product_template_variant_value_ids:
-                if (li.attribute_id == self.env.company.color_attribute_id) or
-                    (li.attribute_id == self.env.company.bom_attribute_id):
+                if (li.attribute_id == self.env.company.color_attribute_id) or (li.attribute_id == self.env.company.bom_attribute_id):
                     total = True
             record['activation'] = total
     activation = fields.Boolean('activation', default=False, store=True, copy=False,
