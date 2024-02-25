@@ -74,6 +74,12 @@ class ProductProduct(models.Model):
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
             self.create_set_bom()
 
+    def product_attributes_workaround(self):
+        for record in self:
+            if not record.color_attribute_id.id:
+                name = record.name
+                record['name'] = name
+
     def shoes_dealer_check_environment(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         bom_attribute = self.env.user.company_id.bom_attribute_id
