@@ -4,14 +4,13 @@
 from odoo import fields, models, api
 from odoo.exceptions import UserError
 
+
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
 
-
-    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids','product_tmpl_set_id.bom_ids')
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'attribute_line_ids','product_variant_ids')
     def _get_color_attribute_value(self):
         for record in self:
             value = False
@@ -23,10 +22,11 @@ class ProductProduct(models.Model):
                     if li.attribute_id == self.env.company.color_attribute_id:
                         value = li.value_ids[0]
             record['color_attribute_id'] = value
+
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                          compute='_get_color_attribute_value')
 
-    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids','product_template_variant_value_ids')
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'product_template_variant_value_ids')
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
@@ -38,10 +38,11 @@ class ProductProduct(models.Model):
                     if li.attribute_id == self.env.company.bom_attribute_id:
                         value = li.value_ids[0]
             record['assortment_attribute_id'] = value
-    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
-                                         compute='_get_assortment_attribute_value')
 
-    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids','product_template_variant_value_ids')
+    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+                                              compute='_get_assortment_attribute_value')
+
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'product_template_variant_value_ids')
     def _get_size_attribute_value(self):
         for record in self:
             value = False
@@ -53,17 +54,17 @@ class ProductProduct(models.Model):
                     if li.attribute_id == self.env.company.size_attribute_id:
                         value = li.value_ids[0]
             record['size_attribute_id'] = value
-    size_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
-                                         compute='_get_size_attribute_value')
 
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+                                        compute='_get_size_attribute_value')
 
     def update_shoes_pp(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         self.shoes_dealer_check_environment()
 
         # Asignar valores de color, talla y surtido directamente en la variante:
-    #    if self.is_pair or self.is_assortment:
-    #        self.set_assortment_color_and_size()
+        #    if self.is_pair or self.is_assortment:
+        #        self.set_assortment_color_and_size()
 
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
@@ -73,15 +74,13 @@ class ProductProduct(models.Model):
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
             self.create_set_bom()
 
-
-
     def shoes_dealer_check_environment(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         bom_attribute = self.env.user.company_id.bom_attribute_id
         size_attribute = self.env.user.company_id.size_attribute_id
         color_attribute = self.env.user.company_id.color_attribute_id
         prefix = self.env.user.company_id.single_prefix
-        if not bom_attribute.id or not size_attribute.id or not color_attribute.id or prefix=="":
+        if not bom_attribute.id or not size_attribute.id or not color_attribute.id or prefix == "":
             raise UserError(
                 "Please set shoes dealer attributes in this company form (Settings => User & companies => Company"
             )
@@ -185,8 +184,6 @@ class ProductProduct(models.Model):
                 ptal['value_ids'] = [(4, size)]
                 ptal._update_product_template_attribute_values()
 
-
-
     def create_set_bom(self):
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
         for record in self:
@@ -229,7 +226,8 @@ class ProductProduct(models.Model):
                         ('size_attribute_id', '=', li.value_id.id)])
 
                     if not pp_size.id:
-                        raise UserError("No encuentro el par de talla " + str(li.value_id.name) + ", o no tiene ATRIBUTO TALLA")
+                        raise UserError(
+                            "No encuentro el par de talla " + str(li.value_id.name) + ", o no tiene ATRIBUTO TALLA")
 
                     # Creación de las líneas de la LDM:
                     new_bom_line = self.env["mrp.bom.line"].create(
@@ -239,7 +237,6 @@ class ProductProduct(models.Model):
                             "product_qty": li.quantity,
                         }
                     )
-
 
                 # Actualizar campo base_unit_count del estándar para que muestre precio unitario en website_sale,
                 # si fuera un par sólo, la cantidad a indicar es 0 para que no se muestre, por esta razón seguimos
@@ -252,19 +249,16 @@ class ProductProduct(models.Model):
                     base_unit_count = 0
                 record.write({"base_unit_count": base_unit_count})
 
-
-
     # Pares por variante de producto, se usará en el cálculo de tarifas y líneas de venta:
     def _get_shoes_product_product_pair_count(self):
         for record in self:
             count = 1
-            bom = self.env['mrp.bom'].search([('product_id','=',record.id)])
+            bom = self.env['mrp.bom'].search([('product_id', '=', record.id)])
             if bom.ids:
                 count = bom[0].pairs_count
             record['pairs_count'] = count
+
     pairs_count = fields.Integer('Pairs', store=False, compute='_get_shoes_product_product_pair_count')
-
-
 
     # Product assortment (to be printed on sale.order and account.move reports):
     # 2024/02 REVISAR ESTO, POSIBLEMENTE SE PUEDE CAMBIAR POR UN RELATED DE assortment_attribute_id.set_template_id.code
@@ -294,5 +288,5 @@ class ProductProduct(models.Model):
             if ptvv.id:
                 assortment_code = ptvv.product_attribute_value_id.set_template_id.code
             record['assortment_code'] = assortment_code
-    assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
 
+    assortment_code = fields.Char('Assortment', store=False, compute='_get_product_assortment_code')
