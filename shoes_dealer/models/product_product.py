@@ -229,7 +229,7 @@ class ProductProduct(models.Model):
                         ('size_attribute_id', '=', li.value_id.id)])
 
                     if not pp_size.id:
-                        raise UserError("No encuentro el par de talla " + str(li.value.id) + ", o no tiene ATRIBUTO TALLA")
+                        raise UserError("No encuentro el par de talla " + str(li.value_id.name) + ", o no tiene ATRIBUTO TALLA")
 
                     # Creación de las líneas de la LDM:
                     new_bom_line = self.env["mrp.bom.line"].create(
