@@ -11,12 +11,11 @@ class ProductProduct(models.Model):
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
 
 
-    @api.model('product_template_variant_value_ids','product_variant_ids','name')
+    @api.depends('write_date')
     def _get_color_attribute_value(self):
         for record in self:
-            value = False
-            record.clear_caches()
-            if record.product_template_variant_value_ids.ids:
+            if not record.color_attribute_id.id and record.product_template_variant_value_ids.ids:
+                value = False
                 for li in record.product_template_variant_value_ids:
                     if (li.attribute_id == self.env.company.color_attribute_id):
                         value = li.product_attribute_value_id.id
