@@ -39,6 +39,7 @@ class ProductProduct(models.Model):
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
+            record.clear_caches()
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
                     if li.attribute_id == self.env.company.bom_attribute_id:
