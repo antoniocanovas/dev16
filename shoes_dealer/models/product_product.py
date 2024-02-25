@@ -15,7 +15,6 @@ class ProductProduct(models.Model):
     def _get_color_attribute_value(self):
         for record in self:
             value = False
-            #raise UserError(record.product_template_variant_value_ids)
             for li in record.product_template_variant_value_ids:
                 if (li.attribute_id == self.env.company.color_attribute_id):
                     value = li.product_attribute_value_id.id
@@ -23,7 +22,30 @@ class ProductProduct(models.Model):
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                          compute='_get_color_attribute_value')
 
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids',)
+    def _get_assortment_attribute_value(self):
+        for record in self:
+            value = False
+            for li in record.product_template_variant_value_ids:
+                if (li.attribute_id == self.env.company.bom_attribute_id):
+                    value = li.product_attribute_value_id.id
+            record['assortment_attribute_id'] = value
+    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+                                         compute='_get_assortment_attribute_value')
 
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids',)
+    def _get_size_attribute_value(self):
+        for record in self:
+            value = False
+            for li in record.product_template_variant_value_ids:
+                if (li.attribute_id == self.env.company.size_attribute_id):
+                    value = li.product_attribute_value_id.id
+            record['size_attribute_id'] = value
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+                                         compute='_get_size_attribute_value')
+
+
+    """
     @api.depends('product_template_variant_value_ids','product_variant_ids',)
     def _get_assortment_attribute_value(self):
         for record in self:
@@ -56,6 +78,9 @@ class ProductProduct(models.Model):
             record['size_attribute_id'] = value
     size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
                                         compute = '_get_size_attribute_value')
+    
+    """
+
     def update_shoes_pp(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         self.shoes_dealer_check_environment()
