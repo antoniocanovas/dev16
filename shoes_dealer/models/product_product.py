@@ -21,8 +21,8 @@ class ProductProduct(models.Model):
                     if (li.attribute_id == self.env.company.color_attribute_id):
                         value = li.product_attribute_value_id.id
             record['color_attribute_id'] = value
-    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
-                                         compute='_get_color_attribute_value')
+    color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,)
+#                                         compute='_get_color_attribute_value')
 
 
     @api.depends('product_template_variant_value_ids','product_variant_ids',)
