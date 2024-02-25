@@ -14,10 +14,7 @@ class ProductProduct(models.Model):
     @api.depends('product_template_variant_value_ids')
     def get_boolean_assortment_activation(self):
         for record in self:
-            total = False
-            if (record.product_template_variant_value_ids.ids):
-                total = True
-            record['activation'] = total
+            record['activation'] = True
     activation = fields.Boolean('activation', default=False, store=True, copy=False,
                                 compute='get_boolean_assortment_activation')
 
