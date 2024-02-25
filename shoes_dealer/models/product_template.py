@@ -170,9 +170,6 @@ class ProductTemplate(models.Model):
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
-            # Workaround - el último producto creado no asigna atributos:
-            name = record.name
-            record['name'] = name
             # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
             # REVISAR, FÁCIL LLEVAR A PP:
@@ -261,6 +258,10 @@ class ProductTemplate(models.Model):
                         )
                         new_ptal._update_product_template_attribute_values()
 
+        for pp in record.product_variant_ids:
+            if not pp.color_attribute_id.id:
+                name = pp.name
+                pp['name'] = name
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
