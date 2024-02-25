@@ -26,7 +26,7 @@ class ProductProduct(models.Model):
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                          compute='_get_color_attribute_value')
 
-    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'product_template_variant_value_ids')
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'name')
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
@@ -42,7 +42,7 @@ class ProductProduct(models.Model):
     assortment_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                               compute='_get_assortment_attribute_value')
 
-    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'product_template_variant_value_ids')
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'name')
     def _get_size_attribute_value(self):
         for record in self:
             value = False
@@ -55,7 +55,7 @@ class ProductProduct(models.Model):
                         value = li.value_ids[0]
             record['size_attribute_id'] = value
 
-    size_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+    size_attribute_id = fields.Many2one('product.attribute.value', string='Size', store=True,
                                         compute='_get_size_attribute_value')
 
     def update_shoes_pp(self):
