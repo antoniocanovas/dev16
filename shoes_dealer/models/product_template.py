@@ -170,12 +170,17 @@ class ProductTemplate(models.Model):
             if not record.shoes_campaign_id.id:
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
+            # Workaround - el último producto creado no asigna atributos:
+            name = record.name
+            record['name'] = name
             # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
             # REVISAR, FÁCIL LLEVAR A PP:
             record.update_product_template_campaign_code()
             # REVISAR, TIENE UN DEPENDS:
             record.update_set_price_by_pairs()
+
+
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
