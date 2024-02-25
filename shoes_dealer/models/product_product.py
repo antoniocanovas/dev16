@@ -15,7 +15,7 @@ class ProductProduct(models.Model):
     def _get_color_attribute_value(self):
         for record in self:
             value = False
-            raise UserError(record.product_template_variant_value_ids)
+            #raise UserError(record.product_template_variant_value_ids)
             for li in record.product_template_variant_value_ids:
                 if (li.attribute_id == self.env.company.color_attribute_id):
                     value = li.product_attribute_value_id.id
