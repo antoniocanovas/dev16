@@ -11,7 +11,7 @@ class ProductProduct(models.Model):
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
 
 
-    @api.onchange('product_template_variant_value_ids','product_variant_ids','name')
+    @api.model('product_template_variant_value_ids','product_variant_ids','name')
     def _get_color_attribute_value(self):
         for record in self:
             value = False
