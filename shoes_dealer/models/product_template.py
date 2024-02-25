@@ -258,11 +258,6 @@ class ProductTemplate(models.Model):
                         )
                         new_ptal._update_product_template_attribute_values()
 
-        for pp in record.product_variant_ids:
-            if not pp.color_attribute_id.id:
-                name = pp.name
-                pp['name'] = name
-
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
     def update_standard_price_on_variants(self):
