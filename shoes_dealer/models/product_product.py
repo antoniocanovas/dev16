@@ -19,7 +19,7 @@ class ProductProduct(models.Model):
                     if li.attribute_id == self.env.company.color_attribute_id and len(record.product_template_variant_value_ids.ids) > 2:
                         value = li.product_attribute_value_id.id
                     elif li.attribute_id == self.env.company.color_attribute_id and len(record.product_template_variant_value_ids.ids) == 2:
-                        value = li.value_ids[0]
+                        value = record.value_ids[0]
             record['color_attribute_id'] = value
     color_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
                                          compute='_get_color_attribute_value')
