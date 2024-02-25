@@ -22,7 +22,7 @@ class ProductProduct(models.Model):
     def _get_color_attribute_value(self):
         for record in self:
             value = False
-            record.write()
+            record.clear_caches()
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
                     if (li.attribute_id == self.env.company.color_attribute_id):
