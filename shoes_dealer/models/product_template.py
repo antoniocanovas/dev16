@@ -171,8 +171,9 @@ class ProductTemplate(models.Model):
                 raise UserError("Assign a campaign before pairs creation !!")
             record.create_single_products()
             # Workaround - el último producto creado no asigna atributos:
-            name = record.name
-            record['name'] = name
+            if not record.color_attribute_id.id:
+                name = record.name
+                record['name'] = name
             # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
             # REVISAR, FÁCIL LLEVAR A PP:
