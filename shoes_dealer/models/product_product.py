@@ -18,10 +18,11 @@ class ProductProduct(models.Model):
     activation = fields.Boolean('activation', default=False, store=True, copy=False,
                                 compute='get_boolean_assortment_activation')
 
-    @api.depends('activation')
+    @api.depends('product_template_variant_value_ids','product_variant_ids',)
     def _get_color_attribute_value(self):
         for record in self:
             value = False
+            record.write()
             if record.product_template_variant_value_ids.ids:
                 for li in record.product_template_variant_value_ids:
                     if (li.attribute_id == self.env.company.color_attribute_id):
