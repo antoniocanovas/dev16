@@ -11,7 +11,7 @@ class ProductProduct(models.Model):
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
 
 
-    @api.depends('product_template_variant_value_ids')
+    @api.depends('product_template_variant_value_ids','product_template_attribute_value_ids')
     def get_boolean_assortment_activation(self):
         for record in self:
             record['activation'] = True
