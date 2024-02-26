@@ -91,6 +91,7 @@ class ProductProduct(models.Model):
                 "Please set shoes dealer attributes in this company form (Settings => User & companies => Company"
             )
 
+    """
     def set_assortment_color_and_size(self):
         # Asignar valores de color, talla y surtido directamente en la variante:
         for record in self:
@@ -168,6 +169,7 @@ class ProductProduct(models.Model):
                           'color_attribute_id': color_value,
                           'assortment_attribute_id': assortment_value,
                           })
+    """
 
     def check_for_new_sizes_and_colors(self):
         # Buscar en PTAL de CHILD el valor de la variante:
@@ -198,9 +200,6 @@ class ProductProduct(models.Model):
             pt_single = record.product_tmpl_single_id
             set_template = record.assortment_attribute_id.set_template_id
 
-#            for val in
-#            color_value = record.color_attribute_id
-
             # Limpieza de BOMS huérfanas:
             bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
@@ -230,12 +229,31 @@ class ProductProduct(models.Model):
                     if not record.color_attribute_id.id:
                         raise UserError("Hay productos del surtido sin ATRIBUTO COLOR calculado.")
 
+
+                    # PTAV del color:
+                    ptav_color = self.env['product.template.attribute.value'].search(
+                        [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                         ('product_attribute_value_id', '=', record.color_attribute_id.id)]
+                    )
+                    # PTAV de la talla:
+                    ptav_size = self.env['product.template.attribute.value'].search(
+                        [('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                         ('product_attribute_value_id', '=', li.value_id.id)]
+                    )
+
+                    pp_size = self.env['product.product'].search([
+                        ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
+                        ('product_template_variant_value_ids', 'in', ptav_color.id),
+                        ('product_template_variant_value_ids', 'in', ptav_size.id),
+                    ])
+
+""" ORIGINAL QUE FALLA PORQUE EL COLOR NO ESTÁ ASIGNADO:
                     pp_size = self.env['product.product'].search([
                         ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
                         ('color_attribute_id', '=', record.color_attribute_id.id),
-                        ('size_attribute_id', '=', li.value_id.id)])
-
-
+                        ('size_attribute_id', '=', li.value_id.id)
+                    ])
+"""
 
 
 
