@@ -13,9 +13,9 @@ class ProductProduct(models.Model):
     def create(self, vals_list):
         products = super().create(vals_list)
         for product in products:
-            color = product._get_color_attribute_value()
-            assortment = product._get_assortment_attribute_value()
-            size = product._get_size_attribute_value()
+            color       = product._get_color_attribute_value()
+            assortment  = product._get_assortment_attribute_value()
+            size        = product._get_size_attribute_value()
             product.write({'color_attribute_id': color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
         return products
 
@@ -25,7 +25,7 @@ class ProductProduct(models.Model):
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.color_attribute_id:
                     value = li.product_attribute_value_id.id
-            if len(record.product_variant_ids.ids) == 1:
+            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == self.env.company.color_attribute_id:
                         value = li.value_ids[0]
@@ -44,7 +44,7 @@ class ProductProduct(models.Model):
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.bom_attribute_id:
                     value = li.product_attribute_value_id.id
-            if len(record.product_variant_ids.ids) == 1:
+            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == self.env.company.bom_attribute_id:
                         value = li.value_ids[0]
@@ -65,7 +65,7 @@ class ProductProduct(models.Model):
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.size_attribute_id:
                     value = li.product_attribute_value_id.id
-            if len(record.product_variant_ids.ids) == 1:
+            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == self.env.company.size_attribute_id:
                         value = li.value_ids[0]
