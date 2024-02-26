@@ -17,7 +17,7 @@
         -->
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
-        <field name="active" eval="True"/>
+        <field name="active" eval="False"/>
     </record>
 
     <record id="shoes_dealer_update_product_attributes_workaround" model="base.automation">
@@ -30,7 +30,7 @@
         <field name="trigger">on_create_or_write</field>
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
-        <field name="active" eval="True"/>
+        <field name="active" eval="False"/>
     </record>
 
     <record id="shoes_dealer_sync_assortment_pair_attributes" model="base.automation">
