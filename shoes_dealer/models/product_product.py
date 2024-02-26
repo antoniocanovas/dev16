@@ -9,6 +9,7 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
+    product_template_attribute_value_ids = fields.Many2many(domain=[], store=True)
 
     def create(self, vals_list):
         products = super().create(vals_list)
