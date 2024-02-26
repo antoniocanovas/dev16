@@ -10,7 +10,7 @@ class ProductProduct(models.Model):
 
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
 
-    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids','size_attribute_id')
+    @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids','name')
     def _get_color_attribute_value(self):
         for record in self:
             value = False
@@ -189,6 +189,12 @@ class ProductProduct(models.Model):
             if size not in ptal.value_ids.ids:
                 ptal['value_ids'] = [(4, size)]
                 ptal._update_product_template_attribute_values()
+        for prod in record.product_tmpl_id.product_variant_ids:
+            prod.product_attributes_workaround()
+
+
+
+
 
     def create_set_bom(self):
         # Crear lista de materiales, si es surtido y ya tiene par asignado:
