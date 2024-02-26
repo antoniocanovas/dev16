@@ -9,7 +9,6 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     product_template_variant_value_ids = fields.Many2many(domain=[], store=True)
-    product_template_attribute_value_ids = fields.Many2many(domain=[], store=True)
 
     def create(self, vals_list):
         products = super().create(vals_list)
@@ -18,6 +17,7 @@ class ProductProduct(models.Model):
             assortment  = product._get_assortment_attribute_value()
             size        = product._get_size_attribute_value()
             product.write({'color_attribute_id': color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
+            product.check_for_new_sizes_and_colors()
         return products
 
     def _get_color_attribute_value(self):
@@ -26,17 +26,16 @@ class ProductProduct(models.Model):
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.color_attribute_id:
                     value = li.product_attribute_value_id.id
-#            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
-#                for li in record.product_tmpl_id.attribute_line_ids:
-#                    if li.attribute_id == self.env.company.color_attribute_id:
-#                        value = li.value_ids[0]
+            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
+                for li in record.product_tmpl_id.attribute_line_ids:
+                    if li.attribute_id == self.env.company.color_attribute_id:
+                        value = li.value_ids[0]
             return value
 
     color_attribute_id = fields.Many2one(
         "product.attribute.value",
         string="Color",
         store=True,
-#        compute="_get_color_attribute_value",
     )
 
     def _get_assortment_attribute_value(self):
@@ -55,7 +54,6 @@ class ProductProduct(models.Model):
         "product.attribute.value",
         string="Assortment",
         store=True,
-#        compute="_get_assortment_attribute_value",
     )
 
 
@@ -76,7 +74,6 @@ class ProductProduct(models.Model):
         "product.attribute.value",
         string="Size",
         store=True,
-#        compute="_get_size_attribute_value",
     )
 
     def update_shoes_pp(self):
