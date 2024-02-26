@@ -25,10 +25,10 @@ class ProductProduct(models.Model):
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.color_attribute_id:
                     value = li.product_attribute_value_id.id
-            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
-                for li in record.product_tmpl_id.attribute_line_ids:
-                    if li.attribute_id == self.env.company.color_attribute_id:
-                        value = li.value_ids[0]
+#            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
+#                for li in record.product_tmpl_id.attribute_line_ids:
+#                    if li.attribute_id == self.env.company.color_attribute_id:
+#                        value = li.value_ids[0]
             return value
 
     color_attribute_id = fields.Many2one(
