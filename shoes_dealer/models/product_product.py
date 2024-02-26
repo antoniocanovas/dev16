@@ -189,7 +189,7 @@ class ProductProduct(models.Model):
             if size not in ptal.value_ids.ids:
                 ptal['value_ids'] = [(4, size)]
                 ptal._update_product_template_attribute_values()
-        for prod in record.product_tmpl_id.product_variant_ids:
+        for prod in self.product_tmpl_id.product_variant_ids:
             prod.product_attributes_workaround()
 
 
