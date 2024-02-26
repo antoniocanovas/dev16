@@ -196,8 +196,8 @@ class ProductProduct(models.Model):
             pt_single = record.product_tmpl_single_id
             set_template = record.assortment_attribute_id.set_template_id
 
-            for val in
-            color_value = record.color_attribute_id
+#            for val in
+#            color_value = record.color_attribute_id
 
             # Limpieza de BOMS huérfanas:
             bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
