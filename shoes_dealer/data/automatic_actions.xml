@@ -9,6 +9,12 @@
             record.update_shoes_pp()
         </field>
         <field name="trigger">on_create_or_write</field>
+        <!--
+        <field name="trigger_field_ids" eval="[(6,0, [ref('shoes_dealer.field_product_template__shoes_campaign_id'),
+                                                    ref('shoes_dealer.field_product_template__exwork'),
+                                                    ref('shoes_dealer.field_product_template__exwork_single'),
+                                                    ref('product.field_product_template__product_variant_ids')])]"/>
+        -->
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
         <field name="active" eval="True"/>

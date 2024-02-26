@@ -62,10 +62,6 @@ class ProductProduct(models.Model):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
         self.shoes_dealer_check_environment()
 
-        # Asignar valores de color, talla y surtido directamente en la variante:
-        #    if self.is_pair or self.is_assortment:
-        #        self.set_assortment_color_and_size()
-
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
             self.check_for_new_sizes_and_colors()
@@ -123,7 +119,7 @@ class ProductProduct(models.Model):
             set_template = record.assortment_attribute_id.set_template_id
 
             # Limpieza de BOMS huérfanas:
-            bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
+       #     bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
             if pt_single.id and record.is_assortment and not record.variant_bom_ids:
                 # Creación de LDM:
