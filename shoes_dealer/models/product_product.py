@@ -247,13 +247,13 @@ class ProductProduct(models.Model):
                         ('product_template_variant_value_ids', 'in', ptav_size.id),
                     ])
 
-""" ORIGINAL QUE FALLA PORQUE EL COLOR NO ESTÁ ASIGNADO:
+                    """ ORIGINAL QUE FALLA PORQUE EL COLOR NO ESTÁ ASIGNADO:
                     pp_size = self.env['product.product'].search([
                         ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
                         ('color_attribute_id', '=', record.color_attribute_id.id),
                         ('size_attribute_id', '=', li.value_id.id)
                     ])
-"""
+                    """
 
 
 
