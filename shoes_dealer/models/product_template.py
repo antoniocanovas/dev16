@@ -178,7 +178,6 @@ class ProductTemplate(models.Model):
             record.update_set_price_by_pairs()
 
 
-
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
         for record in self:
@@ -351,7 +350,7 @@ class ProductTemplate(models.Model):
     #   m2o relacionado por el anterior: attribute_id
     #   product_attribute_value_id (m2o) a product.attribute.value
     #   name (char) related: product_attribute_value_id.name
-    # Modelo product.attribute.value:
+    # Modelo product.attribute.value, es el valor "rojo" final del producto:
     #   attribute_id (m2o a product.attribute)
     #   set_template_id (m2o) a set.template
     # Model set.template:
