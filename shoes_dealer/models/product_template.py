@@ -172,7 +172,7 @@ class ProductTemplate(models.Model):
             record.create_single_products()
             # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
-            # REVISAR, FÁCIL LLEVAR A PP:
+            # CÓDIGO DE SURTIDO O PAR:
             record.update_product_template_campaign_code()
             # REVISAR, TIENE UN DEPENDS:
             record.update_set_price_by_pairs()
