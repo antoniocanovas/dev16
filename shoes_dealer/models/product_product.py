@@ -17,7 +17,9 @@ class ProductProduct(models.Model):
             assortment  = product._get_assortment_attribute_value()
             size        = product._get_size_attribute_value()
             product.write({'color_attribute_id': color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
-            product.check_for_new_sizes_and_colors()
+            if (self.product_tmpl_single_id.id) and (self.is_assortment):
+                product.check_for_new_sizes_and_colors()
+                product.create_set_bom()
         return products
 
     def _get_color_attribute_value(self):
@@ -78,11 +80,11 @@ class ProductProduct(models.Model):
 
     def update_shoes_pp(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
-        self.shoes_dealer_check_environment()
+#        self.shoes_dealer_check_environment()
 
         # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.check_for_new_sizes_and_colors()
+#        if (self.product_tmpl_single_id.id) and (self.is_assortment):
+#            self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
         if (self.product_tmpl_single_id.id) and (self.is_assortment):
