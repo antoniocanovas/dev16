@@ -17,9 +17,9 @@ class ProductProduct(models.Model):
             assortment  = product._get_assortment_attribute_value()
             size        = product._get_size_attribute_value()
             product.write({'color_attribute_id': color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
-            if (self.product_tmpl_single_id.id) and (self.is_assortment):
+            if (product.product_tmpl_single_id.id) and (product.is_assortment):
                 product.check_for_new_sizes_and_colors()
-#                product.create_set_bom()
+                product.create_set_bom()
         return products
 
     def _get_color_attribute_value(self):
