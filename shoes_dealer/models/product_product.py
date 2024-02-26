@@ -71,8 +71,8 @@ class ProductProduct(models.Model):
             self.check_for_new_sizes_and_colors()
 
         # Revisar listas de materiales, si es surtido y ya tiene par asignado:
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.create_set_bom()
+#        if (self.product_tmpl_single_id.id) and (self.is_assortment):
+#            self.create_set_bom()
 
     def product_attributes_workaround(self):
         for record in self:
@@ -195,6 +195,8 @@ class ProductProduct(models.Model):
         for record in self:
             pt_single = record.product_tmpl_single_id
             set_template = record.assortment_attribute_id.set_template_id
+
+            for val in
             color_value = record.color_attribute_id
 
             # Limpieza de BOMS huérfanas:
@@ -230,6 +232,14 @@ class ProductProduct(models.Model):
                         ('product_tmpl_id', '=', record.product_tmpl_single_id.id),
                         ('color_attribute_id', '=', record.color_attribute_id.id),
                         ('size_attribute_id', '=', li.value_id.id)])
+
+
+
+
+
+
+
+
 
                     if not pp_size.id:
                         raise UserError(
