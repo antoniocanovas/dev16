@@ -39,7 +39,7 @@ class ProductProduct(models.Model):
                         value = li.value_ids[0]
             record['assortment_attribute_id'] = value
 
-    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Color', store=True,
+    assortment_attribute_id = fields.Many2one('product.attribute.value', string='Assortment', store=True,
                                               compute='_get_assortment_attribute_value')
 
     @api.depends('product_tmpl_id.valid_product_template_attribute_line_ids', 'name')
