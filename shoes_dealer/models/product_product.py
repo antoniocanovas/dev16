@@ -210,7 +210,7 @@ class ProductProduct(models.Model):
                         + " // "
                         + str(set_template.code)
                         + " "
-                        + str(color_value.name)
+                        + str(record.color_attribute_id.name)
                 )
 
                 bom = self.env["mrp.bom"].create(
