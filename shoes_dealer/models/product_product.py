@@ -147,7 +147,7 @@ class ProductProduct(models.Model):
             set_template = record.assortment_attribute_id.set_template_id
 
             # Limpieza de BOMS huérfanas:
-            #     bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
+                 bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
             if pt_single.id and record.is_assortment and not record.variant_bom_ids:
                 # Creación de LDM:
