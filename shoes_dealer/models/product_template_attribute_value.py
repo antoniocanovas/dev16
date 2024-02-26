@@ -46,7 +46,3 @@ class ProductTemplateAttributeValue(models.Model):
                             ptal_size_single['value_ids'] = [(3, val.id)]
                             ptal_size_single._update_product_template_attribute_values()
 
-                # Eliminar bom huérfanas:
-                bomsdelete = self.env['mrp.bom'].search(
-                    [('product_tmpl_id','=',record.product_tmpl_id.id),
-                     ('product_id', '=', False)]).unlink()
