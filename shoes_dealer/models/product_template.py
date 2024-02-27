@@ -166,7 +166,7 @@ class ProductTemplate(models.Model):
                     pp.write({"lst_price": record.list_price * pp.pairs_count})
 
     # Acción manual para actualizar las listas de materiales de los surtidos:
-    def update_shoes_mode_bom(self):
+    def update_shoes_model_bom(self):
         if (product.product_tmpl_single_id.id) and (product.is_assortment):
             # Creación de listas de material:
             nobomproducts = self.env['product.product'].search([
