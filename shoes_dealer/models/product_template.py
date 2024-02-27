@@ -167,19 +167,25 @@ class ProductTemplate(models.Model):
 
     # Acción manual para actualizar las listas de materiales de los surtidos:
     def update_shoes_model_bom(self):
-        if (product.product_tmpl_single_id.id) and (product.is_assortment):
+        if (self.product_tmpl_single_id.id) and (self.is_assortment):
             # Creación de listas de material:
-            nobomproducts = self.env['product.product'].search([
-                ('product_tmpl_id', '=', record.id),
-                ('variant_bom_ids', '=', False)])
+            nobomproducts = self.env["product.product"].search(
+                [("product_tmpl_id", "=", self.id), ("variant_bom_ids", "=", False)]
+            )
             for p in nobomproducts:
                 p.create_set_bom()
             # Limpieza de BOMS huérfanas:
-            bomsdelete = self.env['mrp.bom'].search([
-                ('is_assortment', '=', True),
-                ('product_tmpl_id', '=', record.id)
-                ('product_id', '=', False)]).unlink()
-
+            bomsdelete = (
+                self.env["mrp.bom"]
+                .search(
+                    [
+                        ("is_assortment", "=", True),
+                        ("product_tmpl_id", "=", self.id),
+                        ("product_id", "=", False),
+                    ]
+                )
+                .unlink()
+            )
 
     def create_shoe_pairs(self):
         for record in self:
@@ -192,7 +198,6 @@ class ProductTemplate(models.Model):
             record.update_product_template_campaign_code()
             # REVISAR, TIENE UN DEPENDS:
             record.update_set_price_by_pairs()
-
 
     def create_single_products(self):
         # Nueva versión desde variantes desde atributo:
@@ -226,6 +231,18 @@ class ProductTemplate(models.Model):
                         record.exwork * record.shoes_campaign_id.currency_exchange
                     )
 
+                for li in record.attribute_line_ids:
+                    if li.attribute_id.id == bom_attribute.id:
+                        for ptav in li.value_ids:
+                            for set_line in ptav.set_template_id.line_ids:
+                                if set_line.value_id.id not in sizes:
+                                    sizes.append(set_line.value_id.id)
+
+                    elif li.attribute_id.id == color_attribute.id:
+                        for ptav in li.value_ids:
+                            if ptav.id not in colors:
+                                colors.append(ptav.id)
+
                 newpt = self.env["product.template"].create(
                     {
                         "name": str(prefix) + record.name,
@@ -241,37 +258,27 @@ class ProductTemplate(models.Model):
                         "categ_id": record.categ_id.id,
                         "product_brand_id": record.product_brand_id.id,
                         "campaign_code": campaign_code,
+                        "attribute_line_ids": [
+                            (
+                                0,
+                                0,
+                                {
+                                    "attribute_id": size_attribute.id,
+                                    "value_ids": [(6, 0, sizes)],
+                                },
+                            ),
+                            (
+                                0,
+                                0,
+                                {
+                                    "attribute_id": color_attribute.id,
+                                    "value_ids": [(6, 0, colors)],
+                                },
+                            ),
+                        ],
                     }
                 )
                 record.write({"product_tmpl_single_id": newpt.id})
-
-                for li in record.attribute_line_ids:
-                    if li.attribute_id.id == bom_attribute.id:
-                        for ptav in li.value_ids:
-                            for set_line in ptav.set_template_id.line_ids:
-                                if set_line.value_id.id not in sizes:
-                                    sizes.append(set_line.value_id.id)
-                        new_ptal = self.env["product.template.attribute.line"].create(
-                            {
-                                "product_tmpl_id": newpt.id,
-                                "attribute_id": size_attribute.id,
-                                "value_ids": [(6, 0, sizes)],
-                            }
-                        )
-                        new_ptal._update_product_template_attribute_values()
-
-                    elif li.attribute_id.id == color_attribute.id:
-                        for ptav in li.value_ids:
-                            if ptav.id not in colors:
-                                colors.append(ptav.id)
-                        new_ptal = self.env["product.template.attribute.line"].create(
-                            {
-                                "product_tmpl_id": newpt.id,
-                                "attribute_id": color_attribute.id,
-                                "value_ids": [(6, 0, colors)],
-                            }
-                        )
-                        new_ptal._update_product_template_attribute_values()
 
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')

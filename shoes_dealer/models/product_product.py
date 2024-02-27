@@ -13,17 +13,26 @@ class ProductProduct(models.Model):
     def create(self, vals_list):
         products = super().create(vals_list)
         for product in products:
-            color       = product._get_color_attribute_value()
-            assortment  = product._get_assortment_attribute_value()
-            size        = product._get_size_attribute_value()
-            product.write({'color_attribute_id': color, 'assortment_attribute_id':assortment, 'size_attribute_id':size})
+            color = product._get_color_attribute_value()
+            assortment = product._get_assortment_attribute_value()
+            size = product._get_size_attribute_value()
+            product.write(
+                {
+                    "color_attribute_id": color,
+                    "assortment_attribute_id": assortment,
+                    "size_attribute_id": size,
+                }
+            )
             if (product.product_tmpl_single_id.id) and (product.is_assortment):
                 # Chequeo de nuevas tallas y colores necesarios en el producto PAR, para los surtidos:
                 product.check_for_new_sizes_and_colors()
                 # Listas de materiales de los surtidos con los pares:
-                nobomproducts = self.env['product.product'].search([
-                    ('product_tmpl_id','=',product.product_tmpl_id.id),
-                    ('variant_bom_ids','=',False)])
+                nobomproducts = self.env["product.product"].search(
+                    [
+                        ("product_tmpl_id", "=", product.product_tmpl_id.id),
+                        ("variant_bom_ids", "=", False),
+                    ]
+                )
                 for p in nobomproducts:
                     p.create_set_bom()
         return products
@@ -34,7 +43,7 @@ class ProductProduct(models.Model):
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.color_attribute_id:
                     value = li.product_attribute_value_id.id
-            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
+            if len(record.product_tmpl_id.attribute_line_ids.ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == self.env.company.color_attribute_id:
                         value = li.value_ids[0]
@@ -64,14 +73,13 @@ class ProductProduct(models.Model):
         store=True,
     )
 
-
     def _get_size_attribute_value(self):
         for record in self:
             value = False
             for li in record.product_template_attribute_value_ids:
                 if li.attribute_id == self.env.company.size_attribute_id:
                     value = li.product_attribute_value_id.id
-            if len(record.product_tmpl_id.product_variant_ids.ids) == 1:
+            if len(record.product_tmpl_id.attribute_line_ids.ids) == 1:
                 for li in record.product_tmpl_id.attribute_line_ids:
                     if li.attribute_id == self.env.company.size_attribute_id:
                         value = li.value_ids[0]
@@ -133,7 +141,7 @@ class ProductProduct(models.Model):
             set_template = record.assortment_attribute_id.set_template_id
 
             # Limpieza de BOMS huérfanas:
-      #      bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
+            #      bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
 
             if pt_single.id and record.is_assortment and not record.variant_bom_ids:
                 # Creación de LDM:
