@@ -165,6 +165,22 @@ class ProductTemplate(models.Model):
                 for pp in record.product_variant_ids:
                     pp.write({"lst_price": record.list_price * pp.pairs_count})
 
+    # Acción manual para actualizar las listas de materiales de los surtidos:
+    def update_shoes_mode_bom(self):
+        if (product.product_tmpl_single_id.id) and (product.is_assortment):
+            # Creación de listas de material:
+            nobomproducts = self.env['product.product'].search([
+                ('product_tmpl_id', '=', record.id),
+                ('variant_bom_ids', '=', False)])
+            for p in nobomproducts:
+                p.create_set_bom()
+            # Limpieza de BOMS huérfanas:
+            bomsdelete = self.env['mrp.bom'].search([
+                ('is_assortment', '=', True),
+                ('product_tmpl_id', '=', record.id)
+                ('product_id', '=', False)]).unlink()
+
+
     def create_shoe_pairs(self):
         for record in self:
             if not record.shoes_campaign_id.id:

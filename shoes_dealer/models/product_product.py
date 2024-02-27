@@ -65,7 +65,6 @@ class ProductProduct(models.Model):
     )
 
 
-
     def _get_size_attribute_value(self):
         for record in self:
             value = False
@@ -83,25 +82,6 @@ class ProductProduct(models.Model):
         string="Size",
         store=True,
     )
-
-    def update_shoes_pp(self):
-        # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
-#        self.shoes_dealer_check_environment()
-
-        # Chequear si existen las tallas en el producto par, creándolas (sólo para surtidos):
-#        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-#            self.check_for_new_sizes_and_colors()
-
-        # Revisar listas de materiales, si es surtido y ya tiene par asignado:
-        if (self.product_tmpl_single_id.id) and (self.is_assortment):
-            self.create_set_bom()
-
-    # Parche para asignar a posteriori en los pares el color mediante dependencia, mientras no encuentro otra solución:
-    def product_attributes_workaround(self):
-        for record in self:
-            if not record.color_attribute_id.id:
-                name = record.name
-                record["name"] = name
 
     def shoes_dealer_check_environment(self):
         # Chequear si existen las variables de empresa para shoes_dealer, con sus mensajes de alerta:
