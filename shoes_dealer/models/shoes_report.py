@@ -14,7 +14,7 @@ class ShoesSaleReport(models.Model):
    name = fields.Char(string='Nombre', required=True)
    shoes_campaign_id = fields.Many2one('project.project', string='Shoes campaign')
    model_ids = fields.One2many('shoes.sale.report.line', 'shoes_report_id', string='Lines')
-   @api.depends('shoes_campaing_id')
+   @api.depends('shoes_campaign_id')
    def _get_sale_orders(self):
        for record in self:
            orders = self.env['sale.order'].search([
