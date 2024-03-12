@@ -38,7 +38,7 @@ class SaleOrder(models.Model):
         for record in self:
             discount = 0
             if record.amount_untaxed != 0:
-                discount = (1 - (record.amount_untaxed * 100 / record.amount_undiscounted)) * 100
+                discount = (1 - (record.amount_untaxed / record.amount_undiscounted)) * 100
             record['global_discount'] = discount
     global_discount = fields.Float(string='Global discount', store=False, compute='_get_shoes_sale_percent_discount')
 
