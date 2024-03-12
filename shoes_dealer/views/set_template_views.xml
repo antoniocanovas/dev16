@@ -84,9 +84,9 @@
             <tree>
                 <field name="name"/>
                 <field name="code"/>
-                <field name="attribute_id"/>
                 <field name="line_ids" widget="many2many_tags"/>
                 <field name="pairs_count"/>
+                <field name="attribute_id" invisible="1"/>
             </tree>
         </field>
         <field name="field_parent" eval="False"/>
