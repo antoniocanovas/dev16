@@ -108,6 +108,6 @@ class ShoesSaleReportLine(models.Model):
     manager = fields.Float('Manager amount')
     total = fields.Float('Net amount')
     cost = fields.Float('Cost amount')
-    margin = fields.Monetary('Margin amount')
+    margin = fields.Float('Margin amount')
     margin_percent = fields.Float('Margin %')
     pairs_count = fields.Integer('Pairs')
