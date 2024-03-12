@@ -18,11 +18,13 @@ class ShoesSaleReport(models.Model):
    @api.depends('shoes_campaign_id')
    def _get_sale_orders(self):
        for record in self:
-           orders = self.env['sale.order'].search([
-               ('shoes_campaign_id','=',record.shoes_campaign_id.id),
-               ('state','not in', ['draft','cancel']),
-           ])
-           record['sale_ids'] = [(6,0,orders.ids)]
+           orders = []
+           if record.type == 'sale':
+               orders = self.env['sale.order'].search([
+                   ('shoes_campaign_id','=',record.shoes_campaign_id.id),
+                   ('state','not in', ['draft','cancel']),
+               ]).ids
+           record['sale_ids'] = [(6,0,orders)]
    sale_ids = fields.Many2many('sale.order', string='Orders', store=False, compute='_get_sale_orders')
 
 
