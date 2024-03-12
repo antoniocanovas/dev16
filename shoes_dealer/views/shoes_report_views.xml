@@ -5,8 +5,8 @@
     <record id="action_shoes_margin_by_model" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
-        <field name="context">{}</field>
-        <field name="domain">[]</field>
+        <field name="context">{'default_type':'model'}</field>
+        <field name="domain">[('type','=','model')]</field>
         <field name="filter" eval="False"/>
         <field name="groups_id" eval="[(6, 0, [])]"/>
         <field name="limit">80</field>
@@ -21,8 +21,8 @@
     <record id="action_shoes_margin_by_sale_order" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
-        <field name="context">{}</field>
-        <field name="domain">[]</field>
+        <field name="context">{'default_type':'sale'}</field>
+        <field name="domain">[('type','=','sale)]</field>
         <field name="filter" eval="False"/>
         <field name="groups_id" eval="[(6, 0, [])]"/>
         <field name="limit">80</field>
@@ -66,6 +66,7 @@
                     </h1>
                     <group>
                         <field name="shoes_campaign_id" required="1"/>
+                        <field name="type" invisible="1"/>
                     </group>
                     <field name="model_ids">
                         <tree readonly="1">

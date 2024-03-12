@@ -13,6 +13,7 @@ class ShoesSaleReport(models.Model):
 
    name = fields.Char(string='Nombre', required=True)
    shoes_campaign_id = fields.Many2one('project.project', string='Shoes campaign')
+   type = fields.Selection([('model','Model'),('sale','Sale')], string='Type', copy=True)
    model_ids = fields.One2many('shoes.sale.report.line', 'shoes_report_id', string='Lines')
    @api.depends('shoes_campaign_id')
    def _get_sale_orders(self):
@@ -23,6 +24,7 @@ class ShoesSaleReport(models.Model):
            ])
            record['sale_ids'] = [(6,0,orders.ids)]
    sale_ids = fields.Many2many('sale.order', string='Orders', store=False, compute='_get_sale_orders')
+
 
 
 
