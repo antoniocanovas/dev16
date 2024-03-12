@@ -1,64 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    <!-- ACCIONES DE VENTANA: -->
-    <record id="action_shoes_margin_by_model" model="ir.actions.act_window">
-        <field name="binding_model_id" eval="False"/>
-        <field name="binding_type">action</field>
-        <field name="context">{'default_type':'model'}</field>
-        <field name="domain">[('type','=','model')]</field>
-        <field name="filter" eval="False"/>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
-        <field name="limit">80</field>
-        <field name="name">Margin report by model</field>
-        <field name="res_model">shoes.sale.report</field>
-        <field name="search_view_id" eval="False"/>
-        <field name="target">current</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_ids"
-               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_model_form')})]"/>
-    </record>
-
-
-    <record id="action_shoes_margin_by_sale_order" model="ir.actions.act_window">
-        <field name="binding_model_id" eval="False"/>
-        <field name="binding_type">action</field>
-        <field name="context">{'default_type':'sale'}</field>
-        <field name="domain">[('type','=','sale')]</field>
-        <field name="filter" eval="False"/>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
-        <field name="limit">80</field>
-        <field name="name">Margin report by sale order</field>
-        <field name="res_model">shoes.sale.report</field>
-        <field name="search_view_id" eval="False"/>
-        <field name="target">current</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_ids"
-               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_sale_order_form')})]"/>
-    </record>
-
-    <!-- REPORT MENUS: -->
-    <record id="shoes_margin_by_model_menu" model="ir.ui.menu">
-        <field name="action" ref="action_shoes_margin_by_model"/>
-        <field name="active" eval="True"/>
-        <field name="name">Margin by model</field>
-        <field name="parent_id" ref="sale.menu_sale_config"/>
-        <field name="sequence">100</field>
-        <field name="web_icon" eval="False"/>
-    </record>
-
-    <record id="shoes_margin_by_sale_order_menu" model="ir.ui.menu">
-        <field name="action" ref="action_shoes_margin_by_sale_order"/>
-        <field name="active" eval="True"/>
-        <field name="name">Margin by sale order</field>
-        <field name="parent_id" ref="sale.menu_sale_config"/>
-        <field name="sequence">110</field>
-        <field name="web_icon" eval="False"/>
-    </record>
-
-
     <!-- FORM VIEW - REPORT BY MODEL: -->
     <record id="shoes_margin_by_model_form" model="ir.ui.view">
         <field name="name">shoes.margin.by.model.default.form</field>
@@ -148,6 +90,66 @@
         <field name="priority">16</field>
         <field name="type">form</field>
     </record>
+
+
+
+    <!-- ACCIONES DE VENTANA: -->
+    <record id="action_shoes_margin_by_model" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'default_type':'model'}</field>
+        <field name="domain">[('type','=','model')]</field>
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Margin report by model</field>
+        <field name="res_model">shoes.sale.report</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_model_form')})]"/>
+    </record>
+
+
+    <record id="action_shoes_margin_by_sale_order" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'default_type':'sale'}</field>
+        <field name="domain">[('type','=','sale')]</field>
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Margin report by sale order</field>
+        <field name="res_model">shoes.sale.report</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_sale_order_form')})]"/>
+    </record>
+
+    <!-- REPORT MENUS: -->
+    <record id="shoes_margin_by_model_menu" model="ir.ui.menu">
+        <field name="action" ref="action_shoes_margin_by_model"/>
+        <field name="active" eval="True"/>
+        <field name="name">Margin by model</field>
+        <field name="parent_id" ref="sale.menu_sale_config"/>
+        <field name="sequence">100</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+    <record id="shoes_margin_by_sale_order_menu" model="ir.ui.menu">
+        <field name="action" ref="action_shoes_margin_by_sale_order"/>
+        <field name="active" eval="True"/>
+        <field name="name">Margin by sale order</field>
+        <field name="parent_id" ref="sale.menu_sale_config"/>
+        <field name="sequence">110</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
 
     <!-- TREE VIEW - REPORT BY MODEL: -->
     <record id="shoes_margin_by_model_default_tree" model="ir.ui.view">
