@@ -78,7 +78,9 @@ class SaleOrder(models.Model):
     cost_before_delivery = fields.Monetary('Cost', store=False, compute='_get_cost_before_delivery')
 
     def _get_shoes_sale_margin(self):
-        record['shoes_margin'] = record.amount_untaxed - record.commission - record.manager_commission - record.cost_before_delivery
+        for record in self:
+            margin = record.amount_untaxed - record.commission - record.manager_commission - record.cost_before_delivery
+            record['shoes_margin'] = margin
     shoes_margin = fields.Monetary('Shoes margin', store=False, compute='_get_shoes_sale_margin')
 
     def _get_shoes_margin_percent(self):
