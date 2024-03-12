@@ -6,28 +6,30 @@ from odoo import fields, models, api
 
 
 class ShoesSaleReport(models.Model):
-   _name = 'shoes.sale.report'
-   _inherit = ['mail.thread', 'mail.activity.mixin']
-   _description = 'Shoes Sale Report'
+    _name = 'shoes.sale.report'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = 'Shoes Sale Report'
 
 
-   name = fields.Char(string='Nombre', required=True)
-   shoes_campaign_id = fields.Many2one('project.project', string='Shoes campaign')
-   type = fields.Selection([('model','Model'),('sale','Sale')], string='Type', copy=True)
-   model_ids = fields.One2many('shoes.sale.report.line', 'shoes_report_id', string='Lines')
-   @api.depends('shoes_campaign_id')
-   def _get_sale_orders(self):
-       for record in self:
-           orders = []
-           if record.type == 'sale':
-               orders = self.env['sale.order'].search([
-                   ('shoes_campaign_id','=',record.shoes_campaign_id.id),
-                   ('state','not in', ['draft','cancel']),
-               ]).ids
-           record['sale_ids'] = [(6,0,orders)]
-   sale_ids = fields.Many2many('sale.order', string='Orders', store=False, compute='_get_sale_orders')
+    name = fields.Char(string='Nombre', required=True)
+    shoes_campaign_id = fields.Many2one('project.project', string='Shoes campaign')
+    type = fields.Selection([('model','Model'),('sale','Sale')], string='Type', copy=True)
+    model_ids = fields.One2many('shoes.sale.report.line', 'shoes_report_id', string='Lines')
+    @api.depends('shoes_campaign_id')
+    def _get_sale_orders(self):
+        for record in self:
+            orders = []
+            if record.type == 'sale':
+                orders = self.env['sale.order'].search([
+                    ('shoes_campaign_id','=',record.shoes_campaign_id.id),
+                    ('state','not in', ['draft','cancel']),
+                ]).ids
+            record['sale_ids'] = [(6,0,orders)]
+    sale_ids = fields.Many2many('sale.order', string='Orders', store=False, compute='_get_sale_orders')
 
 
+    def update_shoes_model_report(self):
+        return True
 
 
 # Campos calculados para mostrar en el informe de "Rentabilidad por pedidos":
@@ -117,6 +119,3 @@ class ShoesSaleReportLine(models.Model):
     margin = fields.Float('Margin amount')
     margin_percent = fields.Float('Margin %')
     pairs_count = fields.Integer('Pairs')
-
-    def update_shoes_model_report(self):
-        return True
