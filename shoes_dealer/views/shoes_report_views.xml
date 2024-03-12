@@ -149,7 +149,7 @@
         <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="model_id"/>
+                <field name="name"/>
             </tree>
         </field>
         <field name="field_parent" eval="False"/>
