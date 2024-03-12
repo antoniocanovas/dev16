@@ -24,6 +24,7 @@
         "sale_order_line_menu",
         "sale_product_image",
         "sale_order_line_date",
+        "partner_commission",
         "partner_commission_manager_ee",
     ],
     "data": [
