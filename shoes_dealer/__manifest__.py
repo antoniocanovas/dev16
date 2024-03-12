@@ -41,6 +41,7 @@
         "views/mrp_bom_views.xml",
         "views/project_project_views.xml",
         "views/sale_report_views.xml",
+        "views/shoes_report_views.xml",
         #        "views/account_invoice_report_views.xml",
         "data/automatic_actions.xml",
         "data/server_actions.xml",
