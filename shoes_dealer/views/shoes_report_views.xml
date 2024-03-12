@@ -20,16 +20,19 @@
                             <field name="model_id"/>
                             <field name="color_id"/>
                             <field name="model_description"/>
-                            <field name="sale"/>
-                            <field name="discount"/>
+                            <field name="sale" sum="Sale"/>
+                            <field name="global_discount"/>
+                            <field name="discount" sum="Discount"/>
                             <field name="discount_early_payment"/>
-                            <field name="referrer"/>
-                            <field name="manager"/>
-                            <field name="total"/>
-                            <field name="cost"/>
-                            <field name="margin"/>
-                            <field name="margin_percent"/>
-                            <field name="pairs_count"/>
+                            <field name="referrer_percent_commission"/>
+                            <field name="referrer" sum="Referrer"/>
+                            <field name="manager_percent_commission"/>
+                            <field name="manager" sum="Manager"/>
+                            <field name="total" sum="Total"/>
+                            <field name="cost" sum="Cost"/>
+                            <field name="margin" sum="Diff"/>
+                            <field name="margin_percent" avg="%Mar"/>
+                            <field name="pairs_count" sum="Pairs"/>
                             <field name="shoes_report_id" invisible="1"/>
                         </tree>
                     </field>
