@@ -10,6 +10,7 @@
     "website": "https://www.ingenieriacloud.com",
     "license": "AGPL-3",
     "depends": [
+        "crm",
         "sale_management",
         "purchase",
         "stock",
