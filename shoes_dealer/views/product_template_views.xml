@@ -59,6 +59,7 @@
                          ('is_assortment','=',False)]}"
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
+
                 <button name="update_product_template_campaign_code"
                         icon="fa-spinner" class="oe_stat_button"
                         type="object" string="Upd Codes"

@@ -117,3 +117,6 @@ class ShoesSaleReportLine(models.Model):
     margin = fields.Float('Margin amount')
     margin_percent = fields.Float('Margin %')
     pairs_count = fields.Integer('Pairs')
+
+    def update_shoes_model_report(self):
+        return True

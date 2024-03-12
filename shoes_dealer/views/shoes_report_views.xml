@@ -7,6 +7,12 @@
         <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="update_shoes_model_report" string="Update" type="object"
+                            icon="fa-play" class="oe_stat_button"
+                            groups="account.group_account_manager">
+                    </button>
+                </header>
                 <sheet>
                     <h1>
                         <field name="name" placeholder="Name as campaign, type, date ..."/>
