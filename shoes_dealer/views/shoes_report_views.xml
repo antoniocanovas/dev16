@@ -128,7 +128,6 @@
                                 <field name="shoes_margin"/>
                                 <field name="shoes_margin_percent"/>
                                 <field name="pairs_count"/>
-                                <field name="shoes_report_id" invisible="1"/>
                             </tree>
                         </field>
                     </group>
