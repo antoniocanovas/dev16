@@ -7,7 +7,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     referrer_id = fields.Many2one(
-        "res.partner", String="Referrer", related="order_id.referrer_id", store=True
+        "res.partner", related="order_id.referrer_id", store=True
     )
 
     # Comercialmente en cada pedido quieren saber cuántos pares se han vendido:

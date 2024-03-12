@@ -189,8 +189,8 @@ class ProductTemplate(models.Model):
 
     def create_shoe_pairs(self):
         for record in self:
-            if not record.shoes_campaign_id.id:
-                raise UserError("Assign a campaign before pairs creation !!")
+            if not record.shoes_campaign_id.id or not record.manufacturer_id.id:
+                raise UserError("Assign a campaign and manufacturer before pairs creation !!")
             record.create_single_products()
             # REVISAR, TIENE AA:
             record.update_standard_price_on_variants()
