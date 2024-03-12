@@ -99,7 +99,7 @@ class ShoesSaleReportLine(models.Model):
 
     shoes_report_id = fields.Many2one('shoes.sale.report', string='Shoes report')
     model_id = fields.Many2one('product.template', string='Model')
-    color_id = fields.Many2one('product.attribute.value', string='Color', related='model_id.color_attribute_id')
+    color_id = fields.Many2one('product.attribute.value', string='Color')
     model_description = fields.Text('Sale description', related='model_id.description_sale')
     sale = fields.Monetary('Sale amount')
     discount = fields.Monetary('Discount amount')
