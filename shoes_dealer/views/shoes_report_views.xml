@@ -21,14 +21,11 @@
                             <field name="color_id"/>
                             <field name="model_description"/>
                             <field name="sale" sum="Sale"/>
-                            <field name="global_discount"/>
                             <field name="discount" sum="Discount"/>
-                            <field name="discount_early_payment"/>
-                            <field name="referrer_percent_commission"/>
+                            <field name="discount_early_payment" sum="Disc EP"/>
                             <field name="referrer" sum="Referrer"/>
-                            <field name="manager_percent_commission"/>
                             <field name="manager" sum="Manager"/>
-                            <field name="total" sum="Total"/>
+                            <field name="total" sum="Net"/>
                             <field name="cost" sum="Cost"/>
                             <field name="margin" sum="Diff"/>
                             <field name="margin_percent" avg="%Mar"/>
@@ -68,18 +65,18 @@
                             <field name="name"/>
                             <field name="date_order" widget="date"/>
                             <field name="partner_id"/>
-                            <field name="amount_untaxed"/>
+                            <field name="amount_untaxed" sum="Gross"/>
                             <field name="global_discount"/>
-                            <field name="amount_discounted"/>
+                            <field name="amount_discounted" sum="Discounts"/>
                             <field name="referrer_percent_commission"/>
-                            <field name="commission"/>
+                            <field name="commission" sum="Referrer"/>
                             <field name="manager_percent_commission"/>
-                            <field name="manager_commission"/>
-                            <field name="amount_whitout_commission"/>
-                            <field name="cost_before_delivery"/>
-                            <field name="shoes_margin"/>
-                            <field name="shoes_margin_percent"/>
-                            <field name="pairs_count"/>
+                            <field name="manager_commission" sum="Manager"/>
+                            <field name="amount_whitout_commission" sum="Net"/>
+                            <field name="cost_before_delivery" sum="Cost"/>
+                            <field name="shoes_margin" sum="Diff"/>
+                            <field name="shoes_margin_percent" avg="%Mar"/>
+                            <field name="pairs_count" sum="Pairs"/>
                         </tree>
                     </field>
                 </sheet>
