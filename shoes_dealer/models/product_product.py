@@ -28,14 +28,6 @@ class ProductProduct(models.Model):
                 product.check_for_new_sizes_and_colors()
                 # Listas de materiales de los surtidos con los pares:
                 product.create_set_bom()
-            #    nobomproducts = self.env["product.product"].search(
-            #        [
-            #            ("product_tmpl_id", "=", product.product_tmpl_id.id),
-            #            ("variant_bom_ids", "=", False),
-            #        ]
-            #    )
-            #    for p in nobomproducts:
-            #        p.create_set_bom()
         return products
 
     def _get_color_attribute_value(self):
