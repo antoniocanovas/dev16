@@ -98,9 +98,9 @@
         <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
                 <field name="shoes_campaign_id"/>
-                <field name="write_date"/>
+                <field name="name"/>
+                <field name="write_date" optional="show"/>
                 <field name="write_uid" optional="hide"/>
             </tree>
         </field>
@@ -119,9 +119,9 @@
         <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
                 <field name="shoes_campaign_id"/>
-                <field name="create_date"/>
+                <field name="name"/>
+                <field name="create_date" optional="show"/>
                 <field name="create_uid" optional="hide"/>
             </tree>
         </field>
