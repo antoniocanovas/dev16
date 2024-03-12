@@ -16,7 +16,10 @@
         <field name="target">current</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_model_form')})]"/>
     </record>
+
 
     <record id="action_shoes_margin_by_sale_order" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
@@ -32,6 +35,8 @@
         <field name="target">current</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_sale_order_form')})]"/>
     </record>
 
     <!-- REPORT MENUS: -->
@@ -55,7 +60,7 @@
 
 
     <!-- FORM VIEW - REPORT BY MODEL: -->
-    <record id="shoes_margin_by_model_default_form" model="ir.ui.view">
+    <record id="shoes_margin_by_model_form" model="ir.ui.view">
         <field name="name">shoes.margin.by.model.default.form</field>
         <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
@@ -100,7 +105,7 @@
 
 
     <!-- FORM VIEW - REPORT BY SALES: -->
-    <record id="shoes_margin_by_sale_order_default_form" model="ir.ui.view">
+    <record id="shoes_margin_by_sale_order_form" model="ir.ui.view">
         <field name="name">shoes.margin.by.sale.order.default.form</field>
         <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
