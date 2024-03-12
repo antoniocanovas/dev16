@@ -22,7 +22,7 @@ class ShoesSaleReport(models.Model):
                ('state','not in', ['draft','cancel']),
            ])
            record['sale_ids'] = [(6,0,orders.ids)]
-   sale_ids = fields.Many2many('sale.order', string='Orders', compute='_get_sale_orders')
+   sale_ids = fields.Many2many('sale.order', string='Orders', store=False, compute='_get_sale_orders')
 
 
 
