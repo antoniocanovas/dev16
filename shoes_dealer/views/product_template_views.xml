@@ -51,10 +51,11 @@
                          ('is_assortment','=',False)]}"
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
+
                  <button name="update_shoes_model_bom" string="Update BOM" type="object"
                         icon="fa-play" class="oe_stat_button"
                         attrs="{'invisible':['|',
-                         ('product_tmpl_single_id','!=',False),
+                         ('product_tmpl_single_id','=',False),
                          ('is_assortment','=',False)]}"
                         groups="sales_team.group_sale_salesman_all_leads">
                 </button>
