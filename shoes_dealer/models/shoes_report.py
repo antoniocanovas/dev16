@@ -269,7 +269,7 @@ class ShoesSaleReportLine(models.Model):
     )
     sale = fields.Float("Sale", help="Sale amount")
     discount = fields.Float("Disc.", help="Discount amount")
-    discount_early_payment = fields.Float("EP", help"Early payment discount")
+    discount_early_payment = fields.Float("EP", help="Early payment discount")
     referrer = fields.Float("Referrer", help="Referrer commission")
     manager = fields.Float("Manager", help="Manager commission")
     total = fields.Float("Net", help="Net amount")
