@@ -80,7 +80,7 @@ class ShoesSaleReport(models.Model):
 
             for model in models:
                 if (record.product_ids.ids) and (model.id not in record.product_ids.ids): continue
-                colors, total_model_pairs, total_pairs = [], 0, 0
+                colors, total_model_pairs = [], 0
                 lines = self.env["sale.order.line"].search(
                     [
                         ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
@@ -131,7 +131,6 @@ class ShoesSaleReport(models.Model):
                             manager += li.order_id.manager_commission * factor
                             cost += li.product_id.standard_price * li.product_uom_qty
                             pairs_count += li.pairs_count
-                        total_pairs += pairs_count
                         net = sale - discount - referrer - manager
                         difference = net - cost
                         if net != 0:
