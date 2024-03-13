@@ -1,6 +1,49 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
+    <!-- WINDOW ACTION AND VIEW O2M LINES: -->
+    <!-- TREE VIEW - O2M: -->
+    <record id="shoes_report_lines_o2m_tree" model="ir.ui.view">
+        <field name="name">shoes.report.lines.o2m.tree</field>
+        <field name="model">shoes.sale.report.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="model_id"/>
+                <field name="color"/>
+                <field name="pairs_count"/>
+            </tree>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+    <record id="shoes_report_line_o2m" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'default_group_by':model_id}</field>
+        <field name="domain">[('shoes_report_id','=',active_id)]</field>
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Sales report by model</field>
+        <field name="res_model">shoes.sale.report.line</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+               (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_report_lines_o2m_tree')}),
+               ]"/>
+    </record>
+
+
+
     <!-- FORM VIEW - REPORT BY MODEL: -->
     <record id="shoes_margin_by_model_form" model="ir.ui.view">
         <field name="name">shoes.margin.by.model.default.form</field>
@@ -144,28 +187,6 @@
         <field name="type">tree</field>
     </record>
 
-    <!-- TREE VIEW - O2M: -->
-    <record id="shoes_report_lines_o2m_tree" model="ir.ui.view">
-        <field name="name">shoes.report.lines.o2m.tree</field>
-        <field name="model">shoes.sale.report.line</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="model_id"/>
-                <field name="color"/>
-                <field name="pairs_count"/>
-            </tree>
-        </field>
-        <field name="field_parent" eval="False"/>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
-        <field name="inherit_id" eval="False"/>
-        <field name="key" eval="False"/>
-        <field name="mode">primary</field>
-        <field name="priority">16</field>
-        <field name="type">tree</field>
-    </record>
-
-
-
 
     <!-- ACCIONES DE VENTANA: -->
     <record id="action_shoes_margin_by_model" model="ir.actions.act_window">
@@ -208,26 +229,6 @@
                eval="[(5, 0, 0),
                (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_margin_by_sale_order_tree')}),
                (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_sale_order_form')}),
-               ]"/>
-    </record>
-
-    <record id="shoes_report_line_o2m" model="ir.actions.act_window">
-        <field name="binding_model_id" eval="False"/>
-        <field name="binding_type">action</field>
-        <field name="context">{'default_group_by':model_id}</field>
-        <field name="domain">[('shoes_report_id','=',active_id)]</field>
-        <field name="filter" eval="False"/>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
-        <field name="limit">80</field>
-        <field name="name">Sales report by model</field>
-        <field name="res_model">shoes.sale.report.line</field>
-        <field name="search_view_id" eval="False"/>
-        <field name="target">current</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree</field>
-        <field name="view_ids"
-               eval="[(5, 0, 0),
-               (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_report_lines_o2m_tree')}),
                ]"/>
     </record>
 
