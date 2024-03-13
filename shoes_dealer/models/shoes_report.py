@@ -48,20 +48,20 @@ class ShoesSaleReport(models.Model):
                         colors.append(li.product_id.color_attribute_id)
 
                 for color in colors:
-                    total, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                    sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
                     lines = env['sale.order.line'].search(
                         [('shoes_campaign_id', '=', record.shoes_campaign_id.id), ('product_tmpl_id', '=', model.id)])
                     for li in lines:
                         if li.product_id.color_attribute_id == color:
                             factor = 1
                             factor = li.price_subtotal / li.order_id.amount_untaxed
-                            total += li.price_subtotal
+                            sale += li.price_subtotal
                             discount += li.price_subtotal * li.discount / 100
                             referrer += li.order_id.commission * factor
                             manager += li.order_id.manager_commission * factor
                             cost += li.product_id.standard_price * li.product_uom_qty
                             pairs_count += li.pairs_count
-                        net = total - discount - referrer - manager
+                        net = sale - discount - referrer - manager
                         difference = net - cost
                         if net != 0:
                             margin_percent = difference / net * 100
@@ -71,7 +71,7 @@ class ShoesSaleReport(models.Model):
                             'shoes_report_id': record.id,
                             'model_id': model.id,
                             'color_id': color.id,
-                            'sale': total,
+                            'sale': sale,
                             'discount': discount,
                             'discount_early_payment': 0,
                             'referrer': referrer,
