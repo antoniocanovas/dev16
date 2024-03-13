@@ -18,10 +18,24 @@ class ShoesSaleReport(models.Model):
     pairs_count = fields.Integer("Pairs count")
     from_date = fields.Date("From date")
     to_date = fields.Date("To date")
-    referrer_ids = fields.Many2many(
-        "res.partner", domain=[("commission_plan_id", "!=", False)]
-    )
-    # partner_ids = fields.Many2many("res.partner", domain=[("customer_rank", ">", 0)])
+    referrer_ids = fields.Many2many(comodel_name='res.partner',
+                                    string="Referres",
+                                    relation='shoesreport_referrer_rel',
+                                    column1="Shoes report",
+                                    column2="Referrer",
+                                    store=True,
+                                    domain=[("commission_plan_id", "!=", False)],
+                                    context={'active_test': True},
+                                    )
+    partner_ids = fields.Many2many(comodel_name='res.partner',
+                                    string="Customers",
+                                    relation='shoesreport_customer_rel',
+                                    column1="Shoes report",
+                                    column2="Customer",
+                                    store=True,
+                                    domain=[("customer_rank", ">", 0)],
+                                    context={'active_test': True},
+                                    )
     order_ids = fields.Many2many("sale.order")
     product_ids = fields.Many2many("product.template", domain=[("sale_ok", "=", True)])
     model_ids = fields.One2many(
@@ -253,16 +267,16 @@ class ShoesSaleReportLine(models.Model):
     model_description = fields.Text(
         "Sale description", related="model_id.description_sale"
     )
-    sale = fields.Float("Sale amount")
-    discount = fields.Float("Discount amount")
-    discount_early_payment = fields.Float("PP discount")
-    referrer = fields.Float("Referrer amount")
-    manager = fields.Float("Manager amount")
-    total = fields.Float("Net amount")
-    cost = fields.Float("Cost amount")
-    margin = fields.Float("Margin amount")
-    margin_percent = fields.Float("Margin %")
-    pairs_count = fields.Integer("Pairs")
-    product_id = fields.Many2one("product.product", string="Product")
+    sale = fields.Float("Sale", help="Sale amount")
+    discount = fields.Float("Disc.", help="Discount amount")
+    discount_early_payment = fields.Float("EP", help"Early payment discount")
+    referrer = fields.Float("Referrer", help="Referrer commission")
+    manager = fields.Float("Manager", help="Manager commission")
+    total = fields.Float("Net", help="Net amount")
+    cost = fields.Float("Cost", help="Total cost")
+    margin = fields.Float("Margin", help="Margin amount")
+    margin_percent = fields.Float("Margin %", help="Margin percent")
+    pairs_count = fields.Integer("Pairs", help="Pairs count")
+    product_id = fields.Many2one("product.product", string="Product", help="Product variant used to related image")
     image = fields.Binary(related="product_id.image_1920", store=False)
-    total_model_pairs = fields.Integer("Total model pairs")
+    total_model_pairs = fields.Integer("Total model pairs", help="Total pairs by model including all colors and sizes")
