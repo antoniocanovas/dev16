@@ -14,6 +14,7 @@ class ShoesSaleReport(models.Model):
     name = fields.Char(string='Nombre', required=True)
     shoes_campaign_id = fields.Many2one('project.project', string='Shoes campaign')
     type = fields.Selection([('model','Model'),('sale','Sale')], string='Type', copy=True)
+    pairs_count = fields.Integer('Pairs count')
     model_ids = fields.One2many('shoes.sale.report.line', 'shoes_report_id', string='Lines')
     @api.depends('shoes_campaign_id')
     def _get_sale_orders(self):
@@ -33,7 +34,7 @@ class ShoesSaleReport(models.Model):
             # La información está en las líneas de venta agrupadas por modelo:
             sol = self.env['sale.order.line'].search([('shoes_campaign_id', '=', record.shoes_campaign_id.id)])
             record.model_ids.unlink()
-            models = []
+            models, total_pairs = [], 0
             for li in sol:
                 if (li.product_id.is_assortment or li.product_id.is_pair) and (
                         li.product_id.product_tmpl_id not in models):
@@ -61,6 +62,7 @@ class ShoesSaleReport(models.Model):
                             manager += li.order_id.manager_commission * factor
                             cost += li.product_id.standard_price * li.product_uom_qty
                             pairs_count += li.pairs_count
+                        total_pairs += pairs_count
                         net = sale - discount - referrer - manager
                         difference = net - cost
                         if net != 0:
@@ -82,6 +84,7 @@ class ShoesSaleReport(models.Model):
                             'margin_percent': margin_percent,
                             'pairs_count': pairs_count,
                         })
+            record['pairs_count'] = total_pairs
 
 
 # Campos calculados para mostrar en el informe de "Rentabilidad por pedidos":
