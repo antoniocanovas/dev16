@@ -140,20 +140,20 @@
                                 <tree readonly="1">
                                     <field name="shoes_campaign_id" invisible="1"/>
                                     <field name="name"/>
-                                    <field name="date_order" widget="date"/>
-                                    <field name="partner_id"/>
+                                    <field name="date_order" widget="date" optional="show"/>
+                                    <field name="partner_id" optional="show"/>
                                     <field name="amount_untaxed" sum="Gross"/>
-                                    <field name="global_discount"/>
+                                    <field name="global_discount" optional="hide"/>
                                     <field name="amount_discounted" sum="Discounts"/>
-                                    <field name="referrer_percent_commission"/>
-                                    <field name="commission" sum="Referrer"/>
-                                    <field name="manager_percent_commission"/>
-                                    <field name="manager_commission" sum="Manager"/>
+                                    <field name="referrer_percent_commission" optional="hide"/>
+                                    <field name="commission" sum="Referrer" optional="show"/>
+                                    <field name="manager_percent_commission" optional="hide"/>
+                                    <field name="manager_commission" sum="Manager" optional="show"/>
                                     <field name="amount_whitout_commission" sum="Net"/>
                                     <field name="cost_before_delivery" sum="Cost"/>
                                     <field name="shoes_margin" sum="Diff"/>
                                     <field name="shoes_margin_percent" avg="%Mar"/>
-                                    <field name="pairs_count" sum="Pairs"/>
+                                    <field name="pairs_count" sum="Pairs" optional="show"/>
                                 </tree>
                             </field>
                         </page>
