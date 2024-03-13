@@ -227,7 +227,7 @@ class SaleOrder(models.Model):
             record["cost_before_delivery"] = cost
 
     cost_before_delivery = fields.Monetary(
-        "Cost", store=False, compute="_get_cost_before_delivery"
+        "Cost", store=False, compute="_get_cost_before_delivery",
         help="Cost before delivery",
     )
 
@@ -243,7 +243,7 @@ class SaleOrder(models.Model):
 
     shoes_margin = fields.Monetary(
         "Marg.", store=False, compute="_get_shoes_sale_margin",
-        help="Shoes margin"
+        help="Shoes margin",
     )
 
     def _get_shoes_margin_percent(self):
