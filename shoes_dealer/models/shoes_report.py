@@ -117,6 +117,11 @@ class ShoesSaleReport(models.Model):
                         ]
                     )
                     for li in lines:
+                        if (record.color_ids.ids) and (
+                                li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
+                        if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
+                        if (record.to_date) and (li.order_id.date_order.date() > record.to_date): continue
+
                         if li.product_id.color_attribute_id == color:
                             if li.order_id.amount_untaxed != 0:
                                 factor = li.price_subtotal / li.order_id.amount_untaxed
