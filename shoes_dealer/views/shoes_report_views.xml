@@ -57,7 +57,7 @@
                                 attrs="{'invisible':[('type','!=','model')]}"
                                 groups="account.group_account_manager">
                         </button>
-                        <button class="oe_stat_button" icon="fa-cubes" type="action" name="shoes_report_line_o2m">
+                        <button class="oe_stat_button" icon="fa-cubes" type="object" name="shoes_report_line_o2m">
                             <field widget="statinfo" name="pairs_count" string="Pairs"/>
                         </button>
                     </div>
