@@ -146,8 +146,8 @@
                                     <field name="partner_ids"/>
                                 </group>
                                 <group>
-                                    <field name="product_ids"/>
-                                    <field name="order_ids"/>
+                                    <field name="product_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
+                                    <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
                                 </group>
                             </group>
                         </page>
