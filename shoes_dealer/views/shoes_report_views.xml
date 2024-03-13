@@ -10,6 +10,7 @@
                 <header>
                     <button name="update_shoes_model_report" string="Update" type="object"
                             icon="fa-play" class="oe_stat_button"
+                            attrs="{'invisible':[('type','!=','model')]}"
                             groups="account.group_account_manager">
                     </button>
                 </header>
@@ -21,7 +22,7 @@
                         <field name="shoes_campaign_id" required="1"/>
                         <field name="type" invisible="1"/>
                     </group>
-                    <field name="model_ids">
+                    <field name="model_ids" readonly="1">
                         <tree readonly="1">
                             <field name="model_id"/>
                             <field name="color_id"/>
