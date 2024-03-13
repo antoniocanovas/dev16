@@ -41,12 +41,13 @@ class ShoesSaleReport(models.Model):
                     models.append(li.product_tmpl_id)
 
             for model in models:
-                colors = []
+                colors, total_model_pairs = [], 0
                 lines = self.env['sale.order.line'].search(
                     [('shoes_campaign_id', '=', record.shoes_campaign_id.id), ('product_tmpl_id', '=', model.id)])
                 for li in lines:
                     if li.product_id.color_attribute_id not in colors:
                         colors.append(li.product_id.color_attribute_id)
+                    total_model_pairs += li.pairs_count
 
                 for color in colors:
                     sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count, factor = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
@@ -84,6 +85,7 @@ class ShoesSaleReport(models.Model):
                             'margin': difference,
                             'margin_percent': margin_percent,
                             'pairs_count': pairs_count,
+                            'total_model_pairs': total_model_pairs,
                         })
             record['pairs_count'] = total_pairs
 
@@ -177,3 +179,4 @@ class ShoesSaleReportLine(models.Model):
     margin = fields.Float('Margin amount')
     margin_percent = fields.Float('Margin %')
     pairs_count = fields.Integer('Pairs')
+    total_model_pairs = fields.Integer('Total model pairs')
