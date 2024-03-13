@@ -143,8 +143,7 @@
                             <group>
                                 <field name="referrer_ids"/>
                                 <field name="partner_ids"/>
-                                <field name="order_ids"
-                                       domain="[('shoes_campaign_id','=',shoes_campaign_id),('is_assortment','=',True)]"/>
+                                <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
                             </group>
                         </page>
                     </notebook>
