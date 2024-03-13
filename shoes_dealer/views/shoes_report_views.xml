@@ -113,7 +113,21 @@
                     </h1>
                     <group>
                         <field name="shoes_campaign_id" required="1"/>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
                     </group>
+
+                    <group>
+                        <group>
+                            <field name="referrer_ids"/>
+                            <field name="partner_ids"/>
+                        </group>
+                        <group>
+                            <field name="product_ids"/>
+                            <field name="order_ids"/>
+                        </group>
+                    </group>
+
                     <field name="sale_ids">
                         <tree readonly="1">
                             <field name="shoes_campaign_id" invisible="1"/>
