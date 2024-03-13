@@ -5,7 +5,7 @@
     <!-- TREE VIEW - O2M: -->
     <record id="shoes_report_lines_o2m_tree" model="ir.ui.view">
         <field name="name">shoes.report.lines.o2m.tree</field>
-        <field name="model">shoes.sale.report.line</field>
+        <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
             <tree create="0">
                 <field name="model_id"/>
@@ -57,7 +57,7 @@
                                 attrs="{'invisible':[('type','!=','model')]}"
                                 groups="account.group_account_manager">
                         </button>
-                        <button class="oe_stat_button" icon="fa-cubes" type="object" name="shoes_report_line_o2m">
+                        <button class="oe_stat_button" icon="fa-cubes" type="action" name="shoes_report_line_o2m">
                             <field widget="statinfo" name="pairs_count" string="Pairs"/>
                         </button>
                     </div>
