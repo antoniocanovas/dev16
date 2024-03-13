@@ -16,9 +16,10 @@ class ShoesSaleReport(models.Model):
         [("model", "Model"), ("sale", "Sale")], string="Type", copy=True
     )
     pairs_count = fields.Integer("Pairs count")
+
+    # Filter fields:
     from_date = fields.Date("From date")
     to_date = fields.Date("To date")
-
     referrer_ids = fields.Many2many(comodel_name='res.partner',
                                     string="Referrers",
                                     relation="shoesreport_referrer_rel",
@@ -31,9 +32,14 @@ class ShoesSaleReport(models.Model):
                                    domain=[("customer_rank", ">", 0)],
                                    context={'active_test': True},
                                    )
-
     order_ids = fields.Many2many("sale.order")
     product_ids = fields.Many2many("product.template", domain=[("sale_ok", "=", True)])
+    color_id = fields.Many2one("product.attribute.value", string="Color")
+    color_attribute_id = fields.Many2one("product.attribute",
+                                         string="Color attribute",
+                                         default=lambda self: self.company.color_attribute_id)
+
+    # Result fields:
     model_ids = fields.One2many(
         "shoes.sale.report.line", "shoes_report_id", string="Lines"
     )
