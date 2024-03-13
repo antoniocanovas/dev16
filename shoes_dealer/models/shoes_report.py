@@ -72,6 +72,7 @@ class ShoesSaleReport(models.Model):
                         self.env['shoes.sale.report.line'].create({
                             'shoes_report_id': record.id,
                             'model_id': model.id,
+                            'product_id': li.product_id.id
                             'color_id': color.id,
                             'sale': sale,
                             'discount': discount,
@@ -162,6 +163,8 @@ class ShoesSaleReportLine(models.Model):
 
     shoes_report_id = fields.Many2one('shoes.sale.report', string='Shoes report')
     model_id = fields.Many2one('product.template', string='Model')
+    product_id = fields.Many2one('product.product', string='Product')
+    image = fields.Binary(related='product_id.image_1920', store=False)
     color_id = fields.Many2one('product.attribute.value', string='Color')
     model_description = fields.Text('Sale description', related='model_id.description_sale')
     sale = fields.Float('Sale amount')
