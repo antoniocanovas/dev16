@@ -157,7 +157,7 @@ class ShoesSaleReport(models.Model):
                                 "total_model_pairs": total_model_pairs,
                             }
                         )
-            record["pairs_count"] = total_model_pairs
+                record["pairs_count"] = total_model_pairs
 
 
 # Campos calculados para mostrar en el informe de "Rentabilidad por pedidos":
