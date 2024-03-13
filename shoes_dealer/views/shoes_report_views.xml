@@ -31,7 +31,7 @@
         <field name="groups_id" eval="[(6, 0, [])]"/>
         <field name="limit">80</field>
         <field name="name">Sales report by model</field>
-        <field name="res_model">shoes.sale.report</field>
+        <field name="res_model">shoes.sale.report.line</field>
         <field name="search_view_id" eval="False"/>
         <field name="target">current</field>
         <field name="type">ir.actions.act_window</field>
@@ -57,7 +57,7 @@
                                 attrs="{'invisible':[('type','!=','model')]}"
                                 groups="account.group_account_manager">
                         </button>
-                        <button class="oe_stat_button" icon="fa-cubes" type="action" name="shoes_report_line_o2m">
+                        <button class="oe_stat_button" icon="fa-cubes" type="action" name="shoes_dealer.shoes_report_line_o2m">
                             <field widget="statinfo" name="pairs_count" string="Pairs"/>
                         </button>
                     </div>
