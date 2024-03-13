@@ -142,18 +142,18 @@
                                     <field name="name"/>
                                     <field name="date_order" widget="date" optional="show"/>
                                     <field name="partner_id" optional="show"/>
-                                    <field name="amount_untaxed" sum="Gross"/>
-                                    <field name="global_discount" optional="hide"/>
-                                    <field name="amount_discounted" sum="Discounts"/>
-                                    <field name="referrer_percent_commission" optional="hide"/>
-                                    <field name="commission" sum="Referrer" optional="show"/>
-                                    <field name="manager_percent_commission" optional="hide"/>
-                                    <field name="manager_commission" sum="Manager" optional="show"/>
-                                    <field name="amount_whitout_commission" sum="Net"/>
-                                    <field name="cost_before_delivery" sum="Cost"/>
+                                    <field name="amount_untaxed" string="Sale" sum="Gross"/>
+                                    <field name="global_discount" string="Disc. %" optional="hide"/>
+                                    <field name="amount_discounted" string="Disc." sum="Discounts"/>
+                                    <field name="referrer_percent_commission" string="Com1 %" optional="hide"/>
+                                    <field name="commission" string="Com1" sum="Referrer" optional="show"/>
+                                    <field name="manager_percent_commission" string="Com2 %" optional="hide"/>
+                                    <field name="manager_commission" string="Com2" sum="Manager" optional="show"/>
+                                    <field name="amount_whitout_commission" string="Net" sum="Net"/>
+                                    <field name="cost_before_delivery" string="Cost" sum="Cost"/>
                                     <field name="shoes_margin" sum="Diff"/>
-                                    <field name="shoes_margin_percent" avg="%Mar"/>
-                                    <field name="pairs_count" sum="Pairs" optional="show"/>
+                                    <field name="shoes_margin_percent" string="Margin %" avg="%Mar"/>
+                                    <field name="pairs_count" string="Pairs" sum="Pairs" optional="show"/>
                                 </tree>
                             </field>
                         </page>
