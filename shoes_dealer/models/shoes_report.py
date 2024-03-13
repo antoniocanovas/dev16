@@ -20,20 +20,20 @@ class ShoesSaleReport(models.Model):
     to_date = fields.Date("To date")
 
     referrer_ids = fields.Many2many(comodel_name='res.partner',
-                                    string="Referres",
+                                    string="Referrers",
                                     relation="shoesreport_referrer_rel",
-                                    column1="shoes_report_id",
-                                    column2="referrer_id",
-                                    store=True,
+#                                    column1="shoes_report_id",
+#                                    column2="referrer_id",
+#                                    store=True,
                                     domain=[("commission_plan_id", "!=", False)],
                                     context={'active_test': True},
                                     )
     partner_ids = fields.Many2many(comodel_name='res.partner',
                                     string="Customers",
                                     relation="shoesreport_customer_rel",
-                                    column1="shoes_report_id",
-                                    column2="customer_id",
-                                    store=True,
+#                                    column1="shoes_report_id",
+#                                    column2="customer_id",
+#                                    store=True,
                                     domain=[("customer_rank", ">", 0)],
                                     context={'active_test': True},
                                     )
