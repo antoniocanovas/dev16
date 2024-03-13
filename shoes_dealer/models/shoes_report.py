@@ -157,9 +157,10 @@ class SaleOrder(models.Model):
             record["global_discount"] = discount
 
     global_discount = fields.Float(
-        string="Global discount",
+        string="Discount",
         store=False,
         compute="_get_shoes_sale_percent_discount",
+        help="Global discount",
     )
 
     def _get_shoes_sale_amount_discounted(self):
@@ -169,9 +170,10 @@ class SaleOrder(models.Model):
             )
 
     amount_discounted = fields.Float(
-        string="Discounted amount",
+        string="Dis.",
         store=False,
         compute="_get_shoes_sale_amount_discounted",
+        help="Discounted amount",
     )
 
     def _get_shoes_referrer_percent_commission(self):
@@ -184,7 +186,8 @@ class SaleOrder(models.Model):
             record["referrer_percent_commission"] = commission
 
     referrer_percent_commission = fields.Float(
-        "Referrer Com", store=False, compute="_get_shoes_referrer_percent_commission"
+        "Com1 %", store=False, compute="_get_shoes_referrer_percent_commission",
+        help="Referrer commission percent",
     )
 
     def _get_shoes_manager_percent_commission(self):
@@ -197,7 +200,8 @@ class SaleOrder(models.Model):
             record["manager_percent_commission"] = commission
 
     manager_percent_commission = fields.Float(
-        "Manager Com", store=False, compute="_get_shoes_manager_percent_commission"
+        "Com2 %", store=False, compute="_get_shoes_manager_percent_commission",
+        help="Manager commission percent",
     )
 
     def _get_amount_without_commission(self):
@@ -207,7 +211,8 @@ class SaleOrder(models.Model):
             )
 
     amount_whitout_commission = fields.Float(
-        "Net amount", store=False, compute="_get_amount_without_commission"
+        "Net", store=False, compute="_get_amount_without_commission",
+        help="Net amount",
     )
 
     def _get_cost_before_delivery(self):
@@ -223,6 +228,7 @@ class SaleOrder(models.Model):
 
     cost_before_delivery = fields.Monetary(
         "Cost", store=False, compute="_get_cost_before_delivery"
+        help="Cost before delivery",
     )
 
     def _get_shoes_sale_margin(self):
@@ -236,7 +242,8 @@ class SaleOrder(models.Model):
             record["shoes_margin"] = margin
 
     shoes_margin = fields.Monetary(
-        "Shoes margin", store=False, compute="_get_shoes_sale_margin"
+        "Marg.", store=False, compute="_get_shoes_sale_margin",
+        help="Shoes margin"
     )
 
     def _get_shoes_margin_percent(self):
