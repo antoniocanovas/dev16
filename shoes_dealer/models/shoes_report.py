@@ -40,37 +40,48 @@ class ShoesSaleReport(models.Model):
                     models.append(li.product_tmpl_id)
 
             for model in models:
-                total, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                color = model.product_variant_ids[0].color_attribute_id
-                lines = self.env['sale.order.line'].search(
+                colors = []
+                lines = env['sale.order.line'].search(
                     [('shoes_campaign_id', '=', record.shoes_campaign_id.id), ('product_tmpl_id', '=', model.id)])
                 for li in lines:
-                    factor = li.price_subtotal / li.order_id.amount_untaxed
-                    total += li.price_subtotal
-                    discount += li.price_subtotal * li.discount / 100
-                    referrer += li.order_id.commission * factor
-                    manager += li.order_id.manager_commission * factor
-                    cost += li.product_id.standard_price * li.product_uom_qty
-                    pairs_count += li.pairs_count
-                net = total - discount - referrer - manager
-                difference = net - cost
-                margin_percent = difference / net * 100
+                    if li.product_id.color_attribute_id not in colors:
+                        colors.append(li.product_id.color_attribute_id)
 
-                self.env['shoes.sale.report.line'].create({
-                    'shoes_report_id': record.id,
-                    'model_id': model.id,
-                    'color_id': color.id,
-                    'sale': total,
-                    'discount': discount,
-                    'discount_early_payment': 0,
-                    'referrer': referrer,
-                    'manager': manager,
-                    'total': net,
-                    'cost': cost,
-                    'margin': difference,
-                    'margin_percent': margin_percent,
-                    'pairs_count': pairs_count,
-                })
+                for color in colors:
+                    total, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                    lines = env['sale.order.line'].search(
+                        [('shoes_campaign_id', '=', record.shoes_campaign_id.id), ('product_tmpl_id', '=', model.id)])
+                    for li in lines:
+                        if li.product_id.color_attribute_id == color:
+                            factor = 1
+                            factor = li.price_subtotal / li.order_id.amount_untaxed
+                            total += li.price_subtotal
+                            discount += li.price_subtotal * li.discount / 100
+                            referrer += li.order_id.commission * factor
+                            manager += li.order_id.manager_commission * factor
+                            cost += li.product_id.standard_price * li.product_uom_qty
+                            pairs_count += li.pairs_count
+                        net = total - discount - referrer - manager
+                        difference = net - cost
+                        if net != 0:
+                            margin_percent = difference / net * 100
+
+                    if (sale != 0) or (cost != 0):
+                        newline = env['shoes.sale.report.line'].create({
+                            'shoes_report_id': record.id,
+                            'model_id': model.id,
+                            'color_id': color.id,
+                            'sale': total,
+                            'discount': discount,
+                            'discount_early_payment': 0,
+                            'referrer': referrer,
+                            'manager': manager,
+                            'total': net,
+                            'cost': cost,
+                            'margin': difference,
+                            'margin_percent': margin_percent,
+                            'pairs_count': pairs_count,
+                        })
 
 
 # Campos calculados para mostrar en el informe de "Rentabilidad por pedidos":
