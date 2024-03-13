@@ -41,20 +41,20 @@ class ShoesSaleReport(models.Model):
 
             for model in models:
                 colors = []
-                lines = env['sale.order.line'].search(
+                lines = self.env['sale.order.line'].search(
                     [('shoes_campaign_id', '=', record.shoes_campaign_id.id), ('product_tmpl_id', '=', model.id)])
                 for li in lines:
                     if li.product_id.color_attribute_id not in colors:
                         colors.append(li.product_id.color_attribute_id)
 
                 for color in colors:
-                    sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-                    lines = env['sale.order.line'].search(
+                    sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count, factor = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+                    lines = self.env['sale.order.line'].search(
                         [('shoes_campaign_id', '=', record.shoes_campaign_id.id), ('product_tmpl_id', '=', model.id)])
                     for li in lines:
                         if li.product_id.color_attribute_id == color:
-                            factor = 1
-                            factor = li.price_subtotal / li.order_id.amount_untaxed
+                            if li.order_id.amount_untaxed != 0:
+                                factor = li.price_subtotal / li.order_id.amount_untaxed
                             sale += li.price_subtotal
                             discount += li.price_subtotal * li.discount / 100
                             referrer += li.order_id.commission * factor
@@ -67,7 +67,7 @@ class ShoesSaleReport(models.Model):
                             margin_percent = difference / net * 100
 
                     if (sale != 0) or (cost != 0):
-                        newline = env['shoes.sale.report.line'].create({
+                        self.env['shoes.sale.report.line'].create({
                             'shoes_report_id': record.id,
                             'model_id': model.id,
                             'color_id': color.id,
