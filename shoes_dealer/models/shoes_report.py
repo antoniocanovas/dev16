@@ -72,7 +72,7 @@ class ShoesSaleReport(models.Model):
                         self.env['shoes.sale.report.line'].create({
                             'shoes_report_id': record.id,
                             'model_id': model.id,
-                            'product_id': li.product_id.id
+                            'product_id': li.product_id.id,
                             'color_id': color.id,
                             'sale': sale,
                             'discount': discount,
