@@ -34,7 +34,7 @@ class ShoesSaleReport(models.Model):
                                    )
     order_ids = fields.Many2many("sale.order")
     product_ids = fields.Many2many("product.template", domain=[("sale_ok", "=", True)])
-    color_id = fields.Many2one("product.attribute.value", string="Color")
+    color_ids = fields.Many2many("product.attribute.value", string="Color")
     color_attribute_id = fields.Many2one("product.attribute",
                                          string="Color attribute",
                                          default=lambda self: self.env.company.color_attribute_id)
@@ -79,6 +79,7 @@ class ShoesSaleReport(models.Model):
                     models.append(li.product_tmpl_id)
 
             for model in models:
+                if (record.product_ids.ids) and (model.id not in record.product_ids.ids): continue
                 colors, total_model_pairs = [], 0
                 lines = self.env["sale.order.line"].search(
                     [
@@ -87,9 +88,14 @@ class ShoesSaleReport(models.Model):
                     ]
                 )
                 for li in lines:
+                    if (record.color_ids.ids) and (li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
+                    if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
+                    if (record.to_date) and (li.order_id.date_order.date() > record.to_date): continue
+
                     if li.product_id.color_attribute_id not in colors:
                         colors.append(li.product_id.color_attribute_id)
                     total_model_pairs += li.pairs_count
+
                 for color in colors:
                     (
                         sale,

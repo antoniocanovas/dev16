@@ -71,7 +71,7 @@
                         <field name="to_date"/>
                         <field name="type" invisible="1"/>
                     </group>
-                    <notebook>
+                    <notebook attrs="{'invisible':[('shoes_campaign_id','=',False)]}">
                         <page name="general" string="General">
                             <field name="model_ids" readonly="1">
                                 <tree readonly="1">
@@ -94,9 +94,13 @@
                         </page>
                         <page name="filters" string="Filters">
                             <group>
-                                <field name="color_id" domain="[('attribute_id','=',color_attribute_id)]"/>
-                                <field name="product_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id), ('is_assortment','=',True)]"/>
-                                <field name="color_attribute_id" invisible="1"/>
+                                <group>
+                                    <field name="color_ids" domain="[('attribute_id','=',color_attribute_id)]"/>
+                                    <field name="color_attribute_id" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="product_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id), ('is_assortment','=',True)]"/>
+                                </group>
                             </group>
                         </page>
                     </notebook>
@@ -130,7 +134,7 @@
                         <field name="to_date"/>
                         <field name="type" invisible="1"/>
                     </group>
-                    <notebook>
+                    <notebook attrs="{'invisible':[('shoes_campaign_id','=',False)]}">
                         <page name="general" string="General">
                             <field name="sale_ids">
                                 <tree readonly="1">
