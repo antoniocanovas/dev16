@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pnt_model_product_top_report" model="ir.actions.report">
+            <field name="name">Top</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">shoes_dealer.product_top_report</field>
+            <field name="report_file">shoes_dealer.product_top_report</field>
+            <field name="print_report_name">((str(object.name) or ''))</field>
+            <field name="attachment">((str(object.name) or '')+'.pdf')</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+         <record id="pnt_model_shoes_dealer_top_report" model="ir.actions.report">
+            <field name="name">Top</field>
+            <field name="model">shoes.sale.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">shoes_dealer.shoes_dealer_top_report</field>
+            <field name="report_file">shoes_dealer.shoes_dealer_top_report</field>
+            <field name="print_report_name">((str(object.shoes_campaign_id.name)+str("-")+str("Top") or ''))</field>
+            <field name="attachment">((str(object.shoes_campaign_id.name )+str("-")+str("Top") or ''))</field>
+            <field name="binding_model_id" ref="model_shoes_sale_report"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

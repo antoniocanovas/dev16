@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+      <!-- TREE VIEW - O2M LINES: -->
+    <record id="shoes_report_lines_o2m_tree" model="ir.ui.view">
+        <field name="name">shoes.report.lines.o2m.tree</field>
+        <field name="model">shoes.sale.report.line</field>
+        <field name="arch" type="xml">
+            <tree create="0" default_order="pairs_count desc">
+                <field name="model_id"/>
+                <field name="image" widget="image"/>
+                <field name="color_id"/>
+                <field name="pairs_count"/>
+            </tree>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+    <!-- WINDOW ACTION O2M LINES: -->
+    <record id="shoes_report_line_o2m" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'group_by':'model_id', 'search_default_shoes_report_id': active_id}</field>
+        <field name="domain">[('shoes_report_id','=',active_id)]</field>
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Sales report by model</field>
+        <field name="res_model">shoes.sale.report.line</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+               (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_report_lines_o2m_tree')}),
+               ]"/>
+    </record>
+
+
+
+    <!-- FORM VIEW - REPORT BY MODEL: -->
+    <record id="shoes_margin_by_model_form" model="ir.ui.view">
+        <field name="name">shoes.margin.by.model.default.form</field>
+        <field name="model">shoes.sale.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="update_shoes_model_report" string="Update" type="object"
+                                icon="fa-play" class="oe_stat_button"
+                                attrs="{'invisible':[('type','!=','model')]}"
+                                groups="account.group_account_manager">
+                        </button>
+                        <button class="oe_stat_button" icon="fa-cubes" type="action" name="shoes_dealer.shoes_report_line_o2m">
+                            <field widget="statinfo" name="pairs_count" string="Pairs"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" placeholder="Name as campaign, type, date ..."/>
+                    </h1>
+                    <group>
+                        <field name="shoes_campaign_id" required="1"/>
+                        <field name="type" invisible="1"/>
+                    </group>
+                    <field name="model_ids" readonly="1">
+                        <tree readonly="1">
+                            <field name="model_id"/>
+                            <field name="color_id"/>
+                            <field name="model_description"/>
+                            <field name="sale" sum="Sale"/>
+                            <field name="discount" sum="Discount"/>
+                            <field name="discount_early_payment" sum="Disc EP"/>
+                            <field name="referrer" sum="Referrer"/>
+                            <field name="manager" sum="Manager"/>
+                            <field name="total" sum="Net"/>
+                            <field name="cost" sum="Cost"/>
+                            <field name="margin" sum="Diff"/>
+                            <field name="margin_percent" avg="%Mar"/>
+                            <field name="pairs_count" sum="Pairs"/>
+                            <field name="shoes_report_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+    </record>
+
+
+
+    <!-- FORM VIEW - REPORT BY SALES: -->
+    <record id="shoes_margin_by_sale_order_form" model="ir.ui.view">
+        <field name="name">shoes.margin.by.sale.order.default.form</field>
+        <field name="model">shoes.sale.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Name as campaign, type, date ..."/>
+                    </h1>
+                    <group>
+                        <field name="shoes_campaign_id" required="1"/>
+                    </group>
+                    <field name="sale_ids">
+                        <tree readonly="1">
+                            <field name="shoes_campaign_id" invisible="1"/>
+                            <field name="name"/>
+                            <field name="date_order" widget="date"/>
+                            <field name="partner_id"/>
+                            <field name="amount_untaxed" sum="Gross"/>
+                            <field name="global_discount"/>
+                            <field name="amount_discounted" sum="Discounts"/>
+                            <field name="referrer_percent_commission"/>
+                            <field name="commission" sum="Referrer"/>
+                            <field name="manager_percent_commission"/>
+                            <field name="manager_commission" sum="Manager"/>
+                            <field name="amount_whitout_commission" sum="Net"/>
+                            <field name="cost_before_delivery" sum="Cost"/>
+                            <field name="shoes_margin" sum="Diff"/>
+                            <field name="shoes_margin_percent" avg="%Mar"/>
+                            <field name="pairs_count" sum="Pairs"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+    </record>
+
+
+    <!-- TREE VIEW - REPORT BY MODEL: -->
+    <record id="shoes_margin_by_model_tree" model="ir.ui.view">
+        <field name="name">shoes.margin.by.model.default.tree</field>
+        <field name="model">shoes.sale.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="shoes_campaign_id"/>
+                <field name="name"/>
+                <field name="write_date" optional="show"/>
+                <field name="write_uid" optional="hide"/>
+            </tree>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+    <!-- TREE VIEW - REPORT BY SALE ORDER: -->
+    <record id="shoes_margin_by_sale_order_tree" model="ir.ui.view">
+        <field name="name">shoes.margin.by.sale.order.default.tree</field>
+        <field name="model">shoes.sale.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="shoes_campaign_id"/>
+                <field name="name"/>
+                <field name="create_date" optional="show"/>
+                <field name="create_uid" optional="hide"/>
+            </tree>
+        </field>
+        <field name="field_parent" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+
+    <!-- ACCIONES DE VENTANA: -->
+    <record id="action_shoes_margin_by_model" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'default_type':'model'}</field>
+        <field name="domain">[('type','=','model')]</field>
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Margin report by model</field>
+        <field name="res_model">shoes.sale.report</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+               (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_margin_by_model_tree')}),
+               (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_model_form')}),
+               ]"/>
+    </record>
+
+
+    <record id="action_shoes_margin_by_sale_order" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="context">{'default_type':'sale'}</field>
+        <field name="domain">[('type','=','sale')]</field>
+        <field name="filter" eval="False"/>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="limit">80</field>
+        <field name="name">Margin report by sale order</field>
+        <field name="res_model">shoes.sale.report</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+               (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_margin_by_sale_order_tree')}),
+               (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_sale_order_form')}),
+               ]"/>
+    </record>
+
+    <record id="pnt_action_max_sold_report_wizard" model="ir.actions.server">
+        <field name="name">Max sold report wizard</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_open_product_report_top_layout()
+        </field>
+    </record>
+
+    <!-- REPORT MENUS: -->
+    <record id="shoes_margin_by_model_menu" model="ir.ui.menu">
+        <field name="action" ref="action_shoes_margin_by_model"/>
+        <field name="active" eval="True"/>
+        <field name="name">Margin by model</field>
+        <field name="parent_id" ref="sale.menu_sale_report"/>
+        <field name="sequence">100</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+    <record id="shoes_margin_by_sale_order_menu" model="ir.ui.menu">
+        <field name="action" ref="action_shoes_margin_by_sale_order"/>
+        <field name="active" eval="True"/>
+        <field name="name">Margin by sale order</field>
+        <field name="parent_id" ref="sale.menu_sale_report"/>
+        <field name="sequence">110</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+
+    <menuitem id="pnt_menu_sales_reports"
+              name="Reports"
+              action="sale.action_order_report_all"
+              parent="sale.menu_sale_report"
+              sequence="1"/>
+    <!--<menuitem id="pnt_menu_sales_max_sold_report"
+              name="Top Sellers"
+              action="pnt_action_max_sold_report_wizard"
+              parent="sale.menu_sale_report"
+              sequence="2"/>-->
+
+</odoo>
