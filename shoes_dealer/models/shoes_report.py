@@ -26,11 +26,11 @@ class ShoesSaleReport(models.Model):
                                     context={'active_test': True},
                                     )
     partner_ids = fields.Many2many(comodel_name='res.partner',
-                                    string="Customers",
-                                    relation="shoesreport_customer_rel",
-                                    domain=[("customer_rank", ">", 0)],
-                                    context={'active_test': True},
-                                    )
+                                   string="Customers",
+                                   relation="shoesreport_customer_rel",
+                                   domain=[("customer_rank", ">", 0)],
+                                   context={'active_test': True},
+                                   )
 
     order_ids = fields.Many2many("sale.order")
     product_ids = fields.Many2many("product.template", domain=[("sale_ok", "=", True)])
@@ -43,18 +43,17 @@ class ShoesSaleReport(models.Model):
         for record in self:
             orders = []
             if record.type == "sale":
-                orders = (
-                    self.env["sale.order"]
-                    .search(
-                        [
-                            ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
-                            ("state", "not in", ["draft", "cancel"]),
-                        ]
-                    )
-                    .ids
-                )
+                all_orders = (self.env["sale.order"].search([
+                    ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
+                    ("state", "not in", ["draft", "cancel"]),]))
+                for order in all_orders:
+                    if (record.from_date) and (order.date_order.date() < record.from_date): continue
+                    if (record.to_date) and (order.date_order.date() > record.to_date): continue
+                    if (record.referrer_ids.ids) and (order.referrer_id.id not in record.referrer_ids.ids): continue
+                    if (record.partner_ids.ids) and (order.partner_id.id not in record.partner_ids.ids): continue
+                    if (record.order_ids.ids) and (order.id not in record.order_ids.ids): continue
+                    orders.append(order.id)
             record["sale_ids"] = [(6, 0, orders)]
-
     sale_ids = fields.Many2many(
         "sale.order", string="Orders", store=False, compute="_get_sale_orders"
     )
@@ -69,7 +68,7 @@ class ShoesSaleReport(models.Model):
             models, total_pairs = [], 0
             for li in sol:
                 if (li.product_id.is_assortment or li.product_id.is_pair) and (
-                    li.product_id.product_tmpl_id not in models
+                        li.product_id.product_tmpl_id not in models
                 ):
                     models.append(li.product_tmpl_id)
 
@@ -153,8 +152,8 @@ class SaleOrder(models.Model):
             discount = 0
             if record.amount_untaxed != 0:
                 discount = (
-                    1 - (record.amount_untaxed / record.amount_undiscounted)
-                ) * 100
+                                   1 - (record.amount_untaxed / record.amount_undiscounted)
+                           ) * 100
             record["global_discount"] = discount
 
     global_discount = fields.Float(
@@ -166,7 +165,7 @@ class SaleOrder(models.Model):
     def _get_shoes_sale_amount_discounted(self):
         for record in self:
             record["amount_discounted"] = (
-                record.amount_undiscounted - record.amount_untaxed
+                    record.amount_undiscounted - record.amount_untaxed
             )
 
     amount_discounted = fields.Float(
@@ -180,8 +179,8 @@ class SaleOrder(models.Model):
             commission = 0
             if (record.amount_untaxed != 0) and (record.commission != 0):
                 commission = (
-                    1 - (record.commission * 100 / record.amount_untaxed)
-                ) * 100
+                                     1 - (record.commission * 100 / record.amount_untaxed)
+                             ) * 100
             record["referrer_percent_commission"] = commission
 
     referrer_percent_commission = fields.Float(
@@ -193,8 +192,8 @@ class SaleOrder(models.Model):
             commission = 0
             if (record.amount_untaxed != 0) and (record.manager_commission != 0):
                 commission = (
-                    1 - (record.manager_commission * 100 / record.amount_untaxed)
-                ) * 100
+                                     1 - (record.manager_commission * 100 / record.amount_untaxed)
+                             ) * 100
             record["manager_percent_commission"] = commission
 
     manager_percent_commission = fields.Float(
@@ -204,7 +203,7 @@ class SaleOrder(models.Model):
     def _get_amount_without_commission(self):
         for record in self:
             record["amount_whitout_commission"] = (
-                record.amount_untaxed - record.commission - record.manager_commission
+                    record.amount_untaxed - record.commission - record.manager_commission
             )
 
     amount_whitout_commission = fields.Float(
@@ -216,8 +215,8 @@ class SaleOrder(models.Model):
             cost = 0
             for li in record.order_line:
                 if (
-                    li.product_id.product_tmpl_set_id.id
-                    or li.product_id.product_tmpl_single_id.id
+                        li.product_id.product_tmpl_set_id.id
+                        or li.product_id.product_tmpl_single_id.id
                 ):
                     cost += li.product_id.standard_price * li.product_uom_qty
             record["cost_before_delivery"] = cost
@@ -229,10 +228,10 @@ class SaleOrder(models.Model):
     def _get_shoes_sale_margin(self):
         for record in self:
             margin = (
-                record.amount_untaxed
-                - record.commission
-                - record.manager_commission
-                - record.cost_before_delivery
+                    record.amount_untaxed
+                    - record.commission
+                    - record.manager_commission
+                    - record.cost_before_delivery
             )
             record["shoes_margin"] = margin
 

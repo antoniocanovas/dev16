@@ -141,14 +141,10 @@
                         </page>
                         <page name="filters" string="Filters">
                             <group>
-                                <group>
-                                    <field name="referrer_ids"/>
-                                    <field name="partner_ids"/>
-                                </group>
-                                <group>
-                                    <field name="product_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
-                                    <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
-                                </group>
+                                <field name="referrer_ids"/>
+                                <field name="partner_ids"/>
+                                <field name="order_ids"
+                                       domain="[('shoes_campaign_id','=',shoes_campaign_id),('is_assortment','=',True)]"/>
                             </group>
                         </page>
                     </notebook>
