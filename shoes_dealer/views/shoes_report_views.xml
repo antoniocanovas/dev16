@@ -7,7 +7,7 @@
         <field name="name">shoes.report.lines.o2m.tree</field>
         <field name="model">shoes.sale.report.line</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="0">
                 <field name="model_id"/>
                 <field name="color_id"/>
                 <field name="pairs_count"/>
@@ -25,7 +25,7 @@
     <record id="shoes_report_line_o2m" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
-        <field name="context">{'default_group_by':model_id}</field>
+        <field name="context">{'group_by':'model_id', 'search_default_shoes_report_id': active_id}</field>
         <field name="domain">[('shoes_report_id','=',active_id)]</field>
         <field name="filter" eval="False"/>
         <field name="groups_id" eval="[(6, 0, [])]"/>
