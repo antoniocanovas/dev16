@@ -7,7 +7,7 @@
         <field name="name">shoes.report.lines.o2m.tree</field>
         <field name="model">shoes.sale.report.line</field>
         <field name="arch" type="xml">
-            <tree create="0">
+            <tree create="0" default_order="pairs_count desc">
                 <field name="model_id"/>
                 <field name="color_id"/>
                 <field name="pairs_count"/>
