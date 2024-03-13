@@ -18,7 +18,7 @@ class ShoesSaleReport(models.Model):
     pairs_count = fields.Integer("Pairs count")
     from_date = fields.Date("From date")
     to_date = fields.Date("To date")
-    """
+
     referrer_ids = fields.Many2many(comodel_name='res.partner',
                                     string="Referres",
                                     relation='shoesreport_referrer_rel',
@@ -37,7 +37,7 @@ class ShoesSaleReport(models.Model):
                                     domain=[("customer_rank", ">", 0)],
                                     context={'active_test': True},
                                     )
-    """
+
     order_ids = fields.Many2many("sale.order")
     product_ids = fields.Many2many("product.template", domain=[("sale_ok", "=", True)])
     model_ids = fields.One2many(
