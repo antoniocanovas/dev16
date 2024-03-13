@@ -37,7 +37,7 @@ class ShoesSaleReport(models.Model):
     color_id = fields.Many2one("product.attribute.value", string="Color")
     color_attribute_id = fields.Many2one("product.attribute",
                                          string="Color attribute",
-                                         default=lambda self: self.user.company_id.color_attribute_id)
+                                         default=lambda self: self.env.company.color_attribute_id)
 
     # Result fields:
     model_ids = fields.One2many(
