@@ -80,7 +80,7 @@ class ShoesSaleReport(models.Model):
 
             for model in models:
                 if (record.product_ids.ids) and (model.id not in record.product_ids.ids): continue
-                colors, total_model_pairs = [], 0
+                colors, total_model_pairs, total_pairs = [], 0, 0
                 lines = self.env["sale.order.line"].search(
                     [
                         ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
@@ -157,7 +157,10 @@ class ShoesSaleReport(models.Model):
                                 "total_model_pairs": total_model_pairs,
                             }
                         )
-                record["pairs_count"] = total_model_pairs
+
+            for li in record.model_ids:
+                total_pairs += li.pairs_count
+            record["pairs_count"] = total_pairs
 
 
 # Campos calculados para mostrar en el informe de "Rentabilidad por pedidos":
