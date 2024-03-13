@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-      <!-- TREE VIEW - O2M LINES: -->
+    <!-- TREE VIEW - O2M LINES: -->
     <record id="shoes_report_lines_o2m_tree" model="ir.ui.view">
         <field name="name">shoes.report.lines.o2m.tree</field>
         <field name="model">shoes.sale.report.line</field>
@@ -116,40 +116,42 @@
                         <field name="from_date"/>
                         <field name="to_date"/>
                     </group>
-
-                    <group>
-                        <group>
-<!--
-                            <field name="referrer_ids"/>
-                            <field name="partner_ids"/>
--->
-                        </group>
-                        <group>
-                            <field name="product_ids"/>
-                            <field name="order_ids"/>
-                        </group>
-                    </group>
-
-                    <field name="sale_ids">
-                        <tree readonly="1">
-                            <field name="shoes_campaign_id" invisible="1"/>
-                            <field name="name"/>
-                            <field name="date_order" widget="date"/>
-                            <field name="partner_id"/>
-                            <field name="amount_untaxed" sum="Gross"/>
-                            <field name="global_discount"/>
-                            <field name="amount_discounted" sum="Discounts"/>
-                            <field name="referrer_percent_commission"/>
-                            <field name="commission" sum="Referrer"/>
-                            <field name="manager_percent_commission"/>
-                            <field name="manager_commission" sum="Manager"/>
-                            <field name="amount_whitout_commission" sum="Net"/>
-                            <field name="cost_before_delivery" sum="Cost"/>
-                            <field name="shoes_margin" sum="Diff"/>
-                            <field name="shoes_margin_percent" avg="%Mar"/>
-                            <field name="pairs_count" sum="Pairs"/>
-                        </tree>
-                    </field>
+                    <notebook>
+                        <page name="general" string="General">
+                            <field name="sale_ids">
+                                <tree readonly="1">
+                                    <field name="shoes_campaign_id" invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="date_order" widget="date"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_untaxed" sum="Gross"/>
+                                    <field name="global_discount"/>
+                                    <field name="amount_discounted" sum="Discounts"/>
+                                    <field name="referrer_percent_commission"/>
+                                    <field name="commission" sum="Referrer"/>
+                                    <field name="manager_percent_commission"/>
+                                    <field name="manager_commission" sum="Manager"/>
+                                    <field name="amount_whitout_commission" sum="Net"/>
+                                    <field name="cost_before_delivery" sum="Cost"/>
+                                    <field name="shoes_margin" sum="Diff"/>
+                                    <field name="shoes_margin_percent" avg="%Mar"/>
+                                    <field name="pairs_count" sum="Pairs"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="filters" string="Filters">
+                            <group>
+                                <group>
+                                    <field name="referrer_ids"/>
+                                    <field name="partner_ids"/>
+                                </group>
+                                <group>
+                                    <field name="product_ids"/>
+                                    <field name="order_ids"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
