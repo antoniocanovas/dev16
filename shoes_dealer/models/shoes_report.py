@@ -128,26 +128,19 @@ class ShoesSaleReport(models.Model):
 
                     raise UserError(lines)
                     for li in lines:
-# pendiente                        total_model_pairs += li.pairs_count
-                    # VOY POR AQUÍ
-                        if (record.color_ids.ids) and (
-                                li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
-                        if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
-                        if (record.to_date) and (li.order_id.date_order.date() > record.to_date): continue
-
-                        if li.product_id.color_attribute_id == color:
-                            if li.order_id.amount_untaxed != 0:
-                                factor = li.price_subtotal / li.order_id.amount_untaxed
-                            sale += li.price_subtotal
-                            discount += li.price_subtotal * li.discount / 100
-                            referrer += li.order_id.commission * factor
-                            manager += li.order_id.manager_commission * factor
-                            cost += li.product_id.standard_price * li.product_uom_qty
-                            pairs_count += li.pairs_count
-                        net = sale - discount - referrer - manager
-                        difference = net - cost
-                        if net != 0:
-                            margin_percent = difference / net * 100
+                        total_model_pairs += li.pairs_count
+                        if li.order_id.amount_untaxed != 0:
+                            factor = li.price_subtotal / li.order_id.amount_untaxed
+                        sale += li.price_subtotal
+                        discount += li.price_subtotal * li.discount / 100
+                        referrer += li.order_id.commission * factor
+                        manager += li.order_id.manager_commission * factor
+                        cost += li.product_id.standard_price * li.product_uom_qty
+                        pairs_count += li.pairs_count
+                    net = sale - discount - referrer - manager
+                    difference = net - cost
+                    if net != 0:
+                        margin_percent = difference / net * 100
 
                     if (sale != 0) or (cost != 0):
                         self.env["shoes.sale.report.line"].create(
@@ -169,11 +162,11 @@ class ShoesSaleReport(models.Model):
                                 "total_model_pairs": total_model_pairs,
                             }
                         )
-                """
+
                 for li in record.line_ids:
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
-                """
+
 
 
 
