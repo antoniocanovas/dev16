@@ -73,13 +73,13 @@ class ShoesSaleReport(models.Model):
                     ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
                     ("state", "not in", ["draft", "cancel"]),]))
                 for sol in all_lines:
-                    if (record.from_date) and (sol.date_order.date() < record.from_date): continue
-                    if (record.to_date) and (sol.date_order.date() > record.to_date): continue
+                    if (record.from_date) and (sol.order_id.date_order.date() < record.from_date): continue
+                    if (record.to_date) and (sol.order_id.date_order.date() > record.to_date): continue
                     if (record.referrer_ids.ids) and (sol.referrer_id.id not in record.referrer_ids.ids): continue
-                    if (record.partner_ids.ids) and (sol.partner_id.id not in record.partner_ids.ids): continue
+                    if (record.partner_ids.ids) and (sol.order_partner_id.id not in record.partner_ids.ids): continue
                     if (record.order_ids.ids) and (sol.id not in record.order_ids.ids): continue
                     orders.append(sol.id)
-            record["sale_ids"] = [(6, 0, orderlines)]
+            record["sale_line_ids"] = [(6, 0, orderlines)]
     sale_line_ids = fields.Many2many(
         "sale.order.line", string="Orders Lines", store=False, compute="_get_sale_lines"
     )
