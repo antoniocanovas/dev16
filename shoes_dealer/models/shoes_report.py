@@ -102,7 +102,7 @@ class ShoesSaleReport(models.Model):
             sol = record.sale_line_ids
             record.line_ids.unlink()
             # Inicializamos las distintas variables y opciones de agrupamiento:
-            models, customers, referres, colors, states, total_pairs = [], [], [], [], [], 0
+            models, customers, referrers, colors, states, total_pairs = [], [], [], [], [], 0
 
             if record.group_type == 'customer':
                 for li in sol:
