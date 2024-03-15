@@ -72,7 +72,7 @@ class ShoesSaleReport(models.Model):
                 all_lines = (self.env["sale.order.line"].search([
                     ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
                     ("state", "not in", ["draft", "cancel"]),]))
-                for sol in orderlines:
+                for sol in all_lines:
                     if (record.from_date) and (sol.date_order.date() < record.from_date): continue
                     if (record.to_date) and (sol.date_order.date() > record.to_date): continue
                     if (record.referrer_ids.ids) and (sol.referrer_id.id not in record.referrer_ids.ids): continue
