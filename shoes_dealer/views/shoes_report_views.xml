@@ -199,10 +199,21 @@
                                 <tree>
                                     <field name="shoes_campaign_id" invisible="1"/>
                                     <field name="name"/>
-                                    <!--
                                     <field name="date_order" widget="date" optional="show"/>
-                                    <field name="partner_id" optional="show"/>
-                                    <field name="amount_untaxed" string="Sale" sum="Gross"/>
+                                    <field name="order_partner_id"/>
+                                    <field name="price_subtotal" string="Sale" sum="Gross"/>
+                                    <field name="price_reduce_taxexcl"/>
+                                    <field name="price_reduce"/>
+                                    <field name="product_brand_id"/>
+                                    <field name="product_id"/>
+                                    <field name="product_tmpl_id"/>
+                                    <field name="referrer_id"/>
+                                    <field name="shoes_campaign_id"/>
+                                    <field name="special_pair_price"/>
+                                    <field name="order_id" optional="hide"/>
+                                    <field name="pair_price"/>
+                                    <field name="pairs_count"/>
+                                    <!--
                                     <field name="global_discount" string="Disc. %" optional="hide"/>
                                     <field name="amount_discounted" string="Disc." sum="Discounts"/>
                                     <field name="referrer_percent_commission" string="Com1 %" optional="hide"/>

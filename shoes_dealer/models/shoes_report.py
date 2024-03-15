@@ -78,6 +78,7 @@ class ShoesSaleReport(models.Model):
                     if (record.referrer_ids.ids) and (sol.referrer_id.id not in record.referrer_ids.ids): continue
                     if (record.partner_ids.ids) and (sol.order_partner_id.id not in record.partner_ids.ids): continue
                     if (record.order_ids.ids) and (sol.id not in record.order_ids.ids): continue
+                    if not (record.product_id.is_assortment) or not (record.product_ids.is_pair): continue
                     orderlines.append(sol.id)
             record["sale_line_ids"] = [(6, 0, orderlines)]
     sale_line_ids = fields.Many2many(
