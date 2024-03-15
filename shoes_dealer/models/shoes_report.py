@@ -193,6 +193,14 @@ class ShoesSaleReport(models.Model):
             record["pairs_count"] = total_pairs
 
 
+# Campos calculados para mostrar en el informe de "Rentabilidad por líneas de venta":
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    color_attribute_id = fields.Many2one(related='product_id.color_attribute_id')
+
+
+
 # Campos calculados para mostrar en el informe de "Rentabilidad por pedidos":
 class SaleOrder(models.Model):
     _inherit = "sale.order"
