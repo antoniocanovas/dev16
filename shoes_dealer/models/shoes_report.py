@@ -104,22 +104,22 @@ class ShoesSaleReport(models.Model):
             # Inicializamos las distintas variables y opciones de agrupamiento:
             models, customers, referres, colors, states, total_pairs = [], [], [], [], [], 0
 
-            if group_type == 'customer':
+            if record.group_type == 'customer':
                 for li in sol:
                     if li.order_partner_id not in customers:
                         customers.append(li.order_partner_id)
                         raise UserError(customers)
-            elif group_type == 'referrer':
+            elif record.group_type == 'referrer':
                 for li in sol:
                     if li.referrer_id not in referres:
                         referrers.append(li.referrer_id)
                         raise UserError(referrers)
-            elif group_type == 'color':
+            elif record.group_type == 'color':
                 for li in sol:
                     if li.color_attribute_id not in colors:
                         colors.append(li.color_attribute_id)
                         raise UserError(colors)
-            elif group_type == 'model':
+            elif record.group_type == 'model':
                 for li in sol:
                     if li.product_id.product_tmpl_id not in models:
                         models.append(li.product_tmpl_id)
