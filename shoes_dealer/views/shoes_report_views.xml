@@ -204,12 +204,12 @@
                                     <field name="order_partner_id"/>
                                     <field name="price_subtotal" string="Sale" sum="Gross"/>
                                     <field name="price_reduce_taxexcl"/>
-                                    <field name="price_reduce"/>
                                     <field name="product_brand_id"/>
                                     <field name="product_id"/>
                                     <field name="color_attribute_id"/>
                                     <field name="product_tmpl_id"/>
                                     <field name="referrer_id"/>
+                                    <field name="commission_plan_id"/>
                                     <field name="shoes_campaign_id"/>
                                     <field name="order_id" optional="hide"/>
                                     <field name="pair_price"/>
