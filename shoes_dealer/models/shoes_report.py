@@ -24,7 +24,7 @@ class ShoesSaleReport(models.Model):
             ('referrer','Referrer'),
             ('color','Color'),
             ('model','Model'),
-            ('state','State'),
+            ('state','Country State'),
         ],
         string='Group by'
     )
@@ -97,7 +97,46 @@ class ShoesSaleReport(models.Model):
 
 
     def update_shoes_lines_report(self):
+        for record in self:
+            # La información está en las líneas de venta agrupadas por modelo:
+            sol = record.sale_line_ids
+            record.line_ids.unlink()
+            # Inicializamos las distintas variables y opciones de agrupamiento:
+            models, customers, referres, colors, states, total_pairs = [], [], [], [], [], 0
+
+            if group_type == 'customer':
+                for li in sol:
+                    if li.order_partner_id not in customers:
+                        customers.append(li.order_partner_id)
+                        raise UserError(customers)
+            elif group_type == 'referrer':
+                for li in sol:
+                    if li.referrer_id not in referres:
+                        referrers.append(li.referrer_id)
+                        raise UserError(referrers)
+            elif group_type == 'color':
+                for li in sol:
+                    if li.color_attribute_id not in colors:
+                        colors.append(li.color_attribute_id)
+                        raise UserError(colors)
+            elif group_type == 'model':
+                for li in sol:
+                    if li.product_id.product_tmpl_id not in models:
+                        models.append(li.product_tmpl_id)
+                        raise UserError(models)
+            else: # Country State
+                for li in sol:
+                    if li.state_id not in states:
+                        states.append(li.state_id)
+                        raise UserError(states)
         return True
+
+
+
+
+
+
+
 
 
     def update_shoes_model_report(self):
