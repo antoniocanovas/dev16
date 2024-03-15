@@ -180,7 +180,7 @@
     <!-- FORM VIEW - REPORT BY SALE LINES: -->
     <record id="shoes_margin_by_sale_line_form" model="ir.ui.view">
         <field name="name">shoes.margin.by.sale.line.default.form</field>
-        <field name="model">sale.order.line</field>
+        <field name="model">shoes.sale.report</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
