@@ -106,31 +106,29 @@ class ShoesSaleReport(models.Model):
 
             if record.group_type == 'customer':
                 for li in sol:
-                    if li.order_partner_id not in customers:
-                        customers.append(li.order_partner_id)
+                    if li.order_partner_id.id not in customers:
+                        customers.append(li.order_partner_id.id)
                 raise UserError(customers)
             elif record.group_type == 'referrer':
                 for li in sol:
-                    if li.referrer_id not in referrers:
-                        referrers.append(li.referrer_id)
+                    if li.referrer_id.id not in referrers:
+                        referrers.append(li.referrer_id.id)
                 raise UserError(referrers)
             elif record.group_type == 'color':
                 for li in sol:
-                    if li.color_attribute_id not in colors:
-                        colors.append(li.color_attribute_id)
+                    if li.color_attribute_id.id not in colors:
+                        colors.append(li.color_attribute_id.id)
                 raise UserError(colors)
             elif record.group_type == 'model':
                 for li in sol:
-                    if li.product_id.product_tmpl_id not in models:
-                        models.append(li.product_tmpl_id)
-
-
+                    if li.product_id.product_tmpl_id.id not in models:
+                        models.append(li.product_tmpl_id.id)
 
             for model in models:
                 # VOY POR AQUÍ
                 colors, total_model_pairs = [], 0
                 lines = self.env["sale.order.line"].search(
-                    [("product_tmpl_id", "=", model.id), ("id", "in", sol.ids)])
+                    [("product_tmpl_id", "=", model), ("id", "in", sol.ids)])
                 raise UserError(lines)
 
 
