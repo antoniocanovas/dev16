@@ -95,6 +95,11 @@ class ShoesSaleReport(models.Model):
         "sale.order.line", string="Orders Lines", store=False, compute="_get_sale_lines"
     )
 
+
+    def update_shoes_lines_report(self):
+        return True
+
+
     def update_shoes_model_report(self):
         for record in self:
             # La información está en las líneas de venta agrupadas por modelo:
