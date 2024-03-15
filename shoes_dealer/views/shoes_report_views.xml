@@ -190,7 +190,7 @@
                                 groups="account.group_account_manager">
                         </button>
                         <button class="oe_stat_button" icon="fa-cubes" type="action" name="shoes_dealer.shoes_report_line_o2m"
-                                attrs="{'invisible':[('group_type','not in',['pendiente'])]}">
+                                attrs="{'invisible':[('group_type','in',['pendiente'])]}">
                             <field widget="statinfo" name="pairs_count" string="Top Sales"/>
                         </button>
                     </div>
