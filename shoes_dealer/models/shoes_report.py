@@ -108,27 +108,27 @@ class ShoesSaleReport(models.Model):
                 for li in sol:
                     if li.order_partner_id not in customers:
                         customers.append(li.order_partner_id)
-                        raise UserError(customers)
+                    raise UserError(customers)
             elif record.group_type == 'referrer':
                 for li in sol:
                     if li.referrer_id not in referrers:
                         referrers.append(li.referrer_id)
-                        raise UserError(referrers)
+                    raise UserError(referrers)
             elif record.group_type == 'color':
                 for li in sol:
                     if li.color_attribute_id not in colors:
                         colors.append(li.color_attribute_id)
-                        raise UserError(colors)
+                    raise UserError(colors)
             elif record.group_type == 'model':
                 for li in sol:
                     if li.product_id.product_tmpl_id not in models:
                         models.append(li.product_tmpl_id)
-                        raise UserError(models)
+                    raise UserError(models)
             else: # Country State
                 for li in sol:
                     if li.state_id not in states:
                         states.append(li.state_id)
-                        raise UserError(states)
+                    raise UserError(states)
         return True
 
 
