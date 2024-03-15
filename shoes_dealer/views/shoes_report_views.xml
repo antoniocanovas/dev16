@@ -191,6 +191,7 @@
                         <field name="shoes_campaign_id" required="1"/>
                         <field name="from_date"/>
                         <field name="to_date"/>
+                        <field name="group_type"/>
                         <field name="type" invisible="1"/>
                     </group>
                     <notebook attrs="{'invisible':[('shoes_campaign_id','=',False)]}">
@@ -209,10 +210,10 @@
                                     <field name="product_tmpl_id"/>
                                     <field name="referrer_id"/>
                                     <field name="shoes_campaign_id"/>
-                                    <field name="special_pair_price"/>
                                     <field name="order_id" optional="hide"/>
                                     <field name="pair_price"/>
                                     <field name="pairs_count"/>
+                                    <field name="special_pair_price" optional="hide"/>
                                     <!--
                                     <field name="global_discount" string="Disc. %" optional="hide"/>
                                     <field name="amount_discounted" string="Disc." sum="Discounts"/>

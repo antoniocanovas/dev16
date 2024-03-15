@@ -17,7 +17,17 @@ class ShoesSaleReport(models.Model):
     )
     pairs_count = fields.Integer("Pairs count")
 
-    # Filter fields:
+    # Filter and group fields:
+    group_type = fields.Selection(
+        [
+            ('customer','Customer'),
+            ('referrer','Referrer'),
+            ('color','Color'),
+            ('model','Model'),
+            ('state','State'),
+        ],
+        string='Group by'
+    )
     from_date = fields.Date("From date")
     to_date = fields.Date("To date")
     referrer_ids = fields.Many2many(comodel_name='res.partner',
