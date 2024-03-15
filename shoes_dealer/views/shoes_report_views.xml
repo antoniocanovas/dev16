@@ -189,8 +189,6 @@
                     </h1>
                     <group>
                         <field name="shoes_campaign_id" required="1"/>
-                        <field name="from_date"/>
-                        <field name="to_date"/>
                         <field name="group_type"/>
                         <field name="type" invisible="1"/>
                     </group>
@@ -254,11 +252,13 @@
                         <page name="filters" string="Filters">
                             <group>
                                 <group>
+                                    <field name="from_date"/>
                                     <field name="partner_ids"/>
                                     <field name="color_ids" domain="[('attribute_id','=',color_attribute_id)]"/>
                                     <field name="color_attribute_id" invisible="1"/>
                                 </group>
                                 <group>
+                                    <field name="to_date"/>
                                     <field name="referrer_ids"/>
                                     <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
                                 </group>
