@@ -13,7 +13,7 @@ class ShoesSaleReport(models.Model):
     name = fields.Char(string="Nombre", required=True)
     shoes_campaign_id = fields.Many2one("project.project", string="Shoes campaign")
     type = fields.Selection(
-        [("model", "Model"), ("sale", "Sale")], string="Type", copy=True
+        [("model", "Model"), ("sale", "Sale"),("saleline","Sale Line)], string="Type", copy=True
     )
     pairs_count = fields.Integer("Pairs count")
 
@@ -62,6 +62,26 @@ class ShoesSaleReport(models.Model):
             record["sale_ids"] = [(6, 0, orders)]
     sale_ids = fields.Many2many(
         "sale.order", string="Orders", store=False, compute="_get_sale_orders"
+    )
+
+    @api.depends("shoes_campaign_id")
+    def _get_sale_lines(self):
+        for record in self:
+            orderlines = []
+            if record.type == "saleline":
+                all_lines = (self.env["sale.order.line"].search([
+                    ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
+                    ("state", "not in", ["draft", "cancel"]),]))
+                for sol in orderlines:
+                    if (record.from_date) and (sol.date_order.date() < record.from_date): continue
+                    if (record.to_date) and (sol.date_order.date() > record.to_date): continue
+                    if (record.referrer_ids.ids) and (sol.referrer_id.id not in record.referrer_ids.ids): continue
+                    if (record.partner_ids.ids) and (sol.partner_id.id not in record.partner_ids.ids): continue
+                    if (record.order_ids.ids) and (sol.id not in record.order_ids.ids): continue
+                    orders.append(sol.id)
+            record["sale_ids"] = [(6, 0, orderlines)]
+    sale_line_ids = fields.Many2many(
+        "sale.order.line", string="Orders Lines", store=False, compute="_get_sale_lines"
     )
 
     def update_shoes_model_report(self):
