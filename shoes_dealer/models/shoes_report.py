@@ -130,11 +130,7 @@ class ShoesSaleReport(models.Model):
                 # VOY POR AQUÍ
                 colors, total_model_pairs = [], 0
                 lines = self.env["sale.order.line"].search(
-                    [
-                        ("product_tmpl_id", "=", model.id),
-                        ("id", "in", sol.ids),
-                    ]
-                )
+                    [("product_tmpl_id", "=", model.id), ("id", "in", sol.ids)])
                 raise UserError(lines)
 
 
@@ -210,9 +206,9 @@ class ShoesSaleReport(models.Model):
                             }
                         )
 
-            for li in record.line_ids:
-                total_pairs += li.pairs_count
-            record["pairs_count"] = total_pairs
+                for li in record.line_ids:
+                    total_pairs += li.pairs_count
+                record["pairs_count"] = total_pairs
 
 
 
