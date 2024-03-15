@@ -73,7 +73,7 @@
                     </group>
                     <notebook attrs="{'invisible':[('shoes_campaign_id','=',False)]}">
                         <page name="general" string="General">
-                            <field name="model_ids" readonly="1">
+                            <field name="line_ids" readonly="1">
                                 <tree readonly="1">
                                     <field name="model_id"/>
                                     <field name="color_id"/>
@@ -196,6 +196,26 @@
                     </group>
                     <notebook attrs="{'invisible':[('shoes_campaign_id','=',False)]}">
                         <page name="general" string="General">
+                            <field name="line_ids" readonly="1">
+                                <tree readonly="1">
+                                    <field name="model_id"/>
+                                    <field name="color_id"/>
+                                    <field name="model_description"/>
+                                    <field name="sale" sum="Sale"/>
+                                    <field name="discount" sum="Discount"/>
+                                    <field name="discount_early_payment" sum="Disc EP"/>
+                                    <field name="referrer" sum="Referrer"/>
+                                    <field name="manager" sum="Manager"/>
+                                    <field name="total" sum="Net"/>
+                                    <field name="cost" sum="Cost"/>
+                                    <field name="margin" sum="Diff"/>
+                                    <field name="margin_percent" avg="%Mar"/>
+                                    <field name="pairs_count" sum="Pairs"/>
+                                    <field name="shoes_report_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Sale lines" groups="group_no_one">
                             <field name="sale_line_ids">
                                 <tree>
                                     <field name="shoes_campaign_id" invisible="1"/>

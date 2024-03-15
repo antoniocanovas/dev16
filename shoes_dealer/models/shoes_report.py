@@ -50,7 +50,7 @@ class ShoesSaleReport(models.Model):
                                          default=lambda self: self.env.company.color_attribute_id)
 
     # Result fields:
-    model_ids = fields.One2many(
+    line_ids = fields.One2many(
         "shoes.sale.report.line", "shoes_report_id", string="Lines"
     )
 
@@ -101,7 +101,7 @@ class ShoesSaleReport(models.Model):
             sol = self.env["sale.order.line"].search(
                 [("shoes_campaign_id", "=", record.shoes_campaign_id.id)]
             )
-            record.model_ids.unlink()
+            record.line_ids.unlink()
             models, total_pairs = [], 0
             for li in sol:
                 if (li.product_id.is_assortment or li.product_id.is_pair) and (
@@ -188,7 +188,7 @@ class ShoesSaleReport(models.Model):
                             }
                         )
 
-            for li in record.model_ids:
+            for li in record.line_ids:
                 total_pairs += li.pairs_count
             record["pairs_count"] = total_pairs
 
