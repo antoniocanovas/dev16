@@ -13,7 +13,7 @@ class ShoesSaleReport(models.Model):
     name = fields.Char(string="Nombre", required=True)
     shoes_campaign_id = fields.Many2one("project.project", string="Shoes campaign")
     type = fields.Selection(
-        [("model", "Model"), ("sale", "Sale"),("saleline","Sale Line)], string="Type", copy=True
+        [("model", "Model"), ("sale", "Sale"),("saleline","Sale Line")], string="Type", copy=True
     )
     pairs_count = fields.Integer("Pairs count")
 
