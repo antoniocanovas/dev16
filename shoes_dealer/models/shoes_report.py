@@ -123,7 +123,102 @@ class ShoesSaleReport(models.Model):
                 for li in sol:
                     if li.product_id.product_tmpl_id not in models:
                         models.append(li.product_tmpl_id)
-                raise UserError(models)
+
+
+
+            for model in models:
+                # VOY POR AQUÍ
+                colors, total_model_pairs = [], 0
+                lines = self.env["sale.order.line"].search(
+                    [
+                        ("product_tmpl_id", "=", model.id,
+                        ("id", "in", sol.ids),
+                    ]
+                )
+                raise UserError(lines)
+
+
+
+
+                for li in lines:
+                    if (record.color_ids.ids) and (li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
+                    if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
+                    if (record.to_date) and (li.order_id.date_order.date() > record.to_date): continue
+
+                    if li.product_id.color_attribute_id not in colors:
+                        colors.append(li.product_id.color_attribute_id)
+                    total_model_pairs += li.pairs_count
+
+                for color in colors:
+                    (
+                        sale,
+                        discount,
+                        discountpp,
+                        referrer,
+                        manager,
+                        net,
+                        cost,
+                        difference,
+                        margin_percent,
+                        pairs_count,
+                        factor,
+                    ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                    lines = self.env["sale.order.line"].search(
+                        [
+                            ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
+                            ("product_tmpl_id", "=", model.id),
+                        ]
+                    )
+                    for li in lines:
+                        if (record.color_ids.ids) and (
+                                li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
+                        if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
+                        if (record.to_date) and (li.order_id.date_order.date() > record.to_date): continue
+
+                        if li.product_id.color_attribute_id == color:
+                            if li.order_id.amount_untaxed != 0:
+                                factor = li.price_subtotal / li.order_id.amount_untaxed
+                            sale += li.price_subtotal
+                            discount += li.price_subtotal * li.discount / 100
+                            referrer += li.order_id.commission * factor
+                            manager += li.order_id.manager_commission * factor
+                            cost += li.product_id.standard_price * li.product_uom_qty
+                            pairs_count += li.pairs_count
+                        net = sale - discount - referrer - manager
+                        difference = net - cost
+                        if net != 0:
+                            margin_percent = difference / net * 100
+
+                    if (sale != 0) or (cost != 0):
+                        self.env["shoes.sale.report.line"].create(
+                            {
+                                "shoes_report_id": record.id,
+                                "model_id": model.id,
+                                "product_id": li.product_id.id,
+                                "color_id": color.id,
+                                "sale": sale,
+                                "discount": discount,
+                                "discount_early_payment": 0,
+                                "referrer": referrer,
+                                "manager": manager,
+                                "total": net,
+                                "cost": cost,
+                                "margin": difference,
+                                "margin_percent": margin_percent,
+                                "pairs_count": pairs_count,
+                                "total_model_pairs": total_model_pairs,
+                            }
+                        )
+
+            for li in record.line_ids:
+                total_pairs += li.pairs_count
+            record["pairs_count"] = total_pairs
+
+
+
+
+
+
             else: # Country State
                 for li in sol:
                     if li.state_id not in states:
