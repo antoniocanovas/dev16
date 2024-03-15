@@ -111,7 +111,7 @@ class ShoesSaleReport(models.Model):
                         raise UserError(customers)
             elif record.group_type == 'referrer':
                 for li in sol:
-                    if li.referrer_id not in referres:
+                    if li.referrer_id not in referrers:
                         referrers.append(li.referrer_id)
                         raise UserError(referrers)
             elif record.group_type == 'color':
