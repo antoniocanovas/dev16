@@ -351,7 +351,7 @@
     <record id="action_shoes_margin_by_sale_line" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
-        <field name="context">{'default_type':'sale'}</field>
+        <field name="context">{'default_type':'saleline'}</field>
         <field name="domain">[('type','=','saleline')]</field>
         <field name="filter" eval="False"/>
         <field name="groups_id" eval="[(6, 0, [])]"/>
