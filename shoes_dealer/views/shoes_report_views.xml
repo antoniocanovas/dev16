@@ -221,6 +221,7 @@
                                     <field name="margin_percent" avg="%Mar"/>
                                     <field name="pairs_count" sum="Pairs"/>
                                     <field name="shoes_report_id" invisible="1"/>
+                                    <field name="group_type" invisible="1"/>
                                 </tree>
                             </field>
                         </page>

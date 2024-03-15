@@ -413,6 +413,7 @@ class ShoesSaleReportLine(models.Model):
     _description = "Shoes Sale Report Line"
 
     shoes_report_id = fields.Many2one("shoes.sale.report", string="Shoes report")
+    group_type = fields.Selection(related='shoes_report_id.group_type')
     model_id = fields.Many2one("product.template", string="Model")
     color_id = fields.Many2one("product.attribute.value", string="Color")
     model_description = fields.Text(
