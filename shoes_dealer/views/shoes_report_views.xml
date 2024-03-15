@@ -215,7 +215,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Sale lines" groups="group_no_one">
+                        <page string="Sale lines" groups="groups_no_one">
                             <field name="sale_line_ids">
                                 <tree>
                                     <field name="shoes_campaign_id" invisible="1"/>
