@@ -126,7 +126,6 @@ class ShoesSaleReport(models.Model):
                     (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count,factor
                      ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
 
-                    raise UserError(lines)
                     for li in lines:
                         total_model_pairs += li.pairs_count
                         if li.order_id.amount_untaxed != 0:
