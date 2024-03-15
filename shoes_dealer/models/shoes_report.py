@@ -131,7 +131,7 @@ class ShoesSaleReport(models.Model):
                 colors, total_model_pairs = [], 0
                 lines = self.env["sale.order.line"].search(
                     [
-                        ("product_tmpl_id", "=", model.id,
+                        ("product_tmpl_id", "=", model.id),
                         ("id", "in", sol.ids),
                     ]
                 )
