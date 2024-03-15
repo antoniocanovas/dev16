@@ -3,7 +3,7 @@
 
 
 from odoo import fields, models, api
-
+from odoo.exceptions import UserError
 
 class ShoesSaleReport(models.Model):
     _name = "shoes.sale.report"
