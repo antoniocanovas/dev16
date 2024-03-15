@@ -106,64 +106,30 @@ class ShoesSaleReport(models.Model):
 
             if record.group_type == 'customer':
                 for li in sol:
-                    if li.order_partner_id.id not in customers:
-                        customers.append(li.order_partner_id.id)
-                raise UserError(customers)
+                    if li.order_partner_id.id not in customers: customers.append(li.order_partner_id.id)
             elif record.group_type == 'referrer':
                 for li in sol:
-                    if li.referrer_id.id not in referrers:
-                        referrers.append(li.referrer_id.id)
-                raise UserError(referrers)
+                    if li.referrer_id.id not in referrers: referrers.append(li.referrer_id.id)
             elif record.group_type == 'color':
                 for li in sol:
-                    if li.color_attribute_id.id not in colors:
-                        colors.append(li.color_attribute_id.id)
-                raise UserError(colors)
+                    if li.color_attribute_id.id not in colors: colors.append(li.color_attribute_id.id)
             elif record.group_type == 'model':
                 for li in sol:
-                    if li.product_id.product_tmpl_id.id not in models:
-                        models.append(li.product_tmpl_id.id)
+                    if li.product_id.product_tmpl_id.id not in models: models.append(li.product_tmpl_id.id)
 
-            for model in models:
-                # VOY POR AQUÍ
-                colors, total_model_pairs = [], 0
-                lines = self.env["sale.order.line"].search(
-                    [("product_tmpl_id", "=", model), ("id", "in", sol.ids)])
-                raise UserError(lines)
-
-
-
-
-                for li in lines:
-                    if (record.color_ids.ids) and (li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
-                    if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
-                    if (record.to_date) and (li.order_id.date_order.date() > record.to_date): continue
-
-                    if li.product_id.color_attribute_id not in colors:
-                        colors.append(li.product_id.color_attribute_id)
-                    total_model_pairs += li.pairs_count
-
-                for color in colors:
-                    (
-                        sale,
-                        discount,
-                        discountpp,
-                        referrer,
-                        manager,
-                        net,
-                        cost,
-                        difference,
-                        margin_percent,
-                        pairs_count,
-                        factor,
-                    ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                # Cálculos para opción de MODELS:
+                for model in models:
+                    colors, total_model_pairs = [], 0
                     lines = self.env["sale.order.line"].search(
-                        [
-                            ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
-                            ("product_tmpl_id", "=", model.id),
-                        ]
-                    )
+                        [("product_tmpl_id", "=", model), ("id", "in", sol.ids)])
+
+                    (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count,factor
+                     ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+
+                    raise UserError(lines)
                     for li in lines:
+# pendiente                        total_model_pairs += li.pairs_count
+                    # VOY POR AQUÍ
                         if (record.color_ids.ids) and (
                                 li.product_id.color_attribute_id.id not in record.color_ids.ids): continue
                         if (record.from_date) and (li.order_id.date_order.date() < record.from_date): continue
@@ -203,11 +169,11 @@ class ShoesSaleReport(models.Model):
                                 "total_model_pairs": total_model_pairs,
                             }
                         )
-
+                """
                 for li in record.line_ids:
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
-
+                """
 
 
 
