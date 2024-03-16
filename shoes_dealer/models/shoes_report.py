@@ -107,6 +107,58 @@ class ShoesSaleReport(models.Model):
             if record.group_type == 'customer':
                 for li in sol:
                     if li.order_partner_id.id not in customers: customers.append(li.order_partner_id.id)
+                # Cálculos para opción de CUSTOMERS:
+                for customer in customers:
+                    total_model_pairs = []
+                    lines = self.env["sale.order.line"].search(
+                        [("order_partner_id", "=", customer), ("id", "in", sol.ids)])
+                    (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent,
+                     pairs_count, factor
+                     ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                    for li in lines:
+                        total_model_pairs += li.pairs_count
+                        if li.order_id.amount_untaxed != 0:
+                            factor = li.price_subtotal / li.order_id.amount_untaxed
+                        sale += li.price_subtotal
+                        discount += li.price_subtotal * li.discount / 100
+                        referrer += li.order_id.commission * factor
+                        manager += li.order_id.manager_commission * factor
+                        cost += li.product_id.standard_price * li.product_uom_qty
+                        pairs_count += li.pairs_count
+                    net = sale - discount - referrer - manager
+                    difference = net - cost
+                    if net != 0:
+                        margin_percent = difference / net * 100
+
+                    if (sale != 0) or (cost != 0):
+                        self.env["shoes.sale.report.line"].create(
+                            {
+                                "shoes_report_id": record.id,
+#                                "model_id": model,
+                                "partner_id": customer,
+#                                "product_id": li.product_id.id,
+#                                "color_id": color.id,
+                                "sale": sale,
+                                "discount": discount,
+#                                "discount_early_payment": 0,
+#                                "referrer": referrer,
+#                                "manager": manager,
+                                "total": net,
+                                "cost": cost,
+                                "margin": difference,
+                                "margin_percent": margin_percent,
+                                "pairs_count": pairs_count,
+                                "total_model_pairs": total_model_pairs,
+                            }
+                        )
+                for li in record.line_ids:
+                    total_pairs += li.pairs_count
+                record["pairs_count"] = total_pairs
+
+
+
+
+
             elif record.group_type == 'referrer':
                 for li in sol:
                     if li.referrer_id.id not in referrers: referrers.append(li.referrer_id.id)
@@ -118,16 +170,13 @@ class ShoesSaleReport(models.Model):
             elif record.group_type == 'model':
                 for li in sol:
                     if li.product_id.product_tmpl_id.id not in models: models.append(li.product_tmpl_id.id)
-
                 # Cálculos para opción de MODELS:
                 for model in models:
-                    colors, total_model_pairs = [], 0
+                    total_model_pairs = []
                     lines = self.env["sale.order.line"].search(
                         [("product_tmpl_id", "=", model), ("id", "in", sol.ids)])
-
                     (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count,factor
                      ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
-
                     for li in lines:
                         total_model_pairs += li.pairs_count
                         if li.order_id.amount_untaxed != 0:
@@ -148,6 +197,7 @@ class ShoesSaleReport(models.Model):
                             {
                                 "shoes_report_id": record.id,
                                 "model_id": model,
+#                                "partner_id": customer,
                                 "product_id": li.product_id.id,
 #                                "color_id": color.id,
                                 "sale": sale,
@@ -163,14 +213,9 @@ class ShoesSaleReport(models.Model):
                                 "total_model_pairs": total_model_pairs,
                             }
                         )
-
                 for li in record.line_ids:
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
-
-
-
-
 
 
             else: # Country State
@@ -416,6 +461,7 @@ class ShoesSaleReportLine(models.Model):
 
     shoes_report_id = fields.Many2one("shoes.sale.report", string="Shoes report")
     group_type = fields.Selection(related='shoes_report_id.group_type')
+    partner_id = fields.Many2one('res.partner', string='Customer')
     model_id = fields.Many2one("product.template", string="Model")
     color_id = fields.Many2one("product.attribute.value", string="Color")
     model_description = fields.Text(
