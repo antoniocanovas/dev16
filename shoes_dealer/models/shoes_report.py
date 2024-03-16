@@ -109,7 +109,7 @@ class ShoesSaleReport(models.Model):
                     if li.order_partner_id.id not in customers: customers.append(li.order_partner_id.id)
                 # Cálculos para opción de CUSTOMERS:
                 for customer in customers:
-                    total_model_pairs = []
+                    total_model_pairs = 0
                     lines = self.env["sale.order.line"].search(
                         [("order_partner_id", "=", customer), ("id", "in", sol.ids)])
                     (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent,
