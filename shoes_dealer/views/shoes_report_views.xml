@@ -208,7 +208,7 @@
                             <field name="line_ids">
                                 <tree create="0" delete="0">
                                     <field name="model_id"/>
-                                    <field name="color_id" attrs="{'column_invisible':[('group_type','==','model')]}"/>
+                                    <field name="color_id"/>
                                     <field name="model_description"/>
                                     <field name="sale" sum="Sale"/>
                                     <field name="discount" sum="Discount"/>
