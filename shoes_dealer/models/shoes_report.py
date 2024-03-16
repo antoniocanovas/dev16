@@ -194,9 +194,12 @@ class ShoesSaleReport(models.Model):
                         margin_percent = difference / net * 100
 
                     if (sale != 0) or (cost != 0):
+                        name = li.product_tmpl_id.name
+                        if li.product_tmpl_id.description_sale:
+                            name += " (" + li.product_tmpl_id.description_sale + ")"
                         self.env["shoes.sale.report.line"].create(
                             {
-                                "name":li.product_tmpl_id.name,
+                                "name": name,
 #                                "model_id": model,
 #                                "partner_id": customer,
                                 "product_id": li.product_id.id,
@@ -467,9 +470,7 @@ class ShoesSaleReportLine(models.Model):
     partner_id = fields.Many2one('res.partner', string='Customer')
     model_id = fields.Many2one("product.template", string="Model")
     color_id = fields.Many2one("product.attribute.value", string="Color")
-    model_description = fields.Text(
-        "Sale description", related="model_id.description_sale"
-    )
+#    model_description = fields.Text("Sale description", related="model_id.description_sale")
     sale = fields.Float("Sale", help="Sale amount")
     discount = fields.Float("Disc.", help="Discount amount")
     discount_early_payment = fields.Float("EP", help="Early payment discount")

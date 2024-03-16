@@ -212,8 +212,8 @@
                                     <field name="model_id"/>
                                     <field name="partner_id"/>
                                     <field name="color_id"/>
-                                    -->
                                     <field name="model_description"/>
+                                    -->
                                     <field name="sale" sum="Sale"/>
                                     <field name="discount" sum="Discount"/>
                                     <field name="discount_early_payment" sum="Disc EP"/>
