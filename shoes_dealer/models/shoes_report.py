@@ -134,15 +134,8 @@ class ShoesSaleReport(models.Model):
                         self.env["shoes.sale.report.line"].create(
                             {
                                 "name": li.order_partner_id.name,
-#                                "model_id": model,
-#                                "partner_id": customer,
-#                                "product_id": li.product_id.id,
-#                                "color_id": color.id,
                                 "sale": sale,
                                 "discount": discount,
-#                                "discount_early_payment": 0,
-#                                "referrer": referrer,
-#                                "manager": manager,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
@@ -187,15 +180,8 @@ class ShoesSaleReport(models.Model):
                         self.env["shoes.sale.report.line"].create(
                             {
                                 "name": li.referrer_id.name,
-                                #                                "model_id": model,
-                                #                                "partner_id": customer,
-                                #                                "product_id": li.product_id.id,
-                                #                                "color_id": color.id,
                                 "sale": sale,
                                 "discount": discount,
-                                #                                "discount_early_payment": 0,
-                                #                                "referrer": referrer,
-                                #                                "manager": manager,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
@@ -240,15 +226,8 @@ class ShoesSaleReport(models.Model):
                         self.env["shoes.sale.report.line"].create(
                             {
                                 "name": li.color_attribute_id.name,
-                                #                                "model_id": model,
-                                #                                "partner_id": customer,
-                                #                                "product_id": li.product_id.id,
-                                #                                "color_id": color.id,
                                 "sale": sale,
                                 "discount": discount,
-                                #                                "discount_early_payment": 0,
-                                #                                "referrer": referrer,
-                                #                                "manager": manager,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
@@ -348,15 +327,8 @@ class ShoesSaleReport(models.Model):
                         self.env["shoes.sale.report.line"].create(
                             {
                                 "name": li.state_id.name,
-                                #                                "model_id": model,
-                                #                                "partner_id": customer,
-                                #                                "product_id": li.product_id.id,
-                                #                                "color_id": color.id,
                                 "sale": sale,
                                 "discount": discount,
-                                #                                "discount_early_payment": 0,
-                                #                                "referrer": referrer,
-                                #                                "manager": manager,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
