@@ -113,6 +113,8 @@ class ShoesSaleReport(models.Model):
             elif record.group_type == 'color':
                 for li in sol:
                     if li.color_attribute_id.id not in colors: colors.append(li.color_attribute_id.id)
+
+
             elif record.group_type == 'model':
                 for li in sol:
                     if li.product_id.product_tmpl_id.id not in models: models.append(li.product_tmpl_id.id)
