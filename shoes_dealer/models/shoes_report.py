@@ -320,7 +320,7 @@ class ShoesSaleReport(models.Model):
 
             else: # Country State
                 for li in sol:
-                    if li.state_id not in states: states.append(li.state_id.id)
+                    if li.state_id.id not in states: states.append(li.state_id.id)
                     # Cálculos para opción de PROVINCIAS:
                     for color in colors:
                         total_model_pairs = 0
