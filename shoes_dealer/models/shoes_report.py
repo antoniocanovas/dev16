@@ -321,54 +321,54 @@ class ShoesSaleReport(models.Model):
             else: # Country State
                 for li in sol:
                     if li.state_id.id not in states: states.append(li.state_id.id)
-                    # Cálculos para opción de PROVINCIAS:
-                    for color in colors:
-                        total_model_pairs = 0
-                        lines = self.env["sale.order.line"].search(
-                            [("state_id", "=", state), ("id", "in", sol.ids)])
-                        (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent,
-                         pairs_count, factor
-                         ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
-                        for li in lines:
-                            total_model_pairs += li.pairs_count
-                            if li.order_id.amount_untaxed != 0:
-                                factor = li.price_subtotal / li.order_id.amount_untaxed
-                            sale += li.price_subtotal
-                            discount += li.price_subtotal * li.discount / 100
-                            referrer += li.order_id.commission * factor
-                            manager += li.order_id.manager_commission * factor
-                            cost += li.product_id.standard_price * li.product_uom_qty
-                            pairs_count += li.pairs_count
-                        net = sale - discount - referrer - manager
-                        difference = net - cost
-                        if net != 0:
-                            margin_percent = difference / net * 100
+                # Cálculos para opción de PROVINCIAS:
+                for state in states:
+                    total_model_pairs = 0
+                    lines = self.env["sale.order.line"].search(
+                        [("state_id", "=", state), ("id", "in", sol.ids)])
+                    (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent,
+                     pairs_count, factor
+                     ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                    for li in lines:
+                        total_model_pairs += li.pairs_count
+                        if li.order_id.amount_untaxed != 0:
+                            factor = li.price_subtotal / li.order_id.amount_untaxed
+                        sale += li.price_subtotal
+                        discount += li.price_subtotal * li.discount / 100
+                        referrer += li.order_id.commission * factor
+                        manager += li.order_id.manager_commission * factor
+                        cost += li.product_id.standard_price * li.product_uom_qty
+                        pairs_count += li.pairs_count
+                    net = sale - discount - referrer - manager
+                    difference = net - cost
+                    if net != 0:
+                        margin_percent = difference / net * 100
 
-                        if (sale != 0) or (cost != 0):
-                            self.env["shoes.sale.report.line"].create(
-                                {
-                                    "name": li.state_id.name,
-                                    #                                "model_id": model,
-                                    #                                "partner_id": customer,
-                                    #                                "product_id": li.product_id.id,
-                                    #                                "color_id": color.id,
-                                    "sale": sale,
-                                    "discount": discount,
-                                    #                                "discount_early_payment": 0,
-                                    #                                "referrer": referrer,
-                                    #                                "manager": manager,
-                                    "total": net,
-                                    "cost": cost,
-                                    "margin": difference,
-                                    "margin_percent": margin_percent,
-                                    "pairs_count": pairs_count,
-                                    "total_model_pairs": total_model_pairs,
-                                    "shoes_report_id": record.id,
-                                }
-                            )
-                    for li in record.line_ids:
-                        total_pairs += li.pairs_count
-                    record["pairs_count"] = total_pairs
+                    if (sale != 0) or (cost != 0):
+                        self.env["shoes.sale.report.line"].create(
+                            {
+                                "name": li.state_id.name,
+                                #                                "model_id": model,
+                                #                                "partner_id": customer,
+                                #                                "product_id": li.product_id.id,
+                                #                                "color_id": color.id,
+                                "sale": sale,
+                                "discount": discount,
+                                #                                "discount_early_payment": 0,
+                                #                                "referrer": referrer,
+                                #                                "manager": manager,
+                                "total": net,
+                                "cost": cost,
+                                "margin": difference,
+                                "margin_percent": margin_percent,
+                                "pairs_count": pairs_count,
+                                "total_model_pairs": total_model_pairs,
+                                "shoes_report_id": record.id,
+                            }
+                        )
+                for li in record.line_ids:
+                    total_pairs += li.pairs_count
+                record["pairs_count"] = total_pairs
 
 
     def update_shoes_model_report(self):
