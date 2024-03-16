@@ -173,7 +173,7 @@ class ShoesSaleReport(models.Model):
                     if li.product_id.product_tmpl_id.id not in models: models.append(li.product_tmpl_id.id)
                 # Cálculos para opción de MODELS:
                 for model in models:
-                    total_model_pairs = []
+                    total_model_pairs = 0
                     lines = self.env["sale.order.line"].search(
                         [("product_tmpl_id", "=", model), ("id", "in", sol.ids)])
                     (sale, discount, discountpp, referrer, manager, net, cost, difference, margin_percent, pairs_count,factor
