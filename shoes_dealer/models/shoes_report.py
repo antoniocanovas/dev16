@@ -470,7 +470,7 @@ class ShoesSaleReportLine(models.Model):
     partner_id = fields.Many2one('res.partner', string='Customer')
     model_id = fields.Many2one("product.template", string="Model")
     color_id = fields.Many2one("product.attribute.value", string="Color")
-#    model_description = fields.Text("Sale description", related="model_id.description_sale")
+    model_description = fields.Text("Sale description", related="model_id.description_sale")
     sale = fields.Float("Sale", help="Sale amount")
     discount = fields.Float("Disc.", help="Discount amount")
     discount_early_payment = fields.Float("EP", help="Early payment discount")
