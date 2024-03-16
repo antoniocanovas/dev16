@@ -133,9 +133,9 @@ class ShoesSaleReport(models.Model):
                     if (sale != 0) or (cost != 0):
                         self.env["shoes.sale.report.line"].create(
                             {
-                                "shoes_report_id": record.id,
+                                "name": li.order_partner_id.name,
 #                                "model_id": model,
-                                "partner_id": customer,
+#                                "partner_id": customer,
 #                                "product_id": li.product_id.id,
 #                                "color_id": color.id,
                                 "sale": sale,
@@ -149,6 +149,7 @@ class ShoesSaleReport(models.Model):
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
+                                "shoes_report_id": record.id,
                             }
                         )
                 for li in record.line_ids:
@@ -195,8 +196,8 @@ class ShoesSaleReport(models.Model):
                     if (sale != 0) or (cost != 0):
                         self.env["shoes.sale.report.line"].create(
                             {
-                                "shoes_report_id": record.id,
-                                "model_id": model,
+                                "name":li.product_tmpl_id.name,
+#                                "model_id": model,
 #                                "partner_id": customer,
                                 "product_id": li.product_id.id,
 #                                "color_id": color.id,
@@ -211,6 +212,7 @@ class ShoesSaleReport(models.Model):
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
+                                "shoes_report_id": record.id,
                             }
                         )
                 for li in record.line_ids:
@@ -459,6 +461,7 @@ class ShoesSaleReportLine(models.Model):
     _name = "shoes.sale.report.line"
     _description = "Shoes Sale Report Line"
 
+    name = fields.Char('Name')
     shoes_report_id = fields.Many2one("shoes.sale.report", string="Shoes report")
     group_type = fields.Selection(related='shoes_report_id.group_type')
     partner_id = fields.Many2one('res.partner', string='Customer')

@@ -207,9 +207,12 @@
                         <page name="general" string="General">
                             <field name="line_ids">
                                 <tree create="0" delete="0">
+                                    <field name="name"/>
+                                    <!--
                                     <field name="model_id"/>
                                     <field name="partner_id"/>
                                     <field name="color_id"/>
+                                    -->
                                     <field name="model_description"/>
                                     <field name="sale" sum="Sale"/>
                                     <field name="discount" sum="Discount"/>
