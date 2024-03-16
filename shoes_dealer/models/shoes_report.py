@@ -274,15 +274,11 @@ class ShoesSaleReport(models.Model):
                         self.env["shoes.sale.report.line"].create(
                             {
                                 "name": name,
-#                                "model_id": model,
-#                                "partner_id": customer,
                                 "product_id": li.product_id.id,
-#                                "color_id": color.id,
                                 "sale": sale,
                                 "discount": discount,
 #                                "discount_early_payment": 0,
                                 "referrer": referrer,
-#                                "manager": manager,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
