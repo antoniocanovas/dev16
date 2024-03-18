@@ -78,7 +78,9 @@
                                     <field name="model_id"/>
                                     <field name="color_id"/>
                                     <field name="model_description"/>
+                                    <field name="image" widget="image"/>
                                     <field name="sale" sum="Sale"/>
+                                    <!-- Comentado para poder dar permisos a grupos básicos de ventas:
                                     <field name="discount" sum="Discount"/>
                                     <field name="discount_early_payment" sum="Disc EP"/>
                                     <field name="referrer" sum="Referrer"/>
@@ -87,6 +89,7 @@
                                     <field name="cost" sum="Cost"/>
                                     <field name="margin" sum="Diff"/>
                                     <field name="margin_percent" avg="%Mar"/>
+                                    -->
                                     <field name="pairs_count" sum="Pairs"/>
                                     <field name="shoes_report_id" invisible="1"/>
                                 </tree>
