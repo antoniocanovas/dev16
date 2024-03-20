@@ -253,8 +253,12 @@ class ShoesSaleReport(models.Model):
                     ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
                     for li in lines:
                         total_model_pairs += li.pairs_count
+                        if li.order_id.amount_untaxed != 0:
+                            factor = li.price_subtotal / li.order_id.amount_untaxed
                         sale += li.price_subtotal
                         discount += li.price_subtotal * li.discount / 100
+                        referrer += li.order_id.commission * factor
+                        manager += li.order_id.manager_commission * factor
                         cost += li.product_id.standard_price * li.product_uom_qty
                         pairs_count += li.pairs_count
                     net = sale - discount - li.order_id.commission - li.order_id.manager_commission
@@ -271,8 +275,8 @@ class ShoesSaleReport(models.Model):
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
-                                "referrer":li.order_id.commission,
-                                "manager":li.order_id.manager_commission,
+                                "referrer":referrer,
+                                "manager":manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
