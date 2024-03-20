@@ -279,27 +279,26 @@
                         </page>
                         <page name="filters" string="Filters">
                             <group>
-                                <group>
                                     <field name="from_date"/>
-                                </group>
-                                <group>
                                     <field name="to_date"/>
+                            </group>
+                            <group>
+                                <group string="Included partners">
+                                    <field name="partner_ids" nolabel="1" colspan="2"/>
+                                </group>
+                                <group string="Excluded partners">
+                                    <field name="partner_excluded_ids" nolabel="1"/>
                                 </group>
                             </group>
                             <group>
-                                <group>
-                                     <h3>Excluded partners</h3>
-                                    <field name="partner_excluded_ids" nolabel="1"/>
-                                     <h3>Included partners</h3>
-                                    <field name="partner_ids" nolabel="1"/>
-                                    <h3>Sale orders:</h3>
-                                    <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
+                                <group string="Sale orders">
+                                    <field name="order_ids" nolabel="1" colspan="2" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
                                 </group>
-                                <group>
-                                     <h3>Color filter</h3>
-                                    <field name="color_ids" nolabel="1" domain="[('attribute_id','=',color_attribute_id)]"/>
+                                <group string="Color filter">
+                                    <field name="color_ids" nolabel="1" colspan="2" domain="[('attribute_id','=',color_attribute_id)]"/>
                                     <field name="color_attribute_id" nolabel="1" invisible="1"/>
-                                    <h3>Referreds:</h3>
+                                </group>
+                                <group string="Referrers">
                                     <field name="referrer_ids" nolabel="1"/>
                                 </group>
                             </group>
