@@ -255,7 +255,7 @@ class ShoesSaleReport(models.Model):
                         discount += li.price_subtotal * li.discount / 100
                         cost += li.product_id.standard_price * li.product_uom_qty
                         pairs_count += li.pairs_count
-                    net = sale - discount - order.commission - order.manager_commission
+                    net = sale - discount - li.order_id.commission - li.order_id.manager_commission
                     difference = net - cost
                     if net != 0:
                         margin_percent = difference / net * 100
