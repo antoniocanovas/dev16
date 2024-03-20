@@ -296,7 +296,7 @@
                                 </group>
                                 <group string="Color filter">
                                     <field name="color_ids" nolabel="1" colspan="2" domain="[('attribute_id','=',color_attribute_id)]"/>
-                                    <field name="color_attribute_id"invisible="1"/>
+                                    <field name="color_attribute_id" invisible="1"/>
                                 </group>
                                 <group string="Referrers">
                                     <field name="referrer_ids" nolabel="1" colspan="2"/>
