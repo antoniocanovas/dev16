@@ -217,6 +217,8 @@ class ShoesSaleReport(models.Model):
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
+                                "referrer": referrer,
+                                "manager": manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -282,12 +284,6 @@ class ShoesSaleReport(models.Model):
                 record["pairs_count"] = total_pairs
 
 
-
-
-
-
-
-
             elif record.group_type == "referrer":
                 for li in sol:
                     if li.referrer_id.id not in referrers:
@@ -335,6 +331,8 @@ class ShoesSaleReport(models.Model):
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
+                                "referrer": referrer,
+                                "manager": manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -392,6 +390,8 @@ class ShoesSaleReport(models.Model):
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
+                                "referrer": referrer,
+                                "manager": manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -451,10 +451,11 @@ class ShoesSaleReport(models.Model):
                                 "sale": sale,
                                 "discount": discount,
                                 #                                "discount_early_payment": 0,
-                                "referrer": referrer,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
+                                "referrer": referrer,
+                                "manager": manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -512,6 +513,8 @@ class ShoesSaleReport(models.Model):
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
+                                "referrer": referrer,
+                                "manager": manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
