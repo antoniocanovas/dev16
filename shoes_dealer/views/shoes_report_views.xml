@@ -295,6 +295,7 @@
                                     <h3>Sale orders:</h3>
                                     <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
                                 </group>
+                                <group>
                                      <h3>Color filter</h3>
                                     <field name="color_ids" nolabel="1" domain="[('attribute_id','=',color_attribute_id)]"/>
                                     <field name="color_attribute_id" nolabel="1" invisible="1"/>
