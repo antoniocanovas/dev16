@@ -281,7 +281,7 @@
                             <group>
                                 <group>
                                     <h3>Date filter</h3>
-                                    <field name="from_date" nolabel="1"/>
+                                    <field name="from_date"/>
                                      <h3>Excluded partners</h3>
                                     <field name="partner_ids" nolabel="1"/>
                                      <h3>Color filter</h3>
@@ -290,7 +290,9 @@
                                 </group>
                                 <group>
                                     <field name="to_date"/>
-                                    <field name="referrer_ids"/>
+                                    <h3>Referreds:</h3>
+                                    <field name="referrer_ids" nolabel="1"/>
+                                    <h3>Sale orders:</h3>
                                     <field name="order_ids" domain="[('shoes_campaign_id','=',shoes_campaign_id)]"/>
                                 </group>
                             </group>
