@@ -270,7 +270,7 @@ class ShoesSaleReport(models.Model):
                                 "cost": cost,
                                 "margin": difference,
                                 "referrer":li.order_id.commission,
-                                "manager":li.order_id.partner_commission,
+                                "manager":li.order_id.manager_commission,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
