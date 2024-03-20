@@ -3,14 +3,104 @@
 <odoo>
     <data>
 
+        <template id="shoes_dealer_margin_report_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page">
+                    <h2 style="text-align:center;font-weight: 500;width: 100%;font-size:30px">
+                        Margin report for campaign <span t-field="o.shoes_campaign_id"/>
+                    </h2>
+                    <br/><br/>
+                    <table class="table table-sm o_main_table table-borderless mt-4">
+                        <thead>
+                            <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                <t t-if="o.group_type=='customer'">
+                                    <th t-attf-class="text-start"><span>Customer</span></th>
+                                </t>
+                                <t t-if="o.group_type=='referrer'">
+                                    <th t-attf-class="text-start"><span>Referrer</span></th>
+                                </t>
+                                <t t-if="o.group_type=='color'">
+                                    <th t-attf-class="text-start"><span>Color</span></th>
+                                </t>
+                                <t t-if="o.group_type=='model'">
+                                    <th t-attf-class="text-start"><span>Model</span></th>
+                                </t>
+                                <t t-if="o.group_type=='state'">
+                                    <th t-attf-class="text-start"><span>State</span></th>
+                                </t>
+                                <th t-attf-class="text-start"><span>Sale</span></th>
+                                <th t-attf-class="text-start"><span>Disc.</span></th>
+                                <!--<th t-attf-class="text-start"><span>EP</span></th>-->
+                                <th t-attf-class="text-start"><span>Referrer</span></th>
+                                <th t-attf-class="text-start"><span>Manager</span></th>
+                                <th t-attf-class="text-start"><span>Net</span></th>
+                                <th t-attf-class="text-start"><span>Cost</span></th>
+                                <th t-attf-class="text-start"><span>Margin</span></th>
+                                <th t-attf-class="text-start"><span>Margin %</span></th>
+                                <th t-attf-class="text-start"><span>Pairs</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="o.line_ids.sorted(key=lambda b: b.margin, reverse=True)" t-as="line">
+                                <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.sale"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.discount"/>
+                                    </td>
+                                   <!-- <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.discount_early_payment"/>
+                                    </td>-->
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.referrer"/>
+                                    </td>
+                                    <td class="text-center" style="padding-top:15px">
+                                        <img t-if="line.manager"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.total"/>
+                                    </td>
+                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.cost"/>
+                                    </td>
+                                    <td t-attf-class="text-startcost" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.margin"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.margin_percent"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.pairs_count"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="shoes_dealer_margin_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="shoes_dealer.shoes_dealer_margin_report_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
 
         <template id="shoes_dealer_top_report_document">
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=lang)"/>
                 <div class="page">
-                    <p style="text-align:center;font-weight: 500;width: 100%;font-size:30px">
-                        TOP
-                    </p>
+                    <h2 style="text-align:center;font-weight: 500;width: 100%;font-size:30px">
+                        Top report for campaign <span t-field="o.shoes_campaign_id"/>
+                    </h2>
                     <br/><br/>
                     <table class="table table-sm o_main_table table-borderless mt-4">
                         <thead>
@@ -22,10 +112,10 @@
                             </tr>
                         </thead>
                         <tbody class="sale_tbody">
-                            <t t-foreach="o.model_ids.sorted(key=lambda b: (b.total_model_pairs,b.pairs_count), reverse=True)" t-as="line">
+                            <t t-foreach="o.line_ids.sorted(key=lambda b: (b.total_model_pairs,b.pairs_count), reverse=True)" t-as="line">
                                 <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
                                     <td class="text-center" style="padding-top:15px">
-                                        <img t-if="line.model_id.image_1920" t-att-src="image_data_uri(line.model_id.image_1920)" style="height: 60px;"/>
+                                        <img t-if="line.image" t-att-src="image_data_uri(line.image)" style="height: 60px;"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-field="line.model_id.name"/>
@@ -49,56 +139,6 @@
                 <t t-foreach="docs" t-as="o">
                     <t t-call="shoes_dealer.shoes_dealer_top_report_document" t-lang="lang"/>
                 </t>
-            </t>
-        </template>
-
-
-        <template id="report_product_top">
-            <tr style="border: 1px solid black;">
-                <td t-attf-class="text-start" t-if="product.image_1920"  style="padding-top: 10px; padding-bottom:10px;text-align:center;">
-                    <img t-att-src="image_data_uri(product.image_1920)" style="max-height: 2cm; max-width: 3cm;margin-left:10%;"/>
-                </td>
-                <td style="text-align:center;"><span t-field="product.name"/></td>
-                <td style="text-align:center;"><span t-field="product.sales_count"/></td>
-            </tr>
-        </template>
-
-        <template id="product_top_report">
-            <div class="page">
-                <t t-call="web.html_container">
-                    <t t-if="report == 'top'">
-                        <t t-set="report_to_call" t-value="'shoes_dealer.report_product_top'"/>
-                        <table class="table-border" style="width:100%; border: 1px solid black;  border-collapse: collapse;">
-                            <thead style="background-color: #D0D0D0;">
-                                <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
-                                    <th style="padding-top: 10px; padding-bottom:10px;" t-attf-class="text-center"><span>Image</span></th>
-                                    <th t-attf-class="text-center"><span>Model</span></th>
-                                    <th t-attf-class="text-center"><span>Pairs</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-set="i" t-value="0"/>
-                                <t t-foreach="range(product_number)" t-as="row">
-                                    <tr>
-                                        <t t-set="product" t-value="products[i]"/>
-                                        <t t-set="i" t-value="i+1"/>
-                                        <t t-call="{{report_to_call}}"/>
-                                    </tr>
-                                </t>
-                            </tbody>
-                        </table>
-                    </t>
-                </t>
-            </div>
-        </template>
-
-        <template id="product_top_reportv">
-            <t t-call="web.basic_layout">
-                <div class="page">
-                    <t t-call="shoes_dealer.product_top_report_document">
-                        <t t-set="products" t-value="products"/>
-                    </t>
-                </div>
             </t>
         </template>
 

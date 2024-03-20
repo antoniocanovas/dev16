@@ -46,7 +46,6 @@
         "views/shoes_report_views.xml",
         "data/automatic_actions.xml",
         "data/server_actions.xml",
-        "wizard/pnt_product_report_wizard_view.xml",
         "reports/pnt_product_report.xml",
         "reports/pnt_product_report_template.xml",
     ],

@@ -27,17 +27,6 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
-    def action_open_product_report_top_layout(self):
-        return {
-            "name": _("Report Wizard"),
-            "view_mode": "form",
-            "view_id": self.env.ref("shoes_dealer.product_report_wizard_view").id,
-            "view_type": "form",
-            "res_model": "product.report.wizard",
-            "type": "ir.actions.act_window",
-            "target": "new",
-        }
-
     def _get_sales_count(self):
         for record in self:
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+       <record id="product_catalog_csv" model="ir.actions.report">
+            <field name="name">Export catalog csv</field>
+            <field name="model">product.template</field>
+            <field name="report_type">csv</field>
+            <field name="report_name">custom_azarey.product_catalog_csv</field>
+            <field name="report_file">product_template</field>
+            <field name="binding_model_id" ref="model_product_template"/>
+            <field name="binding_type">report</field>
+        </record>
+</odoo>

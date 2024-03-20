@@ -6,4 +6,3 @@ access_set_template_line_admin, Set template line admin,model_set_template_line,
 access_product_material, Product Material admin,model_product_material,base.group_user,1,1,1,1
 access_shoes_sale_report, Margin reports admin,model_shoes_sale_report,account.group_account_manager,1,1,1,1
 access_shoes_sale_report_line, Margin report lines admin,model_shoes_sale_report_line,account.group_account_manager,1,1,1,1
-user_pnt_product_report_wizard_class,user.pnt.product.report.wizard.class,model_product_report_wizard,base.group_user,1,1,1,1
