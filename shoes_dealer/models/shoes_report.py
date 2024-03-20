@@ -23,6 +23,7 @@ class ShoesSaleReport(models.Model):
     group_type = fields.Selection(
         [
             ("customer", "Customer"),
+            ("saleorder", "Sale order"),
             ("referrer", "Referrer"),
             ("color", "Color"),
             ("model", "Model"),
@@ -159,7 +160,8 @@ class ShoesSaleReport(models.Model):
             sol = record.sale_line_ids
             record.line_ids.unlink()
             # Inicializamos las distintas variables y opciones de agrupamiento:
-            models, customers, referrers, colors, states, total_pairs = (
+            models, customers, saleorders, referrers, colors, states, total_pairs = (
+                [],
                 [],
                 [],
                 [],
@@ -224,6 +226,67 @@ class ShoesSaleReport(models.Model):
                 for li in record.line_ids:
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
+
+            elif record.group_type == "saleorder":
+                for li in sol:
+                    if li.order_id.id not in saleorders:
+                        saleorders.append(li.order_id.id)
+                # Cálculos para opción de PEDIDOS DE VENTA:
+                for order in saleorders:
+                    total_model_pairs = 0
+                    lines = self.env["sale.order.line"].search(
+                        [("order_id", "=", order), ("id", "in", sol.ids)]
+                    )
+                    (
+                        sale,
+                        discount,
+                        discountpp,
+                        referrer,
+                        manager,
+                        net,
+                        cost,
+                        difference,
+                        margin_percent,
+                        pairs_count,
+                    ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                    for li in lines:
+                        total_model_pairs += li.pairs_count
+                        sale += li.price_subtotal
+                        discount += li.price_subtotal * li.discount / 100
+                        cost += li.product_id.standard_price * li.product_uom_qty
+                        pairs_count += li.pairs_count
+                    net = sale - discount - order.commission - order.manager_commission
+                    difference = net - cost
+                    if net != 0:
+                        margin_percent = difference / net * 100
+
+                    if (sale != 0) or (cost != 0):
+                        self.env["shoes.sale.report.line"].create(
+                            {
+                                "name": order_id.name,
+                                "sale": sale,
+                                "discount": discount,
+                                "total": net,
+                                "cost": cost,
+                                "margin": difference,
+
+                                #### voy por aquí, ¿falta manager y comisionista?
+                                "margin_percent": margin_percent,
+                                "pairs_count": pairs_count,
+                                "total_model_pairs": total_model_pairs,
+                                "shoes_report_id": record.id,
+                            }
+                        )
+                for li in record.line_ids:
+                    total_pairs += li.pairs_count
+                record["pairs_count"] = total_pairs
+
+
+
+
+
+
+
 
             elif record.group_type == "referrer":
                 for li in sol:
