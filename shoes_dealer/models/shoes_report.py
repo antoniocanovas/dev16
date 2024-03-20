@@ -522,6 +522,9 @@ class ShoesSaleReport(models.Model):
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
 
+
+
+
     def update_shoes_model_report(self):
         for record in self:
             # La información está en las líneas de venta agrupadas por modelo:
