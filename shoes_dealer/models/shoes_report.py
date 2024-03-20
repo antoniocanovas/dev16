@@ -90,12 +90,8 @@ class ShoesSaleReport(models.Model):
                         order.referrer_id.id not in record.referrer_ids.ids
                     ):
                         continue
-                    if (record.partner_excluded_ids.ids) and (
-                        order.partner_id.id in record.partner_excluded_ids.ids
-                    ):
-                        continue
                     if (record.partner_ids.ids) and (
-                        order.partner_id.id in record.partner_ids.ids
+                        order.partner_id.id not in record.partner_ids.ids
                     ):
                         continue
                     if (record.order_ids.ids) and (
@@ -138,7 +134,11 @@ class ShoesSaleReport(models.Model):
                     ):
                         continue
                     if (record.partner_ids.ids) and (
-                        sol.order_partner_id.id in record.partner_ids.ids
+                        sol.order_partner_id.id not in record.partner_ids.ids
+                    ):
+                        continue
+                    if (record.partner_excluded_ids.ids) and (
+                        order.partner_id.id in record.partner_excluded_ids.ids
                     ):
                         continue
                     if (record.order_ids.ids) and (sol.id not in record.order_ids.ids):
