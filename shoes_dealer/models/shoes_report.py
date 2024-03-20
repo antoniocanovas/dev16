@@ -263,14 +263,14 @@ class ShoesSaleReport(models.Model):
                     if (sale != 0) or (cost != 0):
                         self.env["shoes.sale.report.line"].create(
                             {
-                                "name": order_id.name,
+                                "name": li.order_id.name,
                                 "sale": sale,
                                 "discount": discount,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
-
-                                #### voy por aquí, ¿falta manager y comisionista?
+                                "referrer":li.order_id.commission,
+                                "manager":li.order_id.partner_commission,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
