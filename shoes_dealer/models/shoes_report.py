@@ -46,6 +46,13 @@ class ShoesSaleReport(models.Model):
         domain=[("customer_rank", ">", 0)],
         context={"active_test": True},
     )
+    partner_excluded_ids = fields.Many2many(
+        comodel_name="res.partner",
+        string="Excluded Customers",
+        relation="shoesreport_customer_rel",
+        domain=[("customer_rank", ">", 0)],
+        context={"active_test": True},
+    )
     order_ids = fields.Many2many("sale.order")
     product_ids = fields.Many2many("product.template", domain=[("sale_ok", "=", True)])
     color_ids = fields.Many2many("product.attribute.value", string="Color")
@@ -80,6 +87,10 @@ class ShoesSaleReport(models.Model):
                         continue
                     if (record.referrer_ids.ids) and (
                         order.referrer_id.id not in record.referrer_ids.ids
+                    ):
+                        continue
+                    if (record.partner_excluded_ids.ids) and (
+                        order.partner_id.id in record.partner_excluded_ids.ids
                     ):
                         continue
                     if (record.partner_ids.ids) and (
