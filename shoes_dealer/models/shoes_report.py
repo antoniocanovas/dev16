@@ -13,6 +13,7 @@ class ShoesSaleReport(models.Model):
     name = fields.Char(string="Nombre", required=True)
     shoes_campaign_id = fields.Many2one("project.project", string="Shoes campaign")
     type = fields.Selection(
+        # Sobra la opción SALE, FINALMENTE NO SE VA A USAR (MARZO 24)
         [("model", "Model"), ("sale", "Sale"), ("saleline", "Sale Line")],
         string="Type",
         copy=True,
