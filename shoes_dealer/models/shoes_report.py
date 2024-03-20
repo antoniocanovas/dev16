@@ -248,7 +248,7 @@ class ShoesSaleReport(models.Model):
                         difference,
                         margin_percent,
                         pairs_count,
-                    ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                    ) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
                     for li in lines:
                         total_model_pairs += li.pairs_count
                         sale += li.price_subtotal
