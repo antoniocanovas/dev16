@@ -97,6 +97,7 @@
                 <field name="shipping_price" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"/>
                 <field name="shipping_single_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
                 <field name="exwork_currency_id" invisible="1"/>
+                <field name="pairs_sold"/>
                 <field name="is_pair" invisible="1"/>
                 <field name="is_assortment" invisible="1"/>
             </xpath>

@@ -27,6 +27,18 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
+    # Campo para calcular los pares vendidos y usarlo de base para sacar el TOP en la pantalla de ventas:
+    def _get_pairs_sold(self):
+        for record in self:
+            if self.is_assortment or self.is_pair:
+                total = 0
+                sol = self.env['sale.order.line'].search(
+                    [('product_tmpl_id', '=', record.id), ('state', 'not in', ['draft','cancel'])])
+                for li in sol:
+                    total += li.pairs_count
+            record['pairs_sold'] = total
+    pairs_sold = fields.Integer('Pairs sold', store=False, compute="_get_pairs_sold")
+
     def _get_sales_count(self):
         for record in self:
 
