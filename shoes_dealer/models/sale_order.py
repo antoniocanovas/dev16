@@ -22,3 +22,11 @@ class SaleOrder(models.Model):
         return True
 
     state_id = fields.Many2one("res.country.state", "Customer State", readonly=True, related='partner_id.state_id')
+
+    def _get_campaign_topsale(self):
+        for record in self:
+            models = []
+            qty = self.env.companyt.top_sales_qty
+            models = self.env['product.template'].search([('shoes_campaign_id','=',record.shoes_campaign_id.id)])
+            record['campaign_top_ids'] = [(6,0,models.ids)]
+    campaign_top_ids = fields.Many2many('product.template', store=False, compute='_get_campaign_top_sale')
