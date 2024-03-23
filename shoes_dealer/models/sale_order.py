@@ -29,3 +29,4 @@ class SaleOrder(models.Model):
                 ('shoes_campaign_id','=',record.shoes_campaign_id.id),('pairs_sold','>',1)])
             record['campaign_top_ids'] = [(6,0,models.ids)]
     campaign_top_ids = fields.Many2many('product.template', store=False, compute='_get_campaign_top_sale')
+    top_sales = fields.Boolean('Top sales view', default=True)

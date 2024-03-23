@@ -28,6 +28,7 @@
             </xpath>
             <field name="partner_id" position="before">
                 <field name="shoes_campaign_id" options="{'no_quick_create':1, 'no_create_edit':1}"/>
+                <field name="top_sales" widget="boolean_toogle"/>
             </field>
             <field name="note" position="before">
                 <field name="pairs_count"/>
