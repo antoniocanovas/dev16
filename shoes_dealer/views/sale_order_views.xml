@@ -53,7 +53,17 @@
                 <field name="pair_price"/>
                 <field name="shoes_campaign_id" invisible="1"/>
             </xpath>
-
+            <xpath expr="//sheet" position="after">
+                <div style="float: left; min-width: 20%; max-width: 20%; min-height: 68mm; border: 1px solid black">
+                    <field name="campaign_top_ids">
+                        <tree default_order="pairs_sold desc" limit="10">
+                            <field name="name"/>
+                            <field name="image_1920" widget="image"/>
+                            <field name="pairs_sold" invisible="1"/>
+                        </tree>
+                    </field>
+                </div>
+            </xpath>
         </field>
     </record>
 
