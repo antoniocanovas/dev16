@@ -32,8 +32,8 @@ class ProductTemplate(models.Model):
     @api.depends('sale_line_ids')
     def _get_pairs_sold(self):
         for record in self:
-            if self.is_assortment or self.is_pair:
-                total = 0
+            total = 0
+            if record.is_assortment or record.is_pair:
                 sol = self.env['sale.order.line'].search(
                     [('product_tmpl_id', '=', record.id), ('state', 'not in', ['draft','cancel'])])
                 for li in sol:
