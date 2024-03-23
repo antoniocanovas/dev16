@@ -26,7 +26,7 @@ class SaleOrder(models.Model):
     def _get_campaign_top_sale(self):
         for record in self:
             models = []
-            qty = self.env.companyt.top_sales_qty
+            qty = self.env.company.top_sales_qty
             models = self.env['product.template'].search([('shoes_campaign_id','=',record.shoes_campaign_id.id)])
             record['campaign_top_ids'] = [(6,0,models.ids)]
     campaign_top_ids = fields.Many2many('product.template', store=False, compute='_get_campaign_top_sale')
