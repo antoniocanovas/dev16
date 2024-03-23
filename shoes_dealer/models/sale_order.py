@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
 
     state_id = fields.Many2one("res.country.state", "Customer State", readonly=True, related='partner_id.state_id')
 
-    def _get_campaign_topsale(self):
+    def _get_campaign_top_sale(self):
         for record in self:
             models = []
             qty = self.env.companyt.top_sales_qty
