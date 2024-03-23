@@ -17,6 +17,9 @@
                                 <t t-if="o.group_type=='customer'">
                                     <th t-attf-class="text-start"><span>Customer</span></th>
                                 </t>
+                                <t t-if="o.group_type=='saleorder'">
+                                    <th t-attf-class="text-start"><span>Pedido</span></th>
+                                </t>
                                 <t t-if="o.group_type=='referrer'">
                                     <th t-attf-class="text-start"><span>Referrer</span></th>
                                 </t>
@@ -29,56 +32,117 @@
                                 <t t-if="o.group_type=='state'">
                                     <th t-attf-class="text-start"><span>State</span></th>
                                 </t>
-                                <th t-attf-class="text-start"><span>Sale</span></th>
+                                <th t-attf-class="text-start"><span>Cliente</span></th>
+                                <th t-attf-class="text-start"><span>Bruto</span></th>
                                 <th t-attf-class="text-start"><span>Disc.</span></th>
                                 <!--<th t-attf-class="text-start"><span>EP</span></th>-->
-                                <th t-attf-class="text-start"><span>Referrer</span></th>
-                                <th t-attf-class="text-start"><span>Manager</span></th>
+                                <th t-attf-class="text-start"><span>Com.Repre</span></th>
+                                <th t-attf-class="text-start"><span>Com.Gerente</span></th>
                                 <th t-attf-class="text-start"><span>Net</span></th>
                                 <th t-attf-class="text-start"><span>Cost</span></th>
-                                <th t-attf-class="text-start"><span>Margin</span></th>
+                                <th t-attf-class="text-start"><span>Diferencia</span></th>
                                 <th t-attf-class="text-start"><span>Margin %</span></th>
                                 <th t-attf-class="text-start"><span>Pairs</span></th>
                             </tr>
                         </thead>
                         <tbody class="sale_tbody">
+                            <t t-set="total_bruto" t-value="0"/>
+                            <t t-set="total_desc" t-value="0"/>
+                            <t t-set="total_com_repre" t-value="0"/>
+                            <t t-set="total_com_mana" t-value="0"/>
+                            <t t-set="total_neto" t-value="0"/>
+                            <t t-set="total_coste" t-value="0"/>
+                            <t t-set="total_dif" t-value="0"/>
+                            <t t-set="total_dif_porcen" t-value="0"/>
+                            <t t-set="total_pares" t-value="0"/>
                             <t t-foreach="o.line_ids.sorted(key=lambda b: b.margin, reverse=True)" t-as="line">
                                 <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-field="line.name"/>
                                     </td>
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.sale"/>
+                                   <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.partner_id"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.discount"/>
-                                    </td>
-                                   <!-- <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.discount_early_payment"/>
-                                    </td>-->
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.referrer"/>
-                                    </td>
-                                    <td class="text-center" style="padding-top:15px">
-                                        <img t-if="line.manager"/>
+                                        <span t-esc="'%.2f'% line.sale"/>
+                                        <t t-set="total_bruto" t-value="total_bruto+line.sale"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.total"/>
+                                        <span t-esc="'%.2f'% line.discount"/>
+                                        <t t-set="total_desc" t-value="total_desc+line.discount"/>
                                     </td>
-                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.cost"/>
+                                    <!-- <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                         <span t-field="line.discount_early_payment"/>
+                                     </td>-->
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-esc="'%.2f'% line.referrer"/>
+                                        <t t-set="total_com_repre" t-value="total_com_repre+line.referrer"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-esc="'%.2f'% line.manager"/>
+                                        <t t-set="total_com_mana" t-value="total_com_mana+line.manager"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-esc="'%.2f'% line.total"/>
+                                          <t t-set="total_neto" t-value="total_neto+line.total"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-esc="'%.2f'% line.cost"/>
+                                        <t t-set="total_coste" t-value="total_coste+line.cost"/>
                                     </td>
                                     <td t-attf-class="text-startcost" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.margin"/>
+                                        <span t-esc="'%.2f'% line.margin"/>
+                                        <t t-set="total_dif" t-value="total_dif+line.margin"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.margin_percent"/>
+                                        <span t-esc="'%.2f'% line.margin_percent"/>
+                                         <t t-set="total_dif_porcen" t-value="total_dif_porcen+line.margin_percent"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-field="line.pairs_count"/>
+                                        <t t-set="total_pares" t-value="total_pares+line.pairs_count"/>
                                     </td>
                                 </tr>
                             </t>
+                             <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+
+                                    </td>
+                                   <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_bruto"/>
+                                    </td>
+                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_desc"/>
+                                    </td>
+
+                                    <!-- <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                         <span t-field="line.discount_early_payment"/>
+                                     </td>-->
+                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_com_repre"/>
+                                    </td>
+                                   <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_com_mana"/>
+                                    </td>
+                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_neto"/>
+                                    </td>
+                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_coste"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_dif"/>
+                                    </td>
+                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_dif_porcen"/>
+                                    </td>
+                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                        <span t-esc="'%.2f'% total_pares"/>
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -112,19 +176,47 @@
                             </tr>
                         </thead>
                         <tbody class="sale_tbody">
+                            <t t-set="NAME_MODEL" t-value="0"/>
+                            <t t-set="TOTAL" t-value="0"/>
+                            <t t-set="i" t-value="0"/>
                             <t t-foreach="o.line_ids.sorted(key=lambda b: (b.total_model_pairs,b.pairs_count), reverse=True)" t-as="line">
-                                <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
-                                    <td class="text-center" style="padding-top:15px">
-                                        <img t-if="line.image" t-att-src="image_data_uri(line.image)" style="height: 60px;"/>
+                                <t t-if="NAME_MODEL!=line.model_id.name">
+                                    <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                        <t t-set="NAME_MODEL" t-value="line.model_id.name"/>
+                                        <t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>
+                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            TOTAL MODEL <span t-field="line.model_id.name"/> / <span t-field="line.total_model_pairs"/>
+                                        </td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                </t>
+                                <t>
+                                    <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                        <td class="text-center" style="padding-top:15px">
+                                            <img t-if="line.image" t-att-src="image_data_uri(line.image)" style="height: 60px;"/>
+                                        </td>
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            <span t-field="line.model_id.name"/>
+                                        </td>
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            <span t-field="line.color_id.name"/>
+                                        </td>
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            <span t-field="line.pairs_count"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t>
+                                <tr style="border-top:3pt solid;">
+                                    <td colspan="3" class="text-center" style="padding-top:15px">
+                                        <p>TOTAL PAIRS</p>
                                     </td>
+
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.model_id.name"/>
-                                    </td>
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.color_id.name"/>
-                                    </td>
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                        <span t-field="line.pairs_count"/>
+                                        <span t-esc="TOTAL"/>
                                     </td>
                                 </tr>
                             </t>

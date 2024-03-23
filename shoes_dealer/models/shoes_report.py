@@ -139,7 +139,7 @@ class ShoesSaleReport(models.Model):
                     ):
                         continue
                     if (record.partner_excluded_ids.ids) and (
-                        order.partner_id.id in record.partner_excluded_ids.ids
+                        sol.partner_id.id in record.partner_excluded_ids.ids
                     ):
                         continue
                     if (record.order_ids.ids) and (sol.id not in record.order_ids.ids):
@@ -262,7 +262,12 @@ class ShoesSaleReport(models.Model):
                         manager += li.order_id.manager_commission * factor
                         cost += li.product_id.standard_price * li.product_uom_qty
                         pairs_count += li.pairs_count
-                    net = sale - discount - li.order_id.commission - li.order_id.manager_commission
+                    net = (
+                        sale
+                        - discount
+                        - li.order_id.commission
+                        - li.order_id.manager_commission
+                    )
                     difference = net - cost
                     if net != 0:
                         margin_percent = difference / net * 100
@@ -272,12 +277,13 @@ class ShoesSaleReport(models.Model):
                             {
                                 "name": li.order_id.name,
                                 "sale": sale,
+                                "partner_id": li.order_id.partner_id.id,
                                 "discount": discount,
                                 "total": net,
                                 "cost": cost,
                                 "margin": difference,
-                                "referrer":referrer,
-                                "manager":manager,
+                                "referrer": referrer,
+                                "manager": manager,
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -287,7 +293,6 @@ class ShoesSaleReport(models.Model):
                 for li in record.line_ids:
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
-
 
             elif record.group_type == "referrer":
                 for li in sol:
@@ -529,9 +534,6 @@ class ShoesSaleReport(models.Model):
                 for li in record.line_ids:
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
-
-
-
 
     def update_shoes_model_report(self):
         for record in self:

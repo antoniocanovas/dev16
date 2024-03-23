@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+         <record id="paperformat_azarey_Margin" model="report.paperformat">
+            <field name="name">A4 Margin Azarey </field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">32</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="disable_shrinking" eval="True"/>
+            <field name="dpi">96</field>
+        </record>
 
         <record id="pnt_model_shoes_dealer_top_report" model="ir.actions.report">
             <field name="name">Top</field>
@@ -22,6 +36,7 @@
             <field name="report_file">shoes_dealer.shoes_dealer_margin_report</field>
             <field name="print_report_name">((str(object.shoes_campaign_id.name)+str("-")+str("Margin") or ''))</field>
             <field name="attachment">((str(object.shoes_campaign_id.name )+str("-")+str("Margin") or ''))</field>
+            <field name="paperformat_id" ref="shoes_dealer.paperformat_azarey_Margin"/>
             <field name="binding_model_id" eval="False"/>
             <field name="binding_type">report</field>
         </record>

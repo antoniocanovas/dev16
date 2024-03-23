@@ -222,9 +222,9 @@
                                     <field name="color_id"/>
                                     <field name="model_description"/>
                                     -->
-                                    <field name="sale" sum="Sale"/>
+                                    <field name="sale" label="Bruto" sum="Sale"/>
                                     <field name="discount" sum="Discount"/>
-                                    <field name="discount_early_payment" sum="Disc EP"/>
+                                   <!-- <field name="discount_early_payment" sum="Disc EP"/>-->
                                     <field name="referrer" sum="Referrer"/>
                                     <field name="manager" sum="Manager"/>
                                     <field name="total" sum="Net"/>
