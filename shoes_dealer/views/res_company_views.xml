@@ -17,7 +17,6 @@
                         <field name="single_sale"/>
                         <field name="single_purchase"/>
                         <field name="exwork_currency_id"/>
-                        <field name="top_sales_qty"/>
                     </group>
                 </page>
             </xpath>
