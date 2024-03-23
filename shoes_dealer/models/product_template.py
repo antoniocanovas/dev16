@@ -28,7 +28,7 @@ class ProductTemplate(models.Model):
     )
 
     # Campos para calcular los pares vendidos y usarlo de base para sacar el TOP en la pantalla de ventas:
-    sale_line_ids = fields.One2many('sale.order.line', 'product_tmpl_id', store=False)
+    sale_line_ids = fields.One2many('sale.order.line', 'product_tmpl_id', store=False, domain="[('state','not in',['draft','cancel'])]")
     @api.depends('sale_line_ids')
     def _get_pairs_sold(self):
         for record in self:
