@@ -17,12 +17,6 @@ class SaleOrder(models.Model):
 
     shoes_campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
 
-    def enable_sale_pairs(self):
-        products = sef.env['product.template'].search([('shoes_campaign_id','=',self.shoes_campaign_id.id),('')])
-        return True
-
-    state_id = fields.Many2one("res.country.state", "Customer State", readonly=True, related='partner_id.state_id')
-
     def _get_campaign_top_sale(self):
         for record in self:
             models = self.env['product.template'].search([

@@ -21,10 +21,6 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="enable_sale_pairs"
-                        icon="fa-bars" class="oe_stat_button"
-                        type="object" string="Enable Pairs">
-                </button>
                 <button name="show_hide_top_sales"
                         icon="fa-delicious" class="oe_stat_button"
                         type="object" string="Top sales">
