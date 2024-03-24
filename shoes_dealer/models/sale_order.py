@@ -30,3 +30,8 @@ class SaleOrder(models.Model):
             record['campaign_top_ids'] = [(6,0,models.ids)]
     campaign_top_ids = fields.Many2many('product.template', store=False, compute='_get_campaign_top_sale')
     top_sales = fields.Boolean('Top sales view', default=True)
+
+    def show_hide_top_sales(self):
+        top_sales = False
+        if self.top_sales == False: top_sales = True
+        self.top_sales = top_sales

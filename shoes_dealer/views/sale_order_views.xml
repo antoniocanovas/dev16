@@ -25,10 +25,13 @@
                         icon="fa-bars" class="oe_stat_button"
                         type="object" string="Enable Pairs">
                 </button>
+                <button name="show_hide_top_sales"
+                        icon="fa-delicious" class="oe_stat_button"
+                        type="object" string="Top sales">
+                </button>
             </xpath>
             <field name="partner_id" position="before">
                 <field name="shoes_campaign_id" options="{'no_quick_create':1, 'no_create_edit':1}"/>
-                <field name="top_sales" widget="boolean_toogle"/>
             </field>
             <field name="note" position="before">
                 <field name="pairs_count"/>
@@ -52,9 +55,11 @@
                 <field name="special_pair_price" optional="show"/>
                 <field name="pair_price"/>
                 <field name="shoes_campaign_id" invisible="1"/>
+                <field name="top_sales" invisible="1"/>
             </xpath>
+
             <xpath expr="//sheet" position="after">
-                <div style="float: left; min-width: 20%; max-width: 20%; min-height: 68mm; border: 1px solid black">
+                <div attrs="{'invisible':[('top_sales','=',False)]}" style="float: left; min-width: 20%; max-width: 20%; min-height: 68mm; border: 1px solid black">
                     <field name="campaign_top_ids">
                         <tree default_order="pairs_sold desc" limit="10">
                             <field name="name"/>
