@@ -35,6 +35,7 @@
             </field>
             <field name="note" position="before">
                 <field name="pairs_count"/>
+                <field name="top_sales" invisible="1"/>
             </field>
             <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
                 <attribute name="domain">[('sale_ok','=',True),('shoes_campaign_id','=',shoes_campaign_id)]</attribute>
@@ -55,7 +56,6 @@
                 <field name="special_pair_price" optional="show"/>
                 <field name="pair_price"/>
                 <field name="shoes_campaign_id" invisible="1"/>
-                <field name="top_sales" invisible="1"/>
             </xpath>
 
             <xpath expr="//sheet" position="after">
