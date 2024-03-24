@@ -17,6 +17,7 @@ class SaleOrder(models.Model):
 
     shoes_campaign_id = fields.Many2one('project.project', string="Campaign", store=True, copy=True, tracking=10)
 
+    @api.depends('shoes_campaign_id')
     def _get_campaign_top_sale(self):
         for record in self:
             models = self.env['product.template'].search([
