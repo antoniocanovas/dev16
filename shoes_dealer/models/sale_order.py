@@ -38,7 +38,7 @@ class SaleOrder(models.Model):
         "product.template", store=False, compute="_get_campaign_top_sale"
     )
 
-    top_sales = fields.Boolean(related=self.env.user.top_sales, readonly=False)
+    top_sales = fields.Boolean(related = lambda self: self.env.user.top_sales)
 
     def show_hide_top_sales(self):
         top_sales = False
