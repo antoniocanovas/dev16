@@ -28,28 +28,29 @@ class ProductTemplate(models.Model):
     )
 
     # Campos para calcular los pares vendidos y usarlo de base para sacar el TOP en la pantalla de ventas:
-    sale_line_ids = fields.One2many('sale.order.line', 'product_tmpl_id', store=False, domain="[('state','not in',['draft','cancel'])]")
-    @api.depends('sale_line_ids')
+    sale_line_ids = fields.One2many(
+        "sale.order.line",
+        "product_tmpl_id",
+        store=False,
+        domain="[('state','not in',['draft','cancel'])]",
+    )
+
+    @api.depends("sale_line_ids")
     def _get_pairs_sold(self):
         for record in self:
             total = 0
             if record.is_assortment or record.is_pair:
-                sol = self.env['sale.order.line'].search(
-                    [('product_tmpl_id', '=', record.id), ('state', 'not in', ['draft','cancel'])])
+                sol = self.env["sale.order.line"].search(
+                    [
+                        ("product_tmpl_id", "=", record.id),
+                        ("state", "not in", ["draft", "cancel"]),
+                    ]
+                )
                 for li in sol:
                     total += li.pairs_count
-            record['pairs_sold'] = total
-    pairs_sold = fields.Integer('Pairs sold', store=True, compute="_get_pairs_sold")
+            record["pairs_sold"] = total
 
-
-    # Esto creo que se puede borrar, lo he puesto en form ptemplate y siempre es cero (23/03/24):
-    def _get_sales_count(self):
-        for record in self:
-
-            if record.sales_count > 0:
-                record["pnt_sales_count"] = int(record.sales_count)
-
-    pnt_sales_count = fields.Integer("Sold", store=True, compute=_get_sales_count)
+    pairs_sold = fields.Integer("Pairs sold", store=True, compute="_get_pairs_sold")
 
     @api.depends("attribute_line_ids")
     def _get_is_assortment(self):

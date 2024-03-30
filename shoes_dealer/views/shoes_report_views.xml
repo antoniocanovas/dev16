@@ -226,7 +226,9 @@
                                     <field name="discount" sum="Discount"/>
                                    <!-- <field name="discount_early_payment" sum="Disc EP"/>-->
                                     <field name="referrer" sum="Referrer"/>
-                                    <field name="manager" sum="Manager"/>
+                                    <field name="referrer_commission_plan"/>
+                                    <field name="manager" sum="Referrer"/>
+                                    <field name="manager_commission_plan"/>
                                     <field name="total" sum="Net"/>
                                     <field name="cost" sum="Cost"/>
                                     <field name="margin" sum="Diff"/>

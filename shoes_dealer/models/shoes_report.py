@@ -142,7 +142,9 @@ class ShoesSaleReport(models.Model):
                         sol.partner_id.id in record.partner_excluded_ids.ids
                     ):
                         continue
-                    if (record.order_ids.ids) and (sol.id not in record.order_ids.ids):
+                    if (record.order_ids.ids) and (
+                        sol.order_id.id not in record.order_ids.ids
+                    ):
                         continue
                     if not (sol.product_id.is_assortment) and not (
                         sol.product_id.is_pair
@@ -220,6 +222,16 @@ class ShoesSaleReport(models.Model):
                                 "margin": difference,
                                 "referrer": referrer,
                                 "manager": manager,
+                                "referrer_commission_plan": (
+                                    li.order_id.commission_plan_id.name
+                                    if li.order_id.commission_plan_id.id
+                                    else ""
+                                ),
+                                "manager_commission_plan": (
+                                    li.order_id.manager_id.manager_commission_plan_id.name
+                                    if li.order_id.manager_id.manager_commission_plan_id.id
+                                    else ""
+                                ),
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -284,6 +296,16 @@ class ShoesSaleReport(models.Model):
                                 "margin": difference,
                                 "referrer": referrer,
                                 "manager": manager,
+                                "referrer_commission_plan": (
+                                    li.order_id.commission_plan_id.name
+                                    if li.order_id.commission_plan_id.id
+                                    else ""
+                                ),
+                                "manager_commission_plan": (
+                                    li.order_id.manager_id.manager_commission_plan_id.name
+                                    if li.order_id.manager_id.manager_commission_plan_id.id
+                                    else ""
+                                ),
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -343,6 +365,16 @@ class ShoesSaleReport(models.Model):
                                 "margin": difference,
                                 "referrer": referrer,
                                 "manager": manager,
+                                "referrer_commission_plan": (
+                                    li.order_id.commission_plan_id.name
+                                    if li.order_id.commission_plan_id.id
+                                    else ""
+                                ),
+                                "manager_commission_plan": (
+                                    li.order_id.manager_id.manager_commission_plan_id.name
+                                    if li.order_id.manager_id.manager_commission_plan_id.id
+                                    else ""
+                                ),
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -402,6 +434,16 @@ class ShoesSaleReport(models.Model):
                                 "margin": difference,
                                 "referrer": referrer,
                                 "manager": manager,
+                                "referrer_commission_plan": (
+                                    li.order_id.commission_plan_id.name
+                                    if li.order_id.commission_plan_id.id
+                                    else ""
+                                ),
+                                "manager_commission_plan": (
+                                    li.order_id.manager_id.manager_commission_plan_id.name
+                                    if li.order_id.manager_id.manager_commission_plan_id.id
+                                    else ""
+                                ),
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -466,6 +508,16 @@ class ShoesSaleReport(models.Model):
                                 "margin": difference,
                                 "referrer": referrer,
                                 "manager": manager,
+                                "referrer_commission_plan": (
+                                    li.order_id.commission_plan_id.name
+                                    if li.order_id.commission_plan_id.id
+                                    else ""
+                                ),
+                                "manager_commission_plan": (
+                                    li.order_id.manager_id.manager_commission_plan_id.name
+                                    if li.order_id.manager_id.manager_commission_plan_id.id
+                                    else ""
+                                ),
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -525,6 +577,16 @@ class ShoesSaleReport(models.Model):
                                 "margin": difference,
                                 "referrer": referrer,
                                 "manager": manager,
+                                "referrer_commission_plan": (
+                                    li.order_id.commission_plan_id.name
+                                    if li.order_id.commission_plan_id.id
+                                    else ""
+                                ),
+                                "manager_commission_plan": (
+                                    li.order_id.manager_id.manager_commission_plan_id.name
+                                    if li.order_id.manager_id.manager_commission_plan_id.id
+                                    else ""
+                                ),
                                 "margin_percent": margin_percent,
                                 "pairs_count": pairs_count,
                                 "total_model_pairs": total_model_pairs,
@@ -815,7 +877,9 @@ class ShoesSaleReportLine(models.Model):
     discount = fields.Float("Disc.", help="Discount amount")
     discount_early_payment = fields.Float("EP", help="Early payment discount")
     referrer = fields.Float("Referrer", help="Referrer commission")
+    referrer_commission_plan = fields.Char(string="%Com1")
     manager = fields.Float("Manager", help="Manager commission")
+    manager_commission_plan = fields.Char(string="%Com2")
     total = fields.Float("Net", help="Net amount")
     cost = fields.Float("Cost", help="Total cost")
     margin = fields.Float("Margin", help="Margin amount")

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-21 14:48+0000\n"
-"PO-Revision-Date: 2024-03-21 15:52+0100\n"
+"POT-Creation-Date: 2024-03-26 14:50+0000\n"
+"PO-Revision-Date: 2024-03-26 16:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -252,6 +252,11 @@ msgid "Campaign Code"
 msgstr "Código de la campaña"
 
 #. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__campaign_top_ids
+msgid "Campaign Top"
+msgstr ""
+
+#. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__can_publish
 msgid "Can Publish"
 msgstr "Puede publicar"
@@ -378,7 +383,6 @@ msgid "Customer Country"
 msgstr "País del cliente"
 
 #. module: shoes_dealer
-#: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__state_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order_line__state_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_report__state_id
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_order_line_inh_search
@@ -395,7 +399,7 @@ msgstr "País del cliente"
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__partner_ids
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
 msgid "Customers"
-msgstr "Cliente"
+msgstr "Clientes"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
@@ -447,11 +451,6 @@ msgstr "Pronto pago"
 #: model:ir.model.fields,help:shoes_dealer.field_shoes_sale_report_line__discount_early_payment
 msgid "Early payment discount"
 msgstr "Desc pronto pago"
-
-#. module: shoes_dealer
-#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_orderinh_form
-msgid "Enable Pairs"
-msgstr "Permitir pares"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_res_company__single_purchase
@@ -940,6 +939,12 @@ msgid "Pairs count"
 msgstr "Pares"
 
 #. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pairs_sold
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pairs_sold
+msgid "Pairs sold"
+msgstr ""
+
+#. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__product_tmpl_set_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__product_tmpl_set_id
 msgid "Parent"
@@ -960,13 +965,14 @@ msgstr "Precio del producto que es vendido al cliente"
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.product_kanban_view_inh
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.product_template_kanban_view_inh
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_orderinh_form
 msgid "Price:"
 msgstr "Precio:"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
 msgid "Print Margin report"
-msgstr "Imprimir informe Margen "
+msgstr "Imprimir informe Margen"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_model_form
@@ -1163,6 +1169,8 @@ msgid "Sale"
 msgstr "Bruto"
 
 #. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__sale_line_ids
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__sale_line_ids
 #: model:ir.model.fields.selection,name:shoes_dealer.selection__shoes_sale_report__type__saleline
 msgid "Sale Line"
 msgstr "Línea de venta"
@@ -1267,13 +1275,13 @@ msgstr "Establecer plantilla"
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__shipping_price
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__shipping_price
 msgid "Shipping price"
-msgstr "Coste de envío"
+msgstr ""
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__shipping_single_price
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__shipping_single_price
 msgid "Shipping single price"
-msgstr "Coste de envío del par"
+msgstr ""
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order_line__shoes_campaign_id
@@ -1327,7 +1335,7 @@ msgstr "Informe Zapatos"
 #. module: shoes_dealer
 #: model:ir.ui.menu,name:shoes_dealer.shoes_margin_by_sale_line_menu
 msgid "Shoes sale report"
-msgstr "Informe Margen"
+msgstr "Informe Ventas"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_res_company__single_prefix
@@ -1383,12 +1391,6 @@ msgstr "Piel"
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__smart_search
 msgid "Smart Search"
 msgstr "Búsqueda inteligente"
-
-#. module: shoes_dealer
-#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_sales_count
-#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pnt_sales_count
-msgid "Sold"
-msgstr ""
 
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_sale_order_line__special_pair_price
@@ -1447,7 +1449,7 @@ msgstr "Este código será usado como referencia en nuevos productos"
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__to_date
 msgid "To date"
-msgstr ""
+msgstr "Hasta"
 
 #. module: shoes_dealer
 #: model:ir.actions.report,name:shoes_dealer.pnt_model_shoes_dealer_top_report
@@ -1462,6 +1464,16 @@ msgstr ""
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "Top report for campaign"
+msgstr ""
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_orderinh_form
+msgid "Top sales"
+msgstr ""
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__top_sales
+msgid "Top sales view"
 msgstr ""
 
 #. module: shoes_dealer

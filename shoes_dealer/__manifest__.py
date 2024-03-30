@@ -48,6 +48,7 @@
         "data/server_actions.xml",
         "reports/pnt_product_report.xml",
         "reports/pnt_product_report_template.xml",
+        "views/res_users_views.xml",
     ],
     "installable": True,
 }

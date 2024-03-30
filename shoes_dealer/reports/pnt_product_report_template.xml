@@ -37,7 +37,9 @@
                                 <th t-attf-class="text-start"><span>Disc.</span></th>
                                 <!--<th t-attf-class="text-start"><span>EP</span></th>-->
                                 <th t-attf-class="text-start"><span>Com.Repre</span></th>
+                                 <th t-attf-class="text-start"><span>%Com.Repre</span></th>
                                 <th t-attf-class="text-start"><span>Com.Gerente</span></th>
+                                <th t-attf-class="text-start"><span>%Com.Gerente</span></th>
                                 <th t-attf-class="text-start"><span>Net</span></th>
                                 <th t-attf-class="text-start"><span>Cost</span></th>
                                 <th t-attf-class="text-start"><span>Diferencia</span></th>
@@ -60,7 +62,7 @@
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-field="line.name"/>
                                     </td>
-                                   <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-field="line.partner_id"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
@@ -79,12 +81,18 @@
                                         <t t-set="total_com_repre" t-value="total_com_repre+line.referrer"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-esc="line.referrer_commission_plan"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-esc="'%.2f'% line.manager"/>
                                         <t t-set="total_com_mana" t-value="total_com_mana+line.manager"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-field="line.manager_commission_plan"/>
+                                    </td>
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-esc="'%.2f'% line.total"/>
-                                          <t t-set="total_neto" t-value="total_neto+line.total"/>
+                                        <t t-set="total_neto" t-value="total_neto+line.total"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-esc="'%.2f'% line.cost"/>
@@ -96,7 +104,7 @@
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-esc="'%.2f'% line.margin_percent"/>
-                                         <t t-set="total_dif_porcen" t-value="total_dif_porcen+line.margin_percent"/>
+                                        <t t-set="total_dif_porcen" t-value="total_dif_porcen+line.margin_percent"/>
                                     </td>
                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                         <span t-field="line.pairs_count"/>
@@ -104,45 +112,48 @@
                                     </td>
                                 </tr>
                             </t>
-                             <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                            <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
 
-                                    </td>
-                                   <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
 
-                                    </td>
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_bruto"/>
-                                    </td>
-                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_desc"/>
-                                    </td>
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_bruto"/>
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_desc"/>
+                                </td>
 
-                                    <!-- <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                         <span t-field="line.discount_early_payment"/>
-                                     </td>-->
-                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_com_repre"/>
-                                    </td>
-                                   <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_com_mana"/>
-                                    </td>
-                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_neto"/>
-                                    </td>
-                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_coste"/>
-                                    </td>
-                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_dif"/>
-                                    </td>
-                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_dif_porcen"/>
-                                    </td>
-                                     <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                        <span t-esc="'%.2f'% total_pares"/>
-                                    </td>
-                                </tr>
+                                <!-- <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                     <span t-field="line.discount_early_payment"/>
+                                 </td>-->
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_com_repre"/>
+                                </td>
+                                <td/>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_com_mana"/>
+                                </td>
+                                <td/>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_neto"/>
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_coste"/>
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_dif"/>
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <t t-set="average_margin" t-value="total_dif_porcen / len(o.line_ids)"/>
+                                    <span t-esc="'%.2f'% average_margin"/>%
+                                </td>
+                                <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
+                                    <span t-esc="'%.2f'% total_pares"/>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -184,7 +195,7 @@
                                     <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
                                         <t t-set="NAME_MODEL" t-value="line.model_id.name"/>
                                         <t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>
-                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                             TOTAL MODEL <span t-field="line.model_id.name"/> / <span t-field="line.total_model_pairs"/>
                                         </td>
                                         <td/>
