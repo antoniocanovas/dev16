@@ -19,7 +19,7 @@ class PartnerCredential(models.Model):
     active = fields.Boolean("Active", default="True")
     description = fields.Text("Description")
 
-    @api.onchange('category_id')
+    @api.depends('category_id')
     def _get_default_departments(self):
         self.department_ids = [(6,0,category_id.department_ids.ids)]
     department_ids = fields.Many2many("hr.department", string="Departments", compute='_get_default_departments', index=True)
@@ -32,7 +32,7 @@ class PartnerCredential(models.Model):
                 if emp.user_id.id not in users:
                     users.append(emp.user_id.id)
         self.user_ids = [(6,0,users)]
-    user_ids = fields.Many2many("res.users", string="Users", store=True, compute="_get_department_users", index=True)
+    user_ids = fields.Many2many("res.users", string="Users", store=True, compute="_get_department_users")
 
     def _user_can_edit(self):
         for record in self:
