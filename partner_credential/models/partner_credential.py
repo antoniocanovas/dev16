@@ -22,7 +22,7 @@ class PartnerCredential(models.Model):
     @api.onchange('category_id')
     def _get_default_departments(self):
         self.department_ids = [(6,0,category_id.department_ids.ids)]
-    department_ids = fields.Many2many("hr.department", string="Departments", compute='_get_default_departments')
+    department_ids = fields.Many2many("hr.department", string="Departments", compute='_get_default_departments', index=True)
 
     @api.depends('department_ids', 'department_ids.member_ids')
     def _get_department_users(self):
