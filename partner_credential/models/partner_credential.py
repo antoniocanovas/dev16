@@ -21,6 +21,10 @@ class PartnerCredential(models.Model):
 
     department_categ_ids = fields.Many2many(related='category_id.department_ids', string='Default users')
     department_ids = fields.Many2many("hr.department", string="Departments", tracking=100)
+    @api.depends('password')
+    def _get_pass_updated(self):
+        self.pass_updated = self.pass_updated +1
+    pass_updated = fields.Integer("Pass updated", store=True, tracking=100, compute="_get_pass_updated")
 
     @api.depends('department_ids', 'department_ids.member_ids', 'department_categ_ids', 'department_categ_ids.member_ids')
     def _get_department_users(self):
