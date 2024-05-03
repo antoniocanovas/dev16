@@ -61,10 +61,10 @@
     </record>
 
     <record id="menu_main_partner_credential_type" model="ir.ui.menu">
-        <field name="action" ref="action_credential"/>
+        <field name="action" ref="action_credential_type"/>
         <field name="active" eval="True"/>
         <field name="name">Categories</field>
-        <field name="parent_id" ref="menu_partner_credential_type"/>
+        <field name="parent_id" ref="menu_partner_credential"/>
         <field name="sequence">20</field>
         <field name="web_icon" eval="False"/>
     </record>
