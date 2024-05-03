@@ -17,14 +17,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="action_credential_type" model="ir.actions.act_window">
+    <record id="action_credential_category" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
         <field name="domain" eval="False"/>
         <field name="filter" eval="False"/>
         <field name="limit">80</field>
-        <field name="name">Credentials type</field>
-        <field name="res_model">partner.credential.type</field>
+        <field name="name">Credentials category</field>
+        <field name="res_model">partner.credential.category</field>
         <field name="search_view_id" eval="False"/>
         <field name="target">current</field>
         <field name="type">ir.actions.act_window</field>
@@ -38,7 +38,7 @@
             <field name="model">partner.credential</field>
             <field name="arch" type="xml">
                 <search string="Partner Credential">
-            <field name="name" string="Credential" filter_domain="['|','|',('name','ilike',self),('type','ilike',self),('partner_id','child_of',self)]"/>
+            <field name="name" string="Credential" filter_domain="['|','|',('name','ilike',self),('category','ilike',self),('partner_id','child_of',self)]"/>
     </search>
             </field>
         </record>
@@ -60,8 +60,8 @@
         <field name="web_icon" eval="False"/>
     </record>
 
-    <record id="menu_main_partner_credential_type" model="ir.ui.menu">
-        <field name="action" ref="action_credential_type"/>
+    <record id="menu_main_partner_credential_category" model="ir.ui.menu">
+        <field name="action" ref="action_credential_category"/>
         <field name="active" eval="True"/>
         <field name="name">Categories</field>
         <field name="parent_id" ref="menu_partner_credential"/>

@@ -14,7 +14,7 @@
     ],
     'data': [
         'views/partner_credential_views.xml',
-        'views/partner_credential_type_views.xml',
+        'views/partner_credential_category_views.xml',
         'views/menu_views.xml',
         'views/res_partner_views.xml',
         'security/user_groups.xml',
