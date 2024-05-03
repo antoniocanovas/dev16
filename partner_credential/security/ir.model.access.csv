@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_credential_user, Partner Credentials User,model_partner_credential,partner_credential.user_credential_group,1,1,1,1
+access_partner_credential_admin, Partner Credentials Admin,model_partner_credential,partner_credential.admin_credential_group,1,1,1,1
+access_partner_credential_type_user, Partner Credentials User,model_partner_credential,partner_credential.user_credential_group,1,0,0,0
+access_partner_credential_type_admin, Partner Credentials Admin,model_partner_credential,partner_credential.admin_credential_group,1,1,1,1

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_credentials" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="domain" eval="False"/>
+        <field name="filter" eval="False"/>
+        <field name="limit">80</field>
+        <field name="name">Credentials</field>
+        <field name="res_model">partner.credentials</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="usage" eval="False"/>
+        <field name="view_id" eval="False"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_search_partner_credential" model="ir.ui.view">
+            <field name="name">partner.credentials.search</field>
+            <field name="model">partner.credentials</field>
+            <field name="arch" type="xml">
+                <search string="Partner Credential">
+            <field name="name" string="Credential" filter_domain="['|','|',('name','ilike',self),('type','ilike',self),('partner_id','child_of',self)]"/>
+    </search>
+            </field>
+        </record>
+
+    <menuitem
+            action="action_credentials"
+            id="menu_partner_credential"
+            name="Credentials"
+            sequence="1"
+            web_icon="partner_credential,static/description/credentials.png"
+    />
+
+    <record id="menu_main_partner_credential" model="ir.ui.menu">
+        <field name="action" ref="action_credentials"/>
+        <field name="active" eval="True"/>
+        <field name="name">Credentials</field>
+        <field name="parent_id" ref="menu_partner_credential"/>
+        <field name="sequence">10</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+
+</odoo>
