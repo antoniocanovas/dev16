@@ -19,15 +19,17 @@ class PartnerCredential(models.Model):
     active = fields.Boolean("Active", default="True")
     description = fields.Text("Description")
 
-    @api.depends('category_id')
-    def _get_default_departments(self):
-        self.department_ids = [(6,0,category_id.department_ids.ids)]
-    department_ids = fields.Many2many("hr.department", string="Departments", compute='_get_default_departments', index=True)
+    department_categ_ids = fields.Many2many(related='category_id.department_ids')
+    department_ids = fields.Many2many("hr.department", string="Departments")
 
-    @api.depends('department_ids', 'department_ids.member_ids')
+    @api.depends('department_ids', 'department_ids.member_ids', 'department_categ_ids', 'department_categ_ids.member_ids')
     def _get_department_users(self):
         users = []
         for dep in self.department_ids:
+            for emp in dep.member_ids:
+                if emp.user_id.id not in users:
+                    users.append(emp.user_id.id)
+        for dep in self.department_categ_ids:
             for emp in dep.member_ids:
                 if emp.user_id.id not in users:
                     users.append(emp.user_id.id)
