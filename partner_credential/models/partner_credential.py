@@ -19,7 +19,7 @@ class PartnerCredential(models.Model):
     active = fields.Boolean("Active", default="True")
     description = fields.Text("Description")
 
-    department_categ_ids = fields.Many2many(related='category_id.department_ids')
+    department_categ_ids = fields.Many2many(related='category_id.department_ids', string='Default users')
     department_ids = fields.Many2many("hr.department", string="Departments")
 
     @api.depends('department_ids', 'department_ids.member_ids', 'department_categ_ids', 'department_categ_ids.member_ids')
