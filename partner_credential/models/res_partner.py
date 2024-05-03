@@ -4,18 +4,18 @@
 from odoo import fields, models, api
 
 
-class PartnerCredentialsFields(models.Model):
+class ResPartner(models.Model):
     _inherit = "res.partner"
 
     def _get_credentials(self):
-        results = self.env["partner.credentials"].search([("partner_id", "=", self.id)])
-        self.credentials_count = len(results)
+        results = self.env["partner.credential"].search([("partner_id", "=", self.id)])
+        self.credential_count = len(results)
 
-    credentials_count = fields.Integer(
+    credential_count = fields.Integer(
         "Credentials", compute=_get_credentials, store=False
     )
 
-    def action_view_credentials(self):
+    def action_view_credential(self):
         action = self.env.ref("partner_credential.action_partner_credential").read()[
             0
         ]

@@ -10,21 +10,21 @@
         <field name="help"><![CDATA[<p> Credentials for partner </p>]]></field>
         <field name="limit">80</field>
         <field name="name">Credentials</field>
-        <field name="res_model">partner.credentials</field>
+        <field name="res_model">partner.credential</field>
         <field name="target">current</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_id" ref="credentials_tree"/>
+        <field name="view_id" ref="credential_tree"/>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record id="partner_credential_form" model="ir.ui.view">
-        <field name="name">partner.credentials.form</field>
+        <field name="name">partner.credential.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button class="oe_stat_button" icon="fa-info" type="action" name="%(partner_credential.action_partner_credential)d" groups="base.group_user">
-                    <field name="credentials_count" string="Credentials" widget="statinfo"/>
+                    <field name="credential_count" string="Credentials" widget="statinfo"/>
                 </button>
 
             </xpath>
