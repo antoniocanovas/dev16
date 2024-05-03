@@ -9,18 +9,18 @@ class PartnerCredential(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Partner Credentials"
 
-    name = fields.Char(string="Nombre", required=True)
-    category_id = fields.Many2one('partner.credential.category', string="Category", required=True)
-    partner_id = fields.Many2one("res.partner", string="Partner")
-    user = fields.Char("User")
+    name = fields.Char(string="Nombre", required=True, tracking=100)
+    category_id = fields.Many2one('partner.credential.category', string="Category", required=True, tracking=100)
+    partner_id = fields.Many2one("res.partner", string="Partner", tracking=100)
+    user = fields.Char("User", tracking=100)
     password = fields.Char("Password")
-    public = fields.Boolean("Public")
-    url = fields.Char("Url")
-    active = fields.Boolean("Active", default="True")
-    description = fields.Text("Description")
+    public = fields.Boolean("Public", tracking=100)
+    url = fields.Char("Url", tracking=100)
+    active = fields.Boolean("Active", default="True", tracking=100)
+    description = fields.Text("Description", tracking=100)
 
     department_categ_ids = fields.Many2many(related='category_id.department_ids', string='Default users')
-    department_ids = fields.Many2many("hr.department", string="Departments")
+    department_ids = fields.Many2many("hr.department", string="Departments", tracking=100)
 
     @api.depends('department_ids', 'department_ids.member_ids', 'department_categ_ids', 'department_categ_ids.member_ids')
     def _get_department_users(self):
