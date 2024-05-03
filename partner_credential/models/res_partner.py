@@ -12,7 +12,7 @@ class ResPartner(models.Model):
         self.credential_count = len(results)
 
     credential_count = fields.Integer(
-        "Credentials", compute=_get_credentials, store=False
+        "Credentials", compute='_get_credentials', store=False
     )
 
     def action_view_credential(self):
