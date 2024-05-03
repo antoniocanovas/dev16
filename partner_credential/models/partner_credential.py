@@ -10,9 +10,7 @@ class PartnerCredential(models.Model):
     _description = "Partner Credentials"
 
     name = fields.Char(string="Nombre", required=True)
-    type = fields.Selection(
-        [("odoo", "Odoo"), ("web", "Web"), ("other", "Other")], required=True
-    )
+    type = fields.Many2one('partner.credential.type', string="Category", required=True)
     partner_id = fields.Many2one("res.partner", string="Partner")
     user = fields.Char("User")
     password = fields.Char("Password")
