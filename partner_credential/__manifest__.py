@@ -13,11 +13,11 @@
         'hr',
     ],
     'data': [
+        'security/user_groups.xml',
         'views/partner_credential_views.xml',
         'views/partner_credential_category_views.xml',
         'views/menu_views.xml',
         'views/res_partner_views.xml',
-        'security/user_groups.xml',
         'security/ir.model.access.csv',
         'data/default_rules.xml',
     ],
