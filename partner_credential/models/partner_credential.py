@@ -15,7 +15,7 @@ class PartnerCredential(models.Model):
     user = fields.Char("User", tracking=100)
 
     encrypted = fields.Encrypted()
-    password = fields.Char("Password" encrypt='encrypted')
+    password = fields.Char("Password", encrypt='encrypted')
 
     public = fields.Boolean("Public", tracking=100)
     url = fields.Char("Url", tracking=100)
