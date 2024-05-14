@@ -13,7 +13,10 @@ class PartnerCredential(models.Model):
     category_id = fields.Many2one('partner.credential.category', string="Category", required=True, tracking=100)
     partner_id = fields.Many2one("res.partner", string="Partner", tracking=100)
     user = fields.Char("User", tracking=100)
-    password = fields.Char("Password")
+
+    encrypted = fields.Encrypted()
+    password = fields.Char("Password" encrypt='encrypted')
+
     public = fields.Boolean("Public", tracking=100)
     url = fields.Char("Url", tracking=100)
     active = fields.Boolean("Active", default="True", tracking=100)
