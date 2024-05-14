@@ -11,6 +11,7 @@
     'depends': [
         'contacts',
         'hr',
+        'field_encryption',
     ],
     'data': [
         'security/user_groups.xml',
