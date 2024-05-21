@@ -31,7 +31,7 @@ class PartnerCredential(models.Model):
     pass_updated = fields.Integer("Password updated", store=True, tracking=100, compute="_get_pass_updated")
 
     def pwtoclipboard(self):
-        pd.Dataframe([self.password]).to_clipboard(excel=False)
+        pd.DataFrame([self.password]).to_clipboard(excel=False)
 
 
     @api.depends('department_ids', 'department_ids.member_ids.user_id', 'department_categ_ids', 'department_categ_ids.member_ids.user_id')
