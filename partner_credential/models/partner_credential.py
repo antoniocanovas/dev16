@@ -3,6 +3,7 @@
 
 from odoo import fields, models, api
 import pandas as pd
+import xsel
 
 class PartnerCredential(models.Model):
     _name = "partner.credential"
