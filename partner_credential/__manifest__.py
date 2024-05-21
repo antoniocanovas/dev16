@@ -2,6 +2,9 @@
     'name': "partner credentials",
     'summary': """
         Nuevo modelo para documentar usuario y contraseña de aplicaciones.
+        Lee con atención las indicaciones de la dependencia field_encryption. Añadir en conf:
+        server_wide_modules = web,field_encryption y
+        encryption_key='YOUR_KEY'
         """,
     'author': "Antonio Cánovas",
     'license': 'AGPL-3',

@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import fields, models, api
-
+import pandas as pd
 
 class PartnerCredential(models.Model):
     _name = "partner.credential"
@@ -30,18 +30,23 @@ class PartnerCredential(models.Model):
             record['pass_updated'] = record.pass_updated +1
     pass_updated = fields.Integer("Password updated", store=True, tracking=100, compute="_get_pass_updated")
 
-    @api.depends('department_ids', 'department_ids.member_ids', 'department_categ_ids', 'department_categ_ids.member_ids')
+    def pwtoclipboard(self):
+        pd.Dataframe([self.password]).to_clipboard(excel=False)
+
+
+    @api.depends('department_ids', 'department_ids.member_ids.user_id', 'department_categ_ids', 'department_categ_ids.member_ids.user_id')
     def _get_department_users(self):
-        users = []
-        for dep in self.department_ids:
-            for emp in dep.member_ids:
-                if emp.user_id.id not in users:
-                    users.append(emp.user_id.id)
-        for dep in self.department_categ_ids:
-            for emp in dep.member_ids:
-                if emp.user_id.id not in users:
-                    users.append(emp.user_id.id)
-        self.user_ids = [(6,0,users)]
+        for record in self:
+            users = []
+            for dep in record.department_ids:
+                for emp in dep.member_ids:
+                    if (emp.user_id.id) and (emp.user_id.id not in users):
+                        users.append(emp.user_id.id)
+            for dep in record.department_categ_ids:
+                for emp in dep.member_ids:
+                    if (emp.user_id.id) and (emp.user_id.id not in users):
+                        users.append(emp.user_id.id)
+            record['user_ids'] = [(6,0,users)]
     user_ids = fields.Many2many("res.users", string="Users", store=True, compute="_get_department_users")
 
     def _user_can_edit(self):

@@ -34,14 +34,15 @@
     </record>
 
     <record id="view_search_partner_credential" model="ir.ui.view">
-            <field name="name">partner.credential.search</field>
-            <field name="model">partner.credential</field>
-            <field name="arch" type="xml">
-                <search string="Partner Credential">
-            <field name="name" string="Credential" filter_domain="['|','|',('name','ilike',self),('category','ilike',self),('partner_id','child_of',self)]"/>
-    </search>
-            </field>
-        </record>
+        <field name="name">partner.credential.search</field>
+        <field name="model">partner.credential</field>
+        <field name="arch" type="xml">
+            <search string="Partner Credential">
+                <field name="name" string="Credential"
+                       filter_domain="['|','|',('name','ilike',self), ('category_id','ilike',self),('partner_id','child_of',self)]"/>
+            </search>
+        </field>
+    </record>
 
     <menuitem
             action="action_credential"
