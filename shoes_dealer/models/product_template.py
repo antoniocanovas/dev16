@@ -441,31 +441,6 @@ class ProductTemplate(models.Model):
             for template in self
         ]
 
-    ### Esto creo que sobra (07/06):
-#    def update_supplier_info(self):
-        #        for product in self:
-        #    if not product.manufacturer_id.id:
-        #        raise UserError(
-        #            "Asigna el fabricante para poder actualizar la tarifa de proveedor."
-        #            + ": "
-        #            + product.name
-        #        )
-        #    product.variant_seller_ids.unlink()
-        #    for variant in product.product_variant_ids:
-        #        price = product.exwork_single
-        #        if product.product_tmpl_single_id.id:
-        #            price = product.exwork_single * variant.pairs_count
-        #        list_price = self.env["product.supplierinfo"].create(
-        #            {
-        #                "partner_id": product.manufacturer_id.id,
-        #                "min_qty": "1",
-        #                "price": price,
-        #                "product_id": variant.id,
-        #                "currency_id": self.env.company.exwork_currency_id.id,
-        #                "product_tmpl_id": product.id,
-        #            }
-#        )
-
 
     # Notas del desarrollo:
     # =====================
