@@ -372,7 +372,7 @@ class ProductTemplate(models.Model):
                         {
                             "product_tmpl_id": ptassortment.id,
                             "product_id": pp.id,
-                            "price": record.exwork_single * pp.paris_count,
+                            "price": record.exwork_single * pp.pairs_count,
                             "currency_id": ptassortment.exwork_currency_id.id,
                             "partner_id": ptassortment.manufacturer_id.id,
                         }

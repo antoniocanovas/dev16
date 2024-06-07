@@ -235,7 +235,7 @@ class ProductProduct(models.Model):
 
                 # Actualizar campo base_unit_count del estándar para que muestre precio unitario en website_sale,
                 # si fuera un par sólo, la cantidad a indicar es 0 para que no se muestre, por esta razón seguimos
-                # manteniendo el campo del desarrollo paris_count en los distintos modelos:
+                # manteniendo el campo del desarrollo pairs_count en los distintos modelos:
                 # 2º actualizamos el precio de venta del surtido al crear:
                 base_unit_count = 0
                 for bom_line in bom.bom_line_ids:
