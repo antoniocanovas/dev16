@@ -355,24 +355,24 @@ class ProductTemplate(models.Model):
                 ptassortment.seller_ids.unlink()
 
                 for pp in record.product_variant_ids:
-                    pp.write({"standard_price": record.exwork_single_euro})
+                    pp.write({"standard_price": record.exwork_euro})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": record.id,
                             "product_id": pp.id,
-                            "price": record.exwork_single,
+                            "price": record.exwork,
                             "currency_id": ptassortment.exwork_currency_id.id,
                             "partner_id": ptassortment.manufacturer_id.id,
                         }
                     )
 
                 for pp in ptassortment.product_variant_ids:
-                    pp.write({"standard_price": record.exwork_single_euro * pp.pairs_count})
+                    pp.write({"standard_price": record.exwork_euro * pp.pairs_count})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": ptassortment.id,
                             "product_id": pp.id,
-                            "price": record.exwork_single * pp.pairs_count,
+                            "price": record.exwork * pp.pairs_count,
                             "currency_id": ptassortment.exwork_currency_id.id,
                             "partner_id": ptassortment.manufacturer_id.id,
                         }
@@ -385,23 +385,23 @@ class ProductTemplate(models.Model):
                 ptsingle.seller_ids.unlink()
 
                 for pp in record.product_variant_ids:
-                    pp.write({"standard_price": record.exwork_euro * pp.pairs_count})
+                    pp.write({"standard_price": record.exwork_single_euro * pp.pairs_count})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": record.id,
                             "product_id": pp.id,
-                            "price": record.exwork * pp.pairs_count,
+                            "price": record.exwork_single * pp.pairs_count,
                             "currency_id": record.exwork_currency_id.id,
                             "partner_id": record.manufacturer_id.id,
                         }
                     )
                 for pp in ptsingle.product_variant_ids:
-                    pp.write({"standard_price": pp.exwork_single_euro})
+                    pp.write({"standard_price": pp.exwork_euro})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": ptsingle.id,
                             "product_id": pp.id,
-                            "price": ptsingle.exwork_single,
+                            "price": ptsingle.exwork,
                             "currency_id": pp.exwork_currency_id.id,
                             "partner_id": record.manufacturer_id.id,
                         }
