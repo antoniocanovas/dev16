@@ -17,13 +17,13 @@ class ProductTemplate(models.Model):
     _mail_post_access = "read"
     _check_company_auto = True
 
-    pnt_exwork_euro = fields.Monetary(
-        "Exwork €", readonly=True, compute="_get_exwork_euro"
+    exwork_euro = fields.Monetary(
+        "Exwork €",
+        compute="_get_exwork_euro"
     )
-    pnt_exwork_single_euro = fields.Monetary(
+    exwork_single_euro = fields.Monetary(
         "Exwork single €",
         compute="_get_exwork_single_euro",
-        readonly=True,
     )
 
     shoes_campaign_id = fields.Many2one(
@@ -47,16 +47,20 @@ class ProductTemplate(models.Model):
     @api.onchange("exwork")
     def _get_exwork_euro(self):
         for record in self:
-            record["pnt_exwork_euro"] = (
-                record.exwork * record.shoes_campaign_id.currency_exchange
-            )
+            if record.exwork_currency_id.name == "EUR":
+                exwork_euro = record.exwork
+            else:
+                exwork_euro = record.exwork * record.shoes_campaign_id.currency_exchange
+            record["exwork_euro"] = exwork_euro
 
     @api.onchange("exwork_single")
     def _get_exwork_single_euro(self):
         for record in self:
-            record["pnt_exwork_single_euro"] = (
-                record.exwork_single * record.shoes_campaign_id.currency_exchange
-            )
+            if record.exwork_currency_id.name == "EUR":
+                exwork_single_euro = record.exwork_single
+            else:
+                exwork_single_euro = record.exwork_single * record.shoes_campaign_id.currency_exchange
+            record["exwork_single_euro"] = exwork_single_euro
 
     @api.depends("sale_line_ids")
     def _get_pairs_sold(self):
@@ -145,11 +149,18 @@ class ProductTemplate(models.Model):
     )
 
     # El precio de coste es la suma de Exwork + portes, si existe el par se mostrará uno u otro campo:
-    exwork_currency_id = fields.Many2one(
-        "res.currency",
-        store=False,
-        default=lambda self: self.env.user.company_id.exwork_currency_id,
-    )
+    @api.depends('manufacturer_id')
+    def _get_exwork_currency(self):
+        for record in self:
+            if record.manufacturer_id.id and record.manufacturer_id.property_purchase_currency_id.id:
+                currency = record.manufacturer_id.property_purchase_currency_id.id
+            elif record.manufacturer_id.id and not record.manufacturer_id.property_purchase_currency_id.id:
+                currency = self.env.company.currency_id.id
+            else:
+                currency = self.env.user.company_id.exwork_currency_id.id
+            record['exwork_currency_id'] = currency
+    exwork_currency_id = fields.Many2one("res.currency",compute=_get_exwork_currency)
+
     exwork = fields.Monetary("Exwork", store=True, copy=True, tracking="10")
     exwork_single = fields.Monetary(
         "Exwork single",
@@ -336,7 +347,6 @@ class ProductTemplate(models.Model):
     # Actualizar precios de coste, en base al exwork y cambio de moneda (NO FUNCIONA ONCHANGE => AA):
     # @api.onchange('exwork', 'exwork_single', 'product_variant_ids', 'campaing_id')
     def update_standard_price_on_variants(self):
-        # Si la moneda es la misma que la nuestra, el cambio es 1, en otro es el indicado en la campaña.
         # Caso de actualizar el precio desde el PAR:
         for record in self:
             if record.is_pair and record.product_tmpl_set_id.id:
@@ -344,31 +354,26 @@ class ProductTemplate(models.Model):
                 record.seller_ids.unlink()
                 ptassortment.seller_ids.unlink()
 
-                standard_price = record.exwork_single
-                if self.env.company.currency_id != ptassortment.exwork_currency_id:
-                    standard_price = (
-                        record.exwork * record.shoes_campaign_id.currency_exchange
-                    )
                 for pp in record.product_variant_ids:
-                    pp.write({"standard_price": standard_price})
+                    pp.write({"standard_price": record.exwork_single_euro})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": record.id,
                             "product_id": pp.id,
-                            "price": standard_price,
+                            "price": record.exwork_single,
                             "currency_id": ptassortment.exwork_currency_id.id,
                             "partner_id": ptassortment.manufacturer_id.id,
                         }
                     )
+
                 for pp in ptassortment.product_variant_ids:
-                    price = standard_price * pp.pairs_count
-                    pp.write({"standard_price": price})
+                    pp.write({"standard_price": record.exwork_single_euro * pp.pairs_count})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": ptassortment.id,
                             "product_id": pp.id,
-                            "price": price,
-                            "currency_id": pp.exwork_currency_id.id,
+                            "price": record.exwork_single * pp.paris_count,
+                            "currency_id": ptassortment.exwork_currency_id.id,
                             "partner_id": ptassortment.manufacturer_id.id,
                         }
                     )
@@ -379,31 +384,24 @@ class ProductTemplate(models.Model):
                 record.seller_ids.unlink()
                 ptsingle.seller_ids.unlink()
 
-                standard_price = record.exwork_single
-                if self.env.company.currency_id != record.exwork_currency_id:
-                    standard_price = (
-                        record.product_tmpl_single_id.exwork
-                        * record.shoes_campaign_id.currency_exchange
-                    )
                 for pp in record.product_variant_ids:
-                    price = standard_price * pp.pairs_count
-                    pp.write({"standard_price": price})
+                    pp.write({"standard_price": record.exwork_euro * pp.pairs_count})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": record.id,
                             "product_id": pp.id,
-                            "price": price,
-                            "currency_id": pp.exwork_currency_id.id,
+                            "price": record.exwork * pp.pairs_count,
+                            "currency_id": record.exwork_currency_id.id,
                             "partner_id": record.manufacturer_id.id,
                         }
                     )
                 for pp in ptsingle.product_variant_ids:
-                    pp.write({"standard_price": standard_price})
+                    pp.write({"standard_price": pp.exwork_single_euro})
                     self.env["product.supplierinfo"].create(
                         {
                             "product_tmpl_id": ptsingle.id,
                             "product_id": pp.id,
-                            "price": standard_price,
+                            "price": ptsingle.exwork_single,
                             "currency_id": pp.exwork_currency_id.id,
                             "partner_id": record.manufacturer_id.id,
                         }
@@ -443,29 +441,31 @@ class ProductTemplate(models.Model):
             for template in self
         ]
 
-    def update_supplier_info(self):
-        for product in self:
-            if not product.manufacturer_id.id:
-                raise UserError(
-                    "Asigna el fabricante para poder actualizar la tarifa de proveedor."
-                    + ": "
-                    + product.name
-                )
-            product.variant_seller_ids.unlink()
-            for variant in product.product_variant_ids:
-                price = product.exwork_single
-                if product.product_tmpl_single_id.id:
-                    price = product.exwork_single * variant.pairs_count
-                list_price = self.env["product.supplierinfo"].create(
-                    {
-                        "partner_id": product.manufacturer_id.id,
-                        "min_qty": "1",
-                        "price": price,
-                        "product_id": variant.id,
-                        "currency_id": self.env.company.exwork_currency_id.id,
-                        "product_tmpl_id": product.id,
-                    }
-                )
+    ### Esto creo que sobra (07/06):
+#    def update_supplier_info(self):
+        #        for product in self:
+        #    if not product.manufacturer_id.id:
+        #        raise UserError(
+        #            "Asigna el fabricante para poder actualizar la tarifa de proveedor."
+        #            + ": "
+        #            + product.name
+        #        )
+        #    product.variant_seller_ids.unlink()
+        #    for variant in product.product_variant_ids:
+        #        price = product.exwork_single
+        #        if product.product_tmpl_single_id.id:
+        #            price = product.exwork_single * variant.pairs_count
+        #        list_price = self.env["product.supplierinfo"].create(
+        #            {
+        #                "partner_id": product.manufacturer_id.id,
+        #                "min_qty": "1",
+        #                "price": price,
+        #                "product_id": variant.id,
+        #                "currency_id": self.env.company.exwork_currency_id.id,
+        #                "product_tmpl_id": product.id,
+        #            }
+#        )
+
 
     # Notas del desarrollo:
     # =====================

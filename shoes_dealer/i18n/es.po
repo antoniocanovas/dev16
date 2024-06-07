@@ -200,7 +200,7 @@ msgstr ""
 #. module: shoes_dealer
 #: model:ir.actions.server,name:shoes_dealer.shoes_dealer_update_standard_price_ir_actions_server
 msgid "=> Update cost prices"
-msgstr "==> Actualizar precios de coste"
+msgstr "=> Actualizar precios de coste"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_shoes_sale_report_line__model_description
@@ -572,14 +572,14 @@ msgid "Exwork single"
 msgstr ""
 
 #. module: shoes_dealer
-#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_exwork_single_euro
-#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pnt_exwork_single_euro
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__exwork_single_euro
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__exwork_single_euro
 msgid "Exwork single €"
 msgstr ""
 
 #. module: shoes_dealer
-#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_exwork_euro
-#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pnt_exwork_euro
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__exwork_euro
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__exwork_euro
 msgid "Exwork €"
 msgstr ""
 

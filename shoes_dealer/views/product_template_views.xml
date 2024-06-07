@@ -94,9 +94,9 @@
                        options="{'currency_field':'exwork_currency_id'}"/>
                 <field name="exwork_single" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"
                        options="{'currency_field':'exwork_currency_id'}"/>
-                <field name="pnt_exwork_euro" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"
+                <field name="exwork_euro" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"
                        options="{'currency_field':'currency_id'}"/>
-                <field name="pnt_exwork_single_euro" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"
+                <field name="exwork_single_euro" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"
                        options="{'currency_field':'currency_id'}"/>
                 <field name="shipping_price" attrs="{'invisible':[('product_tmpl_single_id','!=',False)]}"/>
                 <field name="shipping_single_price" attrs="{'invisible':[('product_tmpl_single_id','=',False)]}"/>
