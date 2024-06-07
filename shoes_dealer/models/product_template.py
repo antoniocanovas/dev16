@@ -17,6 +17,15 @@ class ProductTemplate(models.Model):
     _mail_post_access = "read"
     _check_company_auto = True
 
+    pnt_exwork_euro = fields.Monetary(
+        "Exwork €", readonly=True, compute="_get_exwork_euro"
+    )
+    pnt_exwork_single_euro = fields.Monetary(
+        "Exwork single €",
+        compute="_get_exwork_single_euro",
+        readonly=True,
+    )
+
     shoes_campaign_id = fields.Many2one(
         "project.project", string="Campaign", store=True, copy=True, tracking=10
     )
@@ -34,6 +43,20 @@ class ProductTemplate(models.Model):
         store=False,
         domain="[('state','not in',['draft','cancel'])]",
     )
+
+    @api.onchange("exwork")
+    def _get_exwork_euro(self):
+        for record in self:
+            record["pnt_exwork_euro"] = (
+                record.exwork * record.shoes_campaign_id.currency_exchange
+            )
+
+    @api.onchange("exwork_single")
+    def _get_exwork_single_euro(self):
+        for record in self:
+            record["pnt_exwork_single_euro"] = (
+                record.exwork_single * record.shoes_campaign_id.currency_exchange
+            )
 
     @api.depends("sale_line_ids")
     def _get_pairs_sold(self):

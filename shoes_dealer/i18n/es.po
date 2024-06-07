@@ -6,16 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-26 14:50+0000\n"
-"PO-Revision-Date: 2024-03-26 16:01+0100\n"
+"POT-Creation-Date: 2024-05-30 15:26+0000\n"
+"PO-Revision-Date: 2024-05-30 17:32+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.3\n"
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__referrer_commission_plan
+msgid "%Com1"
+msgstr ""
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__manager_commission_plan
+msgid "%Com2"
+msgstr ""
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
@@ -33,20 +43,50 @@ msgid "((str(object.shoes_campaign_id.name)+str(\"-\")+str(\"Top\") or ''))"
 msgstr ""
 
 #. module: shoes_dealer
-#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
-msgid "<span>Bruto</span>"
+#: model:ir.actions.report,print_report_name:shoes_dealer.pnt_model_shoes_dealer_product_stock_report
+msgid "(str(\"Stock\") or ''))"
+msgstr ""
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "<span style=\"font-size:12px\">Total</span>"
 msgstr ""
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
-msgid "<span>Cliente</span>"
+msgid "<span>%Com.Gerente</span>"
 msgstr ""
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
+msgid "<span>%Com.Repre</span>"
+msgstr ""
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "<span>Avaiable</span>"
+msgstr "<span>Disponible</span>"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "<span>Bought</span>"
+msgstr "<span>Comprado</span>"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
+msgid "<span>Bruto</span>"
+msgstr "<span>Bruto</span>"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
+msgid "<span>Cliente</span>"
+msgstr "<span>Cliente</span>"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "<span>Color</span>"
-msgstr ""
+msgstr "<span>Color</span>"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
@@ -69,6 +109,11 @@ msgid "<span>Customer</span>"
 msgstr "<span>Cliente</span>"
 
 #. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "<span>Description</span>"
+msgstr "<span>Descripción</span>"
+
+#. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
 msgid "<span>Diferencia</span>"
 msgstr ""
@@ -79,6 +124,7 @@ msgid "<span>Disc.</span>"
 msgstr "<span>Desc.%</span>"
 
 #. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "<span>Image</span>"
 msgstr "<span>Imagen</span>"
@@ -90,6 +136,7 @@ msgstr "<span>Margen %</span>"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "<span>Model</span>"
 msgstr "<span>Modelo</span>"
@@ -116,9 +163,19 @@ msgid "<span>Referrer</span>"
 msgstr "<span>Representante</span>"
 
 #. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "<span>Sold</span>"
+msgstr "<span>Vendido</span>"
+
+#. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_margin_report_document
 msgid "<span>State</span>"
 msgstr "<span>Pais</span>"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "<span>WareHouse</span>"
+msgstr "<span>Almacen</span>"
 
 #. module: shoes_dealer
 #: model:ir.actions.server,name:shoes_dealer.product_template_saction_update
@@ -186,6 +243,7 @@ msgstr "Icono de tipo de actividad"
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__assortment_attribute_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__assortment_code
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_warehouse_orderpoint__pnt_is_assortment
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.product_product_shoes_dealer_inh_search
 msgid "Assortment"
 msgstr "Surtido"
@@ -220,6 +278,11 @@ msgid "Attribute values"
 msgstr "Valores del Atributo"
 
 #. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_stock_avaliable
+msgid "Available"
+msgstr "Disponible"
+
+#. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__rating_avg
 msgid "Average Rating"
 msgstr "Calificación promedio"
@@ -236,11 +299,18 @@ msgid "Brand"
 msgstr "Marca"
 
 #. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
+msgid "Bruto"
+msgstr ""
+
+#. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__shoes_campaign_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_report_wizard__pnt_campaign_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__shoes_campaign_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_purchase_order__shoes_campaign_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__shoes_campaign_id
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_warehouse_orderpoint__pnt_shoes_campaign_id
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.pnt_warehouse_orderpoint_search
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_order_line_inh_search
 msgid "Campaign"
 msgstr "Campaña"
@@ -254,12 +324,17 @@ msgstr "Código de la campaña"
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__campaign_top_ids
 msgid "Campaign Top"
-msgstr ""
+msgstr "Más vendidos"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__can_publish
 msgid "Can Publish"
 msgstr "Puede publicar"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.product_report_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__product_tmpl_single_id
@@ -463,6 +538,11 @@ msgid "Enable pair sales"
 msgstr "Permitir venta de pares"
 
 #. module: shoes_dealer
+#: model:ir.model.fields,help:shoes_dealer.field_res_users__top_sales
+msgid "Enable top sales column in sales view"
+msgstr "Habilita vista de más vendidos en ventas"
+
+#. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__partner_excluded_ids
 msgid "Excluded Customers"
 msgstr "Clientes excluidos"
@@ -492,10 +572,22 @@ msgid "Exwork single"
 msgstr ""
 
 #. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_exwork_single_euro
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pnt_exwork_single_euro
+msgid "Exwork single €"
+msgstr ""
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_exwork_euro
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pnt_exwork_euro
+msgid "Exwork €"
+msgstr ""
+
+#. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_model_form
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_set_template__message_follower_ids
@@ -599,6 +691,7 @@ msgstr "Estadísticas de facturas"
 #: model:ir.model.fields,field_description:shoes_dealer.field_mrp_bom__is_assortment
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__is_assortment
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__is_assortment
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_warehouse_orderpoint__pnt_assortment_filter
 msgid "Is Assortment"
 msgstr "Surtido"
 
@@ -618,6 +711,11 @@ msgstr "Par"
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__is_published
 msgid "Is Published"
 msgstr "Está publicado"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.pnt_warehouse_orderpoint_search
+msgid "Is assortment"
+msgstr "Es Surtido"
 
 #. module: shoes_dealer
 #: model:ir.model,name:shoes_dealer.model_account_move
@@ -678,7 +776,6 @@ msgstr "Hombre"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__manager
-#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
 msgid "Manager"
 msgstr "Encargado"
 
@@ -751,7 +848,7 @@ msgstr "Informe Margen"
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_report__campaign_id
 msgid "Marketing Campaign"
-msgstr ""
+msgstr "Campaña de marketing"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__material_id
@@ -780,6 +877,11 @@ msgstr "Error al entrega el mensaje"
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__message_ids
 msgid "Messages"
 msgstr "Mensajes"
+
+#. module: shoes_dealer
+#: model:ir.model,name:shoes_dealer.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
+msgstr "Regla de inventario mínimo"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_account_invoice_report__product_tmpl_model_id
@@ -926,6 +1028,8 @@ msgstr "Precio del par"
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_report__pairs_count
 #: model:ir.model.fields,field_description:shoes_dealer.field_set_template__pairs_count
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__pairs_count
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_move__pairs_count
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_picking__pairs_count
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.product_template_shoes_dealer_inh_search
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_model_form
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_sale_line_form
@@ -942,13 +1046,19 @@ msgstr "Pares"
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pairs_sold
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__pairs_sold
 msgid "Pairs sold"
-msgstr ""
+msgstr "Pares vendidos"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__product_tmpl_set_id
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__product_tmpl_set_id
 msgid "Parent"
 msgstr "Surtido"
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_warehouse_orderpoint__pnt_product_image
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.pnt_product_product_stock_tree_inh
+msgid "Photo"
+msgstr "Foto"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__product_tmpl_single_list_price
@@ -975,6 +1085,11 @@ msgid "Print Margin report"
 msgstr "Imprimir informe Margen"
 
 #. module: shoes_dealer
+#: model:ir.ui.menu,name:shoes_dealer.shoes_stock_report_menu
+msgid "Print Stock"
+msgstr "Informe de Stock "
+
+#. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_model_form
 msgid "Print TOP"
 msgstr "Top ventas"
@@ -992,6 +1107,11 @@ msgid "Product KO"
 msgstr "Producto KO"
 
 #. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.product_report_wizard_form
+msgid "Product Reports"
+msgstr "Informes de producto"
+
+#. module: shoes_dealer
 #: model:ir.model,name:shoes_dealer.model_product_template_attribute_value
 msgid "Product Template Attribute Value"
 msgstr "Valor de Atributo del Modelo de Producto"
@@ -1000,6 +1120,12 @@ msgstr "Valor de Atributo del Modelo de Producto"
 #: model:ir.model,name:shoes_dealer.model_product_product
 msgid "Product Variant"
 msgstr "Variante de producto"
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_warehouse_orderpoint__pnt_product_brand_id
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.pnt_warehouse_orderpoint_search
+msgid "Product brand"
+msgstr "Marca"
 
 #. module: shoes_dealer
 #: model:ir.model,name:shoes_dealer.model_product_material
@@ -1121,6 +1247,11 @@ msgstr "Tipo de informe"
 #. module: shoes_dealer
 #: model:ir.model,name:shoes_dealer.model_product_report_wizard
 msgid "Reporting engine for product product"
+msgstr "Informes de product product"
+
+#. module: shoes_dealer
+#: model:ir.model,name:shoes_dealer.model_report_shoes_dealer_shoes_dealer_product_stock_report
+msgid "Reporting engine for product template stock"
 msgstr ""
 
 #. module: shoes_dealer
@@ -1227,6 +1358,7 @@ msgstr "Informe de análisis de ventas"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_sale_order_line__product_brand_id
+#: model:ir.model.fields,help:shoes_dealer.field_stock_warehouse_orderpoint__pnt_product_brand_id
 msgid "Select a brand for this product"
 msgstr "Marca de producto"
 
@@ -1275,13 +1407,13 @@ msgstr "Establecer plantilla"
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__shipping_price
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__shipping_price
 msgid "Shipping price"
-msgstr ""
+msgstr "Coste de envío"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_product__shipping_single_price
 #: model:ir.model.fields,field_description:shoes_dealer.field_product_template__shipping_single_price
 msgid "Shipping single price"
-msgstr ""
+msgstr "Coste de envío del producto"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order_line__shoes_campaign_id
@@ -1305,12 +1437,12 @@ msgstr "Modelo"
 #. module: shoes_dealer
 #: model:ir.model,name:shoes_dealer.model_shoes_sale_report
 msgid "Shoes Sale Report"
-msgstr ""
+msgstr "Informe de ventas "
 
 #. module: shoes_dealer
 #: model:ir.model,name:shoes_dealer.model_shoes_sale_report_line
 msgid "Shoes Sale Report Line"
-msgstr ""
+msgstr "Línea de informe de ventas"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__shoes_campaign_id
@@ -1381,7 +1513,9 @@ msgstr "Piel"
 #: model:ir.model.fields,field_description:shoes_dealer.field_project_project__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_purchase_order__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_purchase_order_line__smart_search
+#: model:ir.model.fields,field_description:shoes_dealer.field_report_shoes_dealer_shoes_dealer_product_stock_report__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_res_company__smart_search
+#: model:ir.model.fields,field_description:shoes_dealer.field_res_users__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_order_line__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_sale_report__smart_search
@@ -1389,8 +1523,16 @@ msgstr "Piel"
 #: model:ir.model.fields,field_description:shoes_dealer.field_set_template_line__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__smart_search
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__smart_search
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_move__smart_search
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_picking__smart_search
+#: model:ir.model.fields,field_description:shoes_dealer.field_stock_warehouse_orderpoint__smart_search
 msgid "Smart Search"
 msgstr "Búsqueda inteligente"
+
+#. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_product_product__pnt_total_reserved_plus_sold
+msgid "Sold"
+msgstr "Vendido"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_sale_order_line__special_pair_price
@@ -1412,9 +1554,34 @@ msgstr ""
 "Planeado: Futuras actividades."
 
 #. module: shoes_dealer
+#: model:ir.actions.report,name:shoes_dealer.pnt_model_shoes_dealer_product_stock_report
+msgid "Stock"
+msgstr "Stock"
+
+#. module: shoes_dealer
+#: model:ir.model,name:shoes_dealer.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.product_report_wizard_form
+msgid "Stock Report Configuration"
+msgstr "Configuración del informe de Stock"
+
+#. module: shoes_dealer
+#: model:ir.actions.act_window,name:shoes_dealer.product_report_wizard
+msgid "Stock printed report"
+msgstr "Informe de Stock impreso"
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_product_stock_report
+msgid "Stock report"
+msgstr "Informe de Stock"
+
+#. module: shoes_dealer
 #: model:ir.model.fields.selection,name:shoes_dealer.selection__product_report_wizard__pnt_product_report_template__top
 msgid "TOP"
-msgstr ""
+msgstr "Más Vendido"
 
 #. module: shoes_dealer
 #: model:ir.ui.menu,name:shoes_dealer.shoes_margin_by_model_menu
@@ -1424,12 +1591,12 @@ msgstr "Top ventas"
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "TOTAL MODEL"
-msgstr ""
+msgstr "Total Modelos"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "TOTAL PAIRS"
-msgstr ""
+msgstr "Total pares"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_sale_order_line__commission_plan_id
@@ -1454,37 +1621,34 @@ msgstr "Hasta"
 #. module: shoes_dealer
 #: model:ir.actions.report,name:shoes_dealer.pnt_model_shoes_dealer_top_report
 msgid "Top"
-msgstr ""
+msgstr "Más vendido"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_margin_by_model_form
 msgid "Top Sales"
-msgstr ""
+msgstr "Top ventas"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_top_report_document
 msgid "Top report for campaign"
-msgstr ""
+msgstr "Informe top ventas por campaña"
 
 #. module: shoes_dealer
+#: model:ir.model.fields,field_description:shoes_dealer.field_res_users__top_sales
+#: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__top_sales
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_orderinh_form
 msgid "Top sales"
-msgstr ""
-
-#. module: shoes_dealer
-#: model:ir.model.fields,field_description:shoes_dealer.field_sale_order__top_sales
-msgid "Top sales view"
-msgstr ""
+msgstr "Top ventas"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_shoes_sale_report_line__cost
 msgid "Total cost"
-msgstr ""
+msgstr "Coste total"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report_line__total_model_pairs
 msgid "Total model pairs"
-msgstr ""
+msgstr "Total de pares"
 
 #. module: shoes_dealer
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.shoes_dealer_sale_order_inh_tree
@@ -1494,7 +1658,12 @@ msgstr "Total Pares"
 #. module: shoes_dealer
 #: model:ir.model.fields,help:shoes_dealer.field_shoes_sale_report_line__total_model_pairs
 msgid "Total pairs by model including all colors and sizes"
-msgstr ""
+msgstr "Total de pares incluidos colores y tallas"
+
+#. module: shoes_dealer
+#: model:ir.model,name:shoes_dealer.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_shoes_sale_report__type
@@ -1509,7 +1678,7 @@ msgstr "Tipo de excepción de actividad del registro"
 
 #. module: shoes_dealer
 #. odoo-python
-#: code:addons/azarey-odoo/shoes_dealer/wizard/pnt_product_report_wizard.py:0
+#: code:addons/azarey_odoo/shoes_dealer/wizard/pnt_product_report_wizard.py:0
 #: code:addons/shoes_dealer/wizard/pnt_product_report_wizard.py:0
 #, python-format
 msgid "Unable to find report template for %s format"
@@ -1545,6 +1714,11 @@ msgstr ""
 #: model:ir.model.fields,help:shoes_dealer.field_sale_order_line__product_tmpl_id
 msgid "Used for group views in sale order line"
 msgstr ""
+
+#. module: shoes_dealer
+#: model:ir.model,name:shoes_dealer.model_res_users
+msgid "User"
+msgstr "Usuario"
 
 #. module: shoes_dealer
 #: model:ir.model.fields,field_description:shoes_dealer.field_set_template_line__value_id
@@ -1612,3 +1786,8 @@ msgstr "Mujer"
 #: model_terms:ir.ui.view,arch_db:shoes_dealer.product_set_template_default_form
 msgid "Women sizes ..."
 msgstr "Talla mujer ..."
+
+#. module: shoes_dealer
+#: model_terms:ir.ui.view,arch_db:shoes_dealer.product_report_wizard_form
+msgid "print"
+msgstr "Imprimir"

@@ -48,6 +48,28 @@ class ProductProduct(models.Model):
         store=True,
     )
 
+    def _get_pnt_total_reserved_plus_sold(self):
+        for record in self:
+            r = record.pnt_reservation_count
+            s = record.sales_count
+            record.pnt_total_reserved_plus_sold = r + s
+
+    pnt_total_reserved_plus_sold = fields.Float(
+        compute="_get_pnt_total_reserved_plus_sold",
+        string="Sold",
+    )
+
+    def _get_pnt_stock_avaiable(self):
+        for record in self:
+            ts = record.pnt_total_reserved_plus_sold
+            p = record.purchased_product_qty
+            record.pnt_stock_avaliable = p - ts
+
+    pnt_stock_avaliable = fields.Float(
+        compute="_get_pnt_stock_avaiable",
+        string="Available",
+    )
+
     def _get_assortment_attribute_value(self):
         for record in self:
             value = False
@@ -134,7 +156,11 @@ class ProductProduct(models.Model):
             set_template = record.assortment_attribute_id.set_template_id
 
             # Limpieza de BOMS huérfanas:
-            bomsdelete = self.env['mrp.bom'].search([('is_assortment', '=', True), ('product_id', '=', False)]).unlink()
+            bomsdelete = (
+                self.env["mrp.bom"]
+                .search([("is_assortment", "=", True), ("product_id", "=", False)])
+                .unlink()
+            )
 
             if pt_single.id and record.is_assortment and not record.variant_bom_ids:
                 # Creación de LDM:

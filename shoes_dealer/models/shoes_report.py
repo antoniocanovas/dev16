@@ -51,7 +51,7 @@ class ShoesSaleReport(models.Model):
     partner_excluded_ids = fields.Many2many(
         comodel_name="res.partner",
         string="Excluded Customers",
-        relation="shoesreport_customer_rel",
+        relation="shoesreport_excluded_partner_rel",
         domain=[("customer_rank", ">", 0)],
         context={"active_test": True},
     )
@@ -77,7 +77,7 @@ class ShoesSaleReport(models.Model):
                 all_orders = self.env["sale.order"].search(
                     [
                         ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
-                        ("state", "not in", ["draft", "cancel"]),
+                        ("state", "in", ["reservation", "sale", "sent", "done"]),
                     ]
                 )
                 for order in all_orders:
@@ -118,7 +118,9 @@ class ShoesSaleReport(models.Model):
                 all_lines = self.env["sale.order.line"].search(
                     [
                         ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
-                        ("state", "not in", ["draft", "cancel"]),
+                        ("state", "in", ["reservation", "sale", "sent", "done"]),
+                        ("display_type", "=", False),
+                        ("product_id", "!=", False),
                     ]
                 )
                 for sol in all_lines:
@@ -139,7 +141,7 @@ class ShoesSaleReport(models.Model):
                     ):
                         continue
                     if (record.partner_excluded_ids.ids) and (
-                        sol.partner_id.id in record.partner_excluded_ids.ids
+                        sol.order_partner_id.id in record.partner_excluded_ids.ids
                     ):
                         continue
                     if (record.order_ids.ids) and (
@@ -601,7 +603,12 @@ class ShoesSaleReport(models.Model):
         for record in self:
             # La información está en las líneas de venta agrupadas por modelo:
             sol = self.env["sale.order.line"].search(
-                [("shoes_campaign_id", "=", record.shoes_campaign_id.id)]
+                [
+                    ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
+                    ("state", "in", ["reservation", "sale", "sent", "done"]),
+                    ("display_type", "=", False),
+                    ("product_id", "!=", False),
+                ]
             )
             record.line_ids.unlink()
             models, total_pairs = [], 0
@@ -621,6 +628,8 @@ class ShoesSaleReport(models.Model):
                     [
                         ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
                         ("product_tmpl_id", "=", model.id),
+                        ("product_id", "!=", False),
+                        ("state", "in", ["reservation", "sale", "sent", "done"]),
                     ]
                 )
                 for li in lines:
@@ -659,6 +668,8 @@ class ShoesSaleReport(models.Model):
                         [
                             ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
                             ("product_tmpl_id", "=", model.id),
+                            ("state", "in", ["reservation", "sale", "sent", "done"]),
+                            ("product_id", "!=", False),
                         ]
                     )
                     for li in lines:

@@ -18,3 +18,6 @@ from . import sale_report
 from . import account_invoice_report
 from . import shoes_report
 from . import res_users
+from . import stock_picking
+from . import stock_move
+from . import stock_warehouse_orderpoint

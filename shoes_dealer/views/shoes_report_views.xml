@@ -402,28 +402,6 @@
                ]"/>
     </record>
 
-
-    <!--<record id="action_shoes_margin_by_sale_order" model="ir.actions.act_window">
-        <field name="binding_model_id" eval="False"/>
-        <field name="binding_type">action</field>
-        <field name="context">{'default_type':'sale'}</field>
-        <field name="domain">[('type','=','sale')]</field>
-        <field name="filter" eval="False"/>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
-        <field name="limit">80</field>
-        <field name="name">Margin report by sale order</field>
-        <field name="res_model">shoes.sale.report</field>
-        <field name="search_view_id" eval="False"/>
-        <field name="target">current</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_ids"
-               eval="[(5, 0, 0),
-               (0, 0, {'view_mode': 'tree', 'view_id': ref('shoes_margin_by_sale_order_tree')}),
-               (0, 0, {'view_mode': 'form', 'view_id': ref('shoes_margin_by_sale_order_form')}),
-               ]"/>
-    </record>-->
-
     <record id="action_shoes_margin_by_sale_line" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
@@ -451,6 +429,15 @@
         <field name="active" eval="True"/>
         <field name="name">TOP Sold</field>
         <field name="parent_id" ref="sale.menu_sale_report"/>
+        <field name="sequence">100</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+     <record id="shoes_stock_report_menu" model="ir.ui.menu">
+        <field name="action" ref="shoes_dealer.product_report_wizard"/>
+        <field name="active" eval="True"/>
+        <field name="name">Print Stock</field>
+        <field name="parent_id" ref="stock.menu_warehouse_report"/>
         <field name="sequence">100</field>
         <field name="web_icon" eval="False"/>
     </record>

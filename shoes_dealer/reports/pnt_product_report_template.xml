@@ -37,7 +37,7 @@
                                 <th t-attf-class="text-start"><span>Disc.</span></th>
                                 <!--<th t-attf-class="text-start"><span>EP</span></th>-->
                                 <th t-attf-class="text-start"><span>Com.Repre</span></th>
-                                 <th t-attf-class="text-start"><span>%Com.Repre</span></th>
+                                <th t-attf-class="text-start"><span>%Com.Repre</span></th>
                                 <th t-attf-class="text-start"><span>Com.Gerente</span></th>
                                 <th t-attf-class="text-start"><span>%Com.Gerente</span></th>
                                 <th t-attf-class="text-start"><span>Net</span></th>
@@ -147,8 +147,10 @@
                                     <span t-esc="'%.2f'% total_dif"/>
                                 </td>
                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
-                                    <t t-set="average_margin" t-value="total_dif_porcen / len(o.line_ids)"/>
-                                    <span t-esc="'%.2f'% average_margin"/>%
+                                    <t t-if="len(o.line_ids) > 0">
+                                        <t t-set="average_margin" t-value="total_dif_porcen / len(o.line_ids)"/>
+                                        <span t-esc="'%.2f'% average_margin"/>%
+                                    </t>
                                 </td>
                                 <td t-attf-class="text-start" style="font-weight: 500;font-size:12px">
                                     <span t-esc="'%.2f'% total_pares"/>
@@ -194,7 +196,7 @@
                                 <t t-if="NAME_MODEL!=line.model_id.name">
                                     <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
                                         <t t-set="NAME_MODEL" t-value="line.model_id.name"/>
-                                        <t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>
+                                        <!--<t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>-->
                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                             TOTAL MODEL <span t-field="line.model_id.name"/> / <span t-field="line.total_model_pairs"/>
                                         </td>
@@ -216,6 +218,7 @@
                                         </td>
                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                             <span t-field="line.pairs_count"/>
+                                            <t t-set="TOTAL" t-value="TOTAL+line.pairs_count"/>
                                         </td>
                                     </tr>
                                 </t>
@@ -237,6 +240,138 @@
             </t>
         </template>
 
+        <template id="shoes_dealer_product_stock_report">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h2 style="text-align:center;font-weight: 500;width: 100%;font-size:30px">
+                        Stock report
+                    </h2>
+                    <br/><br/>
+                    <table class="table table-striped" style="width: 100%;">
+                        <thead style="background-color: #D3D3D3;">
+                            <tr style="border-bottom:3pt solid ;border-top:3pt solid;font-size:12px">
+                                <th style="padding-top: 10px; padding-bottom:10px;" t-attf-class="text-start"><span>Image</span></th>
+                                <th t-attf-class="text-start"><span>Model</span></th>
+                                <th style="width:25%"  t-attf-class="text-start"><span>Description</span></th>
+                                <th t-attf-class="text-start"><span>Bought</span></th>
+                                <th t-attf-class="text-start"><span>WareHouse</span></th>
+                                <th t-attf-class="text-start"><span>Sold</span></th>
+                                <th t-attf-class="text-start"><span>Avaiable</span></th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody class="sale_tbody">
+                            <t t-set="campaign_bought" t-value="0"/>
+                            <t t-set="campaign_available" t-value="0"/>
+                            <t t-set="campaign_sold" t-value="0"/>
+                            <t t-set="campaign_stock" t-value="0"/>
+                            <t t-foreach="docs" t-as="product">
+                                <t t-set="bought" t-value="0"/>
+                                <t t-set="available" t-value="0"/>
+                                <t t-set="sold" t-value="0"/>
+                                <t t-set="stock" t-value="0"/>
+
+                                <tr style="border-bottom:3pt solid ;border-top:3pt solid;page-break-inside: avoid;text-align: center;">
+                                    <td class="text-center" style="padding-top:15px">
+                                        <img t-if="product.image_1024" t-att-src="image_data_uri(product.image_1024)" style="height: 60px;"/>
+                                    </td>
+                                    <td style="font-weight: 500;font-size:10px;">
+                                        <span t-field="product.name"/>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                </tr>
+                                <t t-foreach="product.product_variant_ids" t-as="variant">
+                                    <tr style="border-bottom:3pt solid ;border-top:3pt solid;text-align: center;page-break-inside: avoidd">
+                                        <td/>
+                                        <td/>
+                                        <td class="text-center" style="font-weight: 500;font-size:10px">
+                                            <t t-foreach="variant.product_template_variant_value_ids" t-as="value">
+                                                <span t-field="value.name"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-center" style="font-weight: 500;font-size:10px">
+                                            <span t-field="variant.purchased_product_qty"/>
+                                            <t t-set="bought" t-value="bought + variant.purchased_product_qty"/>
+                                        </td>
+                                        <td class="text-center" style="font-weight: 500;font-size:10px">
+                                            <span t-field="variant.qty_available"/>
+                                            <t t-set="available" t-value="available + variant.qty_available"/>
+
+                                        </td>
+                                        <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                            <span t-field="variant.pnt_total_reserved_plus_sold"/>
+                                            <t t-set="sold" t-value="sold + variant.pnt_total_reserved_plus_sold"/>
+
+                                        </td>
+                                        <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                            <span t-field="variant.pnt_stock_avaliable"/>
+                                            <t t-set="stock" t-value="stock + variant.pnt_stock_avaliable"/>
+
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr style="border-bottom:3pt solid ;text-align: center;border-top:3pt solid;background-color: #D3D3D3;page-break-inside: avoid;">
+                                    <td style="background-color: white"/>
+                                    <td style="background-color: white"/>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <span style="font-size:12px">Total</span>
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="bought"/>
+                                        <t t-set="campaign_bought" t-value="campaign_bought + bought"/>
+
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="available"/>
+                                        <t t-set="campaign_available" t-value="campaign_available + available"/>
+
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="sold"/>
+                                        <t t-set="campaign_sold" t-value="campaign_sold + sold"/>
+
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="stock"/>
+                                        <t t-set="campaign_stock" t-value="campaign_stock + stock"/>
+
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped" style="width: 100%;">
+                        <tbody class="sale_tbody">
+                                <tr style="border-bottom:3pt solid ;text-align: center;border-top:3pt solid;background-color: #D3D3D3;page-break-inside: avoid;">
+                                    <td style="background-color: white"/>
+                                    <td style="background-color: white"/>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <span style="font-size:12px">Campaign Total</span>
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="campaign_bought"/>
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="campaign_available"/>
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="campaign_sold"/>
+                                    </td>
+                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                        <t t-esc="campaign_stock"/>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
         <template id="shoes_dealer_top_report">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
@@ -244,6 +379,14 @@
                 </t>
             </t>
         </template>
+
+        <!-- <template id="shoes_dealer_stock_report">
+             <t t-call="web.html_container">
+                 <t t-foreach="docs" t-as="o">
+                     <t t-call="shoes_dealer.shoes_dealer_product_stock_report" t-lang="lang"/>
+                 </t>
+             </t>
+         </template>-->
 
     </data>
 </odoo>
