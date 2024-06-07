@@ -26,7 +26,7 @@
                                                     ref('shoes_dealer.field_product_template__exwork'),
                                                     ref('shoes_dealer.field_product_template__exwork_single'),
                                                     ref('product.field_product_template__product_variant_ids'),
-                                                    ref('shoes_dealer.field_product_template__manufacturer_id')])]",
+                                                    ref('shoes_dealer.field_product_template__manufacturer_id')])]"
         />
         <field name="filter_pre_domain"></field>
         <field name="filter_domain"></field>
