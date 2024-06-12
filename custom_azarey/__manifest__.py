@@ -27,6 +27,7 @@
         "partner_commission",
         "pnt_connector_dachser",
         "account_payment_partner",
+        "sale_margin",
     ],
     "data": [
         "views/account_payment_mode_views.xml",

@@ -2,6 +2,7 @@
 
 from odoo import fields, models, api
 from bs4 import BeautifulSoup
+from odoo.tools import (html2plaintext, cleanup_xml_node)
 
 
 class MailMessage(models.Model):
@@ -15,5 +16,6 @@ class MailMessage(models.Model):
 
     def _get_body_text(self):
         for record in self:
-            text = BeautifulSoup(record.body, 'html.parser').get_text()
+            text = html2plaintext(record.body)
+#            text = BeautifulSoup(record.body, 'html.parser').get_text()
             record['pnt_bodytext'] = text
