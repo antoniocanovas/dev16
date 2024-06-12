@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="commission_plan_wizard_view" model="ir.ui.view">
+        <field name="name">Commission Plan Wizard</field>
+        <field name="model">commission.plan.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                    <sheet string="Commission Plan Edit">
+                        <h2>
+                            <p>Commission Plan</p>
+                        </h2>
+                        <group>
+                            <group>
+                                <field name="pnt_rate" required="1"/>
+                                <field name="pnt_category_ids" widget="many2many_tags" required="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="process" string="Confirm" type="object" class="oe_highlight oe_right"/>
+                            <button special="cancel" string="Cancel" type="object" class="oe_right"/>
+                        </footer>
+                    </sheet>
+                </form>
+        </field>
+    </record>
+
+
+</odoo>

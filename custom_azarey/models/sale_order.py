@@ -109,7 +109,7 @@ class SaleOrderLine(models.Model):
         risk_states = self.env["sale.order"]._get_risk_states()
         for line in self:
             if line.state == "reservation":
-                risk_amount = line.price_total * line.product_uom_qty
+                risk_amount = line.price_total
                 line.risk_amount = line.order_id.currency_id._convert(
                     risk_amount,
                     line.company_id.currency_id,

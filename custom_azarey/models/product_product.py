@@ -16,6 +16,50 @@ class ProductProduct(models.Model):
     pnt_sale_line_ids = fields.One2many(
         "sale.order.line", "product_id", string="Sale lines", store=True, copy=False
     )
+    pnt_reservation_count = fields.Integer(
+        "Reserved units", compute="_get_reservation_count"
+    )
+
+    def action_view_reservations(self):
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "custom_azarey.action_resevation_history"
+        )
+        action["domain"] = [
+            "&",
+            ("state", "in", ["reservation"]),
+            ("product_id", "=", self.id),
+        ]
+        action["display_name"] = _("Reservation History for %s", self.display_name)
+        return action
+
+    def _get_reservation_count(self):
+        for record in self:
+            total = 0
+            sol = self.env["sale.order.line"].search(
+                [
+                    ("product_id", "=", record.id),
+                    ("state", "in", ["reservation"]),
+                ]
+            )
+            for line in sol:
+                total += line.product_uom_qty
+            record["pnt_reservation_count"] = total
+
+    def _compute_quantities_dict(
+        self, lot_id, owner_id, package_id, from_date=False, to_date=False
+    ):
+        res = super(ProductProduct, self)._compute_quantities_dict(
+            lot_id, owner_id, package_id, from_date=False, to_date=False
+        )
+        for r in res:
+            sol = self.env["sale.order.line"].search(
+                [("product_id", "=", r), ("state", "=", "reservation")]
+            )
+            total = 0
+            for line in sol:
+                total += line.product_uom_qty
+            res[r]["virtual_available"] = res[r]["virtual_available"] - total
+        return res
 
     @api.depends("name")
     def _get_pnt_image_name(self):

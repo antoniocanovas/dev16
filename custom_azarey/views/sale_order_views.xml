@@ -39,5 +39,19 @@
         </field>
         <field name="priority">99</field>
     </record>
-
+     <record id="pnt_sale_order_form_inh" model="ir.ui.view">
+        <field name="name">AZAREY Custom </field>
+        <field name="model">sale.order</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='margin']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+             <xpath expr="//field[@name='margin_percent']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+        <field name="priority">99</field>
+    </record>
 </odoo>

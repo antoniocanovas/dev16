@@ -4,6 +4,7 @@ from odoo import models
 
 class ProductCatalogCSV(models.AbstractModel):
     _name = "report.custom_azarey.product_catalog_csv"
+    _description = "Product Catalog CSV"
     _inherit = "report.report_csv.abstract"
 
     def generate_csv_report(self, writer, data, products):

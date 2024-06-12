@@ -71,12 +71,14 @@
                     <t t-set="current_subtotal" t-value="0"/>
                     <t t-set="current_pairs" t-value="0"/>
                     <t t-set="current_boxes" t-value="0"/>
+                    <t t-set="real_amount" t-value="0"/>
                     <t t-foreach="lines_to_report" t-as="line">
-
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
                         <t t-set="current_pairs" t-value="current_pairs + line.pairs_count"/>
                         <t t-set="current_boxes" t-value="current_boxes + line.product_uom_qty"/>
+                        <t t-set="real_amount" t-value="real_amount + line.price_unit - line.price_subtotal"/>
+
 
                         <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="not line.display_type">
@@ -146,17 +148,17 @@
                                     <span t-esc="current_pairs"/>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr t-if="doc.amount_undiscounted != current_subtotal">
                                 <td><strong>Total Undiscounted</strong></td>
                                 <td class="text-end">
                                     <span t-field="doc.amount_undiscounted"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr t-if="doc.amount_undiscounted != current_subtotal">
                                 <td><strong>Total Discounted</strong></td>
-                                <t t-set="total_discounted" t-value="doc.amount_total - doc.amount_undiscounted"/>
+                                <t t-set="total_discounted" t-value="real_amount"/>
                                 <td class="text-end">
-                                    <span t-esc="total_discounted"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                    <span t-esc="total_discounted"  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;:doc.currency_id}"/>
                                 </td>
                             </tr>
                         </table>

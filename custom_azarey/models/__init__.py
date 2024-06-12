@@ -9,3 +9,6 @@ from . import project_task
 from . import pnt_stock_picking
 from . import project_project
 from . import account_move
+from . import commission_plan
+from . import account_payment_partner
+from . import mail_message

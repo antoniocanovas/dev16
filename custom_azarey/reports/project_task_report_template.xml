@@ -18,7 +18,7 @@
 
                             <t t-if="task.displayed_image_id.datas">
                                 <!--<img t-attf-src="data:image/*;base64,{{task.displayed_image_id.datas}}" style="margin-left:10%;max-height:250px; max-width:250;"/>-->
-                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;max-height:150px"/>
+                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;height: 120px;"/>
                             </t>
                         </div>
                         <div class="o_label_clear"/>
@@ -41,7 +41,7 @@
                         <div class="text-center o_label_left_column">
 
                             <t t-if="task.displayed_image_id.datas">
-                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;max-height:250px"/>
+                                <img t-att-src="image_data_uri(task.displayed_image_id.datas)" style="margin-left:15%;margin-top:5%;height: 240px;"/>
                             </t>
                         </div>
                     </div>
