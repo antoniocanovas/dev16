@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<odoo>
+    <data>
+
+        <template id="product_code_report_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page">
+                    <p style="text-align:center;font-weight: 500;width: 100%;font-size:30px">
+                        Product Codes
+                    </p>
+                    <br/><br/>
+                    <t t-set="lines_to_report" t-value="o._get_order_lines_to_report()"/>
+                    <table class="table table-sm o_main_table table-borderless mt-4">
+                        <thead style="display: table-row-group">
+                            <tr>
+                                <th name="th_description" class="text-start">Description</th>
+                                <th name="th_quantity" class="text-end">Code</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="lines_to_report" t-as="line">
+                                <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                    <t t-if="not line.display_type">
+                                        <td name="td_name"><span t-field="line.name"/></td>
+                                        <td name="td_code" class="text-end">
+                                            <span t-field="line.product_id.barcode"/>
+                                        </td>
+
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="product_code_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="custom_azarey.product_code_report_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

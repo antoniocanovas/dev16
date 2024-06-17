@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="project_task_wizard_view" model="ir.ui.view">
+        <field name="name">Project Task Report Wizard</field>
+        <field name="model">project.task.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                    <sheet string="Project task">
+                        <h2>
+                            <p>Report Configuration</p>
+                        </h2>
+                        <group name="Report Type">
+                            <group>
+                                <field name="pnt_project_id" readonly="1" />
+                                <field name="pnt_task_ids" widget="many2many_tags" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="pnt_project_task_report_template" widget="selection" required="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="process" string="print" type="object" class="oe_highlight oe_right"/>
+                            <button special="cancel" string="Cancel" type="object" class="oe_right"/>
+                        </footer>
+                    </sheet>
+                </form>
+        </field>
+    </record>
+
+
+</odoo>
