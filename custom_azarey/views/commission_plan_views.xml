@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="commission_pan_form_inh" model="ir.ui.view">
+        <field name="name">Comission Plan Wizard Button</field>
+        <field name="model">commission.plan</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="partner_commission.commission_plan_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_open_commission_edit_wizard" string="Massive edit" class="btn btn-primary" type="object"/>
+                </header>
+            </xpath>
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchase_order_document_pnt" inherit_id="purchase.report_purchaseorder_document" priority="9999">
+        <xpath expr="//t[@t-set='current_subtotal']" position="before">
+           <t t-set="current_pairs" t-value="0"/>
+           <t t-set="current_boxes" t-value="0"/>
+        </xpath>
+        <xpath expr="//t[@groups='account.group_show_line_subtotals_tax_included']" position="after">
+           <t t-set="current_pairs" t-value="current_pairs + line.pairs_count"/>
+           <t t-set="current_boxes" t-value="current_boxes + line.product_qty"/>
+        </xpath>
+         <xpath expr="//div[@id='total']/div/table" position="before">
+            <table class="table table-sm table-borderless">
+                <tr>
+                    <td><strong>Total Boxes</strong></td>
+                    <td class="text-end">
+                        <span t-esc="current_boxes"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Total Pairs</strong></td>
+                    <td class="text-end">
+                        <span t-esc="current_pairs"/>
+                    </td>
+                </tr>
+            </table>
+        </xpath>
+    </template>
+</odoo>
