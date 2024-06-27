@@ -159,6 +159,7 @@ class ShoesSaleReport(models.Model):
         "sale.order.line", string="Orders Lines", store=False, compute="_get_sale_lines"
     )
 
+    # Método utilizado en "Ventas => Informes => Informe ventas" que agrupa por distintos métodos y no tiene fotos:
     def compute_shoes_lines_report(self):
         for record in self:
             # La información está en las líneas de venta agrupadas por modelo:
@@ -599,9 +600,10 @@ class ShoesSaleReport(models.Model):
                     total_pairs += li.pairs_count
                 record["pairs_count"] = total_pairs
 
+    # Método utilizado en "Ventas => Informes => Top ventas" (por nº de pares para modelos/color y fabricante):
     def update_shoes_model_report(self):
         for record in self:
-            # La información está en las líneas de venta agrupadas por modelo:
+            # La información está en las líneas de venta agrupadas por MODELO (product_tmpl pair y assortment):
             sol = self.env["sale.order.line"].search(
                 [
                     ("shoes_campaign_id", "=", record.shoes_campaign_id.id),
@@ -610,19 +612,25 @@ class ShoesSaleReport(models.Model):
                     ("product_id", "!=", False),
                 ]
             )
+            # Borro todas las líneas previas del informe para hacerlo de nuevo:
             record.line_ids.unlink()
             models, total_pairs = [], 0
+
+            # Lista de modelos (product_tmpl pares y surtidos) de todas las líneas de venta:
             for li in sol:
                 if (li.product_id.is_assortment or li.product_id.is_pair) and (
                     li.product_id.product_tmpl_id not in models
                 ):
                     models.append(li.product_tmpl_id)
 
+            # Recorrer todos los modelos (product_tmpl) de las líneas de venta, usando sólo las del filtro, si hay algo:
             for model in models:
                 if (record.product_ids.ids) and (
                     model.id not in record.product_ids.ids
                 ):
                     continue
+
+                # Totalización por "product_tmpl" repasando las líneas de venta:
                 colors, total_model_pairs = [], 0
                 lines = self.env["sale.order.line"].search(
                     [
@@ -672,6 +680,8 @@ class ShoesSaleReport(models.Model):
                             ("product_id", "!=", False),
                         ]
                     )
+
+                    # Otros filtros aplicados, además de los posibles productos considerados anteriormente:
                     for li in lines:
                         if (record.color_ids.ids) and (
                             li.product_id.color_attribute_id.id
@@ -701,6 +711,7 @@ class ShoesSaleReport(models.Model):
                         if net != 0:
                             margin_percent = difference / net * 100
 
+                    # Creación de líneas de informe, siempre que tengan ingresos o gastos asociados:
                     if (sale != 0) or (cost != 0):
                         self.env["shoes.sale.report.line"].create(
                             {
@@ -722,9 +733,12 @@ class ShoesSaleReport(models.Model):
                             }
                         )
 
+            # Totalización de pares, ya sean pares sueltos o surtidos:
             for li in record.line_ids:
                 total_pairs += li.pairs_count
             record["pairs_count"] = total_pairs
+
+
 
     def print_top_report(self):
         return self.env.ref(
@@ -879,7 +893,23 @@ class ShoesSaleReportLine(models.Model):
     shoes_report_id = fields.Many2one("shoes.sale.report", string="Shoes report")
     group_type = fields.Selection(related="shoes_report_id.group_type")
     partner_id = fields.Many2one("res.partner", string="Customer")
-    model_id = fields.Many2one("product.template", string="Model")
+
+    model_id = fields.Many2one("product.template", string="Product")
+
+    # Obtención del MODELO inicial sobre el que se crean después surtidos y pares:
+    @api.depends('product_id')
+    def _get_shoes_model_id(self):
+        for record in self:
+            # El producto es par o surtido, en función de esto asignamos shoes_model:
+            if record.product_id.product_tmpl_id.is_assortment:
+                shoes_model = record.product_id.product_tmpl_id
+            else:
+                shoes_model = record.product_id.product_tmpl_id.product_tmpl_single_id
+            record['shoes_model_id'] = shoes_model.id
+    shoes_model_id = fields.Many2one("product.template", string="Model", store=True, compute="_get_shoes_model_id")
+
+    manufacturer_id = fields.Many2one("res.partner", store=True, related="shoes_model_id.manufacturer_id")
+
     color_id = fields.Many2one("product.attribute.value", string="Color")
     model_description = fields.Text(
         "Sale description", related="model_id.description_sale"
@@ -898,7 +928,7 @@ class ShoesSaleReportLine(models.Model):
     pairs_count = fields.Integer("Pairs", help="Pairs count")
     product_id = fields.Many2one(
         "product.product",
-        string="Product",
+        string="Variant",
         help="Product variant used to related image",
     )
     image = fields.Binary(related="product_id.image_1920", store=False)
