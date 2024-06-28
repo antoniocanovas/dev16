@@ -56,10 +56,10 @@ class AccountMoveLine(models.Model):
     @api.depends("price_unit")
     def _get_pair_price_sale(self):
         for record in self:
-            price_unit = record.price_unit
+            price_pair_sale = record.price_subtotal
             if (record.pairs_count != 0) and (record.quantity):
-                price_unit = price_unit / record.pairs_count * record.quantity
-            record['pair_price_sale'] = price_unit
+                price_pair_sale = price_pair_sale / record.pairs_count
+            record['pair_price_sale'] = price_pair_sale
     pair_price_sale = fields.Monetary("Pair price sale", compute="_get_pair_price_sale")
 
     @api.depends('exwork_single_euro', 'pairs_count')
