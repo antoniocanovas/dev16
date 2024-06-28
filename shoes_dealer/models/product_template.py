@@ -135,6 +135,21 @@ class ProductTemplate(models.Model):
     product_tmpl_single_id = fields.Many2one(
         "product.template", string="Child", store=True, copy=False
     )
+
+
+
+    # Plantilla de producto del modelo (el mismo si surtido, single_id si par:
+    @api.depends('is_pair', 'is_assortment')
+    def _get_shoes_model(self):
+        for record in self:
+            shoes_model = record.product_tmpl_single_id.id
+            if record.is_assortment: shoes_model = record.id
+            record['shoes_model_id'] = shoes_model
+    shoes_model_id = fields.Many2one('product.template', string="Model", store=True, compute="_get_shoes_model")
+    # Llevar a aml y shoes_report como related
+
+
+
     product_tmpl_single_list_price = fields.Float(
         "Precio del par", related="product_tmpl_single_id.list_price"
     )
