@@ -57,8 +57,8 @@ class AccountMoveLine(models.Model):
     def _get_pair_price_sale(self):
         for record in self:
             price_unit = record.price_unit
-            if record.pairs_count != 0:
-                price_unit = price_unit / record.pairs_count
+            if (record.pairs_count != 0) and (record.quantity):
+                price_unit = price_unit / record.pairs_count / record.quantity
             record['pair_price_sale'] = price_unit
     pair_price_sale = fields.Monetary("Pair price sale", compute="_get_pair_price_sale")
 
