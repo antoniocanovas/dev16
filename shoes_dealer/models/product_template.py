@@ -26,6 +26,30 @@ class ProductTemplate(models.Model):
         compute="_get_exwork_single_euro",
     )
 
+
+    @api.depends('price_subtotal', 'cost_price')
+    def _get_shoes_margin(self):
+        for record in self:
+            shoes_margin = record.price_subtotal - record.cost_price
+            if record.pairs_count != 0:
+                shoes_margin = shoes_margin / record.pairs_count
+            record['shoes_pair_margin'] = shoes_margin
+    shoes_margin = fields.Monetary('Margin', store=True, compute='_get_shoes_margin')
+
+    @api.depends('shoes_margin', 'pairs_count')
+    def _get_shoes_pair_margin(self):
+        for record in self:
+            shoes_pair_margin = record.shoes_pair_margin
+            if record.pairs_count != 0:
+                shoes_pair_margin = record.shoes_margin / record.pairs_count
+            record['shoes_pair_margin'] = shoes_pair_margin
+    shoes_pair_margin = fields.Monetary('Pair margin', store=True, compute='_get_shoes_pair_margin')
+
+
+
+
+
+
     shoes_campaign_id = fields.Many2one(
         "project.project", string="Campaign", store=True, copy=True, tracking=10
     )
@@ -142,7 +166,7 @@ class ProductTemplate(models.Model):
     @api.depends('is_pair', 'is_assortment')
     def _get_shoes_model(self):
         for record in self:
-            shoes_model = record.product_tmpl_single_id.id
+            shoes_model = record.product_tmpl_set_id.id
             if record.is_assortment: shoes_model = record.id
             record['shoes_model_id'] = shoes_model
     shoes_model_id = fields.Many2one('product.template', string="Model", store=True, compute="_get_shoes_model")
