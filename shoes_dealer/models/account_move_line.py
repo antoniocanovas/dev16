@@ -40,7 +40,7 @@ class AccountMoveLine(models.Model):
         for record in self:
             record['shoes_pair_margin'] = record.price_subtotal - record.cost_price
 
-    shoes_margin = fields.Monetary('Margin', store=True, compute='_get_shoes_margin')
+    shoes_margin = fields.Monetary('Margin', compute='_get_shoes_margin')
 
     @api.depends('shoes_margin', 'pairs_count')
     def _get_shoes_pair_margin(self):
@@ -50,7 +50,7 @@ class AccountMoveLine(models.Model):
                 shoes_pair_margin = record.shoes_margin / record.pairs_count
             record['shoes_pair_margin'] = shoes_pair_margin
 
-    shoes_pair_margin = fields.Monetary('Pair margin', store=True, compute='_get_shoes_pair_margin')
+    shoes_pair_margin = fields.Monetary('Pair margin', compute='_get_shoes_pair_margin')
 
 
     @api.depends("price_unit")
@@ -60,7 +60,7 @@ class AccountMoveLine(models.Model):
             if record.pairs_count != 0:
                 price_unit = price_unit / record.pairs_count
             record['pair_price_sale'] = price_unit
-    pair_price_sale = fields.Monetary("Pair price sale", store=True, compute="_get_pair_price_sale")
+    pair_price_sale = fields.Monetary("Pair price sale", compute="_get_pair_price_sale")
 
     @api.depends('exwork_single_euro', 'pairs_count')
     def _get_cost_price(self):
