@@ -34,6 +34,12 @@ class ShoesSaleReport(models.Model):
     )
     from_date = fields.Date("From date")
     to_date = fields.Date("To date")
+    manufacturer_ids = fields.Many2many(
+        comodel_name="res.partner",
+        string="Manufacturer",
+        relation="shoesreport_manufacturer_rel",
+    )
+
     referrer_ids = fields.Many2many(
         comodel_name="res.partner",
         string="Referrers",
@@ -645,6 +651,10 @@ class ShoesSaleReport(models.Model):
                         li.product_id.color_attribute_id.id not in record.color_ids.ids
                     ):
                         continue
+                    if (record.manufacturer_ids.ids) and (
+                        li.product_id.manufacturer_id.id not in record.manufacturer_ids.ids
+                    ):
+                        continue
                     if (record.from_date) and (
                         li.order_id.date_order.date() < record.from_date
                     ):
@@ -653,6 +663,7 @@ class ShoesSaleReport(models.Model):
                         li.order_id.date_order.date() > record.to_date
                     ):
                         continue
+
 
                     if li.product_id.color_attribute_id not in colors:
                         colors.append(li.product_id.color_attribute_id)
@@ -716,7 +727,7 @@ class ShoesSaleReport(models.Model):
                         self.env["shoes.sale.report.line"].create(
                             {
                                 "shoes_report_id": record.id,
-                                "model_id": model.id,
+                                "product_tmpl_id": model.id,
                                 "product_id": li.product_id.id,
                                 "color_id": color.id,
                                 "sale": sale,
@@ -740,9 +751,13 @@ class ShoesSaleReport(models.Model):
 
 
 
-    def print_top_report(self):
+    def print_top_model_report(self):
         return self.env.ref(
-            "shoes_dealer.pnt_model_shoes_dealer_top_report"
+            "shoes_dealer.pnt_model_shoes_dealer_top_model_report"
+        ).report_action(self)
+    def print_top_manufacturer_report(self):
+        return self.env.ref(
+            "shoes_dealer.pnt_model_shoes_dealer_top_manufacturer_report"
         ).report_action(self)
 
     def print_margin_report(self):
@@ -894,25 +909,17 @@ class ShoesSaleReportLine(models.Model):
     group_type = fields.Selection(related="shoes_report_id.group_type")
     partner_id = fields.Many2one("res.partner", string="Customer")
 
-    model_id = fields.Many2one("product.template", string="Product")
+    product_tmpl_id = fields.Many2one("product.template", string="Product")
 
     # Obtención del MODELO inicial sobre el que se crean después surtidos y pares:
-    @api.depends('product_id')
-    def _get_shoes_model_id(self):
-        for record in self:
-            # El producto es par o surtido, en función de esto asignamos shoes_model:
-            if record.product_id.product_tmpl_id.is_assortment:
-                shoes_model = record.product_id.product_tmpl_id
-            else:
-                shoes_model = record.product_id.product_tmpl_id.product_tmpl_single_id
-            record['shoes_model_id'] = shoes_model.id
-    shoes_model_id = fields.Many2one("product.template", string="Model", store=True, compute="_get_shoes_model_id")
+
+    shoes_model_id = fields.Many2one("product.template", store=True, string="Model", related="product_id.shoes_model_id")
 
     manufacturer_id = fields.Many2one("res.partner", store=True, related="shoes_model_id.manufacturer_id")
 
     color_id = fields.Many2one("product.attribute.value", string="Color")
     model_description = fields.Text(
-        "Sale description", related="model_id.description_sale"
+        "Sale description", related="product_tmpl_id.description_sale"
     )
     sale = fields.Float("Sale", help="Sale amount")
     discount = fields.Float("Disc.", help="Discount amount")

@@ -171,7 +171,7 @@
         </template>
 
 
-        <template id="shoes_dealer_top_report_document">
+        <template id="shoes_dealer_top_model_report_document">
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=lang)"/>
                 <div class="page">
@@ -193,12 +193,12 @@
                             <t t-set="TOTAL" t-value="0"/>
                             <t t-set="i" t-value="0"/>
                             <t t-foreach="o.line_ids.sorted(key=lambda b: (b.total_model_pairs,b.pairs_count), reverse=True)" t-as="line">
-                                <t t-if="NAME_MODEL!=line.model_id.name">
+                                <t t-if="NAME_MODEL!=line.product_tmpl_id.name">
                                     <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
-                                        <t t-set="NAME_MODEL" t-value="line.model_id.name"/>
+                                        <t t-set="NAME_MODEL" t-value="line.product_tmpl_id.name"/>
                                         <!--<t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>-->
                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                            TOTAL MODEL <span t-field="line.model_id.name"/> / <span t-field="line.total_model_pairs"/>
+                                            TOTAL MODEL <span t-field="line.product_tmpl_id.name"/> / <span t-field="line.total_model_pairs"/>
                                         </td>
                                         <td/>
                                         <td/>
@@ -211,7 +211,7 @@
                                             <img t-if="line.image" t-att-src="image_data_uri(line.image)" style="height: 60px;"/>
                                         </td>
                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
-                                            <span t-field="line.model_id.name"/>
+                                            <span t-field="line.product_tmpl_id.name"/>
                                         </td>
                                         <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
                                             <span t-field="line.color_id.name"/>
@@ -239,6 +239,86 @@
                 </div>
             </t>
         </template>
+
+        <template id="shoes_dealer_top_manufacturer_report_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="page">
+                    <h2 style="text-align:center;font-weight: 500;width: 100%;font-size:30px">
+                        Top report Manufacturer for campaign <span t-field="o.shoes_campaign_id"/>
+                    </h2>
+                    <br/><br/>
+                    <table class="table table-sm o_main_table table-borderless mt-4">
+                        <thead>
+                            <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                <th style="padding-top: 10px; padding-bottom:10px;" t-attf-class="text-center"><span>Image</span></th>
+                                <th style="width:25%" t-attf-class="text-start"><span>Model</span></th>
+                                <th style="width:25%" t-attf-class="text-start"><span>Color</span></th>
+                                <th style="width:25%" t-attf-class="text-start"><span>Pairs</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-set="NAME_MODEL" t-value="0"/>
+                            <t t-set="MANUFACTURER" t-value="0"/>
+                            <t t-set="TOTAL" t-value="0"/>
+                            <t t-set="i" t-value="0"/>
+                            <t t-foreach="o.line_ids.sorted(key=lambda b: (b,manufacturer_id,b.total_model_pairs,b.pairs_count), reverse=True)" t-as="line">
+                                <t t-if="MANUFACTURER!=line.manufacturer_id.name">
+                                    <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                        <t t-set="MANUFACTURER" t-value="line.manufacturer_id.name"/>
+                                        <!--<t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>-->
+                                        <td colspan="4" t-attf-class="text-start" style="font-weight: 800;font-size:14px">
+                                            <span t-field="line.manufacturer_id.name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="NAME_MODEL!=line.product_tmpl_id.name">
+                                    <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                        <t t-set="NAME_MODEL" t-value="line.product_tmpl_id.name"/>
+                                        <!--<t t-set="TOTAL" t-value="TOTAL+line.total_model_pairs"/>-->
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            TOTAL MODEL <span t-field="line.product_tmpl_id.name"/> / <span t-field="line.total_model_pairs"/>
+                                        </td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                </t>
+                                <t>
+                                    <tr style="border-bottom:3pt solid ;border-top:3pt solid;">
+                                        <td class="text-center" style="padding-top:15px">
+                                            <img t-if="line.image" t-att-src="image_data_uri(line.image)" style="height: 60px;"/>
+                                        </td>
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            <span t-field="line.product_tmpl_id.name"/>
+                                        </td>
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            <span t-field="line.color_id.name"/>
+                                        </td>
+                                        <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                            <span t-field="line.pairs_count"/>
+                                            <t t-set="TOTAL" t-value="TOTAL+line.pairs_count"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t>
+                                <tr style="border-top:3pt solid;">
+                                    <td colspan="3" class="text-center" style="padding-top:15px">
+                                        <p>TOTAL PAIRS</p>
+                                    </td>
+
+                                    <td t-attf-class="text-start" style="font-weight: 500;font-size:10px">
+                                        <span t-esc="TOTAL"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
 
         <template id="shoes_dealer_product_stock_report">
             <t t-call="web.html_container">
@@ -347,35 +427,43 @@
                     </table>
                     <table class="table table-striped" style="width: 100%;">
                         <tbody class="sale_tbody">
-                                <tr style="border-bottom:3pt solid ;text-align: center;border-top:3pt solid;background-color: #D3D3D3;page-break-inside: avoid;">
-                                    <td style="background-color: white"/>
-                                    <td style="background-color: white"/>
-                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
-                                        <span style="font-size:12px">Campaign Total</span>
-                                    </td>
-                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
-                                        <t t-esc="campaign_bought"/>
-                                    </td>
-                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
-                                        <t t-esc="campaign_available"/>
-                                    </td>
-                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
-                                        <t t-esc="campaign_sold"/>
-                                    </td>
-                                    <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
-                                        <t t-esc="campaign_stock"/>
-                                    </td>
-                                </tr>
+                            <tr style="border-bottom:3pt solid ;text-align: center;border-top:3pt solid;background-color: #D3D3D3;page-break-inside: avoid;">
+                                <td style="background-color: white"/>
+                                <td style="background-color: white"/>
+                                <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                    <span style="font-size:12px">Campaign Total</span>
+                                </td>
+                                <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                    <t t-esc="campaign_bought"/>
+                                </td>
+                                <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                    <t t-esc="campaign_available"/>
+                                </td>
+                                <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                    <t t-esc="campaign_sold"/>
+                                </td>
+                                <td t-attf-class="text-center" style="font-weight: 500;font-size:10px">
+                                    <t t-esc="campaign_stock"/>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </t>
         </template>
 
-        <template id="shoes_dealer_top_report">
+        <template id="shoes_dealer_top_model_report">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="shoes_dealer.shoes_dealer_top_report_document" t-lang="lang"/>
+                    <t t-call="shoes_dealer.shoes_dealer_top_model_report_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="shoes_dealer_top_manufacturer_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="shoes_dealer.shoes_dealer_top_manufacturer_report_document" t-lang="lang"/>
                 </t>
             </t>
         </template>

@@ -26,8 +26,6 @@ class ProductTemplate(models.Model):
         compute="_get_exwork_single_euro",
     )
 
-
-
     shoes_campaign_id = fields.Many2one(
         "project.project", string="Campaign", store=True, copy=True, tracking=10
     )
@@ -137,8 +135,9 @@ class ProductTemplate(models.Model):
     product_tmpl_single_id = fields.Many2one(
         "product.template", string="Child", store=True, copy=False
     )
-
-
+    product_tmpl_single_list_price = fields.Float(
+        "Precio del par", related="product_tmpl_single_id.list_price"
+    )
 
     # Plantilla de producto del modelo (el mismo si surtido, single_id si par:
     @api.depends('is_pair', 'is_assortment')
@@ -147,14 +146,9 @@ class ProductTemplate(models.Model):
             shoes_model = record.product_tmpl_set_id.id
             if record.is_assortment: shoes_model = record.id
             record['shoes_model_id'] = shoes_model
+
     shoes_model_id = fields.Many2one('product.template', string="Model", store=True, compute="_get_shoes_model")
     # Llevar a aml y shoes_report como related
-
-
-
-    product_tmpl_single_list_price = fields.Float(
-        "Precio del par", related="product_tmpl_single_id.list_price"
-    )
 
     # Plantilla de producto para relacionar surtidos y pares con el modelo para informes (independiente de talla):
     @api.depends("product_tmpl_single_id", "product_tmpl_set_id")
