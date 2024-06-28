@@ -27,28 +27,6 @@ class ProductTemplate(models.Model):
     )
 
 
-    @api.depends('price_subtotal', 'cost_price')
-    def _get_shoes_margin(self):
-        for record in self:
-            shoes_margin = record.price_subtotal - record.cost_price
-            if record.pairs_count != 0:
-                shoes_margin = shoes_margin / record.pairs_count
-            record['shoes_pair_margin'] = shoes_margin
-    shoes_margin = fields.Monetary('Margin', store=True, compute='_get_shoes_margin')
-
-    @api.depends('shoes_margin', 'pairs_count')
-    def _get_shoes_pair_margin(self):
-        for record in self:
-            shoes_pair_margin = record.shoes_pair_margin
-            if record.pairs_count != 0:
-                shoes_pair_margin = record.shoes_margin / record.pairs_count
-            record['shoes_pair_margin'] = shoes_pair_margin
-    shoes_pair_margin = fields.Monetary('Pair margin', store=True, compute='_get_shoes_pair_margin')
-
-
-
-
-
 
     shoes_campaign_id = fields.Many2one(
         "project.project", string="Campaign", store=True, copy=True, tracking=10
