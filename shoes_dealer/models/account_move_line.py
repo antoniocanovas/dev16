@@ -38,10 +38,7 @@ class AccountMoveLine(models.Model):
     @api.depends('price_subtotal', 'cost_price')
     def _get_shoes_margin(self):
         for record in self:
-            shoes_margin = record.price_subtotal - record.cost_price
-            if record.pairs_count != 0:
-                shoes_margin = shoes_margin / record.pairs_count
-            record['shoes_pair_margin'] = shoes_margin
+            record['shoes_pair_margin'] = record.price_subtotal - record.cost_price
 
     shoes_margin = fields.Monetary('Margin', store=True, compute='_get_shoes_margin')
 
