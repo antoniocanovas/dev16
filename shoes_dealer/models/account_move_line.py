@@ -68,3 +68,9 @@ class AccountMoveLine(models.Model):
             record.cost_price = record.pairs_count * record.exwork_single_euro
 
     cost_price = fields.Float("Cost price", compute="_get_cost_price")
+
+    @api.depends('discount','price_unit')
+    def _get_total_shoes_discount(self):
+        for record in self:
+            record['total_discount'] = record.price_unit * record.quantity
+    discount_amount = fields.Monetary("Total discount", compute="_get_total_shoes_discount")
