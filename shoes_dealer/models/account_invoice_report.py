@@ -27,6 +27,7 @@ class AccountInvoiceReport(models.Model):
              , line.size_attribute_id
              , line.shoes_campaign_id
              """
+# Pedro, hay que revisar esto, no funciona (25/06):
 #        , line.cost_price
 
         return select_str
