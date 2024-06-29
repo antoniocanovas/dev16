@@ -114,7 +114,3 @@ class AccountMoveLine(models.Model):
                         comm_by_rule[r] = amount
 
                 self.manager_commission = sum(comm_by_rule.values())
-
-    manager_commission = fields.Monetary(
-        string="Manager Commission", compute="_compute_account_move_line_manager_commission"
-    )
