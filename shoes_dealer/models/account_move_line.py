@@ -75,11 +75,48 @@ class AccountMoveLine(models.Model):
             record['discount_amount'] = record.price_unit * record.quantity - record.price_subtotal
     discount_amount = fields.Monetary("Total discount", compute="_get_total_shoes_discount")
 
+
+    seller_commission = fields.Monetary(
+        string="Seller Commission", compute="_compute_account_move_line_seller_commission"
+    )
     manager_commission = fields.Monetary(
         string="Manager Commission", compute="_compute_account_move_line_manager_commission"
     )
 
     # ============= Pendiente de calcular por línea y hacer la parte proporcional del total origen:
+
+    def _compute_account_move_line_seller_commission(self):
+        self.seller_commission = 0
+        # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
+        for li in self.sale_line_ids:
+            for so in li.order_id:
+                if (
+                        not so.referrer_id
+                        or not so.commission_plan_id
+                ):
+                    self.seller_commission = 0
+                else:
+                    comm_by_rule = defaultdict(float)
+                    template = so.sale_order_template_id
+                    template_id = template.id if template else None
+                    for line in so.order_line:
+                        rule = so.commission_plan_id._match_rules(
+                            line.product_id, template_id, so.pricelist_id.id
+                        )
+                        # Añado al método estándar que la línea esté en el m2m consolidado:
+                        if rule and (li.id in self.sale_line_ids.ids):
+                            manager_commission = so.currency_id.round(
+                                line.price_subtotal * rule.rate / 100.0
+                            )
+                            comm_by_rule[rule] += manager_commission
+
+                        # cap by rule
+                        for r, amount in comm_by_rule.items():
+                            if r.is_capped:
+                                amount = min(amount, r.max_commission)
+                                comm_by_rule[r] = amount
+                        self.seller_commission = sum(comm_by_rule.values())
+
     def _compute_account_move_line_manager_commission(self):
         self.manager_commission = 0
         # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
@@ -91,7 +128,7 @@ class AccountMoveLine(models.Model):
                         or not so.manager_id
                         or not so.manager_commission_plan_id
                 ):
-                    so.manager_commission = 0
+                    self.manager_commission = 0
                 else:
                     comm_by_rule = defaultdict(float)
                     template = so.sale_order_template_id
@@ -107,10 +144,9 @@ class AccountMoveLine(models.Model):
                             )
                             comm_by_rule[rule] += manager_commission
 
-                # cap by rule
-                for r, amount in comm_by_rule.items():
-                    if r.is_capped:
-                        amount = min(amount, r.max_commission)
-                        comm_by_rule[r] = amount
-
-                self.manager_commission = sum(comm_by_rule.values())
+                    # cap by rule
+                    for r, amount in comm_by_rule.items():
+                        if r.is_capped:
+                            amount = min(amount, r.max_commission)
+                            comm_by_rule[r] = amount
+                    self.manager_commission = sum(comm_by_rule.values())
