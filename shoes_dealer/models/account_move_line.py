@@ -123,69 +123,37 @@ class AccountMoveLine(models.Model):
                                     comm_by_rule[r] = amount
                             record.seller_commission = sum(comm_by_rule.values())
 
-    """
-    def _compute_account_move_line_seller_commission(self):
-        self.seller_commission = 0
-        # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
-        for li in self.sale_line_ids:
-            for so in li.order_id:
-                if (
-                        not so.referrer_id
-                        or not so.commission_plan_id
-                ):
-                    self.seller_commission = 0
-                else:
-                    comm_by_rule = defaultdict(float)
-                    template = so.sale_order_template_id
-                    template_id = template.id if template else None
-                    for line in so.order_line:
-                        rule = so.commission_plan_id._match_rules(
-                            line.product_id, template_id, so.pricelist_id.id
-                        )
-                        # Añado al método estándar que la línea esté en el m2m consolidado:
-                        if rule and (line.id in self.sale_line_ids.ids):
-                            manager_commission = so.currency_id.round(
-                                line.price_subtotal * rule.rate / 100.0
+    def _compute_account_move_line_manager_commission(self):
+        for record in self:
+            record.manager_commission = 0
+            # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
+            for li in record.sale_line_ids:
+                for so in li.order_id:
+                    if (
+                            not so.referrer_id
+                            or not so.commission_plan_id
+                            or not so.manager_id
+                            or not so.manager_commission_plan_id
+                    ):
+                        record.manager_commission = 0
+                    else:
+                        comm_by_rule = defaultdict(float)
+                        template = so.sale_order_template_id
+                        template_id = template.id if template else None
+                        for line in so.order_line:
+                            rule = so.manager_commission_plan_id._match_rules(
+                                line.product_id, template_id, so.pricelist_id.id
                             )
-                            comm_by_rule[rule] += manager_commission
+                            # Añado al método estándar que la línea esté en el m2m consolidado:
+                            if rule and line.id in record.sale_line_ids.ids:
+                                manager_commission = so.currency_id.round(
+                                    line.price_subtotal * rule.rate / 100.0
+                                )
+                                comm_by_rule[rule] += manager_commission
 
                         # cap by rule
                         for r, amount in comm_by_rule.items():
                             if r.is_capped:
                                 amount = min(amount, r.max_commission)
                                 comm_by_rule[r] = amount
-                        self.seller_commission = sum(comm_by_rule.values())
-    """
-    def _compute_account_move_line_manager_commission(self):
-        self.manager_commission = 0
-        # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
-        for li in self.sale_line_ids:
-            for so in li.order_id:
-                if (
-                        not so.referrer_id
-                        or not so.commission_plan_id
-                        or not so.manager_id
-                        or not so.manager_commission_plan_id
-                ):
-                    self.manager_commission = 0
-                else:
-                    comm_by_rule = defaultdict(float)
-                    template = so.sale_order_template_id
-                    template_id = template.id if template else None
-                    for line in so.order_line:
-                        rule = so.manager_commission_plan_id._match_rules(
-                            line.product_id, template_id, so.pricelist_id.id
-                        )
-                        # Añado al método estándar que la línea esté en el m2m consolidado:
-                        if rule and line.id in self.sale_line_ids.ids:
-                            manager_commission = so.currency_id.round(
-                                line.price_subtotal * rule.rate / 100.0
-                            )
-                            comm_by_rule[rule] += manager_commission
-
-                    # cap by rule
-                    for r, amount in comm_by_rule.items():
-                        if r.is_capped:
-                            amount = min(amount, r.max_commission)
-                            comm_by_rule[r] = amount
-                    self.manager_commission = sum(comm_by_rule.values())
+                        record.manager_commission = sum(comm_by_rule.values())
