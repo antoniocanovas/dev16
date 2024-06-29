@@ -79,11 +79,12 @@ class AccountMoveLine(models.Model):
 
 
     seller_commission = fields.Monetary(
-        string="Seller Commission", compute="_compute_account_move_line_seller_commission"
+        string="Seller Commission",
+#        compute="_compute_account_move_line_seller_commission"
     )
     manager_commission = fields.Monetary(
         string="Manager Commission",
-#        compute="_compute_account_move_line_manager_commission"
+        compute="_compute_account_move_line_manager_commission"
     )
 
     # ============= Pendiente de calcular por línea y hacer la parte proporcional del total origen:
