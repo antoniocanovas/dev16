@@ -91,6 +91,7 @@ class AccountMoveLine(models.Model):
     # ============= Pendiente de calcular por línea y hacer la parte proporcional del total origen:
 
     def _compute_account_move_line_seller_commission(self):
+        self.ensure_one()
         self.seller_commission = 0
         # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
         for li in self.sale_line_ids:
@@ -123,6 +124,7 @@ class AccountMoveLine(models.Model):
                         self.seller_commission = sum(comm_by_rule.values())
 
     def _compute_account_move_line_manager_commission(self):
+        self.ensure_one()
         self.manager_commission = 0
         # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
         for li in self.sale_line_ids:
