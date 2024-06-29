@@ -1,6 +1,7 @@
 # Copyright 2023 Serincloud SL - Ingenieriacloud.com
 
 from odoo import fields, models, api
+from collections import defaultdict
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
@@ -80,7 +81,7 @@ class AccountMoveLine(models.Model):
 
     seller_commission = fields.Monetary(
         string="Seller Commission",
-#        compute="_compute_account_move_line_seller_commission"
+        compute="_compute_account_move_line_seller_commission"
     )
     manager_commission = fields.Monetary(
         string="Manager Commission",
@@ -134,7 +135,7 @@ class AccountMoveLine(models.Model):
                 ):
                     self.manager_commission = 0
                 else:
-            #        comm_by_rule = defaultdict(float)
+                    comm_by_rule = defaultdict(float)
                     template = so.sale_order_template_id
                     template_id = template.id if template else None
                     for line in so.order_line:
