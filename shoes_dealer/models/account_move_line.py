@@ -123,7 +123,7 @@ class AccountMoveLine(models.Model):
                                     comm_by_rule[r] = amount
                             record.seller_commission = sum(comm_by_rule.values())
 
-"""
+    """
     def _compute_account_move_line_seller_commission(self):
         self.seller_commission = 0
         # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
@@ -155,7 +155,7 @@ class AccountMoveLine(models.Model):
                                 amount = min(amount, r.max_commission)
                                 comm_by_rule[r] = amount
                         self.seller_commission = sum(comm_by_rule.values())
-"""
+    """
     def _compute_account_move_line_manager_commission(self):
         self.manager_commission = 0
         # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
