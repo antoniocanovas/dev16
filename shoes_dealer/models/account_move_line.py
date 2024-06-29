@@ -109,7 +109,7 @@ class AccountMoveLine(models.Model):
                             line.product_id, template_id, so.pricelist_id.id
                         )
                         # Añado al método estándar que la línea esté en el m2m consolidado:
-                        if rule and (li.id in self.sale_line_ids.ids):
+                        if rule and (line.id in self.sale_line_ids.ids):
                             manager_commission = so.currency_id.round(
                                 line.price_subtotal * rule.rate / 100.0
                             )
@@ -143,7 +143,7 @@ class AccountMoveLine(models.Model):
                             line.product_id, template_id, so.pricelist_id.id
                         )
                         # Añado al método estándar que la línea esté en el m2m consolidado:
-                        if rule and li.id in self.sale_line_ids.ids:
+                        if rule and line.id in self.sale_line_ids.ids:
                             manager_commission = so.currency_id.round(
                                 line.price_subtotal * rule.rate / 100.0
                             )
