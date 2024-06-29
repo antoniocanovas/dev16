@@ -25,9 +25,10 @@ class AccountInvoiceReport(models.Model):
              , line.pairs_count
              , line.color_attribute_id 
              , line.size_attribute_id
-             , line.cost_price
              , line.shoes_campaign_id
              """
+#        , line.cost_price
+
         return select_str
 
     @api.model
