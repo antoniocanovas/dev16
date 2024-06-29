@@ -76,7 +76,7 @@ class AccountMoveLine(models.Model):
     discount_amount = fields.Monetary("Total discount", compute="_get_total_shoes_discount")
 
     manager_commission = fields.Monetary(
-        string="Manager Commission", compute="_compute_manager_commission"
+        string="Manager Commission", compute="_compute_account_move_line_manager_commission"
     )
 
     # ============= Pendiente de calcular por línea y hacer la parte proporcional del total origen:
