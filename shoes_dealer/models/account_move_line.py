@@ -65,8 +65,10 @@ class AccountMoveLine(models.Model):
     @api.depends('exwork_single_euro', 'pairs_count')
     def _get_cost_price(self):
         for record in self:
-            record.cost_price = record.pairs_count * record.exwork_single_euro
-
+            cost = 0
+            if record.shoes_model_id.id:
+                cost = record.pairs_count * record.exwork_single_euro
+            record.cost_price = cost
     cost_price = fields.Float("Cost price", compute="_get_cost_price")
 
     @api.depends('discount','price_unit')
