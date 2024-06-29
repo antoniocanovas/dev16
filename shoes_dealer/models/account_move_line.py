@@ -100,7 +100,7 @@ class AccountMoveLine(models.Model):
                 ):
                     self.seller_commission = 0
                 else:
-            #        comm_by_rule = defaultdict(float)
+                    comm_by_rule = defaultdict(float)
                     template = so.sale_order_template_id
                     template_id = template.id if template else None
                     for line in so.order_line:
@@ -134,7 +134,7 @@ class AccountMoveLine(models.Model):
                 ):
                     self.manager_commission = 0
                 else:
-                    comm_by_rule = defaultdict(float)
+            #        comm_by_rule = defaultdict(float)
                     template = so.sale_order_template_id
                     template_id = template.id if template else None
                     for line in so.order_line:
