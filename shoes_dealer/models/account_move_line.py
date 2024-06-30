@@ -78,7 +78,10 @@ class AccountMoveLine(models.Model):
     @api.depends('discount','price_unit')
     def _get_total_shoes_discount(self):
         for record in self:
-            record['discount_amount'] = record.price_unit * record.quantity - record.price_subtotal
+            # Chequeo de si es factura de cliente o abono:
+            if record.move_type == 'out_invoice': type = 1
+            else: type = -1
+            record['discount_amount'] = type * record.price_unit * record.quantity - record.price_subtotal
     discount_amount = fields.Monetary("Total discount", compute="_get_total_shoes_discount")
 
 
