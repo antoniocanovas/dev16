@@ -115,8 +115,13 @@ class AccountMoveLine(models.Model):
                         )
                         # Añado al método estándar que la línea esté en el m2m consolidado:
                         if rule and (line.id in record.sale_line_ids.ids):
+
+                            # Chequeo de si es factura de cliente o abono:
+                            if record.parent_type == 'out_invoice': type = 1
+                            else: type = -1
+
                             seller_commission = so.currency_id.round(
-                                line.price_subtotal * (line.qty_invoiced / line.product_uom_qty) * rule.rate / 100.0
+                                type * line.price_subtotal * rule.rate / 100.0
                             )
                             comm_by_rule[rule] += seller_commission
 
