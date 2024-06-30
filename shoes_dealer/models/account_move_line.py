@@ -121,7 +121,7 @@ class AccountMoveLine(models.Model):
                             else: type = -1
 
                             seller_commission = so.currency_id.round(
-                                type * line.price_subtotal * rule.rate / 100.0
+                                type * record.price_subtotal * rule.rate / 100.0
                             )
                             comm_by_rule[rule] += seller_commission
 
