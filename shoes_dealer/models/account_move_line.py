@@ -49,11 +49,9 @@ class AccountMoveLine(models.Model):
     @api.depends('shoes_margin', 'pairs_count')
     def _get_shoes_pair_margin(self):
         for record in self:
-            if record.move_type == 'out_invoice': type = 1
-            else: type = -1
-            shoes_pair_margin = type * record.shoes_pair_margin
+            shoes_pair_margin = record.shoes_pair_margin
             if record.pairs_count != 0:
-                shoes_pair_margin = type * record.shoes_margin / record.pairs_count
+                shoes_pair_margin = record.shoes_margin / record.pairs_count
             record['shoes_pair_margin'] = shoes_pair_margin
 
     shoes_pair_margin = fields.Monetary('Pair margin', compute='_get_shoes_pair_margin')
@@ -92,8 +90,6 @@ class AccountMoveLine(models.Model):
         string="Manager Commission",
         compute="_compute_account_move_line_manager_commission"
     )
-
-    # ============= EN CURSO:
 
     def _compute_account_move_line_seller_commission(self):
         for record in self:
