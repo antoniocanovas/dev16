@@ -39,16 +39,21 @@ class AccountMoveLine(models.Model):
     @api.depends('price_subtotal', 'cost_price')
     def _get_shoes_margin(self):
         for record in self:
-            record['shoes_margin'] = record.price_subtotal - record.cost_price
+            # Chequeo de si es factura de cliente o abono:
+            if record.move_type == 'out_invoice': type = 1
+            else: type = -1
+            record['shoes_margin'] = type * record.price_subtotal - record.cost_price
 
     shoes_margin = fields.Monetary('Margin', compute='_get_shoes_margin')
 
     @api.depends('shoes_margin', 'pairs_count')
     def _get_shoes_pair_margin(self):
         for record in self:
-            shoes_pair_margin = record.shoes_pair_margin
+            if record.move_type == 'out_invoice': type = 1
+            else: type = -1
+            shoes_pair_margin = type * record.shoes_pair_margin
             if record.pairs_count != 0:
-                shoes_pair_margin = record.shoes_margin / record.pairs_count
+                shoes_pair_margin = type * record.shoes_margin / record.pairs_count
             record['shoes_pair_margin'] = shoes_pair_margin
 
     shoes_pair_margin = fields.Monetary('Pair margin', compute='_get_shoes_pair_margin')
@@ -94,7 +99,6 @@ class AccountMoveLine(models.Model):
         for record in self:
             record.seller_commission = 0
             # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
-
             sale_orders = []
             for li in record.sale_line_ids:
                 if li.order_id not in sale_orders: sale_orders.append(li.order_id)
@@ -115,7 +119,6 @@ class AccountMoveLine(models.Model):
                         )
                         # Añado al método estándar que la línea esté en el m2m consolidado:
                         if rule and (line.id in record.sale_line_ids.ids):
-
                             # Chequeo de si es factura de cliente o abono:
                             if record.move_type == 'out_invoice': type = 1
                             else: type = -1
@@ -132,6 +135,48 @@ class AccountMoveLine(models.Model):
                                 comm_by_rule[r] = amount
                         record.seller_commission = sum(comm_by_rule.values())
 
+    def _compute_account_move_line_manager_commission(self):
+        for record in self:
+            record.manager_commission = 0
+            # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
+            sale_orders = []
+            for li in record.sale_line_ids:
+                if li.order_id not in sale_orders: sale_orders.append(li.order_id)
+
+            for so in sale_orders:
+                if (
+                        not so.manager_id
+                        or not so.manager_commission_plan_id
+                ):
+                    record.manager_commission = 0
+                else:
+                    comm_by_rule = defaultdict(float)
+                    template = so.sale_order_template_id
+                    template_id = template.id if template else None
+                    for line in so.order_line:
+                        rule = so.manager_commission_plan_id._match_rules(
+                            line.product_id, template_id, so.pricelist_id.id
+                        )
+                        # Añado al método estándar que la línea esté en el m2m consolidado:
+                        if rule and line.id in record.sale_line_ids.ids:
+                            # Chequeo de si es factura de cliente o abono:
+                            if record.move_type == 'out_invoice': type = 1
+                            else: type = -1
+
+                            manager_commission = so.currency_id.round(
+                                type * record.price_subtotal * rule.rate / 100.0
+                            )
+                            comm_by_rule[rule] += manager_commission
+
+                    # cap by rule
+                    for r, amount in comm_by_rule.items():
+                        if r.is_capped:
+                            amount = min(amount, r.max_commission)
+                            comm_by_rule[r] = amount
+                    record.manager_commission = sum(comm_by_rule.values())
+
+
+    """ Versión 1 que funciona con limitaciones (para borrar en julio/2024):
     def _compute_account_move_line_manager_commission(self):
         for record in self:
             record.manager_commission = 0
@@ -172,3 +217,4 @@ class AccountMoveLine(models.Model):
                                 amount = min(amount, r.max_commission)
                                 comm_by_rule[r] = amount
                         record.manager_commission = sum(comm_by_rule.values())
+        """
