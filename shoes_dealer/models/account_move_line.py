@@ -117,7 +117,7 @@ class AccountMoveLine(models.Model):
                         if rule and (line.id in record.sale_line_ids.ids):
 
                             # Chequeo de si es factura de cliente o abono:
-                            if record.parent_type == 'out_invoice': type = 1
+                            if record.move_type == 'out_invoice': type = 1
                             else: type = -1
 
                             seller_commission = so.currency_id.round(
