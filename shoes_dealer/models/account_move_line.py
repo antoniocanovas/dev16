@@ -81,7 +81,7 @@ class AccountMoveLine(models.Model):
             # Chequeo de si es factura de cliente o abono:
             if record.move_type == 'out_invoice': type = 1
             else: type = -1
-            record['discount_amount'] = type * record.price_unit * record.quantity - record.price_subtotal
+            record['discount_amount'] = type * (record.price_unit * record.quantity - record.price_subtotal)
     discount_amount = fields.Monetary("Total discount", store=True, compute="_get_total_shoes_discount")
 
 
