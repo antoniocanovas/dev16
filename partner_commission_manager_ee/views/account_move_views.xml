@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="commission_account_move_inh_form" model="ir.ui.view">
+        <field name="name">commission.account.move.inh.form</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="partner_commission.view_move_form_inherit_partner_commission"/>
+        <field name="arch" type="xml">
+
+            <!-- Addional fields for Commissions manager: -->
+            <xpath expr="//field[@name='referrer_id']" position="after">
+                <field name="manager_id"
+                       domain="[('id','!=',referrer_id),('grade_id','!=',False)]"
+                       attrs="{'invisible':[('referrer_id','=',False)]}"/>
+                <field name="commission_plan_id"/>
+                <field name="manager_commission_plan_id"
+                       domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"
+                       attrs="{'readonly': [('is_subscription', '=', True), ('commission_plan_frozen', '=', False)],
+                             'invisible': ['|',('referrer_id', '=', False),('manager_id','=',False)]}"/>
+            </xpath>
+
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+</odoo>
