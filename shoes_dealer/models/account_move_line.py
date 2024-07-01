@@ -75,7 +75,7 @@ class AccountMoveLine(models.Model):
             record.cost_price = cost
     cost_price = fields.Float("Cost price", store=True, compute="_get_cost_price")
 
-    @api.depends('discount','price_unit')
+    @api.depends('discount','price_unit','quantity')
     def _get_total_shoes_discount(self):
         for record in self:
             # Chequeo de si es factura de cliente o abono:
