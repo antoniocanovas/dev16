@@ -52,6 +52,7 @@
         "views/res_users_views.xml",
         "views/stock_picking_views.xml",
         "views/stock_orderpoint_views.xml",
+        "views/account_move_line_views.xml",
     ],
     "installable": True,
 }
