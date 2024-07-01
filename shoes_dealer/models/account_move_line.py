@@ -44,7 +44,7 @@ class AccountMoveLine(models.Model):
             else: type = -1
             record['shoes_margin'] = type * record.price_subtotal - record.cost_price
 
-    shoes_margin = fields.Monetary('Margin', compute='_get_shoes_margin')
+    shoes_margin = fields.Monetary('Margin', store=True, compute='_get_shoes_margin')
 
     @api.depends('shoes_margin', 'pairs_count')
     def _get_shoes_pair_margin(self):
@@ -54,7 +54,7 @@ class AccountMoveLine(models.Model):
                 shoes_pair_margin = record.shoes_margin / record.pairs_count
             record['shoes_pair_margin'] = shoes_pair_margin
 
-    shoes_pair_margin = fields.Monetary('Pair margin', compute='_get_shoes_pair_margin')
+    shoes_pair_margin = fields.Monetary('Pair margin', store=True, compute='_get_shoes_pair_margin')
 
 
     @api.depends("price_unit")
@@ -64,7 +64,7 @@ class AccountMoveLine(models.Model):
             if (record.pairs_count != 0) and (record.quantity):
                 price_pair_sale = price_pair_sale / record.pairs_count
             record['pair_price_sale'] = price_pair_sale
-    pair_price_sale = fields.Monetary("Pair price sale", compute="_get_pair_price_sale")
+    pair_price_sale = fields.Monetary("Pair price sale", store=True, compute="_get_pair_price_sale")
 
     @api.depends('exwork_single_euro', 'pairs_count')
     def _get_cost_price(self):
@@ -73,7 +73,7 @@ class AccountMoveLine(models.Model):
             if record.shoes_model_id.id:
                 cost = record.pairs_count * record.exwork_single_euro
             record.cost_price = cost
-    cost_price = fields.Float("Cost price", compute="_get_cost_price")
+    cost_price = fields.Float("Cost price", store=True, compute="_get_cost_price")
 
     @api.depends('discount','price_unit')
     def _get_total_shoes_discount(self):
@@ -82,7 +82,7 @@ class AccountMoveLine(models.Model):
             if record.move_type == 'out_invoice': type = 1
             else: type = -1
             record['discount_amount'] = type * record.price_unit * record.quantity - record.price_subtotal
-    discount_amount = fields.Monetary("Total discount", compute="_get_total_shoes_discount")
+    discount_amount = fields.Monetary("Total discount", store=True, compute="_get_total_shoes_discount")
 
 
     seller_commission = fields.Monetary(
