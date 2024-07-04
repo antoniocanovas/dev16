@@ -192,7 +192,6 @@ class AccountMoveLine(models.Model):
         # 2. the commission plan set on the sale order
         # 3. the referrer's commission plan
         plan = self.sale_line_ids.order_id.manager_commission_plan_id or self.move_id.referrer_id.manager_commission_plan_id
-        # Probablemente falta considerar si el manager indicado es el que tiene asignado realmente el comercial.
         if self.subscription_id:
             plan = self.subscription_id.manager_commission_plan_id
 

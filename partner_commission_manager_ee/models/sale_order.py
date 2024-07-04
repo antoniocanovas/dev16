@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
     #        return [('id', 'in', recs)]
 
     # Método para heredar manager del comisionista:
-    @api.depends("referrer_id")
+    @api.onchange("referrer_id")
     def _get_commission_manager_id(self):
         self.manager_id = self.partner_id.referrer_id.manager_id.id
 
