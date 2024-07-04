@@ -16,6 +16,7 @@ class SaleOrder(models.Model):
         "res.partner",
         index=True,
         store=True,
+        readonly=False,
         compute="_get_default_commission_referrer",
     )
 
