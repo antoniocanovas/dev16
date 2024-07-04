@@ -15,8 +15,6 @@
                         <field name="color_attribute_id" domain="[('create_variant','!=','no_variant')]" required="1"/>
                         <field name="single_prefix" required="1"/>
                         <field name="single_sale"/>
-                        <field name="shoes_pair_weight_std"/>
-                        <field name="shoes_hs_code_std"/>
                         <field name="single_purchase"/>
                         <field name="exwork_currency_id"/>
                     </group>
