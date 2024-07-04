@@ -32,7 +32,7 @@ class SaleOrder(models.Model):
     def _get_commission_manager_id(self):
         for record in self:
             if record._origin.referrer_id != record.referrer_id:
-                record.manager_id = record.partner_id.referrer_id.manager_id.id
+                record.manager_id = record.referrer_id.manager_id.id
 
     manager_id = fields.Many2one(
         "res.partner",
