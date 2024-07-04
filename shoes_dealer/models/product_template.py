@@ -126,6 +126,9 @@ class ProductTemplate(models.Model):
         "res.partner", string="Manufacturer", store=True, copy=True
     )
 
+    shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight")
+    shoes_hscode_id = fields.Many2one('shoes.hs.code', string="Shoes HS Code")
+
     # Plantilla de producto "surtido" que genera los "pares":
     product_tmpl_set_id = fields.Many2one(
         "product.template", string="Parent", store=True, copy=False
