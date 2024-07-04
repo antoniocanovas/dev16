@@ -7,7 +7,25 @@ from odoo.tools import formatLang, format_date
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    manager_id = fields.Many2one('res.partner', 'Referrer Manager', domain=[('grade_id', '!=', False)])
+#    manager_id = fields.Many2one('res.partner', 'Referrer Manager', domain=[('grade_id', '!=', False)])
+    @api.depends("referrer_id")
+    def _get_commission_manager_id(self):
+        for record in self:
+            if record._origin.referrer_id != record.referrer_id:
+                record.manager_id = record.referrer_id.manager_id.id
+
+    manager_id = fields.Many2one(
+        "res.partner",
+        "Manager",
+        domain=[("grade_id", "!=", False)],
+        tracking=True,
+        store=True,
+        readonly=False,
+        compute="_get_commission_manager_id",
+    )
+
+
+
     commission_manager_po_line_id = fields.Many2one('purchase.order.line',
                                             'Manager Purchase Order line', copy=False)
 
