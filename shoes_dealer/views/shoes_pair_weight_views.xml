@@ -39,7 +39,7 @@
     <record id="inventory_shoes_dealer_menu" model="ir.ui.menu">
         <field name="active" eval="True"/>
         <field name="name">Shoes Dealer</field>
-        <field name="parent_id" ref="stock.menu_stock_general_settings"/>
+        <field name="parent_id" ref="stock.menu_stock_config_settings"/>
         <field name="sequence">90</field>
         <field name="web_icon" eval="False"/>
     </record>
@@ -49,7 +49,7 @@
         <field name="active" eval="True"/>
         <field name="name">Shoes Weight</field>
         <field name="parent_id" ref="shoes_dealer.inventory_shoes_dealer_menu"/>
-        <field name="sequence">90</field>
+        <field name="sequence">10</field>
         <field name="web_icon" eval="False"/>
     </record>
 
@@ -58,7 +58,7 @@
         <field name="active" eval="True"/>
         <field name="name">Shoes HSCode</field>
         <field name="parent_id" ref="shoes_dealer.inventory_shoes_dealer_menu"/>
-        <field name="sequence">90</field>
+        <field name="sequence">20</field>
         <field name="web_icon" eval="False"/>
     </record>
 
