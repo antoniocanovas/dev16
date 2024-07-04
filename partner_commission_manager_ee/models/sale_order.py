@@ -40,6 +40,7 @@ class SaleOrder(models.Model):
         domain=[("grade_id", "!=", False)],
         tracking=True,
         store=True,
+        readonly=False,
         compute="_get_commission_manager_id",
     )
 
