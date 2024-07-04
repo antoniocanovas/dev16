@@ -68,7 +68,7 @@
         <field name="name">shoes.standard.weight.default.tree</field>
         <field name="model">shoes.pair.weight</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="bottom">
                 <field name="name"/>
                 <field name="pair_weight"/>
                 <field name="pair_net_weight"/>
@@ -87,7 +87,7 @@
         <field name="name">shoes.standard.hscode.default.tree</field>
         <field name="model">shoes.hs.code</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="bottom">
                 <field name="name"/>
                 <field name="number"/>
             </tree>
