@@ -14,10 +14,12 @@ class SaleOrder(models.Model):
 
     referrer_id = fields.Many2one(
         "res.partner",
+        index=True,
+        store=True,
         compute="_get_default_commission_referrer",
     )
 
-    # Método para heredar MANAGER dependiendo del COMISIONISTA (referrer):
+    # Método para heredar MANAGER dependiendo del COMISIONISTA (referrer_id):
     @api.onchange("referrer_id")
     def _get_commission_manager_id(self):
         self.manager_id = self.partner_id.referrer_id.manager_id.id
