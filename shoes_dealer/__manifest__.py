@@ -10,6 +10,7 @@
     "website": "https://www.ingenieriacloud.com",
     "license": "AGPL-3",
     "depends": [
+        # ODOO:
         "crm",
         "sale_management",
         "purchase",
@@ -17,16 +18,20 @@
         "mrp",
         "sale_mrp",
         "project",
-        "product_brand",
-        "product_variant_sale_price",
         "sale_product_template_tags",
         "base_automation",
         "website_sale",
-        "sale_order_line_menu",
-        "sale_product_image",
-        "sale_order_line_date",
         "partner_commission",
+        "uom",
+        # PUNT:
         "partner_commission_manager_ee",
+        # OCA:
+        "product_brand",
+        "product_net_weight",
+        "sale_order_line_date",
+        "sale_order_line_menu",
+        "product_variant_sale_price",
+        "sale_product_image",
     ],
     "data": [
         "wizard/pnt_product_report_wizard_view.xml",

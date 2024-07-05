@@ -130,6 +130,8 @@ class ProductTemplate(models.Model):
     def _get_pair_and_variants_weight_sync(self):
         if self.shoes_pair_weight_id.id:
             raise UserError('Pendiente de programar sincronización de pesos')
+            for assortment in self.product_variant_ids:
+                assortment.write({})
     shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight")
 
 
