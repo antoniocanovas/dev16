@@ -140,10 +140,11 @@ class ProductTemplate(models.Model):
     shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight", default=False)
 
 
-    @api.onchange('shoes_hscode_id')
+    @api.constrains('shoes_hscode_id')
     def _get_pair_and_variants_hscode_sync(self):
         if self.shoes_pair_weight_id.id:
-            raise UserError('Pendiente de programar sincronización de hscode')
+            self.product_tmpl_single_id.hs_code = self.shoes_hscode_id
+            self.hs_code = self.shoes_hscode_id
     shoes_hscode_id = fields.Many2one('shoes.hs.code', string="Shoes HS Code", default=False)
 
     # Plantilla de producto "surtido" que genera los "pares":

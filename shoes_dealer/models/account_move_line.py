@@ -97,7 +97,8 @@ class AccountMoveLine(models.Model):
     def _compute_account_move_line_seller_commission(self):
         for record in self:
             record.seller_commission = 0
-            # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
+            # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido,
+            # o directamente de la propia factura sin pedido de venta:
             sale_orders = []
             for li in record.sale_line_ids:
                 if li.order_id not in sale_orders: sale_orders.append(li.order_id)
@@ -136,40 +137,27 @@ class AccountMoveLine(models.Model):
 
     def _compute_account_move_line_manager_commission(self):
         for record in self:
-            record.manager_commission = 0
-            # Una línea de facturación puede venir de distintos pedidos de venta y varias líneas del mismo pedido:
-            sale_orders = []
-            for li in record.sale_line_ids:
-                if li.order_id not in sale_orders: sale_orders.append(li.order_id)
+            move = record.move_id
+            if record.move_type in ['out_invoice', 'in_invoice']:
+                sign = 1
+                if move.commission_manager_po_line_id or not move.manager_id:
+                    continue
+            else:
+                sign = -1
+                if not move.commission_manager_po_line_id:
+                    continue
 
-            for so in sale_orders:
-                if (
-                        not so.manager_id
-                        or not so.manager_commission_plan_id
-                ):
-                    record.manager_commission = 0
-                else:
-                    comm_by_rule = defaultdict(float)
-                    template = so.sale_order_template_id
-                    template_id = template.id if template else None
-                    for line in so.order_line:
-                        rule = so.manager_commission_plan_id._match_rules(
-                            line.product_id, template_id, so.pricelist_id.id
-                        )
-                        # Añado al método estándar que la línea esté en el m2m consolidado:
-                        if rule and line.id in record.sale_line_ids.ids:
-                            # Chequeo de si es factura de cliente o abono:
-                            if record.move_type == 'out_invoice': type = 1
-                            else: type = -1
+#            comm_by_rule = defaultdict(float)
+            rule = record._get_commission_manager_rule()
 
-                            manager_commission = so.currency_id.round(
-                                type * record.price_subtotal * rule.rate / 100.0
-                            )
-                            comm_by_rule[rule] += manager_commission
+            if rule:
+                amount = move.currency_id.round(
+                    record.price_subtotal * rule.rate / 100.0)
+#                comm_by_rule[rule] += commission
 
-                    # cap by rule
-                    for r, amount in comm_by_rule.items():
-                        if r.is_capped:
-                            amount = min(amount, r.max_commission)
-                            comm_by_rule[r] = amount
-                    record.manager_commission = sum(comm_by_rule.values())
+            # regulate commissions
+#            for r, amount in comm_by_rule.items():
+            if rule.is_capped:
+                amount = min(amount, rule.max_commission)
+
+            record['manager_commission'] = sign * amount
