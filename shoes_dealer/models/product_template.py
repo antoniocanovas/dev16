@@ -132,14 +132,14 @@ class ProductTemplate(models.Model):
             raise UserError('Pendiente de programar sincronización de pesos')
             for assortment in self.product_variant_ids:
                 assortment.write({})
-    shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight")
+    shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight", default=False)
 
 
     @api.onchange('shoes_hscode_id')
     def _get_pair_and_variants_hscode_sync(self):
         if self.shoes_pair_weight_id.id:
             raise UserError('Pendiente de programar sincronización de hscode')
-    shoes_hscode_id = fields.Many2one('shoes.hs.code', string="Shoes HS Code")
+    shoes_hscode_id = fields.Many2one('shoes.hs.code', string="Shoes HS Code", default=False)
 
     # Plantilla de producto "surtido" que genera los "pares":
     product_tmpl_set_id = fields.Many2one(
