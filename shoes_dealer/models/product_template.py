@@ -126,7 +126,7 @@ class ProductTemplate(models.Model):
         "res.partner", string="Manufacturer", store=True, copy=True
     )
 
-    @api.depends('shoes_pair_weight_id')
+    @api.constrains('shoes_pair_weight_id')
     def _get_pair_and_variants_weight_sync(self):
         if self.shoes_pair_weight_id.id:
             raise UserError('Pendiente de programar sincronización de pesos')
@@ -135,7 +135,7 @@ class ProductTemplate(models.Model):
     shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight")
 
 
-    @api.depends('shoes_hscode_id')
+    @api.onchange('shoes_hscode_id')
     def _get_pair_and_variants_hscode_sync(self):
         if self.shoes_pair_weight_id.id:
             raise UserError('Pendiente de programar sincronización de hscode')
