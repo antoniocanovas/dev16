@@ -149,7 +149,7 @@ class AccountMoveLine(models.Model):
                     continue
 
 #            comm_by_rule = defaultdict(float)
-            rule = record._get_commission_manager_rule()
+            rule = move._get_commission_manager_rule()
 
             if rule:
                 amount = move.currency_id.round(
