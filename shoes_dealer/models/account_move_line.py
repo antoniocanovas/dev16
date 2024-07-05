@@ -161,4 +161,4 @@ class AccountMoveLine(models.Model):
                 if rule.is_capped:
                     amount = min(amount, rule.max_commission)
 
-                record['manager_commission'] = sign * amount
+            record['manager_commission'] = sign * amount
