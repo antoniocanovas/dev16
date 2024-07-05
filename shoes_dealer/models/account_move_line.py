@@ -137,6 +137,7 @@ class AccountMoveLine(models.Model):
 
     def _compute_account_move_line_manager_commission(self):
         for record in self:
+            amount = 0
             move = record.move_id
             if record.move_type in ['out_invoice', 'in_invoice']:
                 sign = 1
@@ -155,9 +156,9 @@ class AccountMoveLine(models.Model):
                     record.price_subtotal * rule.rate / 100.0)
 #                comm_by_rule[rule] += commission
 
-            # regulate commissions
-#            for r, amount in comm_by_rule.items():
-            if rule.is_capped:
-                amount = min(amount, rule.max_commission)
+                # regulate commissions
+    #            for r, amount in comm_by_rule.items():
+                if rule.is_capped:
+                    amount = min(amount, rule.max_commission)
 
-            record['manager_commission'] = sign * amount
+                record['manager_commission'] = sign * amount
