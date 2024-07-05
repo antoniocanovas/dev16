@@ -129,9 +129,14 @@ class ProductTemplate(models.Model):
     @api.constrains('shoes_pair_weight_id')
     def _get_pair_and_variants_weight_sync(self):
         if self.shoes_pair_weight_id.id:
-            raise UserError('Pendiente de programar sincronización de pesos')
             for assortment in self.product_variant_ids:
-                assortment.write({})
+                weight = assortment.pairs_count * self.shoes_pair_weight_id.pair_weight
+                net_weight = assortment.pairs_count * self.shoes_pair_weight_id.pair_net_weight
+                assortment.write({'weight': weight, 'net_weight': net_weight})
+            for pair in self.product_tmpl_single_id.product_variant_ids:
+                weight = self.shoes_pair_weight_id.pair_weight
+                net_weight = self.shoes_pair_weight_id.pair_net_weight
+                pair.write({'weight': weight, 'net_weight': net_weight})
     shoes_pair_weight_id = fields.Many2one('shoes.pair.weight', string="Pair Weight", default=False)
 
 
